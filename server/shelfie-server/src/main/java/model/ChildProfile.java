@@ -48,6 +48,12 @@ public class ChildProfile {
 	{@JoinColumn(name="interactive_book_id")})
 	private ArrayList<InteractiveBook> childUnlockedBooks;
 	
+	@ManyToMany
+	@JoinTable(name="child_saved_books", joinColumns=
+	{@JoinColumn(name="child_profile_id")}, inverseJoinColumns= 
+	{@JoinColumn(name="interactive_book_id")})
+	private ArrayList<InteractiveBook> childSavedBooks;
+	
 	public ChildProfile() {
 		super();
 	}
