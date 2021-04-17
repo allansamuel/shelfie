@@ -20,6 +20,9 @@ public class ChildProfile {
 	@Column(name = "nickname", length = 255)
 	private String  nickname;
 	
+	@Column(name = "coins")
+	private Integer coins;
+	
 	@ManyToOne
 	@Column(name = "guardian_user_id")
 	private GuardianUser guardianUser;
