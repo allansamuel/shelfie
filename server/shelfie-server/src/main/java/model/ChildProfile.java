@@ -1,10 +1,15 @@
 package model;
 
+import java.util.ArrayList;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -30,6 +35,12 @@ public class ChildProfile {
 	@ManyToOne
 	@Column(name = "character_id")
 	private Character character;
+
+	@ManyToMany
+	@JoinTable(name="child_completed_quests", joinColumns=
+	{@JoinColumn(name="child_profile_id")}, inverseJoinColumns= 
+	{@JoinColumn(name="quest_id")})
+	private ArrayList<Quest> childCompletedQuests;
 	
 	public ChildProfile() {
 		super();
