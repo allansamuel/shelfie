@@ -16,7 +16,7 @@ public class GuardianUser {
 
 	@Id 
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	@Column (name = "guardia_user_id")
+	@Column (name = "guardian_user_id")
 	private Integer guardianUserId;
 
 	@Column (name = "name", length = 255)
@@ -29,10 +29,10 @@ public class GuardianUser {
 	private String password;
 	
 	@OneToMany
-	private ArrayList<ChildUser> childProfiles;
+	private ArrayList<ChildProfile> childProfiles;
 
 	public GuardianUser(Integer guardianUserId, String name, String email, String password,
-			ArrayList<ChildUser> childProfiles) {
+			ArrayList<ChildProfile> childProfiles) {
 		super();
 		this.guardianUserId = guardianUserId;
 		this.name = name;
@@ -77,11 +77,11 @@ public class GuardianUser {
 		this.password = password;
 	}
 
-	public ArrayList<ChildUser> getChildProfiles() {
+	public ArrayList<ChildProfile> getChildProfiles() {
 		return childProfiles;
 	}
 
-	public void setChildProfiles(ArrayList<ChildUser> childProfiles) {
+	public void setChildProfiles(ArrayList<ChildProfile> childProfiles) {
 		this.childProfiles = childProfiles;
 	}
 	
