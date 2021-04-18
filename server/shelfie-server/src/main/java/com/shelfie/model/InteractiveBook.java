@@ -1,5 +1,4 @@
-package model;
-
+package com.shelfie.model;
 
 import java.sql.Blob;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package model;
+package com.shelfie.model;
 
 import java.util.ArrayList;
 
