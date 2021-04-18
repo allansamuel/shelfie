@@ -41,9 +41,6 @@ public class InteractiveBook {
 	@Column (name = "price")
 	private Integer price;
 	
-	@Column (name = "avaliable")
-	private boolean avaliable;
-	
 	@Column (name = "title", length = 255)
 	private String title;
 
@@ -70,7 +67,7 @@ public class InteractiveBook {
 	}
 
 	public InteractiveBook(Integer interactiveBookId, Blob bookCover, String sinopsys, String author, Date publishDate,
-			Integer price, boolean avaliable, String title, List<Chapter> chapters, List<Character> characters,
+			Integer price, String title, List<Chapter> chapters, List<Character> characters,
 			List<Quest> quests, List<Category> bookCategories) {
 		super();
 		this.interactiveBookId = interactiveBookId;
@@ -79,7 +76,6 @@ public class InteractiveBook {
 		this.author = author;
 		this.publishDate = publishDate;
 		this.price = price;
-		this.avaliable = avaliable;
 		this.title = title;
 		this.chapters = chapters;
 		this.characters = characters;
@@ -133,14 +129,6 @@ public class InteractiveBook {
 
 	public void setPrice(Integer price) {
 		this.price = price;
-	}
-
-	public boolean isAvaliable() {
-		return avaliable;
-	}
-
-	public void setAvaliable(boolean avaliable) {
-		this.avaliable = avaliable;
 	}
 
 	public String getTitle() {
