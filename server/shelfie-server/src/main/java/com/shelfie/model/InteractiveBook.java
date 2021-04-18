@@ -52,13 +52,17 @@ public class InteractiveBook {
 	private List<Chapter> chapters;
 	
 	@OneToMany
+	@JoinColumn(name = "character_id")
+	private List<Character> characters;
+	
+	@OneToMany
 	@JoinColumn(name = "quest_id")
 	private List<Quest> quests;
 	
 	@ManyToMany
-	@JoinTable(name="book_categories", joinColumns=
-	{@JoinColumn(name="interactive_book_id")}, inverseJoinColumns= 
-	{@JoinColumn(name="category_id")})
+	@JoinTable(name = "book_categories", 
+	joinColumns = {@JoinColumn(name = "interactive_book_id")}, 
+	inverseJoinColumns = {@JoinColumn(name = "category_id")})
 	private List<Category> bookCategories;
 	
 	public InteractiveBook() {
@@ -66,8 +70,8 @@ public class InteractiveBook {
 	}
 
 	public InteractiveBook(Integer interactiveBookId, Blob bookCover, String sinopsys, String author, Date publishDate,
-			Integer price, boolean avaliable, String title, List<Chapter> chapters, List<Quest> quests,
-			List<Category> bookCategories) {
+			Integer price, boolean avaliable, String title, List<Chapter> chapters, List<Character> characters,
+			List<Quest> quests, List<Category> bookCategories) {
 		super();
 		this.interactiveBookId = interactiveBookId;
 		this.bookCover = bookCover;
@@ -78,6 +82,7 @@ public class InteractiveBook {
 		this.avaliable = avaliable;
 		this.title = title;
 		this.chapters = chapters;
+		this.characters = characters;
 		this.quests = quests;
 		this.bookCategories = bookCategories;
 	}
@@ -152,6 +157,14 @@ public class InteractiveBook {
 
 	public void setChapters(List<Chapter> chapters) {
 		this.chapters = chapters;
+	}
+
+	public List<Character> getCharacters() {
+		return characters;
+	}
+
+	public void setCharacters(List<Character> characters) {
+		this.characters = characters;
 	}
 
 	public List<Quest> getQuests() {

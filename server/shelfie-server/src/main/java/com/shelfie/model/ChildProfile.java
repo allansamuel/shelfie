@@ -37,21 +37,21 @@ public class ChildProfile {
 	private Character character;
 
 	@ManyToMany
-	@JoinTable(name="child_completed_quests", joinColumns=
-	{@JoinColumn(name="child_profile_id")}, inverseJoinColumns= 
-	{@JoinColumn(name="quest_id")})
+	@JoinTable(name = "child_completed_quests", 
+	joinColumns = {@JoinColumn(name = "child_profile_id")}, 
+	inverseJoinColumns = {@JoinColumn(name = "quest_id")})
 	private List<Quest> childCompletedQuests;
 	
 	@ManyToMany
-	@JoinTable(name="child_unlocked_books", joinColumns=
-	{@JoinColumn(name="child_profile_id")}, inverseJoinColumns= 
-	{@JoinColumn(name="interactive_book_id")})
+	@JoinTable(name = "child_unlocked_books", 
+	joinColumns = {@JoinColumn(name = "child_profile_id")}, 
+	inverseJoinColumns = {@JoinColumn(name = "interactive_book_id")})
 	private List<InteractiveBook> childUnlockedBooks;
 	
 	@ManyToMany
-	@JoinTable(name="child_saved_books", joinColumns=
-	{@JoinColumn(name="child_profile_id")}, inverseJoinColumns= 
-	{@JoinColumn(name="interactive_book_id")})
+	@JoinTable(name = "child_saved_books", 
+	joinColumns = {@JoinColumn(name = "child_profile_id")}, 
+	inverseJoinColumns = {@JoinColumn(name = "interactive_book_id")})
 	private List<InteractiveBook> childSavedBooks;
 	
 	public ChildProfile() {

@@ -18,8 +18,8 @@ public class Quest {
 	@Column(name = "quest_id")
 	private Integer questId;
 
-	@Column(name = "title")
-	private String title;
+	@Column(name = "quest_title")
+	private String questTitle;
 
 	@Column(name = "quest_description")
 	private String questDescription;
@@ -28,18 +28,18 @@ public class Quest {
 	private Integer coinsReward;
 	
 	@ManyToOne
-	@JoinColumn(name = "interactive_book")
+	@JoinColumn(name = "interactive_book_id")
 	private InteractiveBook interactiveBook;
 	
 	public Quest() {
 		super();
 	}
 
-	public Quest(Integer questId, String title, String questDescription, Integer coinsReward,
+	public Quest(Integer questId, String questTitle, String questDescription, Integer coinsReward,
 			InteractiveBook interactiveBook) {
 		super();
 		this.questId = questId;
-		this.title = title;
+		this.questTitle = questTitle;
 		this.questDescription = questDescription;
 		this.coinsReward = coinsReward;
 		this.interactiveBook = interactiveBook;
@@ -53,12 +53,12 @@ public class Quest {
 		this.questId = questId;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getQuestTitle() {
+		return questTitle;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setQuestTitle(String questTitle) {
+		this.questTitle = questTitle;
 	}
 
 	public String getQuestDescription() {

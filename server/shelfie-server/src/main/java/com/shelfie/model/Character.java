@@ -23,8 +23,8 @@ public class Character {
 	private String characterName;
 	
 	@Lob
-	@Column(name = "image", length = 100000)
-	private Blob image;
+	@Column(name = "character_image", length = 100000)
+	private Blob characterImage;
 	
 	@Column(name = "character_description", length = 800)
 	private String characterDescription;
@@ -33,11 +33,11 @@ public class Character {
 		super();
 	}
 
-	public Character(Integer characterId, String characterName, Blob image, String characterDescription) {
+	public Character(Integer characterId, String characterName, Blob characterImage, String characterDescription) {
 		super();
 		this.characterId = characterId;
 		this.characterName = characterName;
-		this.image = image;
+		this.characterImage = characterImage;
 		this.characterDescription = characterDescription;
 	}
 
@@ -57,12 +57,12 @@ public class Character {
 		this.characterName = characterName;
 	}
 
-	public Blob getImage() {
-		return image;
+	public Blob getCharacterImage() {
+		return characterImage;
 	}
 
-	public void setImage(Blob image) {
-		this.image = image;
+	public void setCharacterImage(Blob characterImage) {
+		this.characterImage = characterImage;
 	}
 
 	public String getCharacterDescription() {
@@ -72,5 +72,5 @@ public class Character {
 	public void setCharacterDescription(String characterDescription) {
 		this.characterDescription = characterDescription;
 	}
-	
+
 }
