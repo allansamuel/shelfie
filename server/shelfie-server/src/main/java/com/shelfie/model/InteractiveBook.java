@@ -48,9 +48,11 @@ public class InteractiveBook {
 	private String title;
 
 	@OneToMany
+	@JoinColumn(name = "chapter_id")
 	private List<Chapter> chapters;
 	
 	@OneToMany
+	@JoinColumn(name = "quest_id")
 	private List<Quest> quests;
 	
 	@ManyToMany

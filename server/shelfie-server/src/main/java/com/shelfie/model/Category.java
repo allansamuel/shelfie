@@ -16,17 +16,17 @@ public class Category {
 	@Column(name = "category_id")
 	private Integer categoryId;
 	
-	@Column(name = "name", length = 255)
-	private String name;
+	@Column(name = "category_name", length = 255)
+	private String categoryName;
 
 	public Category() {
 		super();
 	}
 
-	public Category(Integer categoryId, String name) {
+	public Category(Integer categoryId, String categoryName) {
 		super();
 		this.categoryId = categoryId;
-		this.name = name;
+		this.categoryName = categoryName;
 	}
 
 	public Integer getCategoryId() {
@@ -37,12 +37,14 @@ public class Category {
 		this.categoryId = categoryId;
 	}
 
-	public String getName() {
-		return name;
+	public String getCategoryName() {
+		return categoryName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
 	}
+
+	
 	
 }

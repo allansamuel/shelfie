@@ -19,26 +19,26 @@ public class Character {
 	@Column(name = "character_id")
 	private Integer characterId;
 	
-	@Column(name = "name", length = 255)
-	private String name;
+	@Column(name = "character_name", length = 255)
+	private String characterName;
 	
 	@Lob
 	@Column(name = "image", length = 100000)
 	private Blob image;
 	
-	@Column(name = "description", length = 800)
-	private String description;
+	@Column(name = "character_description", length = 800)
+	private String characterDescription;
 	
 	public Character() {
 		super();
 	}
 
-	public Character(Integer characterId, String name, Blob image, String description) {
+	public Character(Integer characterId, String characterName, Blob image, String characterDescription) {
 		super();
 		this.characterId = characterId;
-		this.name = name;
+		this.characterName = characterName;
 		this.image = image;
-		this.description = description;
+		this.characterDescription = characterDescription;
 	}
 
 	public Integer getCharacterId() {
@@ -49,12 +49,12 @@ public class Character {
 		this.characterId = characterId;
 	}
 
-	public String getName() {
-		return name;
+	public String getCharacterName() {
+		return characterName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setCharacterName(String characterName) {
+		this.characterName = characterName;
 	}
 
 	public Blob getImage() {
@@ -65,12 +65,12 @@ public class Character {
 		this.image = image;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getCharacterDescription() {
+		return characterDescription;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setCharacterDescription(String characterDescription) {
+		this.characterDescription = characterDescription;
 	}
 	
 }

@@ -21,8 +21,8 @@ public class Quest {
 	@Column(name = "title")
 	private String title;
 
-	@Column(name = "description")
-	private String description;
+	@Column(name = "quest_description")
+	private String questDescription;
 
 	@Column(name = "coins_reward")
 	private Integer coinsReward;
@@ -35,12 +35,12 @@ public class Quest {
 		super();
 	}
 
-	public Quest(Integer questId, String title, String description, Integer coinsReward,
+	public Quest(Integer questId, String title, String questDescription, Integer coinsReward,
 			InteractiveBook interactiveBook) {
 		super();
 		this.questId = questId;
 		this.title = title;
-		this.description = description;
+		this.questDescription = questDescription;
 		this.coinsReward = coinsReward;
 		this.interactiveBook = interactiveBook;
 	}
@@ -61,12 +61,12 @@ public class Quest {
 		this.title = title;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getQuestDescription() {
+		return questDescription;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setQuestDescription(String questDescription) {
+		this.questDescription = questDescription;
 	}
 
 	public Integer getCoinsReward() {

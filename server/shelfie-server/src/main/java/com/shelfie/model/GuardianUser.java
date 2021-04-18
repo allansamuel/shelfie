@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -19,29 +20,30 @@ public class GuardianUser {
 	@Column (name = "guardian_user_id")
 	private Integer guardianUserId;
 
-	@Column (name = "name", length = 255)
-	private String name;
+	@Column (name = "guardian_user_name", length = 255)
+	private String guardianUserName;
 
-	@Column (name = "email", length = 320)
-	private String email;
+	@Column (name = "guardian_user_email", length = 320)
+	private String guardianUserEmail;
 
-	@Column (name = "password", length = 255)
-	private String password;
+	@Column (name = "guardian_user_password", length = 255)
+	private String guardianUserPassword;
 	
 	@OneToMany
+	@JoinColumn(name = "child_profile_id")
 	private List<ChildProfile> childProfiles;
 
 	public GuardianUser() {
 		super();
 	}
 
-	public GuardianUser(Integer guardianUserId, String name, String email, String password,
-			List<ChildProfile> childProfiles) {
+	public GuardianUser(Integer guardianUserId, String guardianUserName, String guardianUserEmail,
+			String guardianUserPassword, List<ChildProfile> childProfiles) {
 		super();
 		this.guardianUserId = guardianUserId;
-		this.name = name;
-		this.email = email;
-		this.password = password;
+		this.guardianUserName = guardianUserName;
+		this.guardianUserEmail = guardianUserEmail;
+		this.guardianUserPassword = guardianUserPassword;
 		this.childProfiles = childProfiles;
 	}
 
@@ -53,28 +55,28 @@ public class GuardianUser {
 		this.guardianUserId = guardianUserId;
 	}
 
-	public String getName() {
-		return name;
+	public String getGuardianUserName() {
+		return guardianUserName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setGuardianUserName(String guardianUserName) {
+		this.guardianUserName = guardianUserName;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getGuardianUserEmail() {
+		return guardianUserEmail;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setGuardianUserEmail(String guardianUserEmail) {
+		this.guardianUserEmail = guardianUserEmail;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getGuardianUserPassword() {
+		return guardianUserPassword;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setGuardianUserPassword(String guardianUserPassword) {
+		this.guardianUserPassword = guardianUserPassword;
 	}
 
 	public List<ChildProfile> getChildProfiles() {
@@ -84,5 +86,5 @@ public class GuardianUser {
 	public void setChildProfiles(List<ChildProfile> childProfiles) {
 		this.childProfiles = childProfiles;
 	}
-	
+
 }
