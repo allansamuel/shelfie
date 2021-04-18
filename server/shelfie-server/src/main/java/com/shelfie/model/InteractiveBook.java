@@ -31,10 +31,7 @@ public class InteractiveBook {
 	
 	@Column (name = "sinopsys", length = 800)
 	private String sinopsys;
-	
-	@Column (name = "author", length = 255)
-	private String author;
-	
+
 	@Column (name = "publish_date")
 	private Date publishDate;
 	
@@ -62,18 +59,23 @@ public class InteractiveBook {
 	inverseJoinColumns = {@JoinColumn(name = "category_id")})
 	private List<Category> bookCategories;
 	
+	@ManyToMany
+	@JoinTable(name = "book_authors", 
+	joinColumns = {@JoinColumn(name = "interactive_book_id")}, 
+	inverseJoinColumns = {@JoinColumn(name = "author_id")})
+	private List<Author> bookAuthors;
+	
 	public InteractiveBook() {
 		super();
 	}
 
-	public InteractiveBook(Integer interactiveBookId, Blob bookCover, String sinopsys, String author, Date publishDate,
-			Integer price, String title, List<Chapter> chapters, List<Character> characters,
-			List<Quest> quests, List<Category> bookCategories) {
+	public InteractiveBook(Integer interactiveBookId, Blob bookCover, String sinopsys, Date publishDate, Integer price,
+			String title, List<Chapter> chapters, List<Character> characters, List<Quest> quests,
+			List<Category> bookCategories, List<Author> bookAuthors) {
 		super();
 		this.interactiveBookId = interactiveBookId;
 		this.bookCover = bookCover;
 		this.sinopsys = sinopsys;
-		this.author = author;
 		this.publishDate = publishDate;
 		this.price = price;
 		this.title = title;
@@ -81,6 +83,7 @@ public class InteractiveBook {
 		this.characters = characters;
 		this.quests = quests;
 		this.bookCategories = bookCategories;
+		this.bookAuthors = bookAuthors;
 	}
 
 	public Integer getInteractiveBookId() {
@@ -105,14 +108,6 @@ public class InteractiveBook {
 
 	public void setSinopsys(String sinopsys) {
 		this.sinopsys = sinopsys;
-	}
-
-	public String getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(String author) {
-		this.author = author;
 	}
 
 	public Date getPublishDate() {
@@ -171,4 +166,12 @@ public class InteractiveBook {
 		this.bookCategories = bookCategories;
 	}
 
+	public List<Author> getBookAuthors() {
+		return bookAuthors;
+	}
+
+	public void setBookAuthors(List<Author> bookAuthors) {
+		this.bookAuthors = bookAuthors;
+	}
+	
 }
