@@ -1,8 +1,8 @@
 package com.shelfie.model;
 
 import java.sql.Blob;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -48,25 +48,24 @@ public class InteractiveBook {
 	private String title;
 
 	@OneToMany
-	private ArrayList<Chapter> chapters;
+	private List<Chapter> chapters;
 	
 	@OneToMany
-	private ArrayList<Quest> quests;
+	private List<Quest> quests;
 	
 	@ManyToMany
 	@JoinTable(name="book_categories", joinColumns=
 	{@JoinColumn(name="interactive_book_id")}, inverseJoinColumns= 
 	{@JoinColumn(name="category_id")})
-	private ArrayList<Category> bookCategories;
-	
+	private List<Category> bookCategories;
 	
 	public InteractiveBook() {
 		super();
 	}
 
 	public InteractiveBook(Integer interactiveBookId, Blob bookCover, String sinopsys, String author, Date publishDate,
-			Integer price, boolean avaliable, String title, ArrayList<Chapter> chapters, ArrayList<Quest> quests,
-			ArrayList<Category> bookCategories) {
+			Integer price, boolean avaliable, String title, List<Chapter> chapters, List<Quest> quests,
+			List<Category> bookCategories) {
 		super();
 		this.interactiveBookId = interactiveBookId;
 		this.bookCover = bookCover;
@@ -145,27 +144,27 @@ public class InteractiveBook {
 		this.title = title;
 	}
 
-	public ArrayList<Chapter> getChapters() {
+	public List<Chapter> getChapters() {
 		return chapters;
 	}
 
-	public void setChapters(ArrayList<Chapter> chapters) {
+	public void setChapters(List<Chapter> chapters) {
 		this.chapters = chapters;
 	}
 
-	public ArrayList<Quest> getQuests() {
+	public List<Quest> getQuests() {
 		return quests;
 	}
 
-	public void setQuests(ArrayList<Quest> quests) {
+	public void setQuests(List<Quest> quests) {
 		this.quests = quests;
 	}
 
-	public ArrayList<Category> getBookCategories() {
+	public List<Category> getBookCategories() {
 		return bookCategories;
 	}
 
-	public void setBookCategories(ArrayList<Category> bookCategories) {
+	public void setBookCategories(List<Category> bookCategories) {
 		this.bookCategories = bookCategories;
 	}
 

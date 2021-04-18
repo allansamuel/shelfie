@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -27,7 +28,7 @@ public class Quest {
 	private Integer coinsReward;
 	
 	@ManyToOne
-	@Column(name = "interactive_book")
+	@JoinColumn(name = "interactive_book")
 	private InteractiveBook interactiveBook;
 	
 	public Quest() {

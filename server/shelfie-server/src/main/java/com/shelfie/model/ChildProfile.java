@@ -1,6 +1,6 @@
 package com.shelfie.model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,41 +29,47 @@ public class ChildProfile {
 	private Integer coins;
 	
 	@ManyToOne
-	@Column(name = "guardian_user_id")
+	@JoinColumn(name = "guardian_user_id")
 	private GuardianUser guardianUser;
 	
 	@ManyToOne
-	@Column(name = "character_id")
+	@JoinColumn(name = "character_id")
 	private Character character;
 
 	@ManyToMany
 	@JoinTable(name="child_completed_quests", joinColumns=
 	{@JoinColumn(name="child_profile_id")}, inverseJoinColumns= 
 	{@JoinColumn(name="quest_id")})
-	private ArrayList<Quest> childCompletedQuests;
+	private List<Quest> childCompletedQuests;
 	
 	@ManyToMany
 	@JoinTable(name="child_unlocked_books", joinColumns=
 	{@JoinColumn(name="child_profile_id")}, inverseJoinColumns= 
 	{@JoinColumn(name="interactive_book_id")})
-	private ArrayList<InteractiveBook> childUnlockedBooks;
+	private List<InteractiveBook> childUnlockedBooks;
 	
 	@ManyToMany
 	@JoinTable(name="child_saved_books", joinColumns=
 	{@JoinColumn(name="child_profile_id")}, inverseJoinColumns= 
 	{@JoinColumn(name="interactive_book_id")})
-	private ArrayList<InteractiveBook> childSavedBooks;
+	private List<InteractiveBook> childSavedBooks;
 	
 	public ChildProfile() {
 		super();
 	}
 
-	public ChildProfile(Integer childProfileId, String nickname, GuardianUser guardianUser, Character character) {
+	public ChildProfile(Integer childProfileId, String nickname, Integer coins, GuardianUser guardianUser,
+			Character character, List<Quest> childCompletedQuests, List<InteractiveBook> childUnlockedBooks,
+			List<InteractiveBook> childSavedBooks) {
 		super();
 		this.childProfileId = childProfileId;
 		this.nickname = nickname;
+		this.coins = coins;
 		this.guardianUser = guardianUser;
 		this.character = character;
+		this.childCompletedQuests = childCompletedQuests;
+		this.childUnlockedBooks = childUnlockedBooks;
+		this.childSavedBooks = childSavedBooks;
 	}
 
 	public Integer getChildProfileId() {
@@ -82,6 +88,14 @@ public class ChildProfile {
 		this.nickname = nickname;
 	}
 
+	public Integer getCoins() {
+		return coins;
+	}
+
+	public void setCoins(Integer coins) {
+		this.coins = coins;
+	}
+
 	public GuardianUser getGuardianUser() {
 		return guardianUser;
 	}
@@ -96,6 +110,30 @@ public class ChildProfile {
 
 	public void setCharacter(Character character) {
 		this.character = character;
+	}
+
+	public List<Quest> getChildCompletedQuests() {
+		return childCompletedQuests;
+	}
+
+	public void setChildCompletedQuests(List<Quest> childCompletedQuests) {
+		this.childCompletedQuests = childCompletedQuests;
+	}
+
+	public List<InteractiveBook> getChildUnlockedBooks() {
+		return childUnlockedBooks;
+	}
+
+	public void setChildUnlockedBooks(List<InteractiveBook> childUnlockedBooks) {
+		this.childUnlockedBooks = childUnlockedBooks;
+	}
+
+	public List<InteractiveBook> getChildSavedBooks() {
+		return childSavedBooks;
+	}
+
+	public void setChildSavedBooks(List<InteractiveBook> childSavedBooks) {
+		this.childSavedBooks = childSavedBooks;
 	}
 	
 }

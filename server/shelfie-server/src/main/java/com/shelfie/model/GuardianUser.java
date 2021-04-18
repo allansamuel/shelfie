@@ -1,6 +1,6 @@
 package com.shelfie.model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,20 +29,20 @@ public class GuardianUser {
 	private String password;
 	
 	@OneToMany
-	private ArrayList<ChildProfile> childProfiles;
+	private List<ChildProfile> childProfiles;
+
+	public GuardianUser() {
+		super();
+	}
 
 	public GuardianUser(Integer guardianUserId, String name, String email, String password,
-			ArrayList<ChildProfile> childProfiles) {
+			List<ChildProfile> childProfiles) {
 		super();
 		this.guardianUserId = guardianUserId;
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.childProfiles = childProfiles;
-	}
-
-	public GuardianUser() {
-		super();
 	}
 
 	public Integer getGuardianUserId() {
@@ -77,11 +77,11 @@ public class GuardianUser {
 		this.password = password;
 	}
 
-	public ArrayList<ChildProfile> getChildProfiles() {
+	public List<ChildProfile> getChildProfiles() {
 		return childProfiles;
 	}
 
-	public void setChildProfiles(ArrayList<ChildProfile> childProfiles) {
+	public void setChildProfiles(List<ChildProfile> childProfiles) {
 		this.childProfiles = childProfiles;
 	}
 	
