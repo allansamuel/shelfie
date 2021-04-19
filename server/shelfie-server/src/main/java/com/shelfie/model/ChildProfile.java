@@ -2,6 +2,7 @@ package com.shelfie.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -37,22 +39,27 @@ public class ChildProfile {
 	private Character character;
 
 	@ManyToMany
-	@JoinTable(name = "child_completed_quests", 
-	joinColumns = {@JoinColumn(name = "child_profile_id")}, 
-	inverseJoinColumns = {@JoinColumn(name = "quest_id")})
+	@JoinTable(
+			name = "child_completed_quests", 
+			joinColumns = {@JoinColumn(name = "child_profile_id")}, 
+			inverseJoinColumns = {@JoinColumn(name = "quest_id")}
+			)
 	private List<Quest> childCompletedQuests;
 	
 	@ManyToMany
-	@JoinTable(name = "child_unlocked_books", 
-	joinColumns = {@JoinColumn(name = "child_profile_id")}, 
-	inverseJoinColumns = {@JoinColumn(name = "interactive_book_id")})
+	@JoinTable(
+			name = "child_unlocked_books", 
+			joinColumns = {@JoinColumn(name = "child_profile_id")}, 
+			inverseJoinColumns = {@JoinColumn(name = "interactive_book_id")}
+			)
 	private List<InteractiveBook> childUnlockedBooks;
 	
-	@ManyToMany
-	@JoinTable(name = "child_saved_books", 
-	joinColumns = {@JoinColumn(name = "child_profile_id")}, 
-	inverseJoinColumns = {@JoinColumn(name = "interactive_book_id")})
-	private List<InteractiveBook> childSavedBooks;
+	@OneToMany(
+			mappedBy = "childProfile",
+	        cascade = CascadeType.ALL,
+	        orphanRemoval = true
+	        )
+	private List<ChildSavedBook> childSavedBooks;
 	
 	public ChildProfile() {
 		super();
@@ -60,7 +67,7 @@ public class ChildProfile {
 
 	public ChildProfile(Integer childProfileId, String nickname, Integer coins, GuardianUser guardianUser,
 			Character character, List<Quest> childCompletedQuests, List<InteractiveBook> childUnlockedBooks,
-			List<InteractiveBook> childSavedBooks) {
+			List<ChildSavedBook> childSavedBooks) {
 		super();
 		this.childProfileId = childProfileId;
 		this.nickname = nickname;
@@ -128,11 +135,11 @@ public class ChildProfile {
 		this.childUnlockedBooks = childUnlockedBooks;
 	}
 
-	public List<InteractiveBook> getChildSavedBooks() {
+	public List<ChildSavedBook> getChildSavedBooks() {
 		return childSavedBooks;
 	}
 
-	public void setChildSavedBooks(List<InteractiveBook> childSavedBooks) {
+	public void setChildSavedBooks(List<ChildSavedBook> childSavedBooks) {
 		this.childSavedBooks = childSavedBooks;
 	}
 	

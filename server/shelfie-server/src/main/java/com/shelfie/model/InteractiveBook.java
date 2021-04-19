@@ -4,6 +4,7 @@ import java.sql.Blob;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -57,10 +58,20 @@ public class InteractiveBook {
 	private List<Quest> quests;
 	
 	@ManyToMany
-	@JoinTable(name = "book_categories", 
-	joinColumns = {@JoinColumn(name = "interactive_book_id")}, 
-	inverseJoinColumns = {@JoinColumn(name = "category_id")})
+	@JoinTable(
+			name = "book_categories", 
+			joinColumns = {@JoinColumn(name = "interactive_book_id")}, 
+			inverseJoinColumns = {@JoinColumn(name = "category_id")}
+			)
 	private List<Category> bookCategories;
+	
+	@OneToMany(
+			mappedBy = "interactiveBook",
+	        cascade = CascadeType.ALL,
+	        orphanRemoval = true
+	        )
+	private List<ChildSavedBook> childSavedBooks;
+
 	
 	public InteractiveBook() {
 		super();
