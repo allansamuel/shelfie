@@ -70,9 +70,11 @@ public class InteractiveBook {
 	private List<ChildSavedBook> childSavedBooks;
 
 	@ManyToMany
-	@JoinTable(name = "book_authors", 
-	joinColumns = {@JoinColumn(name = "interactive_book_id")}, 
-	inverseJoinColumns = {@JoinColumn(name = "author_id")})
+	@JoinTable(
+			name = "book_authors", 
+			joinColumns = {@JoinColumn(name = "interactive_book_id")}, 
+			inverseJoinColumns = {@JoinColumn(name = "author_id")}
+			)
 	private List<Author> bookAuthors;
 	
 	public InteractiveBook() {
