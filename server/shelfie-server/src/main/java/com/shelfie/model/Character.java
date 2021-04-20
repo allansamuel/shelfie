@@ -29,6 +29,7 @@ public class Character {
 	@Column(name = "character_description", length = 800)
 	private String characterDescription;
 	
+	
 	public Character() {
 		super();
 	}

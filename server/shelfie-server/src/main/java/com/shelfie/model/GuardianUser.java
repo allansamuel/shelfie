@@ -17,8 +17,8 @@ public class GuardianUser {
 
 	@Id 
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	@Column (name = "id")
-	private Integer id;
+	@Column (name = "guardian_user_id")
+	private Integer guardianUserId;
 
 	@Column (name = "guardian_user_name", length = 255)
 	private String guardianUserName;
@@ -37,22 +37,22 @@ public class GuardianUser {
 		super();
 	}
 
-	public GuardianUser(Integer id, String guardianUserName, String guardianUserEmail,
+	public GuardianUser(Integer guardianUserId, String guardianUserName, String guardianUserEmail,
 			String guardianUserPassword, List<ChildProfile> childProfiles) {
 		super();
-		this.id = id;
+		this.guardianUserId = guardianUserId;
 		this.guardianUserName = guardianUserName;
 		this.guardianUserEmail = guardianUserEmail;
 		this.guardianUserPassword = guardianUserPassword;
 		this.childProfiles = childProfiles;
 	}
 
-	public Integer getid() {
-		return id;
+	public Integer getGuardianUserId() {
+		return guardianUserId;
 	}
 
-	public void setid(Integer id) {
-		this.id = id;
+	public void setGuardianUserId(Integer guardianUserId) {
+		this.guardianUserId = guardianUserId;
 	}
 
 	public String getGuardianUserName() {

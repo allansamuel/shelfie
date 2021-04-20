@@ -32,10 +32,11 @@ public class ChildProfileController {
 		return repo.findById(childProfileId);
 	}
 	
+	/*
 	@GetMapping("getByGuardian/{guardianUserId}")
 	@ResponseBody
 	public List<ChildProfile> getByGuardianUserId(@RequestParam Integer guardianUserId){
-		return repo.findByGuardianUserId(guardianUserId);
+		return repo.findByGuardianUser(guardianUserId);
 	}
-	
+	*/
 }

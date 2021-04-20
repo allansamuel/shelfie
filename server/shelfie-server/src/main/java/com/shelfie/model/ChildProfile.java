@@ -21,8 +21,8 @@ public class ChildProfile {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Integer id;
+	@Column(name = "child_profile_id")
+	private Integer childProfileId;
 	
 	@Column(name = "nickname", length = 255)
 	private String  nickname;
@@ -65,11 +65,11 @@ public class ChildProfile {
 		super();
 	}
 
-	public ChildProfile(Integer id, String nickname, Integer coins, GuardianUser guardianUser,
+	public ChildProfile(Integer childProfileId, String nickname, Integer coins, GuardianUser guardianUser,
 			Character character, List<Quest> childCompletedQuests, List<InteractiveBook> childUnlockedBooks,
 			List<ChildSavedBook> childSavedBooks) {
 		super();
-		this.id = id;
+		this.childProfileId = childProfileId;
 		this.nickname = nickname;
 		this.coins = coins;
 		this.guardianUser = guardianUser;
@@ -79,12 +79,12 @@ public class ChildProfile {
 		this.childSavedBooks = childSavedBooks;
 	}
 
-	public Integer getid() {
-		return id;
+	public Integer getChildProfileId() {
+		return childProfileId;
 	}
 
-	public void setid(Integer id) {
-		this.id = id;
+	public void setChildProfileId(Integer childProfileId) {
+		this.childProfileId = childProfileId;
 	}
 
 	public String getNickname() {
