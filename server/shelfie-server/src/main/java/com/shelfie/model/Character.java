@@ -16,8 +16,8 @@ public class Character {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "character_id")
-	private Integer characterId;
+	@Column(name = "id")
+	private Integer id;
 	
 	@Column(name = "character_name", length = 255)
 	private String characterName;
@@ -33,20 +33,20 @@ public class Character {
 		super();
 	}
 
-	public Character(Integer characterId, String characterName, Blob characterImage, String characterDescription) {
+	public Character(Integer id, String characterName, Blob characterImage, String characterDescription) {
 		super();
-		this.characterId = characterId;
+		this.id = id;
 		this.characterName = characterName;
 		this.characterImage = characterImage;
 		this.characterDescription = characterDescription;
 	}
 
-	public Integer getCharacterId() {
-		return characterId;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setCharacterId(Integer characterId) {
-		this.characterId = characterId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getCharacterName() {
@@ -72,5 +72,4 @@ public class Character {
 	public void setCharacterDescription(String characterDescription) {
 		this.characterDescription = characterDescription;
 	}
-
 }

@@ -16,29 +16,29 @@ public class ChildSavedBook {
 	private ChildSavedBookId childSavedBookId;
 	
 	@ManyToOne
-	@MapsId("childProfileId")
-	@JoinColumn(name = "child_profile_id")
+	@MapsId("id")
+	@JoinColumn(name = "id")
 	private ChildProfile childProfile;
 	
 	@ManyToOne
-	@MapsId("interactiveBookId")
-	@JoinColumn(name = "interactive_book_id")
+	@MapsId("id")
+	@JoinColumn(name = "id")
 	private InteractiveBook interactiveBook;
 	
-	@Column(name = "chapter_id")
-	private Integer chapterId;
+	@Column(name = "id")
+	private Integer id;
 
 	public ChildSavedBook() {
 		super();
 	}
 
 	public ChildSavedBook(ChildSavedBookId childSavedBookId, ChildProfile childProfile, InteractiveBook interactiveBook,
-			Integer chapterId) {
+			Integer id) {
 		super();
 		this.childSavedBookId = childSavedBookId;
 		this.childProfile = childProfile;
 		this.interactiveBook = interactiveBook;
-		this.chapterId = chapterId;
+		this.id = id;
 	}
 
 	public ChildSavedBookId getChildSavedBookId() {
@@ -65,12 +65,11 @@ public class ChildSavedBook {
 		this.interactiveBook = interactiveBook;
 	}
 
-	public Integer getChapterId() {
-		return chapterId;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setChapterId(Integer chapterId) {
-		this.chapterId = chapterId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
-
 }

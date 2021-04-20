@@ -15,8 +15,8 @@ public class Chapter {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "chapter_id")
-	private Integer chapterId;
+	@Column(name = "id")
+	private Integer id;
 	
 	@Column(name = "title", length = 255)
 	private String title;
@@ -29,19 +29,19 @@ public class Chapter {
 		super();
 	}
 
-	public Chapter(Integer chapterId, String title, InteractiveBook interactiveBook) {
+	public Chapter(Integer id, String title, InteractiveBook interactiveBook) {
 		super();
-		this.chapterId = chapterId;
+		this.id = id;
 		this.title = title;
 		this.interactiveBook = interactiveBook;
 	}
 
-	public Integer getChapterId() {
-		return chapterId;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setChapterId(Integer chapterId) {
-		this.chapterId = chapterId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getTitle() {
@@ -59,5 +59,4 @@ public class Chapter {
 	public void setInteractiveBook(InteractiveBook interactiveBook) {
 		this.interactiveBook = interactiveBook;
 	}
-	
 }

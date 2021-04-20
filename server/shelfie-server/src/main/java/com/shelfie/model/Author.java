@@ -13,8 +13,8 @@ public class Author {
 
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	@Column (name = "author_id")
-	private Integer authorId;
+	@Column (name = "id")
+	private Integer id;
 	
 	@Column (name = "author_name")
 	private String authorName;
@@ -23,18 +23,18 @@ public class Author {
 		super();
 	}
 
-	public Author(Integer authorId, String authorName) {
+	public Author(Integer id, String authorName) {
 		super();
-		this.authorId = authorId;
+		this.id = id;
 		this.authorName = authorName;
 	}
 
 	public Integer getAuthorId() {
-		return authorId;
+		return id;
 	}
 
-	public void setAuthorId(Integer authorId) {
-		this.authorId = authorId;
+	public void setAuthorId(Integer id) {
+		this.id = id;
 	}
 
 	public String getAuthorName() {

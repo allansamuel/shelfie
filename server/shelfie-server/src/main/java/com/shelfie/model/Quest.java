@@ -15,8 +15,8 @@ public class Quest {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "quest_id")
-	private Integer questId;
+	@Column(name = "id")
+	private Integer id;
 
 	@Column(name = "quest_title")
 	private String questTitle;
@@ -38,7 +38,7 @@ public class Quest {
 	public Quest(Integer questId, String questTitle, String questDescription, Integer coinsReward,
 			InteractiveBook interactiveBook) {
 		super();
-		this.questId = questId;
+		this.id = questId;
 		this.questTitle = questTitle;
 		this.questDescription = questDescription;
 		this.coinsReward = coinsReward;
@@ -46,11 +46,11 @@ public class Quest {
 	}
 
 	public Integer getQuestId() {
-		return questId;
+		return id;
 	}
 
-	public void setQuestId(Integer questId) {
-		this.questId = questId;
+	public void setQuestId(Integer id) {
+		this.id = id;
 	}
 
 	public String getQuestTitle() {

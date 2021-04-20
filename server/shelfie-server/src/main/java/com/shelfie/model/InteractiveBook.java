@@ -23,8 +23,8 @@ public class InteractiveBook {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column (name = "interative_book_id")
-	private Integer interactiveBookId;
+	@Column (name = "id")
+	private Integer id;
 	
 	@Lob
 	@Column (name = "book_cover")
@@ -81,11 +81,11 @@ public class InteractiveBook {
 		super();
 	}
 
-	public InteractiveBook(Integer interactiveBookId, Blob bookCover, String sinopsys, Date publishDate, Integer price,
-			String title, List<Chapter> chapters, List<Character> characters, List<Quest> quests,
-			List<Category> bookCategories, List<Author> bookAuthors) {
+	public InteractiveBook(Integer id, Blob bookCover, String sinopsys, Date publishDate, Integer price, String title,
+			List<Chapter> chapters, List<Character> characters, List<Quest> quests, List<Category> bookCategories,
+			List<ChildSavedBook> childSavedBooks, List<Author> bookAuthors) {
 		super();
-		this.interactiveBookId = interactiveBookId;
+		this.id = id;
 		this.bookCover = bookCover;
 		this.sinopsys = sinopsys;
 		this.publishDate = publishDate;
@@ -95,15 +95,16 @@ public class InteractiveBook {
 		this.characters = characters;
 		this.quests = quests;
 		this.bookCategories = bookCategories;
+		this.childSavedBooks = childSavedBooks;
 		this.bookAuthors = bookAuthors;
 	}
 
-	public Integer getInteractiveBookId() {
-		return interactiveBookId;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setInteractiveBookId(Integer interactiveBookId) {
-		this.interactiveBookId = interactiveBookId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Blob getBookCover() {
@@ -178,6 +179,14 @@ public class InteractiveBook {
 		this.bookCategories = bookCategories;
 	}
 
+	public List<ChildSavedBook> getChildSavedBooks() {
+		return childSavedBooks;
+	}
+
+	public void setChildSavedBooks(List<ChildSavedBook> childSavedBooks) {
+		this.childSavedBooks = childSavedBooks;
+	}
+
 	public List<Author> getBookAuthors() {
 		return bookAuthors;
 	}
@@ -185,5 +194,4 @@ public class InteractiveBook {
 	public void setBookAuthors(List<Author> bookAuthors) {
 		this.bookAuthors = bookAuthors;
 	}
-	
 }
