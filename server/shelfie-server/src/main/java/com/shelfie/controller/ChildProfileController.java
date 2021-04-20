@@ -39,14 +39,6 @@ public class ChildProfileController {
 				.orElseThrow(() -> new Exception());
 	}
 	
-	/*
-	@GetMapping("getByGuardian/{guardianUserId}")
-	@ResponseBody
-	public List<ChildProfile> getByGuardianUserId(@RequestParam Integer guardianUserId){
-		return repo.findByGuardianUser(guardianUserId);
-	}
-	*/
-	
 	@PostMapping
 	@ResponseBody
 	public ResponseEntity<ChildProfile> create(@RequestBody ChildProfile childProfileBody) throws Exception {

@@ -6,8 +6,4 @@ import com.shelfie.model.ChildProfile;
 
 public interface ChildProfileRepository extends JpaRepository<ChildProfile, Integer>{
 
-	/*
-	@Query
-	List<ChildProfile> findByGuardianUser(Integer guardianUserId);
-	*/
 }
