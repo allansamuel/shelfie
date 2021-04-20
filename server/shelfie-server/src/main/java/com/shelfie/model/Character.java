@@ -7,7 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -29,17 +31,22 @@ public class Character {
 	@Column(name = "character_description", length = 800)
 	private String characterDescription;
 	
+	@ManyToOne
+	@JoinColumn(name = "interactive_book_id")
+	private InteractiveBook interactiveBook;
 	
 	public Character() {
 		super();
 	}
 
-	public Character(Integer characterId, String characterName, Blob characterImage, String characterDescription) {
+	public Character(Integer characterId, String characterName, Blob characterImage, String characterDescription,
+			InteractiveBook interactiveBook) {
 		super();
 		this.characterId = characterId;
 		this.characterName = characterName;
 		this.characterImage = characterImage;
 		this.characterDescription = characterDescription;
+		this.interactiveBook = interactiveBook;
 	}
 
 	public Integer getCharacterId() {
@@ -72,6 +79,14 @@ public class Character {
 
 	public void setCharacterDescription(String characterDescription) {
 		this.characterDescription = characterDescription;
+	}
+
+	public InteractiveBook getInteractiveBook() {
+		return interactiveBook;
+	}
+
+	public void setInteractiveBook(InteractiveBook interactiveBook) {
+		this.interactiveBook = interactiveBook;
 	}
 
 }
