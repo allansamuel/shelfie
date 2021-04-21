@@ -1,19 +1,10 @@
 package com.shelfie.controller;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.List;
-import java.util.zip.DataFormatException;
-import java.util.zip.Deflater;
-import java.util.zip.Inflater;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.ResponseEntity.BodyBuilder;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -59,7 +50,7 @@ public class CharacterController {
 			throw exception;
 		} 
 	}
-	
+
 	@PutMapping("{id}/upload_image")
 	public void uploadImage(@RequestParam("imageFile") MultipartFile file, 
 			@PathVariable Integer id) throws Exception {
@@ -68,6 +59,20 @@ public class CharacterController {
 		
 		updatedCharacter.setCharacterImage(file.getBytes());
 		characterRepository.save(updatedCharacter);
+	}
+	
+	@PutMapping("{id}")
+	public ResponseEntity<Character> update(@RequestBody() Character characterBody, 
+			@PathVariable Integer id) throws Exception {
+		Character character = characterRepository.findById(id)
+				 .orElseThrow(() -> new NotFoundException ("not found" + id));
+		
+		character.setCharacterName(characterBody.getCharacterName());
+		character.setCharacterDescription(characterBody.getCharacterDescription());
+
+		Character updatedCharacter = characterRepository.save(character);
+		
+		return ResponseEntity.ok().body(updatedCharacter);
 	}
 	
 }
