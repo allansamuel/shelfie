@@ -3,7 +3,9 @@ package com.shelfie.controller;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
+import java.util.zip.Inflater;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,7 +39,8 @@ public class CharacterController {
 	public ResponseEntity<Character> getCharacterById(@PathVariable Integer id) throws Exception {
 	 Character character = characterRepository.findById(id)
 			 .orElseThrow(() -> new NotFoundException ("not found" + id));
-	 return ResponseEntity.ok().body(character);
+
+	 return ResponseEntity.ok(character);
 	}
 	
 	@GetMapping
@@ -65,25 +68,6 @@ public class CharacterController {
 		
 		updatedCharacter.setCharacterImage(file.getBytes());
 		characterRepository.save(updatedCharacter);
-	}
-	
-	public static byte[] compressBytes(byte[] data) throws IOException {
-	    Deflater deflater = new Deflater();
-	    deflater.setInput(data);
-	    deflater.finish();
-	    ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
-	    byte[] buffer = new byte[1024];
-	    while (!deflater.finished()) {
-	        int count = deflater.deflate(buffer);
-	        outputStream.write(buffer, 0, count);
-	    }
-	    try {
-	        outputStream.close();
-	    } catch (IOException exception) {
-			throw exception;
-	    }
-	    System.out.println("Compressed Image Byte Size - " + outputStream.toByteArray().length);
-	    return outputStream.toByteArray();
 	}
 	
 }

@@ -12,6 +12,8 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "characters")
 public class Character {
@@ -31,6 +33,7 @@ public class Character {
 	@Column(name = "character_description", length = 800)
 	private String characterDescription;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "interactive_book_id")
 	private InteractiveBook interactiveBook;
