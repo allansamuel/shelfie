@@ -27,7 +27,6 @@ public class GuardianUserController {
 	private GuardianUserRepository guardianUserRepository;
 	
 	@GetMapping("{id}")
-	@ResponseBody
 	public ResponseEntity<GuardianUser> getGuardianUserById(@PathVariable Integer id) throws Exception {
 	 GuardianUser guardianUser = guardianUserRepository.findById(id)
 			 .orElseThrow(() -> new NotFoundException ("not found" + id));
@@ -36,7 +35,6 @@ public class GuardianUserController {
 	}
 	
 	@GetMapping("{id}/childProfiles")
-	@ResponseBody
 	public ResponseEntity<List<ChildProfile>> getChildProfiles(@PathVariable Integer id) throws Exception {
 		 GuardianUser guardianUser = guardianUserRepository.findById(id)
 				 .orElseThrow(() -> new NotFoundException ("not found" + id));
@@ -45,15 +43,16 @@ public class GuardianUserController {
 	}
 	
 	@PostMapping
-	@ResponseBody
 	public GuardianUser createGuardianUser(@RequestBody GuardianUser guardianUser) throws Exception{
-		GuardianUser newGuardianUser = guardianUserRepository.save(guardianUser);
-		
-		return guardianUserRepository.save(newGuardianUser); 
+		try {
+			GuardianUser newGuardianUser = guardianUserRepository.save(guardianUser);
+			return guardianUserRepository.save(newGuardianUser);
+		} catch (Exception exception) {
+			throw exception;
+		} 
 	}
 	
 	@PutMapping("{id}")
-	@ResponseBody
 	public ResponseEntity<GuardianUser> updateGuardianUser(@PathVariable Integer id,
 			@RequestBody GuardianUser guardianUserDetails) throws Exception {
 	 GuardianUser guardianUser = guardianUserRepository.findById(id)
@@ -68,7 +67,6 @@ public class GuardianUserController {
 	}
 	
 	@DeleteMapping("{id}")
-	@ResponseBody
 	public void deleteGuardianUser(@PathVariable Integer id) throws Exception {
 		GuardianUser guardianUser = guardianUserRepository.findById(id)
 				 .orElseThrow(() -> new NotFoundException ("not found" + id));
