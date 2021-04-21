@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.shelfie.model.InteractiveBook;
 import com.shelfie.repository.InteractiveBookRepository;
@@ -47,23 +49,33 @@ public class InteractiveBookController {
 		}
 	}
 	
+	@PutMapping("{id}/upload_image")
+	public void uploadImage(@RequestParam("imageFile") MultipartFile file, 
+			@PathVariable Integer id) throws Exception {
+		InteractiveBook updatedInteractiveBook = interactiveBookRepository.findById(id)
+				 .orElseThrow(() -> new NotFoundException ("not found" + id));
+		
+		updatedInteractiveBook.setBookCover(file.getBytes());
+		interactiveBookRepository.save(updatedInteractiveBook);
+	}
+	
 	@PutMapping("{id}")
-	public ResponseEntity<InteractiveBook> edit(@RequestBody InteractiveBook interactiveBookBody, 
+	public ResponseEntity<InteractiveBook> update(@RequestBody InteractiveBook interactiveBookBody, 
 			@PathVariable Integer id) throws Exception {
 		
 		InteractiveBook interactiveBook = interactiveBookRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("not found"));
 		
-		//interactiveBook.setBookAuthors(interactiveBookBody.getBookAuthors());
-		//interactiveBook.setBookCategories(interactiveBookBody.getBookCategories());
-		//interactiveBook.setBookCover(interactiveBookBody.getBookCover());
-		//interactiveBook.setChapters(interactiveBookBody.getChapters());
-		//interactiveBook.setCharacters(interactiveBookBody.getCharacters());
-		//interactiveBook.setPrice(interactiveBookBody.getPrice());
-		//interactiveBook.setPublishDate(interactiveBookBody.getPublishDate());
-		//interactiveBook.setQuests(interactiveBookBody.getQuests());
-		//interactiveBook.setSinopsys(interactiveBookBody.getSinopsys());
-		//interactiveBook.setTitle(interactiveBookBody.getTitle());
+		interactiveBook.setBookAuthors(interactiveBookBody.getBookAuthors());
+		interactiveBook.setBookCategories(interactiveBookBody.getBookCategories());
+		interactiveBook.setBookCover(interactiveBookBody.getBookCover());
+		interactiveBook.setChapters(interactiveBookBody.getChapters());
+		interactiveBook.setCharacters(interactiveBookBody.getCharacters());
+		interactiveBook.setPrice(interactiveBookBody.getPrice());
+		interactiveBook.setPublishDate(interactiveBookBody.getPublishDate());
+		interactiveBook.setQuests(interactiveBookBody.getQuests());
+		interactiveBook.setSinopsys(interactiveBookBody.getSinopsys());
+		interactiveBook.setTitle(interactiveBookBody.getTitle());
 		
 		System.out.println(interactiveBookBody);
 		

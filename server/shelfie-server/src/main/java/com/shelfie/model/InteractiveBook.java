@@ -1,6 +1,5 @@
 package com.shelfie.model;
 
-import java.sql.Blob;
 import java.util.Date;
 import java.util.List;
 
@@ -28,7 +27,7 @@ public class InteractiveBook {
 	
 	@Lob
 	@Column (name = "book_cover")
-	private Blob bookCover;
+	private byte[] bookCover;
 	
 	@Column (name = "sinopsys", length = 800)
 	private String sinopsys;
@@ -90,7 +89,7 @@ public class InteractiveBook {
 		super();
 	}
 
-	public InteractiveBook(Integer interactiveBookId, Blob bookCover, String sinopsys, Date publishDate, Integer price,
+	public InteractiveBook(Integer interactiveBookId, byte[] bookCover, String sinopsys, Date publishDate, Integer price,
 			String title, List<Chapter> chapters, List<Character> characters, List<Quest> quests,
 			List<Category> bookCategories, List<Author> bookAuthors) {
 		super();
@@ -115,11 +114,11 @@ public class InteractiveBook {
 		this.interactiveBookId = interactiveBookId;
 	}
 
-	public Blob getBookCover() {
+	public byte[] getBookCover() {
 		return bookCover;
 	}
 
-	public void setBookCover(Blob bookCover) {
+	public void setBookCover(byte[] bookCover) {
 		this.bookCover = bookCover;
 	}
 
