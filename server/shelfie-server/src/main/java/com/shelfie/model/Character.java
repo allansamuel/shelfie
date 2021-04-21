@@ -26,7 +26,7 @@ public class Character {
 	
 	@Lob
 	@Column(name = "character_image", length = 100000)
-	private Blob characterImage;
+	private byte[] characterImage;
 	
 	@Column(name = "character_description", length = 800)
 	private String characterDescription;
@@ -39,7 +39,7 @@ public class Character {
 		super();
 	}
 
-	public Character(Integer characterId, String characterName, Blob characterImage, String characterDescription,
+	public Character(Integer characterId, String characterName, byte[] characterImage, String characterDescription,
 			InteractiveBook interactiveBook) {
 		super();
 		this.characterId = characterId;
@@ -65,11 +65,11 @@ public class Character {
 		this.characterName = characterName;
 	}
 
-	public Blob getCharacterImage() {
+	public byte[] getCharacterImage() {
 		return characterImage;
 	}
 
-	public void setCharacterImage(Blob characterImage) {
+	public void setCharacterImage(byte[] characterImage) {
 		this.characterImage = characterImage;
 	}
 
