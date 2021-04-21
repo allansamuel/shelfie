@@ -31,8 +31,8 @@ public class ChildProfileController {
 	}
 	
 	@GetMapping("{id}")
-	public ResponseEntity<ChildProfile> getById(@PathVariable(value = "id") Integer childProfileId) throws Exception {
-		ChildProfile childProfile = childProfileRepository.findById(childProfileId)
+	public ResponseEntity<ChildProfile> getById(@PathVariable Integer id) throws Exception {
+		ChildProfile childProfile = childProfileRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("not found"));
 		return ResponseEntity.ok().body(childProfile);		
 	}
@@ -49,9 +49,9 @@ public class ChildProfileController {
 	
 	@PutMapping("{id}")
 	public ResponseEntity<ChildProfile> edit(@RequestBody ChildProfile childProfileBody, 
-			@PathVariable(value = "id") Integer childProfileId) throws Exception {
+			@PathVariable Integer id) throws Exception {
 		
-		ChildProfile childProfile = childProfileRepository.findById(childProfileId)
+		ChildProfile childProfile = childProfileRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("not found"));
 		
 		childProfile.setNickname(childProfileBody.getNickname());
@@ -62,10 +62,10 @@ public class ChildProfileController {
 	}
 	
 	@PutMapping("{id}/update_coins/{value}")
-	public ResponseEntity<Integer> updateCoins(@PathVariable(value = "id") Integer childProfileId,
-			@PathVariable(value = "value") Integer value) throws Exception {
+	public ResponseEntity<Integer> updateCoins(@PathVariable Integer id,
+			@PathVariable Integer value) throws Exception {
 		
-		ChildProfile childProfile = childProfileRepository.findById(childProfileId)
+		ChildProfile childProfile = childProfileRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("not found"));
 		
 		Integer updatedCoins = childProfile.getCoins() + value;
@@ -77,9 +77,9 @@ public class ChildProfileController {
 	
 	
 	@DeleteMapping("{id}")
-	public void delete(@PathVariable(value = "id") Integer childProfileId) throws Exception {
+	public void delete(@PathVariable Integer id) throws Exception {
 		
-		ChildProfile childProfile = childProfileRepository.findById(childProfileId)
+		ChildProfile childProfile = childProfileRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("not found"));
 		
 		childProfileRepository.delete(childProfile);
