@@ -1,8 +1,6 @@
 package com.shelfie.controller;
 
-
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,33 +10,33 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.shelfie.model.Quest;
-import com.shelfie.repository.QuestRepository;
+import com.shelfie.model.Author;
+import com.shelfie.repository.AuthorRepository;
 import javassist.NotFoundException;
 
 @RestController
-@RequestMapping("quest")
-public class QuestController {
+@RequestMapping("author")
+public class AuthorController {
 	
 	@Autowired
-	private QuestRepository questRepository;
+	private AuthorRepository authorRepository;
 	
 	@GetMapping("{id}")
-	public ResponseEntity<Quest> getQuestById(@PathVariable Integer id) throws Exception {
-	 Quest quest = questRepository.findById(id)
+	public ResponseEntity<Author> getAuthorById(@PathVariable Integer id) throws Exception {
+	 Author author = authorRepository.findById(id)
 			 .orElseThrow(() -> new NotFoundException ("not found" + id));
-	 return ResponseEntity.ok().body(quest);
+	 return ResponseEntity.ok().body(author);
 	}
 	
 	@GetMapping
-	public List <Quest> getAll(){
-	 List <Quest> quest = questRepository.findAll();
-	 return quest;
+	public List <Author> getAll(){
+	 List <Author> author = authorRepository.findAll();
+	 return author;
 	}
 
 	@PostMapping
-	public Quest createQuest(@RequestBody Quest quest) throws Exception{
-		Quest newQuest = questRepository.save(quest);
-		return questRepository.save(newQuest); 
+	public Author createAuthor(@RequestBody Author author) throws Exception{
+		Author newAuthor = authorRepository.save(author);
+		return authorRepository.save(newAuthor); 
 	}
 }
