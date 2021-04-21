@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shelfie.model.GuardianUser;
@@ -26,33 +27,37 @@ public class GuardianUserController {
 	private GuardianUserRepository guardianUserRepository;
 	
 	@GetMapping("{id}")
-	public ResponseEntity<GuardianUser> getGuardianUserById(@PathVariable(value = "id") Integer guardianUserId)
-	 throws Exception {
-		
-	 GuardianUser guardianUser = guardianUserRepository.findById(guardianUserId)
-			 .orElseThrow(() -> new NotFoundException ("not found" + guardianUserId));
+	@ResponseBody
+	public ResponseEntity<GuardianUser> getGuardianUserById(@PathVariable Integer id) throws Exception {
+	 GuardianUser guardianUser = guardianUserRepository.findById(id)
+			 .orElseThrow(() -> new NotFoundException ("not found" + id));
 	 
 	 return ResponseEntity.ok().body(guardianUser);
 	}
 	
 	@GetMapping("{id}/childProfiles")
-	public ResponseEntity<List<ChildProfile>> getChildProfiles(@PathVariable(value = "id") Integer guardianUserId) throws Exception {
-		 GuardianUser guardianUser = guardianUserRepository.findById(guardianUserId)
-				 .orElseThrow(() -> new NotFoundException ("not found" + guardianUserId));
+	@ResponseBody
+	public ResponseEntity<List<ChildProfile>> getChildProfiles(@PathVariable Integer id) throws Exception {
+		 GuardianUser guardianUser = guardianUserRepository.findById(id)
+				 .orElseThrow(() -> new NotFoundException ("not found" + id));
+		 
 		 return ResponseEntity.ok().body(guardianUser.getChildProfiles());
 	}
 	
 	@PostMapping
+	@ResponseBody
 	public GuardianUser createGuardianUser(@RequestBody GuardianUser guardianUser) throws Exception{
 		GuardianUser newGuardianUser = guardianUserRepository.save(guardianUser);
+		
 		return guardianUserRepository.save(newGuardianUser); 
 	}
 	
 	@PutMapping("{id}")
-	public ResponseEntity<GuardianUser> updateGuardianUser(@PathVariable(value = "id") Integer guardianUserId,
+	@ResponseBody
+	public ResponseEntity<GuardianUser> updateGuardianUser(@PathVariable Integer id,
 			@RequestBody GuardianUser guardianUserDetails) throws Exception {
-	 GuardianUser guardianUser = guardianUserRepository.findById(guardianUserId)
-			 .orElseThrow(() -> new NotFoundException("not found" + guardianUserId));
+	 GuardianUser guardianUser = guardianUserRepository.findById(id)
+			 .orElseThrow(() -> new NotFoundException("not found" + id));
 	 guardianUser.setGuardianUserName(guardianUserDetails.getGuardianUserName());
 	 guardianUser.setGuardianUserEmail(guardianUserDetails.getGuardianUserEmail());
 	 guardianUser.setGuardianUserPassword(guardianUserDetails.getGuardianUserPassword());
@@ -63,9 +68,10 @@ public class GuardianUserController {
 	}
 	
 	@DeleteMapping("{id}")
-	public void deleteGuardianUser(@PathVariable(value = "id") Integer guardianUserId) throws Exception {
-		GuardianUser guardianUser = guardianUserRepository.findById(guardianUserId)
-				 .orElseThrow(() -> new NotFoundException ("not found" + guardianUserId));
+	@ResponseBody
+	public void deleteGuardianUser(@PathVariable Integer id) throws Exception {
+		GuardianUser guardianUser = guardianUserRepository.findById(id)
+				 .orElseThrow(() -> new NotFoundException ("not found" + id));
 		guardianUserRepository.delete(guardianUser);
 	}
 }
