@@ -2,12 +2,12 @@ package com.shelfie.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -29,8 +29,11 @@ public class GuardianUser {
 	@Column (name = "guardian_user_password", length = 255)
 	private String guardianUserPassword;
 	
-	@OneToMany
-	@JoinColumn(name = "child_profile_id")
+	@OneToMany(
+			mappedBy = "guardianUser",
+	        cascade = CascadeType.ALL,
+	        orphanRemoval = true
+	        )
 	private List<ChildProfile> childProfiles;
 
 	public GuardianUser() {

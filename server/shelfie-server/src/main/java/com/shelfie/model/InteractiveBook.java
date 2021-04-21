@@ -42,16 +42,25 @@ public class InteractiveBook {
 	@Column (name = "title", length = 255)
 	private String title;
 
-	@OneToMany
-	@JoinColumn(name = "chapter_id")
+	@OneToMany(
+			mappedBy = "interactiveBook",
+	        cascade = CascadeType.ALL,
+	        orphanRemoval = true
+	        )
 	private List<Chapter> chapters;
 	
-	@OneToMany
-	@JoinColumn(name = "character_id")
+	@OneToMany(
+			mappedBy = "interactiveBook",
+	        cascade = CascadeType.ALL,
+	        orphanRemoval = true
+	        )
 	private List<Character> characters;
 	
-	@OneToMany
-	@JoinColumn(name = "quest_id")
+	@OneToMany(
+			mappedBy = "interactiveBook",
+	        cascade = CascadeType.ALL,
+	        orphanRemoval = true
+	        )
 	private List<Quest> quests;
 	
 	@ManyToMany
