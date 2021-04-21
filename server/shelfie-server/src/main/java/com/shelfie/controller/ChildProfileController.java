@@ -48,7 +48,7 @@ public class ChildProfileController {
 	}
 	
 	@PutMapping("{id}")
-	public ResponseEntity<ChildProfile> edit(@RequestBody ChildProfile childProfileBody, 
+	public ResponseEntity<ChildProfile> update(@RequestBody ChildProfile childProfileBody, 
 			@PathVariable Integer id) throws Exception {
 		
 		ChildProfile childProfile = childProfileRepository.findById(id)
