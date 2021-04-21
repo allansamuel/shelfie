@@ -20,7 +20,7 @@ import com.shelfie.repository.ChildProfileRepository;
 import javassist.NotFoundException;
 
 @Controller
-@RequestMapping("child_profiles")
+@RequestMapping("child_profile")
 public class ChildProfileController {
 
 	@Autowired
@@ -34,9 +34,10 @@ public class ChildProfileController {
 	
 	@GetMapping("{id}")
 	@ResponseBody
-	public ChildProfile getById(@PathVariable(value = "id") Integer childProfileId) throws Exception {
-		return childProfileRepository.findById(childProfileId)
-				.orElseThrow(() -> new Exception());
+	public ResponseEntity<ChildProfile> getById(@PathVariable(value = "id") Integer childProfileId) throws Exception {
+		ChildProfile childProfile = childProfileRepository.findById(childProfileId)
+				.orElseThrow(() -> new NotFoundException("not found"));
+		return ResponseEntity.ok().body(childProfile);		
 	}
 	
 	@PostMapping
@@ -44,7 +45,7 @@ public class ChildProfileController {
 	public ResponseEntity<ChildProfile> create(@RequestBody ChildProfile childProfileBody) throws Exception {
 		try {
 			ChildProfile newChildProfile = childProfileRepository.save(childProfileBody);
-			return ResponseEntity.ok(newChildProfile);
+			return ResponseEntity.ok().body(newChildProfile);
 		} catch (Exception exception) {
 			throw exception;
 		}
@@ -54,6 +55,7 @@ public class ChildProfileController {
 	@ResponseBody
 	public ResponseEntity<ChildProfile> edit(@RequestBody ChildProfile childProfileBody, 
 			@PathVariable(value = "id") Integer childProfileId) throws Exception {
+		
 		ChildProfile childProfile = childProfileRepository.findById(childProfileId)
 				.orElseThrow(() -> new NotFoundException("not found"));
 		
@@ -61,14 +63,32 @@ public class ChildProfileController {
 		childProfile.setCharacter(childProfileBody.getCharacter());
 		
 		ChildProfile updatedChildProfile = childProfileRepository.save(childProfile);
-	    return ResponseEntity.ok(updatedChildProfile);
+	    return ResponseEntity.ok().body(updatedChildProfile);
 	}
+	
+	@PutMapping("{id}/update_coins/{value}")
+	@ResponseBody
+	public ResponseEntity<Integer> updateCoins(@PathVariable(value = "id") Integer childProfileId,
+			@PathVariable(value = "value") Integer value) throws Exception {
+		
+		ChildProfile childProfile = childProfileRepository.findById(childProfileId)
+				.orElseThrow(() -> new NotFoundException("not found"));
+		
+		Integer updatedCoins = childProfile.getCoins() + value;
+		childProfile.setCoins(updatedCoins);
+		
+		childProfileRepository.save(childProfile);
+	    return ResponseEntity.ok().body(updatedCoins);
+	}
+	
 	
 	@DeleteMapping("{id}")
 	public void delete(@PathVariable(value = "id") Integer childProfileId) throws Exception {
+		
 		ChildProfile childProfile = childProfileRepository.findById(childProfileId)
 				.orElseThrow(() -> new NotFoundException("not found"));
 		
 		childProfileRepository.delete(childProfile);
 	}
+	
 }
