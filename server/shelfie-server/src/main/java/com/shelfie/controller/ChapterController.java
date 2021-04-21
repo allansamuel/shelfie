@@ -1,6 +1,7 @@
 package com.shelfie.controller;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,33 +10,34 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.shelfie.model.Quest;
-import com.shelfie.repository.QuestRepository;
+
+import com.shelfie.model.Chapter;
+import com.shelfie.repository.ChapterRepository;
 import javassist.NotFoundException;
 
 @RestController
-@RequestMapping("quest")
-public class QuestController {
+@RequestMapping("chapter")
+public class ChapterController {
 	
 	@Autowired
-	private QuestRepository questRepository;
+	private ChapterRepository chapterRepository;
 	
 	@GetMapping("{id}")
-	public ResponseEntity<Quest> getQuestById(@PathVariable Integer id) throws Exception {
-	 Quest quest = questRepository.findById(id)
+	public ResponseEntity<Chapter> getChapterById(@PathVariable Integer id) throws Exception {
+	 Chapter chapter = chapterRepository.findById(id)
 			 .orElseThrow(() -> new NotFoundException ("not found" + id));
-	 return ResponseEntity.ok().body(quest);
+	 return ResponseEntity.ok().body(chapter);
 	}
 	
 	@GetMapping
-	public List <Quest> getAll(){
-	 List <Quest> quest = questRepository.findAll();
-	 return quest;
+	public List <Chapter> getAll(){
+	 List <Chapter> chapter = chapterRepository.findAll();
+	 return chapter;
 	}
 
 	@PostMapping
-	public Quest createQuest(@RequestBody Quest quest) throws Exception{
-		Quest newQuest = questRepository.save(quest);
-		return questRepository.save(newQuest); 
+	public Chapter createChapter(@RequestBody Chapter chapter) throws Exception{
+		Chapter newChapter = chapterRepository.save(chapter);
+		return chapterRepository.save(newChapter); 
 	}
 }
