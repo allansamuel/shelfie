@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,14 +11,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.shelfie.model.ChildProfile;
 import com.shelfie.repository.ChildProfileRepository;
 
 import javassist.NotFoundException;
 
-@Controller
+@RestController
 @RequestMapping("child_profile")
 public class ChildProfileController {
 
@@ -27,13 +26,11 @@ public class ChildProfileController {
 	private ChildProfileRepository childProfileRepository;
 	
 	@GetMapping
-	@ResponseBody
 	public List<ChildProfile> getAll() {
 		return childProfileRepository.findAll();
 	}
 	
 	@GetMapping("{id}")
-	@ResponseBody
 	public ResponseEntity<ChildProfile> getById(@PathVariable(value = "id") Integer childProfileId) throws Exception {
 		ChildProfile childProfile = childProfileRepository.findById(childProfileId)
 				.orElseThrow(() -> new NotFoundException("not found"));
@@ -41,7 +38,6 @@ public class ChildProfileController {
 	}
 	
 	@PostMapping
-	@ResponseBody
 	public ResponseEntity<ChildProfile> create(@RequestBody ChildProfile childProfileBody) throws Exception {
 		try {
 			ChildProfile newChildProfile = childProfileRepository.save(childProfileBody);
@@ -52,7 +48,6 @@ public class ChildProfileController {
 	}
 	
 	@PutMapping("{id}")
-	@ResponseBody
 	public ResponseEntity<ChildProfile> edit(@RequestBody ChildProfile childProfileBody, 
 			@PathVariable(value = "id") Integer childProfileId) throws Exception {
 		
@@ -67,7 +62,6 @@ public class ChildProfileController {
 	}
 	
 	@PutMapping("{id}/update_coins/{value}")
-	@ResponseBody
 	public ResponseEntity<Integer> updateCoins(@PathVariable(value = "id") Integer childProfileId,
 			@PathVariable(value = "value") Integer value) throws Exception {
 		
