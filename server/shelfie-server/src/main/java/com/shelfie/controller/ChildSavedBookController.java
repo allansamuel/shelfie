@@ -22,21 +22,29 @@ public class ChildSavedBookController {
 	private ChildSavedBookRepository childSavedBookRepository;
 	
 	@GetMapping("{id}")
-	public ResponseEntity<ChildSavedBook> getChildSavedBookById(@PathVariable Integer id) throws Exception {
+	public ResponseEntity<ChildSavedBook> getById(@PathVariable Integer id) throws Exception {
 		ChildSavedBook childSavedBook = childSavedBookRepository.findById(id)
 			 .orElseThrow(() -> new NotFoundException ("not found" + id));
 	 return ResponseEntity.ok().body(childSavedBook);
 	}
 	
 	@GetMapping
-	public List <ChildSavedBook> getAll(){
-	 List <ChildSavedBook> childSavedBooks = childSavedBookRepository.findAll();
-	 return childSavedBooks;
+	public ResponseEntity<List<ChildSavedBook>> getAll(){
+		try {
+			List <ChildSavedBook> childSavedBooks = childSavedBookRepository.findAll();
+			return ResponseEntity.ok().body(childSavedBooks);
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 
 	@PostMapping
-	public ChildSavedBook createQuest(@RequestBody ChildSavedBook childSavedBook) throws Exception{
+	public ResponseEntity<ChildSavedBook> create(@RequestBody ChildSavedBook childSavedBook) throws Exception{
 		ChildSavedBook newChildSavedBook = childSavedBookRepository.save(childSavedBook);
-		return childSavedBookRepository.save(newChildSavedBook); 
+		try {
+			return ResponseEntity.ok().body(newChildSavedBook);
+		} catch (Exception exception) {
+			throw exception;
+		} 
 	}
 }

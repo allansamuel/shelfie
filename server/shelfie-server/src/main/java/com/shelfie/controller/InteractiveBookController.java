@@ -28,8 +28,13 @@ public class InteractiveBookController {
 	private InteractiveBookRepository interactiveBookRepository;
 	
 	@GetMapping
-	public List<InteractiveBook> getAll() {
-		return interactiveBookRepository.findAll();
+	public ResponseEntity<List<InteractiveBook>> getAll() {
+		try {
+			List <InteractiveBook> interactivebooks = interactiveBookRepository.findAll();
+			return ResponseEntity.ok().body(interactivebooks);
+		} catch (Exception exception) {
+			throw exception;
+		}	
 	}
 	
 	@GetMapping("{id}")

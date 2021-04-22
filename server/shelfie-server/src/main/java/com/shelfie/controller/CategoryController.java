@@ -22,23 +22,27 @@ public class CategoryController {
 	private CategoryRepository categoryRepository;
 
 	@GetMapping("{id}")
-	public ResponseEntity<Category> getCategoryById(@PathVariable Integer id) throws Exception {
+	public ResponseEntity<Category> getById(@PathVariable Integer id) throws Exception {
 		Category category = categoryRepository.findById(id)
 			 .orElseThrow(() -> new NotFoundException ("not found" + id));
 	 return ResponseEntity.ok().body(category);
 	}
 	
 	@GetMapping
-	public List <Category> getAll(){
-	 List <Category> category = categoryRepository.findAll();
-	 return category;
+	public ResponseEntity<List<Category>> getAll(){
+		try {
+		List <Category> category = categoryRepository.findAll();
+		return ResponseEntity.ok().body(category);
+		} catch (Exception exception) {
+			throw exception;
+		} 
 	}
 	
 	@PostMapping
-	public Category createCategory (@RequestBody Category  category ) throws Exception{
+	public ResponseEntity<Category> create(@RequestBody Category  category ) throws Exception{
 		try {
 			Category newCategory  = categoryRepository.save(category );
-		return categoryRepository.save(newCategory ); 
+		return ResponseEntity.ok().body(newCategory ); 
 		} catch (Exception exception) {
 			throw exception;
 		} 

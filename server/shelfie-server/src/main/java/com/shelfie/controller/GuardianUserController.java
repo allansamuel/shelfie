@@ -26,10 +26,9 @@ public class GuardianUserController {
 	private GuardianUserRepository guardianUserRepository;
 	
 	@GetMapping("{id}")
-	public ResponseEntity<GuardianUser> getGuardianUserById(@PathVariable Integer id) throws Exception {
+	public ResponseEntity<GuardianUser> getById(@PathVariable Integer id) throws Exception {
 	 GuardianUser guardianUser = guardianUserRepository.findById(id)
 			 .orElseThrow(() -> new NotFoundException ("not found" + id));
-	 
 	 return ResponseEntity.ok().body(guardianUser);
 	}
 	
@@ -37,25 +36,25 @@ public class GuardianUserController {
 	public ResponseEntity<List<ChildProfile>> getChildProfiles(@PathVariable Integer id) throws Exception {
 		 GuardianUser guardianUser = guardianUserRepository.findById(id)
 				 .orElseThrow(() -> new NotFoundException ("not found" + id));
-		 
 		 return ResponseEntity.ok().body(guardianUser.getChildProfiles());
 	}
 	
 	@PostMapping
-	public GuardianUser createGuardianUser(@RequestBody GuardianUser guardianUser) throws Exception{
+	public ResponseEntity<GuardianUser> create(@RequestBody GuardianUser guardianUser) throws Exception{
 		try {
 			GuardianUser newGuardianUser = guardianUserRepository.save(guardianUser);
-			return guardianUserRepository.save(newGuardianUser);
+			 return ResponseEntity.ok().body(newGuardianUser);
 		} catch (Exception exception) {
 			throw exception;
 		} 
 	}
 	
 	@PutMapping("{id}")
-	public ResponseEntity<GuardianUser> updateGuardianUser(@PathVariable Integer id,
+	public ResponseEntity<GuardianUser> update(@PathVariable Integer id,
 			@RequestBody GuardianUser guardianUserDetails) throws Exception {
 	 GuardianUser guardianUser = guardianUserRepository.findById(id)
 			 .orElseThrow(() -> new NotFoundException("not found" + id));
+	 
 	 guardianUser.setGuardianUserName(guardianUserDetails.getGuardianUserName());
 	 guardianUser.setGuardianUserEmail(guardianUserDetails.getGuardianUserEmail());
 	 guardianUser.setGuardianUserPassword(guardianUserDetails.getGuardianUserPassword());
@@ -66,9 +65,11 @@ public class GuardianUserController {
 	}
 	
 	@DeleteMapping("{id}")
-	public void deleteGuardianUser(@PathVariable Integer id) throws Exception {
+	public void delete(@PathVariable Integer id) throws Exception {
+		
 		GuardianUser guardianUser = guardianUserRepository.findById(id)
 				 .orElseThrow(() -> new NotFoundException ("not found" + id));
+		
 		guardianUserRepository.delete(guardianUser);
 	}
 }

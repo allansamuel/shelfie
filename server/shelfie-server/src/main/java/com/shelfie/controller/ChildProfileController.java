@@ -26,8 +26,13 @@ public class ChildProfileController {
 	private ChildProfileRepository childProfileRepository;
 	
 	@GetMapping
-	public List<ChildProfile> getAll() {
-		return childProfileRepository.findAll();
+	public ResponseEntity<List<ChildProfile>> getAll() {
+		try {
+			List <ChildProfile> childProfiles = childProfileRepository.findAll();
+			return ResponseEntity.ok().body(childProfiles);
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 	
 	@GetMapping("{id}")
@@ -74,7 +79,6 @@ public class ChildProfileController {
 		childProfileRepository.save(childProfile);
 	    return ResponseEntity.ok().body(updatedCoins);
 	}
-	
 	
 	@DeleteMapping("{id}")
 	public void delete(@PathVariable Integer id) throws Exception {

@@ -21,21 +21,29 @@ public class QuestController {
 	private QuestRepository questRepository;
 	
 	@GetMapping("{id}")
-	public ResponseEntity<Quest> getQuestById(@PathVariable Integer id) throws Exception {
+	public ResponseEntity<Quest> getById(@PathVariable Integer id) throws Exception {
 	 Quest quest = questRepository.findById(id)
 			 .orElseThrow(() -> new NotFoundException ("not found" + id));
 	 return ResponseEntity.ok().body(quest);
 	}
 	
 	@GetMapping
-	public List <Quest> getAll(){
-	 List <Quest> quest = questRepository.findAll();
-	 return quest;
+	public ResponseEntity<List<Quest>> getAll(){
+		try {
+			List <Quest> quests = questRepository.findAll();
+			return ResponseEntity.ok().body(quests);
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 
 	@PostMapping
-	public Quest createQuest(@RequestBody Quest quest) throws Exception{
-		Quest newQuest = questRepository.save(quest);
-		return questRepository.save(newQuest); 
+	public Quest create(@RequestBody Quest quest) throws Exception{
+		try {
+			Quest newQuest = questRepository.save(quest);
+			return questRepository.save(newQuest); 
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 }

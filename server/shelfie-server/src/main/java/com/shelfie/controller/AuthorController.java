@@ -22,21 +22,29 @@ public class AuthorController {
 	private AuthorRepository authorRepository;
 	
 	@GetMapping("{id}")
-	public ResponseEntity<Author> getAuthorById(@PathVariable Integer id) throws Exception {
+	public ResponseEntity<Author> getById(@PathVariable Integer id) throws Exception {
 	 Author author = authorRepository.findById(id)
 			 .orElseThrow(() -> new NotFoundException ("not found" + id));
 	 return ResponseEntity.ok().body(author);
 	}
 	
 	@GetMapping
-	public List <Author> getAll(){
-	 List <Author> author = authorRepository.findAll();
-	 return author;
+	public ResponseEntity<List<Author>> getAll(){
+		try {
+			List <Author> author = authorRepository.findAll();
+			return ResponseEntity.ok().body(author); 
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 
 	@PostMapping
-	public Author createAuthor(@RequestBody Author author) throws Exception{
+	public ResponseEntity<Author> create(@RequestBody Author author) throws Exception{
+		try {
 		Author newAuthor = authorRepository.save(author);
-		return authorRepository.save(newAuthor); 
+		return ResponseEntity.ok().body(newAuthor); 
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 }

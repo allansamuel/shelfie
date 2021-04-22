@@ -23,21 +23,29 @@ public class ChapterController {
 	private ChapterRepository chapterRepository;
 	
 	@GetMapping("{id}")
-	public ResponseEntity<Chapter> getChapterById(@PathVariable Integer id) throws Exception {
+	public ResponseEntity<Chapter> getById(@PathVariable Integer id) throws Exception {
 	 Chapter chapter = chapterRepository.findById(id)
 			 .orElseThrow(() -> new NotFoundException ("not found" + id));
 	 return ResponseEntity.ok().body(chapter);
 	}
 	
 	@GetMapping
-	public List <Chapter> getAll(){
-	 List <Chapter> chapter = chapterRepository.findAll();
-	 return chapter;
+	public ResponseEntity<List<Chapter>> getAll(){
+		try {
+			List <Chapter> chapter = chapterRepository.findAll();
+			return ResponseEntity.ok().body(chapter);
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 
 	@PostMapping
-	public Chapter createChapter(@RequestBody Chapter chapter) throws Exception{
-		Chapter newChapter = chapterRepository.save(chapter);
-		return chapterRepository.save(newChapter); 
+	public ResponseEntity<Chapter> create(@RequestBody Chapter chapter) throws Exception{
+		try {
+			Chapter newChapter = chapterRepository.save(chapter);
+			return ResponseEntity.ok().body(newChapter);
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 }

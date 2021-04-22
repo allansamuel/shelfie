@@ -27,7 +27,7 @@ public class CharacterController {
 	private CharacterRepository characterRepository;
 
 	@GetMapping("{id}")
-	public ResponseEntity<Character> getCharacterById(@PathVariable Integer id) throws Exception {
+	public ResponseEntity<Character> getById(@PathVariable Integer id) throws Exception {
 	 Character character = characterRepository.findById(id)
 			 .orElseThrow(() -> new NotFoundException ("not found" + id));
 
@@ -35,17 +35,20 @@ public class CharacterController {
 	}
 	
 	@GetMapping
-	public List <Character> getAll(){
-	 List <Character> character = characterRepository.findAll();
-	 return character;
+	public ResponseEntity<List <Character>> getAll(){
+		try {
+			List <Character> character = characterRepository.findAll();
+			return ResponseEntity.ok(character);
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 	
 	@PostMapping
-	public Character createCharacter(@RequestBody Character characterBody) throws Exception{
+	public ResponseEntity<Character> create(@RequestBody Character characterBody) throws Exception{
 		try {
-			
 			Character newCharacter = characterRepository.save(characterBody); 
-			return newCharacter;
+			return ResponseEntity.ok(newCharacter);
 		} catch (Exception exception) {
 			throw exception;
 		} 
