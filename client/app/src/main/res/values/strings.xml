@@ -1,6 +1,18 @@
 <resources>
+    <!-- Shelfie server connection -->
+    <string name="server_baseurl">http://localhost:8080/</string>
+
     <string name="app_name">Shelfie</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
+    <!-- Form -->
+    <string name="name">Nome</string>
+    <string name="email">Email</string>
+    <string name="password">Senha</string>
+    <string name="password_confirm">Confirmação de senha</string>
+
+    <!-- Button -->
+    <string name="next">Próximo</string>
 </resources>
