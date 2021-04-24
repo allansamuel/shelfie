@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Shelfie">
-        <activity android:name=".ui.guardianUserForm.GuardianUserFormActivity">
+        <activity android:name=".ui.formGuardianUser.FormGuardianUserActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

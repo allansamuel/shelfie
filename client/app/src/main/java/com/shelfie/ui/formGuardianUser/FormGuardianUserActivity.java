@@ -1,4 +1,4 @@
-package com.shelfie.ui.guardianUserForm;
+package com.shelfie.ui.formGuardianUser;
 
 import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
@@ -16,7 +16,7 @@ import com.shelfie.config.RetrofitConfig;
 import com.shelfie.model.GuardianUser;
 import com.shelfie.service.GuardianUserService;
 
-public class GuardianUserFormActivity extends AppCompatActivity {
+public class FormGuardianUserActivity extends AppCompatActivity {
 
     private RetrofitConfig retrofitConfig;
     private GuardianUserService guardianUserService;
@@ -35,7 +35,7 @@ public class GuardianUserFormActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_guardian_user_form);
+        setContentView(R.layout.activity_form_guardian_user);
 
         initializeElements();
 

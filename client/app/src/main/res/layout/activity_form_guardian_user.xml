@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:clipChildren="false"
     android:orientation="vertical"
-    tools:context=".ui.guardianUserForm.GuardianUserFormActivity">
+    tools:context=".ui.formGuardianUser.FormGuardianUserActivity">
 
     <Button
         android:id="@+id/button_guardian_user_next"
