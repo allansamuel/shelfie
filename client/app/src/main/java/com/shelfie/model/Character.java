@@ -4,7 +4,7 @@ public class Character {
 
     private Integer characterId;
     private String characterName;
-    private byte[] characterImage;
+    private String characterImage;
     private String characterDescription;
 //    private InteractiveBook interactiveBook;
 
@@ -12,7 +12,7 @@ public class Character {
         super();
     }
 
-    public Character(Integer characterId, String characterName, byte[] characterImage, String characterDescription
+    public Character(Integer characterId, String characterName, String characterImage, String characterDescription
 //                     InteractiveBook interactiveBook
     ) {
         super();
@@ -39,11 +39,11 @@ public class Character {
         this.characterName = characterName;
     }
 
-    public byte[] getCharacterImage() {
+    public String getCharacterImage() {
         return characterImage;
     }
 
-    public void setCharacterImage(byte[] characterImage) {
+    public void setCharacterImage(String characterImage) {
         this.characterImage = characterImage;
     }
 

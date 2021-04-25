@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -97,7 +99,6 @@ public class FormChildProfileActivity extends AppCompatActivity {
         btnCreateChildProfile = findViewById(R.id.btn_child_profile_create);
 
         setCharacterList();
-        hideCharacterNavigationButtons();
     }
 
     private void setCharacterList() {
@@ -123,17 +124,20 @@ public class FormChildProfileActivity extends AppCompatActivity {
     }
 
     private void setCharacterImagePreview() {
+        byte[] decodedString = Base64.decode(currentCharacter.getCharacterImage(), Base64.DEFAULT);
         characterImagePreview = BitmapFactory.decodeByteArray(
-                currentCharacter.getCharacterImage(),
+                decodedString,
                 0,
-                currentCharacter.getCharacterImage().length);
+                decodedString.length);
         imgCharacterPreview.setImageBitmap(characterImagePreview);
+        hideCharacterNavigationButtons();
     }
 
     private void hideCharacterNavigationButtons() {
         if(characterList.indexOf(currentCharacter) == 0) {
             ibPreviousCharacter.setVisibility(View.INVISIBLE);
-        } else if(characterList.indexOf(currentCharacter) == characterList.size() - 1) {
+        }
+        if(characterList.indexOf(currentCharacter) == characterList.size() - 1) {
             ibNextCharacter.setVisibility(View.INVISIBLE);
         }
     }

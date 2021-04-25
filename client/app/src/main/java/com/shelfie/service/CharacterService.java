@@ -9,7 +9,7 @@ import retrofit2.http.GET;
 
 public interface CharacterService {
 
-    @GET("child_profile/")
+    @GET("character/")
     Call<ArrayList<Character>> getAll();
 
 }

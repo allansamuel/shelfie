@@ -38,7 +38,7 @@ public class ManageChildProfileActivity extends AppCompatActivity {
         cvAddChildProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent newIntent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
+                Intent newIntent = new Intent(getApplicationContext(), FormChildProfileActivity.class);
                 Bundle newIntentBundle = new Bundle();
                 newIntentBundle.putSerializable("GUARDIAN_USER_DATA", guardianUser);
                 newIntent.putExtras(newIntentBundle);

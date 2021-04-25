@@ -40,7 +40,8 @@
                 android:id="@+id/et_child_profile_nickname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Qual é o seu nome?" />
+                android:hint="Qual é o seu nome?"
+                android:inputType="textPersonName|textCapWords" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
@@ -102,12 +103,12 @@
 
             <ImageView
                 android:id="@+id/img_character_preview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="250dp"
+                android:layout_height="350dp"
                 android:layout_weight="2"
                 android:minWidth="250dp"
                 android:minHeight="350dp"
-                tools:srcCompat="@drawable/ic_person_black_36dp" />
+                app:srcCompat="@drawable/ic_person_black_36dp" />
 
             <ImageButton
                 android:id="@+id/ib_next_character"
