@@ -27,7 +27,7 @@ public class ChildProfile {
 	@Column(name = "nickname", length = 255)
 	private String  nickname;
 	
-	@Column(name = "coins")
+	@Column(name = "coins", columnDefinition = "default 0")
 	private Integer coins;
 	
 	@ManyToOne

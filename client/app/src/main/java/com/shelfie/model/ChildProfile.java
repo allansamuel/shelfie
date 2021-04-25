@@ -1,8 +1,9 @@
 package com.shelfie.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ChildProfile {
+public class ChildProfile implements Serializable {
 
     private Integer childProfileId;
     private String  nickname;
