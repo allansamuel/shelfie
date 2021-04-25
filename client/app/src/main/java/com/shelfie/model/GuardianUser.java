@@ -1,8 +1,9 @@
 package com.shelfie.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class GuardianUser {
+public class GuardianUser implements Serializable {
 
     private Integer guardianUserId;
     private String guardianUserName;

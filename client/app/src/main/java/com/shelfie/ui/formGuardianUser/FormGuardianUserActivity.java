@@ -5,16 +5,19 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.shelfie.R;
 import com.shelfie.config.RetrofitConfig;
 import com.shelfie.model.GuardianUser;
 import com.shelfie.service.GuardianUserService;
+import com.shelfie.ui.formChildProfile.FormChildProfileActivity;
 
 public class FormGuardianUserActivity extends AppCompatActivity {
 
@@ -42,7 +45,7 @@ public class FormGuardianUserActivity extends AppCompatActivity {
         buttonGuardianUserNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                createGuardianUser();
             }
         });
     }
@@ -63,6 +66,7 @@ public class FormGuardianUserActivity extends AppCompatActivity {
     }
 
     private void createGuardianUser() {
+        guardianUser = new GuardianUser();
         guardianUser.setGuardianUserName(etGuardianUserName.getText().toString());
         guardianUser.setGuardianUserEmail(etGuardianUserEmail.getText().toString());
         guardianUser.setGuardianUserPassword(etGuardianUserPassword.getText().toString());
@@ -70,12 +74,20 @@ public class FormGuardianUserActivity extends AppCompatActivity {
         guardianUserService.create(guardianUser).enqueue(new Callback<GuardianUser>() {
             @Override
             public void onResponse(Call<GuardianUser> call, Response<GuardianUser> response) {
-
+                if(response.isSuccessful()) {
+                    Intent intent = new Intent(getApplicationContext(), FormChildProfileActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("NEW_GUARDIAN_DATA", response.body());
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                } else {
+                    Snackbar.make(getWindow().getDecorView().getRootView(), "nao deu colega", Snackbar.LENGTH_LONG).show();
+                }
             }
 
             @Override
             public void onFailure(Call<GuardianUser> call, Throwable t) {
-
+                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_LONG).show();
             }
         });
     }

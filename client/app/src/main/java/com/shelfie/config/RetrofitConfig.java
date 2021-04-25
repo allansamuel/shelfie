@@ -13,7 +13,7 @@ public class RetrofitConfig {
 
     public RetrofitConfig() {
         this.retrofit = new Retrofit.Builder()
-                .baseUrl("http://localhost:8080/")
+                .baseUrl("http://10.0.0.103:8080/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
