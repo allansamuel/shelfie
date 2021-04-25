@@ -91,6 +91,7 @@ public class FormChildProfileActivity extends AppCompatActivity {
         btnCreateChildProfile = findViewById(R.id.btn_child_profile_create);
 
         setCharacterList();
+        hideCharacterNavigationButtons();
     }
 
     private void setCharacterList() {
@@ -123,10 +124,19 @@ public class FormChildProfileActivity extends AppCompatActivity {
         imgCharacterPreview.setImageBitmap(characterImagePreview);
     }
 
+    private void hideCharacterNavigationButtons() {
+        if(characterList.indexOf(currentCharacter) == 0) {
+            ibPreviousCharacter.setVisibility(View.INVISIBLE);
+        } else if(characterList.indexOf(currentCharacter) == characterList.size() - 1) {
+            ibNextCharacter.setVisibility(View.INVISIBLE);
+        }
+    }
+
     private void getPreviousCharacter() {
         if(characterListIterator.hasPrevious()) {
             currentCharacter = (Character) characterListIterator.previous();
             setCharacterImagePreview();
+            hideCharacterNavigationButtons();
         }
     }
 
@@ -134,6 +144,7 @@ public class FormChildProfileActivity extends AppCompatActivity {
         if(characterListIterator.hasNext()) {
             currentCharacter = (Character) characterListIterator.next();
             setCharacterImagePreview();
+            hideCharacterNavigationButtons();
         }
     }
 
