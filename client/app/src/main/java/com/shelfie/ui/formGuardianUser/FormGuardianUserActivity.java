@@ -33,7 +33,7 @@ public class FormGuardianUserActivity extends AppCompatActivity {
     private TextInputEditText etGuardianUserPassword;
     private TextInputLayout txtGuardianUserPasswordConfirm;
     private TextInputEditText etGuardianUserPasswordConfirm;
-    private Button buttonGuardianUserNext;
+    private Button btnGuardianUserNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class FormGuardianUserActivity extends AppCompatActivity {
 
         init();
 
-        buttonGuardianUserNext.setOnClickListener(new View.OnClickListener() {
+        btnGuardianUserNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 createGuardianUser();
@@ -62,7 +62,7 @@ public class FormGuardianUserActivity extends AppCompatActivity {
         etGuardianUserPassword = findViewById(R.id.et_guardian_user_password);
         txtGuardianUserPasswordConfirm = findViewById(R.id.txt_guardian_user_password_confirm);
         etGuardianUserPasswordConfirm = findViewById(R.id.et_guardian_user_password_confirm);
-        buttonGuardianUserNext = findViewById(R.id.button_guardian_user_next);
+        btnGuardianUserNext = findViewById(R.id.btn_guardian_user_next);
     }
 
     private void createGuardianUser() {

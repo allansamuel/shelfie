@@ -42,7 +42,7 @@ public class ManageChildProfileActivity extends AppCompatActivity {
         retrofitConfig = new RetrofitConfig();
         childProfileService = retrofitConfig.getChildProfileService();
 
-        flexboxChildProfiles = findViewById(R.id.flexbox_child_profiles);
+        flexboxChildProfiles = findViewById(R.id.flexbox_child_profile);
         cvAddChildProfile = findViewById(R.id.cv_add_child_profile);
     }
 }
