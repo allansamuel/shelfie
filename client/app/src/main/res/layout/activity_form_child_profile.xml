@@ -63,7 +63,7 @@
         app:alignContent="flex_start"
         app:alignItems="flex_start"
         app:flexWrap="wrap"
-        app:justifyContent="space_around"
+        app:justifyContent="flex_start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,7 +73,9 @@
             android:id="@+id/cv_add_child_profile"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            app:cardCornerRadius="50dp">
+            android:foregroundGravity="left"
+            app:cardCornerRadius="50dp"
+            tools:layout_editor_absoluteX="130dp">
 
             <ImageView
                 android:id="@+id/imageView2"

@@ -30,22 +30,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="TextView"
-            android:textAlignment="center" />
+            android:text="Boas vindas!"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="TextView"
+            android:text="Primeiramente precisamos dos dados dos responsáveis, por segurança."
             android:textAlignment="center" />
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:src="@tools:sample/avatars" />
+            tools:src="@drawable/sign_up_illustration" />
 
     </LinearLayout>
 
