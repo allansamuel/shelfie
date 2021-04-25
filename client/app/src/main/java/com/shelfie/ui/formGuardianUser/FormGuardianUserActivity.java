@@ -37,7 +37,7 @@ public class FormGuardianUserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_guardian_user);
 
-        initializeElements();
+        init();
 
         buttonGuardianUserNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,7 +47,7 @@ public class FormGuardianUserActivity extends AppCompatActivity {
         });
     }
 
-    private void initializeElements() {
+    private void init() {
         retrofitConfig = new RetrofitConfig();
         guardianUserService = retrofitConfig.getProductService();
 
