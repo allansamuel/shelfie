@@ -3,6 +3,7 @@ package com.shelfie.ui.formChildProfile;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -10,11 +11,15 @@ import com.google.android.flexbox.FlexboxLayout;
 import com.shelfie.R;
 import com.shelfie.config.RetrofitConfig;
 import com.shelfie.model.ChildProfile;
+import com.shelfie.model.GuardianUser;
 import com.shelfie.service.ChildProfileService;
 
 import java.util.List;
 
 public class ManageChildProfileActivity extends AppCompatActivity {
+
+    private Bundle prevBundle;
+    private GuardianUser guardianUser;
 
     private RetrofitConfig retrofitConfig;
     private ChildProfileService childProfileService;
@@ -33,16 +38,23 @@ public class ManageChildProfileActivity extends AppCompatActivity {
         cvAddChildProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent newIntent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
+                Bundle newIntentBundle = new Bundle();
+                newIntentBundle.putSerializable("GUARDIAN_USER_DATA", guardianUser);
+                newIntent.putExtras(newIntentBundle);
+                startActivity(newIntent);
             }
         });
     }
 
     private void init() {
+        prevBundle = getIntent().getExtras();
+        guardianUser = (GuardianUser) prevBundle.getSerializable("NEW_GUARDIAN_USER_DATA");
+
         retrofitConfig = new RetrofitConfig();
         childProfileService = retrofitConfig.getChildProfileService();
 
-        flexboxChildProfiles = findViewById(R.id.flexbox_child_profile);
+        flexboxChildProfiles = findViewById(R.id.flexbox_child_profiles);
         cvAddChildProfile = findViewById(R.id.cv_add_child_profile);
     }
 }

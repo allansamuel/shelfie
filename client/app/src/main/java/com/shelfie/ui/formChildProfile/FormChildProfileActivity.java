@@ -21,15 +21,18 @@ import com.shelfie.R;
 import com.shelfie.config.RetrofitConfig;
 import com.shelfie.model.Character;
 import com.shelfie.model.ChildProfile;
+import com.shelfie.model.GuardianUser;
 import com.shelfie.service.CharacterService;
 import com.shelfie.service.ChildProfileService;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
 public class FormChildProfileActivity extends AppCompatActivity {
+
+    private Bundle prevBundle;
+    private GuardianUser guardianUser;
 
     private RetrofitConfig retrofitConfig;
     private ChildProfileService childProfileService;
@@ -77,6 +80,9 @@ public class FormChildProfileActivity extends AppCompatActivity {
     }
 
     private void init() {
+        prevBundle = getIntent().getExtras();
+        guardianUser = (GuardianUser) prevBundle.getSerializable("GUARDIAN_USER_DATA");
+
         characterList = new ArrayList<>();
         characterListIterator = characterList.listIterator();
         retrofitConfig = new RetrofitConfig();
@@ -152,6 +158,7 @@ public class FormChildProfileActivity extends AppCompatActivity {
         childProfile = new ChildProfile();
         childProfile.setNickname(etChildProfileNickname.getText().toString());
         childProfile.setCharacter(currentCharacter);
+        childProfile.setGuardianUser(guardianUser);
 
         childProfileService.create(childProfile).enqueue(new Callback<ChildProfile>() {
             @Override
