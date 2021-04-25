@@ -2,6 +2,7 @@ package com.shelfie.config;
 
 
 import com.shelfie.R;
+import com.shelfie.service.ChildProfileService;
 import com.shelfie.service.GuardianUserService;
 
 import retrofit2.Retrofit;
@@ -18,7 +19,11 @@ public class RetrofitConfig {
                 .build();
     }
 
-    public GuardianUserService getProductService() {
+    public GuardianUserService getGuardianUserService() {
         return this.retrofit.create(GuardianUserService.class);
+    }
+
+    public ChildProfileService getChildProfileService() {
+        return this.retrofit.create(ChildProfileService.class);
     }
 }

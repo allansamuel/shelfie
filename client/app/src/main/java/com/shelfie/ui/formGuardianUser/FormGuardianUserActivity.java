@@ -17,7 +17,7 @@ import com.shelfie.R;
 import com.shelfie.config.RetrofitConfig;
 import com.shelfie.model.GuardianUser;
 import com.shelfie.service.GuardianUserService;
-import com.shelfie.ui.formChildProfile.FormChildProfileActivity;
+import com.shelfie.ui.formChildProfile.ManageChildProfileActivity;
 
 public class FormGuardianUserActivity extends AppCompatActivity {
 
@@ -52,7 +52,7 @@ public class FormGuardianUserActivity extends AppCompatActivity {
 
     private void init() {
         retrofitConfig = new RetrofitConfig();
-        guardianUserService = retrofitConfig.getProductService();
+        guardianUserService = retrofitConfig.getGuardianUserService();
 
         txtGuardianUserName = findViewById(R.id.txt_guardian_user_name);
         etGuardianUserName = findViewById(R.id.et_guardian_user_name);
@@ -75,7 +75,7 @@ public class FormGuardianUserActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<GuardianUser> call, Response<GuardianUser> response) {
                 if(response.isSuccessful()) {
-                    Intent intent = new Intent(getApplicationContext(), FormChildProfileActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("NEW_GUARDIAN_DATA", response.body());
                     intent.putExtras(bundle);
