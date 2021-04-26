@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "child_profiles")
 public class ChildProfile {
@@ -29,11 +31,13 @@ public class ChildProfile {
 	
 	@Column(name = "coins", columnDefinition = "default 0")
 	private Integer coins;
-	
+
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "guardian_user_id")
 	private GuardianUser guardianUser;
-	
+
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "character_id")
 	private Character character;

@@ -19,7 +19,7 @@ public interface GuardianUserService {
     Call<ArrayList<GuardianUser>> getAll();
 
     @GET("guardian_user/{id}/child_profiles/")
-    Call<ArrayList<ChildProfile>> getChildProfiles();
+    Call<ArrayList<ChildProfile>> getChildProfiles(@Path("id") Integer id);
 
     @POST("guardian_user/")
     Call<GuardianUser> create(@Body GuardianUser guardianUser);

@@ -169,9 +169,9 @@ public class FormChildProfileActivity extends AppCompatActivity {
             public void onResponse(Call<ChildProfile> call, Response<ChildProfile> response) {
                 if(response.isSuccessful()) {
                     Intent intent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable("NEW_CHILD_PROFILE_DATA", response.body());
-                    intent.putExtras(bundle);
+                    Bundle newIntentBundle = new Bundle();
+                    newIntentBundle.putSerializable("NEW_GUARDIAN_USER_DATA", guardianUser);
+                    intent.putExtras(newIntentBundle);
                     startActivity(intent);
                 } else {
                     Snackbar.make(getWindow().getDecorView().getRootView(), "nao rolou", Snackbar.LENGTH_LONG).show();
