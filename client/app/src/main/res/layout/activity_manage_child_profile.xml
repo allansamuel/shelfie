@@ -70,111 +70,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_add_child_profile"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:foregroundGravity="left"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            app:cardCornerRadius="50dp"
-            app:cardElevation="2dp"
-            app:cardPreventCornerOverlap="false"
-            app:cardUseCompatPadding="true"
-            tools:layout_editor_absoluteX="130dp"
-            tools:layout_editor_absoluteY="16dp">
-
-            <ImageView
-                android:id="@+id/ib_add_child_profile"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:src="@drawable/ic_add_black_48dp" />
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_add_child_profile1"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:foregroundGravity="left"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            app:cardCornerRadius="50dp"
-            app:cardElevation="2dp"
-            app:cardPreventCornerOverlap="false"
-            app:cardUseCompatPadding="true"
-            tools:layout_editor_absoluteX="130dp"
-            tools:layout_editor_absoluteY="16dp">
-
-            <ImageView
-                android:id="@+id/ib_add_child_profile1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:src="@drawable/ic_add_black_48dp" />
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_add_child_profile2"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:foregroundGravity="left"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            app:cardCornerRadius="50dp"
-            app:cardElevation="2dp"
-            app:cardPreventCornerOverlap="false"
-            app:cardUseCompatPadding="true"
-            tools:layout_editor_absoluteX="130dp"
-            tools:layout_editor_absoluteY="16dp">
-
-            <ImageView
-                android:id="@+id/ib_add_child_profile2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:src="@drawable/ic_add_black_48dp" />
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_add_child_profile3"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:foregroundGravity="left"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            app:cardCornerRadius="50dp"
-            app:cardElevation="2dp"
-            app:cardPreventCornerOverlap="false"
-            app:cardUseCompatPadding="true"
-            tools:layout_editor_absoluteX="130dp"
-            tools:layout_editor_absoluteY="16dp">
-
-            <ImageView
-                android:id="@+id/ib_add_child_profile3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:src="@drawable/ic_add_black_48dp" />
-
-        </androidx.cardview.widget.CardView>
+        <fragment
+            android:id="@+id/frag_profile_avatar_add"
+            android:name="com.shelfie.ui.customViews.ProfileAvatarFragment"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            tools:layout_editor_absoluteX="145dp"
+            tools:layout_editor_absoluteY="530dp" />
 
     </com.google.android.flexbox.FlexboxLayout>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

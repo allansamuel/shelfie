@@ -38,7 +38,8 @@ public class ManageChildProfileActivity extends FragmentActivity {
     private GuardianUserService guardianUserService;
 
     private FlexboxLayout flexboxChildProfiles;
-    private CardView cvAddChildProfile;
+//    private CardView cvAddChildProfile;
+//    private Fragment addChildProfile;
     private FragmentTransaction fragmentTransaction;
     private ProfileAvatarFragment[] fragments;
 
@@ -50,16 +51,16 @@ public class ManageChildProfileActivity extends FragmentActivity {
 
         init();
 
-        cvAddChildProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent newIntent = new Intent(getApplicationContext(), FormChildProfileActivity.class);
-                Bundle newIntentBundle = new Bundle();
-                newIntentBundle.putSerializable("GUARDIAN_USER_DATA", guardianUser);
-                newIntent.putExtras(newIntentBundle);
-                startActivity(newIntent);
-            }
-        });
+//        addChildProfile.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent newIntent = new Intent(getApplicationContext(), FormChildProfileActivity.class);
+//                Bundle newIntentBundle = new Bundle();
+//                newIntentBundle.putSerializable("GUARDIAN_USER_DATA", guardianUser);
+//                newIntent.putExtras(newIntentBundle);
+//                startActivity(newIntent);
+//            }
+//        });
     }
 
     private void init() {
@@ -70,19 +71,18 @@ public class ManageChildProfileActivity extends FragmentActivity {
         guardianUser = (GuardianUser) prevBundle.getSerializable("GUARDIAN_USER_DATA");
 
         flexboxChildProfiles = findViewById(R.id.flexbox_child_profiles);
-        cvAddChildProfile = findViewById(R.id.cv_add_child_profile);
+//        cvAddChildProfile = findViewById(R.id.cv_add_child_profile);
 
         setChildProfiles();
     }
 
     private void mapChildProfileAvatars(List<ChildProfile> childProfileList) {
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        if(childProfileList.size() > 0) {
-            flexboxChildProfiles.setJustifyContent(JustifyContent.SPACE_AROUND);
-        }
         for(int index = 0; index < childProfileList.size(); index++) {
-            System.out.println(childProfileList.get(index).getNickname());
-            Fragment profileAvatarFragment = new ProfileAvatarFragment();
+            Fragment profileAvatarFragment = ProfileAvatarFragment.newInstance(
+                    guardianUser,
+                    childProfileList.get(index),
+                    false);
             fragmentTransaction.add(R.id.flexbox_child_profiles, profileAvatarFragment, String.valueOf(index));
         }
         fragmentTransaction.commit();

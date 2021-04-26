@@ -20,6 +20,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.shelfie.R;
+import com.shelfie.config.ImageDecoder;
 import com.shelfie.config.RetrofitConfig;
 import com.shelfie.model.Character;
 import com.shelfie.model.ChildProfile;
@@ -82,9 +83,6 @@ public class FormChildProfileActivity extends AppCompatActivity {
     }
 
     private void init() {
-        prevBundle = getIntent().getExtras();
-        guardianUser = (GuardianUser) prevBundle.getSerializable("GUARDIAN_USER_DATA");
-
         characterList = new ArrayList<>();
         characterListIterator = characterList.listIterator();
         retrofitConfig = new RetrofitConfig();
@@ -98,6 +96,17 @@ public class FormChildProfileActivity extends AppCompatActivity {
         ibNextCharacter = findViewById(R.id.ib_next_character);
         btnCreateChildProfile = findViewById(R.id.btn_child_profile_create);
 
+        prevBundle = getIntent().getExtras();
+        guardianUser = (GuardianUser) prevBundle.getSerializable("GUARDIAN_USER_DATA");
+
+        if(prevBundle.getSerializable("CHILD_PROFILE_DATA") != null){
+            childProfile = (ChildProfile) prevBundle.getSerializable("CHILD_PROFILE_DATA");
+            currentCharacter = childProfile.getCharacter();
+            etChildProfileNickname.setText(childProfile.getNickname());
+        } else {
+            childProfile = new ChildProfile();
+        }
+
         setCharacterList();
     }
 
@@ -108,7 +117,7 @@ public class FormChildProfileActivity extends AppCompatActivity {
                 if(response.isSuccessful()) {
                     characterList = response.body();
                     if(!characterList.isEmpty()) {
-                        currentCharacter = characterList.get(0);
+                        currentCharacter = childProfile != null ? childProfile.getCharacter() : characterList.get(0);
                         setCharacterImagePreview();
                     }
                 } else {
@@ -124,12 +133,7 @@ public class FormChildProfileActivity extends AppCompatActivity {
     }
 
     private void setCharacterImagePreview() {
-        byte[] decodedString = Base64.decode(currentCharacter.getCharacterImage(), Base64.DEFAULT);
-        characterImagePreview = BitmapFactory.decodeByteArray(
-                decodedString,
-                0,
-                decodedString.length);
-        imgCharacterPreview.setImageBitmap(characterImagePreview);
+        imgCharacterPreview.setImageBitmap(ImageDecoder.decodeBase64(currentCharacter.getCharacterImage()));
         hideCharacterNavigationButtons();
     }
 
@@ -159,7 +163,6 @@ public class FormChildProfileActivity extends AppCompatActivity {
     }
 
     private void createChildProfile() {
-        childProfile = new ChildProfile();
         childProfile.setNickname(etChildProfileNickname.getText().toString());
         childProfile.setCharacter(currentCharacter);
         childProfile.setGuardianUser(guardianUser);
