@@ -8,21 +8,23 @@
 
     <com.google.android.flexbox.FlexboxLayout
         android:id="@+id/flexbox_child_profiles"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:alignContent="flex_start"
         app:alignItems="flex_start"
+        app:dividerDrawable="@drawable/divider10dp"
         app:flexWrap="wrap"
         app:justifyContent="flex_start"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        app:showDivider="middle">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_add_child_profile"
-            app:cardCornerRadius="50dp"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:clickable="true"
             android:focusable="true"
             android:foregroundGravity="left"
+            app:cardCornerRadius="50dp"
             tools:layout_editor_absoluteX="130dp">
 
             <ImageButton
