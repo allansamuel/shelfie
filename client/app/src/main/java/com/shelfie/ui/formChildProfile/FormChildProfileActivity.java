@@ -98,9 +98,9 @@ public class FormChildProfileActivity extends AppCompatActivity {
 
         prevBundle = getIntent().getExtras();
         guardianUser = (GuardianUser) prevBundle.getSerializable("GUARDIAN_USER_DATA");
+        childProfile = (ChildProfile) prevBundle.getSerializable("CHILD_PROFILE_DATA");
 
-        if(prevBundle.getSerializable("CHILD_PROFILE_DATA") != null){
-            childProfile = (ChildProfile) prevBundle.getSerializable("CHILD_PROFILE_DATA");
+        if(childProfile != null){
             currentCharacter = childProfile.getCharacter();
             etChildProfileNickname.setText(childProfile.getNickname());
         } else {

@@ -75,9 +75,7 @@ public class ProfileAvatarFragment extends Fragment {
         cvChildProfileAvatarContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(childProfile != null) {
-
-                } else {
+                if(childProfile == null) {
                     Intent newIntent = new Intent(getActivity().getApplicationContext(), FormChildProfileActivity.class);
                     Bundle newIntentBundle = new Bundle();
                     newIntentBundle.putSerializable("GUARDIAN_USER_DATA", guardianUser);
@@ -101,6 +99,7 @@ public class ProfileAvatarFragment extends Fragment {
     }
 
     private void init() {
+        System.out.println("2");
         View view = getView();
         cvChildProfileAvatarContainer = view.findViewById(R.id.cv_child_profile_avatar_container);
         imgChildProfileAvatar = view.findViewById(R.id.img_child_profile_avatar);

@@ -75,7 +75,7 @@ public class ManageChildProfileActivity extends FragmentActivity {
             Fragment profileAvatarFragment = ProfileAvatarFragment.newInstance(
                     guardianUser,
                     childProfileList.get(index),
-                    false);
+                    true);
             childProfileTransaction.add(R.id.flexbox_child_profiles, profileAvatarFragment, String.valueOf(index));
         }
         childProfileTransaction.commit();

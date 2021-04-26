@@ -1,6 +1,8 @@
 package com.shelfie.model;
 
-public class Character {
+import java.io.Serializable;
+
+public class Character implements Serializable {
 
     private Integer characterId;
     private String characterName;
