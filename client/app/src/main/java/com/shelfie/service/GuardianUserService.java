@@ -1,5 +1,6 @@
 package com.shelfie.service;
 
+import com.shelfie.model.ChildProfile;
 import com.shelfie.model.GuardianUser;
 
 import java.util.ArrayList;
@@ -16,6 +17,9 @@ public interface GuardianUserService {
 
     @GET("guardian_user/")
     Call<ArrayList<GuardianUser>> getAll();
+
+    @GET("guardian_user/{id}/child_profiles/")
+    Call<ArrayList<ChildProfile>> getChildProfiles();
 
     @POST("guardian_user/")
     Call<GuardianUser> create(@Body GuardianUser guardianUser);

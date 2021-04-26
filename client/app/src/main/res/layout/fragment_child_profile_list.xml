@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.formChildProfile.ChildProfileListFragment">
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/flexbox_child_profiles"
+        app:alignContent="flex_start"
+        app:alignItems="flex_start"
+        app:flexWrap="wrap"
+        app:justifyContent="flex_start"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_add_child_profile"
+            app:cardCornerRadius="50dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foregroundGravity="left"
+            tools:layout_editor_absoluteX="130dp">
+
+            <ImageButton
+                android:id="@+id/ib_add_child_profile"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:contentDescription="Adicionar novo perfil"
+                app:srcCompat="@drawable/ic_add_black_48dp" />
+
+        </androidx.cardview.widget.CardView>
+
+    </com.google.android.flexbox.FlexboxLayout>
+
+
+</FrameLayout>
