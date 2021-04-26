@@ -39,30 +39,13 @@ public class ChildProfileListFragment extends Fragment {
     private ProfileAvatarFragment profileAvatarFragment;
     private GuardianUserService guardianUserService;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public ChildProfileListFragment() {
-        // Required empty public constructor
-    }
-
-    public static ChildProfileListFragment newInstance(String param1, String param2) {
-        ChildProfileListFragment fragment = new ChildProfileListFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -80,8 +63,10 @@ public class ChildProfileListFragment extends Fragment {
         });
 
         return inflater.inflate(R.layout.fragment_child_profile_list, container, false);
+    }
 
-
+    private void init() {
+        cvAddChildProfile = getActivity().findViewById(R.id.cv_add_child_profile);
     }
 
     private void mapChildProfileAvatars(List<ChildProfile> childProfileList) {

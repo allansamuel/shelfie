@@ -130,7 +130,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/next"
-            app:strokeColor="@color/purple_700"
+            app:strokeColor="#1391D8"
             app:strokeWidth="2dp" />
 
     </LinearLayout>
