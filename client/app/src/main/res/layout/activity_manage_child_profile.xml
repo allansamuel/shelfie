@@ -64,7 +64,7 @@
         app:alignContent="flex_start"
         app:alignItems="flex_start"
         app:flexWrap="wrap"
-        app:justifyContent="flex_start"
+        app:justifyContent="space_between"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -93,6 +93,85 @@
                 android:paddingStart="20dp"
                 android:paddingEnd="20dp"
                 android:src="@drawable/ic_add_black_48dp" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_add_child_profile1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foregroundGravity="left"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            app:cardCornerRadius="50dp"
+            app:cardElevation="2dp"
+            app:cardPreventCornerOverlap="false"
+            app:cardUseCompatPadding="true"
+            tools:layout_editor_absoluteX="130dp"
+            tools:layout_editor_absoluteY="16dp">
+
+            <ImageView
+                android:id="@+id/ib_add_child_profile1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:src="@drawable/ic_add_black_48dp" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_add_child_profile2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foregroundGravity="left"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            app:cardCornerRadius="50dp"
+            app:cardElevation="2dp"
+            app:cardPreventCornerOverlap="false"
+            app:cardUseCompatPadding="true"
+            tools:layout_editor_absoluteX="130dp"
+            tools:layout_editor_absoluteY="16dp">
+
+            <ImageView
+                android:id="@+id/ib_add_child_profile2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:src="@drawable/ic_add_black_48dp" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_add_child_profile3"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foregroundGravity="left"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            app:cardCornerRadius="50dp"
+            app:cardElevation="2dp"
+            app:cardPreventCornerOverlap="false"
+            app:cardUseCompatPadding="true"
+            tools:layout_editor_absoluteX="130dp"
+            tools:layout_editor_absoluteY="16dp">
+
+            <ImageView
+                android:id="@+id/ib_add_child_profile3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:src="@drawable/ic_add_black_48dp" />
+
         </androidx.cardview.widget.CardView>
 
     </com.google.android.flexbox.FlexboxLayout>
