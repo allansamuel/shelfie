@@ -38,29 +38,15 @@ public class ManageChildProfileActivity extends FragmentActivity {
     private GuardianUserService guardianUserService;
 
     private FlexboxLayout flexboxChildProfiles;
-//    private CardView cvAddChildProfile;
-//    private Fragment addChildProfile;
     private FragmentTransaction fragmentTransaction;
-    private ProfileAvatarFragment[] fragments;
+    private Fragment addProfileAvatarFragment;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_child_profile);
-
         init();
-
-//        addChildProfile.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent newIntent = new Intent(getApplicationContext(), FormChildProfileActivity.class);
-//                Bundle newIntentBundle = new Bundle();
-//                newIntentBundle.putSerializable("GUARDIAN_USER_DATA", guardianUser);
-//                newIntent.putExtras(newIntentBundle);
-//                startActivity(newIntent);
-//            }
-//        });
     }
 
     private void init() {
@@ -71,21 +57,28 @@ public class ManageChildProfileActivity extends FragmentActivity {
         guardianUser = (GuardianUser) prevBundle.getSerializable("GUARDIAN_USER_DATA");
 
         flexboxChildProfiles = findViewById(R.id.flexbox_child_profiles);
-//        cvAddChildProfile = findViewById(R.id.cv_add_child_profile);
+        addProfileAvatarFragment = new ProfileAvatarFragment();
+        Bundle addProfileAvatarArgs = new Bundle();
+        addProfileAvatarArgs.putSerializable("GUARDIAN_USER", guardianUser);
+        addProfileAvatarFragment.setArguments(addProfileAvatarArgs);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.flexbox_child_profiles, addProfileAvatarFragment, null);
+        fragmentTransaction.commit();
 
         setChildProfiles();
     }
 
     private void mapChildProfileAvatars(List<ChildProfile> childProfileList) {
-        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        FragmentTransaction childProfileTransaction = getSupportFragmentManager().beginTransaction();
         for(int index = 0; index < childProfileList.size(); index++) {
+            System.out.println(guardianUser);
             Fragment profileAvatarFragment = ProfileAvatarFragment.newInstance(
                     guardianUser,
                     childProfileList.get(index),
                     false);
-            fragmentTransaction.add(R.id.flexbox_child_profiles, profileAvatarFragment, String.valueOf(index));
+            childProfileTransaction.add(R.id.flexbox_child_profiles, profileAvatarFragment, String.valueOf(index));
         }
-        fragmentTransaction.commit();
+        childProfileTransaction.commit();
     }
 
     private void setChildProfiles() {
@@ -107,7 +100,6 @@ public class ManageChildProfileActivity extends FragmentActivity {
                 }
             });
         }
-
     }
 
 }

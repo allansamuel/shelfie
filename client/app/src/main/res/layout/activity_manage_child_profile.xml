@@ -70,14 +70,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
-        <fragment
-            android:id="@+id/frag_profile_avatar_add"
-            android:name="com.shelfie.ui.customViews.ProfileAvatarFragment"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            tools:layout_editor_absoluteX="145dp"
-            tools:layout_editor_absoluteY="530dp" />
-
     </com.google.android.flexbox.FlexboxLayout>
 
 

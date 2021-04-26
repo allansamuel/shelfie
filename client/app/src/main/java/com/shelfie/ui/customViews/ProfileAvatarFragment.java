@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
@@ -53,13 +54,24 @@ public class ProfileAvatarFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        init();
+        if (getArguments() != null) {
+            guardianUser = (GuardianUser) getArguments().getSerializable(ARG_GUARDIAN_USER);
+            childProfile = (ChildProfile) getArguments().getSerializable(ARG_CHILD_PROFILE);
+            isEditMode = getArguments().getBoolean(ARG_IS_EDIT_MODE);
+        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_profile_avatar, container, false);
+    }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+
+        init();
+        System.out.println(guardianUser);
         cvChildProfileAvatarContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,23 +98,14 @@ public class ProfileAvatarFragment extends Fragment {
                 startActivity(newIntent);
             }
         });
-        return inflater.inflate(R.layout.fragment_profile_avatar, container, false);
     }
 
     private void init() {
-        if (getArguments() != null) {
-            guardianUser = (GuardianUser) getArguments().getSerializable(ARG_GUARDIAN_USER);
-            childProfile = (ChildProfile) getArguments().getSerializable(ARG_CHILD_PROFILE);
-            isEditMode = getArguments().getBoolean(ARG_IS_EDIT_MODE);
-        }
-        cvChildProfileAvatarContainer = getActivity()
-                .findViewById(R.id.cv_child_profile_avatar_container);
-        imgChildProfileAvatar = getActivity()
-                .findViewById(R.id.img_child_profile_avatar);
-        fabChildProfileEdit = getActivity()
-                .findViewById(R.id.fab_child_profile_edit);
-        tvChildProfileNickname = getActivity()
-                .findViewById(R.id.tv_child_profile_nickname);
+        View view = getView();
+        cvChildProfileAvatarContainer = view.findViewById(R.id.cv_child_profile_avatar_container);
+        imgChildProfileAvatar = view.findViewById(R.id.img_child_profile_avatar);
+        fabChildProfileEdit = view.findViewById(R.id.fab_child_profile_edit);
+        tvChildProfileNickname = view.findViewById(R.id.tv_child_profile_nickname);
 
         if(childProfile != null) {
             imgChildProfileAvatar.setImageBitmap(ImageDecoder.decodeBase64(childProfile.getCharacter().getCharacterImage()));

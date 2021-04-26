@@ -15,10 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
-
 @Entity
 @Table(name = "child_profiles")
 public class ChildProfile {
@@ -33,13 +29,11 @@ public class ChildProfile {
 	
 	@Column(name = "coins", columnDefinition = "default 0")
 	private Integer coins;
-
-	@JsonProperty(access = Access.WRITE_ONLY)
+	
 	@ManyToOne
 	@JoinColumn(name = "guardian_user_id")
 	private GuardianUser guardianUser;
-
-	@JsonProperty(access = Access.WRITE_ONLY)
+	
 	@ManyToOne
 	@JoinColumn(name = "character_id")
 	private Character character;
@@ -109,7 +103,6 @@ public class ChildProfile {
 		this.coins = coins;
 	}
 
-	@JsonIgnore
 	public GuardianUser getGuardianUser() {
 		return guardianUser;
 	}

@@ -117,7 +117,7 @@ public class FormChildProfileActivity extends AppCompatActivity {
                 if(response.isSuccessful()) {
                     characterList = response.body();
                     if(!characterList.isEmpty()) {
-                        currentCharacter = childProfile != null ? childProfile.getCharacter() : characterList.get(0);
+                        currentCharacter = childProfile.getCharacter() != null ? childProfile.getCharacter() : characterList.get(0);
                         setCharacterImagePreview();
                     }
                 } else {
