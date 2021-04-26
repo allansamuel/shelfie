@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import com.google.android.flexbox.FlexboxLayout;
+import com.google.android.flexbox.JustifyContent;
 import com.google.android.material.snackbar.Snackbar;
 import com.shelfie.R;
 import com.shelfie.config.RetrofitConfig;
@@ -66,7 +67,7 @@ public class ManageChildProfileActivity extends FragmentActivity {
         guardianUserService = retrofitConfig.getGuardianUserService();
 
         prevBundle = getIntent().getExtras();
-        guardianUser = (GuardianUser) prevBundle.getSerializable("NEW_GUARDIAN_USER_DATA");
+        guardianUser = (GuardianUser) prevBundle.getSerializable("GUARDIAN_USER_DATA");
 
         flexboxChildProfiles = findViewById(R.id.flexbox_child_profiles);
         cvAddChildProfile = findViewById(R.id.cv_add_child_profile);
@@ -76,12 +77,13 @@ public class ManageChildProfileActivity extends FragmentActivity {
 
     private void mapChildProfileAvatars(List<ChildProfile> childProfileList) {
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragments = new ProfileAvatarFragment[childProfileList.size()];
-        for(int index = 0; index < fragments.length; index++) {
-            FrameLayout frameLayout = new FrameLayout(this);
-            frameLayout.setId(index);
-            flexboxChildProfiles.addView(frameLayout);
-            fragmentTransaction.add(R.id.child_avatar_container, fragments[index]);
+        if(childProfileList.size() > 0) {
+            flexboxChildProfiles.setJustifyContent(JustifyContent.SPACE_AROUND);
+        }
+        for(int index = 0; index < childProfileList.size(); index++) {
+            System.out.println(childProfileList.get(index).getNickname());
+            Fragment profileAvatarFragment = new ProfileAvatarFragment();
+            fragmentTransaction.add(R.id.flexbox_child_profiles, profileAvatarFragment, String.valueOf(index));
         }
         fragmentTransaction.commit();
     }

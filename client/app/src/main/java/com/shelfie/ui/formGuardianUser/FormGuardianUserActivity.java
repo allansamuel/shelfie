@@ -77,7 +77,7 @@ public class FormGuardianUserActivity extends AppCompatActivity {
                 if(response.isSuccessful()) {
                     Intent intent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("NEW_GUARDIAN_USER_DATA", response.body());
+                    bundle.putSerializable("GUARDIAN_USER_DATA", response.body());
                     intent.putExtras(bundle);
                     startActivity(intent);
                 } else {

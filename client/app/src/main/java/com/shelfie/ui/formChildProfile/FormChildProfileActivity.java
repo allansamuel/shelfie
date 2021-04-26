@@ -170,7 +170,7 @@ public class FormChildProfileActivity extends AppCompatActivity {
                 if(response.isSuccessful()) {
                     Intent intent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
                     Bundle newIntentBundle = new Bundle();
-                    newIntentBundle.putSerializable("NEW_GUARDIAN_USER_DATA", guardianUser);
+                    newIntentBundle.putSerializable("GUARDIAN_USER_DATA", guardianUser);
                     intent.putExtras(newIntentBundle);
                     startActivity(intent);
                 } else {
