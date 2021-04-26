@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
@@ -44,7 +45,6 @@ public class FormChildProfileActivity extends AppCompatActivity {
     private List<Character> characterList;
     private ListIterator characterListIterator;
     private Character currentCharacter;
-    private Bitmap characterImagePreview;
 
     private TextInputLayout txtChildProfileNickname;
     private TextInputEditText etChildProfileNickname;
@@ -52,6 +52,7 @@ public class FormChildProfileActivity extends AppCompatActivity {
     private ImageView imgCharacterPreview;
     private ImageButton ibNextCharacter;
     private Button btnCreateChildProfile;
+    private ProgressBar progressCircularCharacterLoader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +96,7 @@ public class FormChildProfileActivity extends AppCompatActivity {
         imgCharacterPreview = findViewById(R.id.img_character_preview);
         ibNextCharacter = findViewById(R.id.ib_next_character);
         btnCreateChildProfile = findViewById(R.id.btn_child_profile_create);
+        progressCircularCharacterLoader = findViewById(R.id.progress_circular_character_loader);
 
         prevBundle = getIntent().getExtras();
         guardianUser = (GuardianUser) prevBundle.getSerializable("GUARDIAN_USER_DATA");
@@ -133,6 +135,8 @@ public class FormChildProfileActivity extends AppCompatActivity {
     }
 
     private void setCharacterImagePreview() {
+        progressCircularCharacterLoader.setVisibility(View.GONE);
+        imgCharacterPreview.setVisibility(View.VISIBLE);
         imgCharacterPreview.setImageBitmap(ImageDecoder.decodeBase64(currentCharacter.getCharacterImage()));
         hideCharacterNavigationButtons();
     }

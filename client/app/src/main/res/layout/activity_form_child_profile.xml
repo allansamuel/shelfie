@@ -110,7 +110,15 @@
                 android:layout_weight="2"
                 android:minWidth="250dp"
                 android:minHeight="350dp"
-                app:srcCompat="@drawable/ic_person_black_36dp" />
+                android:visibility="gone" />
+
+            <ProgressBar
+                android:id="@+id/progress_circular_character_loader"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="250dp"
+                android:layout_height="350dp"
+                android:paddingStart="32dp"
+                android:paddingEnd="32dp" />
 
             <ImageButton
                 android:id="@+id/ib_next_character"
@@ -126,6 +134,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Salvar" />
+
+        <Button
+            android:id="@+id/btn_child_profile_remove"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_close_black_18dp"
+            android:text="Excluir perfil"
+            android:textAllCaps="false"
+            android:textColor="@color/gray_600"
+            app:icon="@drawable/ic_close_black_18dp"
+            app:iconGravity="textStart"
+            app:iconTint="@color/gray_600" />
 
     </LinearLayout>
 
