@@ -50,7 +50,7 @@
                 android:paddingTop="10dp"
                 android:paddingEnd="10dp"
                 android:paddingBottom="10dp"
-                app:srcCompat="@drawable/ic_add_black_48dp" />
+                android:src="@drawable/ic_add_black_48dp"/>
 
         </androidx.cardview.widget.CardView>
 
