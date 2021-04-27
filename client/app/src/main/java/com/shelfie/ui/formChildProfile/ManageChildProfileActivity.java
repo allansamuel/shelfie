@@ -62,7 +62,7 @@ public class ManageChildProfileActivity extends FragmentActivity {
         addProfileAvatarArgs.putSerializable("GUARDIAN_USER", guardianUser);
         addProfileAvatarFragment.setArguments(addProfileAvatarArgs);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.flexbox_child_profiles, addProfileAvatarFragment, null);
+        fragmentTransaction.replace(R.id.frag_add_child_profile, addProfileAvatarFragment, null);
         fragmentTransaction.commit();
 
         setChildProfiles();
