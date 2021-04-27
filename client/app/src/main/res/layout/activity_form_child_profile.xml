@@ -136,7 +136,7 @@
             android:text="Salvar" />
 
         <Button
-            android:id="@+id/btn_child_profile_remove"
+            android:id="@+id/btn_child_profile_delete"
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -144,6 +144,7 @@
             android:text="Excluir perfil"
             android:textAllCaps="false"
             android:textColor="@color/gray_600"
+            android:visibility="gone"
             app:icon="@drawable/ic_close_black_18dp"
             app:iconGravity="textStart"
             app:iconTint="@color/gray_600" />

@@ -6,11 +6,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -52,6 +48,7 @@ public class FormChildProfileActivity extends AppCompatActivity {
     private ImageView imgCharacterPreview;
     private ImageButton ibNextCharacter;
     private Button btnCreateChildProfile;
+    private Button btnDeleteChildProfile;
     private ProgressBar progressCircularCharacterLoader;
 
     @Override
@@ -81,6 +78,13 @@ public class FormChildProfileActivity extends AppCompatActivity {
                 createChildProfile();
             }
         });
+
+        btnDeleteChildProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteChildProfile();
+            }
+        });
     }
 
     private void init() {
@@ -96,6 +100,7 @@ public class FormChildProfileActivity extends AppCompatActivity {
         imgCharacterPreview = findViewById(R.id.img_character_preview);
         ibNextCharacter = findViewById(R.id.ib_next_character);
         btnCreateChildProfile = findViewById(R.id.btn_child_profile_create);
+        btnDeleteChildProfile = findViewById(R.id.btn_child_profile_delete);
         progressCircularCharacterLoader = findViewById(R.id.progress_circular_character_loader);
 
         prevBundle = getIntent().getExtras();
@@ -105,11 +110,11 @@ public class FormChildProfileActivity extends AppCompatActivity {
         if(childProfile != null){
             currentCharacter = childProfile.getCharacter();
             etChildProfileNickname.setText(childProfile.getNickname());
+            btnDeleteChildProfile.setVisibility(View.VISIBLE);
         } else {
             childProfile = new ChildProfile();
+            setCharacterList();
         }
-
-        setCharacterList();
     }
 
     private void setCharacterList() {
@@ -187,6 +192,28 @@ public class FormChildProfileActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ChildProfile> call, Throwable t) {
+                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void deleteChildProfile() {
+        childProfileService.delete(childProfile.getChildProfileId()).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.isSuccessful()) {
+                    Intent intent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
+                    Bundle newIntentBundle = new Bundle();
+                    newIntentBundle.putSerializable("GUARDIAN_USER_DATA", guardianUser);
+                    intent.putExtras(newIntentBundle);
+                    startActivity(intent);
+                } else {
+                    Snackbar.make(getWindow().getDecorView().getRootView(), "nao rolou", Snackbar.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
                 Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_LONG).show();
             }
         });
