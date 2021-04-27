@@ -127,6 +127,7 @@ public class FormChildProfileActivity extends AppCompatActivity {
                         currentCharacter = childProfile.getCharacter() != null ? childProfile.getCharacter() : characterList.get(0);
                         setCharacterImagePreview();
                     }
+                    System.out.println(characterList.size());
                 } else {
                     Snackbar.make(getWindow().getDecorView().getRootView(), "deu ruim meu", Snackbar.LENGTH_LONG).show();
                 }
@@ -146,26 +147,37 @@ public class FormChildProfileActivity extends AppCompatActivity {
         hideCharacterNavigationButtons();
     }
 
+    private boolean isFirstCharacter(Character character) {
+        return characterList.indexOf(currentCharacter) == 0 ? true : false;
+    }
+
+    private boolean isLastCharacter(Character character) {
+        return characterList.indexOf(currentCharacter) == characterList.size() - 1 ? true : false;
+    }
+
     private void hideCharacterNavigationButtons() {
-        if(characterList.indexOf(currentCharacter) == 0) {
+        ibPreviousCharacter.setVisibility(View.VISIBLE);
+        if(isFirstCharacter(currentCharacter)) {
             ibPreviousCharacter.setVisibility(View.INVISIBLE);
         }
-        if(characterList.indexOf(currentCharacter) == characterList.size() - 1) {
+
+        ibNextCharacter.setVisibility(View.VISIBLE);
+        if(isLastCharacter(currentCharacter)) {
             ibNextCharacter.setVisibility(View.INVISIBLE);
         }
     }
 
     private void getPreviousCharacter() {
-        if(characterListIterator.hasPrevious()) {
-            currentCharacter = (Character) characterListIterator.previous();
+        if(!isFirstCharacter(currentCharacter)) {
+            currentCharacter = characterList.get(characterList.indexOf(currentCharacter) - 1);
             setCharacterImagePreview();
             hideCharacterNavigationButtons();
         }
     }
 
     private void getNextCharacter() {
-        if(characterListIterator.hasNext()) {
-            currentCharacter = (Character) characterListIterator.next();
+        if(!isLastCharacter(currentCharacter)) {
+            currentCharacter = characterList.get(characterList.indexOf(currentCharacter) + 1);
             setCharacterImagePreview();
             hideCharacterNavigationButtons();
         }

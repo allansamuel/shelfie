@@ -71,7 +71,7 @@ public class ProfileAvatarFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
 
         init();
-        System.out.println(guardianUser);
+
         cvChildProfileAvatarContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -99,7 +99,6 @@ public class ProfileAvatarFragment extends Fragment {
     }
 
     private void init() {
-        System.out.println("2");
         View view = getView();
         cvChildProfileAvatarContainer = view.findViewById(R.id.cv_child_profile_avatar_container);
         imgChildProfileAvatar = view.findViewById(R.id.img_child_profile_avatar);
@@ -107,6 +106,7 @@ public class ProfileAvatarFragment extends Fragment {
         tvChildProfileNickname = view.findViewById(R.id.tv_child_profile_nickname);
 
         if(childProfile != null) {
+            imgChildProfileAvatar.setPadding(0, 0, 0, 0);
             imgChildProfileAvatar.setImageBitmap(ImageDecoder.decodeBase64(childProfile.getCharacter().getCharacterImage()));
             tvChildProfileNickname.setText(childProfile.getNickname());
             if(isEditMode) {

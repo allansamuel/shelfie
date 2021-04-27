@@ -71,7 +71,6 @@ public class ManageChildProfileActivity extends FragmentActivity {
     private void mapChildProfileAvatars(List<ChildProfile> childProfileList) {
         FragmentTransaction childProfileTransaction = getSupportFragmentManager().beginTransaction();
         for(int index = 0; index < childProfileList.size(); index++) {
-            System.out.println(guardianUser);
             Fragment profileAvatarFragment = ProfileAvatarFragment.newInstance(
                     guardianUser,
                     childProfileList.get(index),
