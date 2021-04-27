@@ -1,0 +1,8 @@
+<resources>
+    <declare-styleable name="ProfileAvatar">
+        <attr name="profileName" format="string" />
+        <attr name="dimension" format="dimension" />
+        <attr name="profilePicture" format="reference" />
+        <attr name="editable" format="boolean" />
+    </declare-styleable>
+</resources>
