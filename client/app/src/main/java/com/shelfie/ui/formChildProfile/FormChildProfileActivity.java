@@ -113,8 +113,8 @@ public class FormChildProfileActivity extends AppCompatActivity {
             btnDeleteChildProfile.setVisibility(View.VISIBLE);
         } else {
             childProfile = new ChildProfile();
-            setCharacterList();
         }
+        setCharacterList();
     }
 
     private void setCharacterList() {
@@ -201,15 +201,11 @@ public class FormChildProfileActivity extends AppCompatActivity {
         childProfileService.delete(childProfile.getChildProfileId()).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                if(response.isSuccessful()) {
-                    Intent intent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
-                    Bundle newIntentBundle = new Bundle();
-                    newIntentBundle.putSerializable("GUARDIAN_USER_DATA", guardianUser);
-                    intent.putExtras(newIntentBundle);
-                    startActivity(intent);
-                } else {
-                    Snackbar.make(getWindow().getDecorView().getRootView(), "nao rolou", Snackbar.LENGTH_LONG).show();
-                }
+                Intent intent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
+                Bundle newIntentBundle = new Bundle();
+                newIntentBundle.putSerializable("GUARDIAN_USER_DATA", guardianUser);
+                intent.putExtras(newIntentBundle);
+                startActivity(intent);
             }
 
             @Override
