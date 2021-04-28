@@ -13,7 +13,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -33,13 +32,7 @@ public class ChildProfile {
 	private String  nickname;
 	
 	@Column(name = "coins")
-	private Integer coins;
-	
-	@PrePersist
-	private void preInsert() {
-	   if (this.coins == null)
-	       this.coins = 0;
-	}
+	private Integer coins = 0;
 
 	@JsonProperty(access = Access.WRITE_ONLY)
 	@ManyToOne
