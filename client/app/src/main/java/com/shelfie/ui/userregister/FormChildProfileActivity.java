@@ -35,6 +35,7 @@ import java.util.ListIterator;
 
 public class FormChildProfileActivity extends AppCompatActivity implements Validator.ValidationListener {
 
+    private Validator formValidator;
     private Bundle prevBundle;
     private GuardianUser guardianUser;
 
@@ -75,6 +76,8 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
     }
 
     private void init() {
+        formValidator = new Validator(this);
+        formValidator.setValidationListener(this);
         characterList = new ArrayList<>();
         characterListIterator = characterList.listIterator();
         retrofitConfig = new RetrofitConfig();

@@ -63,6 +63,8 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
     }
 
     private void init() {
+        formValidator = new Validator(this);
+        formValidator.setValidationListener(this);
         txtGuardianUserName = findViewById(R.id.txt_guardian_user_name);
         etGuardianUserName = findViewById(R.id.et_guardian_user_name);
         txtGuardianUserEmail = findViewById(R.id.txt_guardian_user_email);
