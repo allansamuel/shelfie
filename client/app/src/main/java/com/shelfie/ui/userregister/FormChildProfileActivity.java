@@ -54,8 +54,11 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
     private Button btnDeleteChildProfile;
     private ProgressBar progressCircularCharacterLoader;
 
-    @NotEmpty(message = "Campo obrigatório.")
-    @Length(min = 3, max = 20, message = "O nome deve possuir entre 3 e 20 caracteres.")
+    private static final int NICKNAME_FIELD_LENGTH_MIN = 3;
+    private static final int NICKNAME_FIELD_LENGTH_MAX = 20;
+    private final String NICKNAME_FIELD_LENGTH_MESSAGE = getString(R.string.error_invalid_length, NICKNAME_FIELD_LENGTH_MIN, NICKNAME_FIELD_LENGTH_MAX);
+    @NotEmpty(messageResId = R.string.error_required_field)
+    @Length(min = NICKNAME_FIELD_LENGTH_MIN, max = NICKNAME_FIELD_LENGTH_MAX, message = NICKNAME_FIELD_LENGTH_MESSAGE)
     private TextInputEditText etChildProfileNickname;
 
     @Override

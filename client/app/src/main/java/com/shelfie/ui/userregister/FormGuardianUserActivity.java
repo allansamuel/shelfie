@@ -39,20 +39,23 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
     private TextInputLayout txtGuardianUserPasswordConfirm;
     private Button btnGuardianUserNext;
 
-    @NotEmpty(message = "Campo obrigatório.")
-    @Length(min = 3, max = 50, message = "O nome deve possuir entre 3 e 50 caracteres.")
+    private static final int NAME_FIELD_LENGTH_MIN = 3;
+    private static final int NAME_FIELD_LENGTH_MAX = 50;
+    private final String NAME_FIELD_LENGTH_MESSAGE = getString(R.string.error_invalid_length, NAME_FIELD_LENGTH_MIN, NAME_FIELD_LENGTH_MAX);
+    @NotEmpty(messageResId = R.string.error_required_field)
+    @Length(message = NAME_FIELD_LENGTH_MESSAGE, min = NAME_FIELD_LENGTH_MIN, max = NAME_FIELD_LENGTH_MAX)
     private TextInputEditText etGuardianUserName;
 
-    @NotEmpty(message = "Campo obrigatório.")
-    @Email(message = "Email inválido.")
+    @NotEmpty(messageResId = R.string.error_required_field)
+    @Email(messageResId = R.string.error_invalid_email)
     private TextInputEditText etGuardianUserEmail;
 
-    @NotEmpty(message = "Campo obrigatório.")
-    @Password(message = "Senha inválida.")
+    @NotEmpty(messageResId = R.string.error_required_field)
+    @Password(messageResId = R.string.error_invalid_password, scheme = Password.Scheme.ALPHA_NUMERIC)
     private TextInputEditText etGuardianUserPassword;
-    
-    @NotEmpty(message = "Campo obrigatório.")
-    @ConfirmPassword(message = "As senhas não estão iguais.")
+
+    @NotEmpty(messageResId = R.string.error_required_field)
+    @ConfirmPassword(messageResId = R.string.error_invalid_password_confirmation)
     private TextInputEditText etGuardianUserPasswordConfirm;
 
     @Override
