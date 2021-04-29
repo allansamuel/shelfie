@@ -19,6 +19,7 @@ import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Password;
+import com.shelfie.MainActivity;
 import com.shelfie.R;
 import com.shelfie.config.RetrofitConfig;
 import com.shelfie.model.GuardianUser;
@@ -72,8 +73,8 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
 
     private void init() {
         receivedBundle = new Bundle();
-        guardianUser = receivedBundle.getBoolean("IS_EDIT_MODE") ?
-                (GuardianUser) receivedBundle.getSerializable("GUARDIAN_USER_DATA") : new GuardianUser();
+        guardianUser = receivedBundle.getBoolean(getString(R.string.bundle_is_edit_mode)) ?
+                (GuardianUser) receivedBundle.getSerializable(getString(R.string.bundle_guardian_user)) : new GuardianUser();
         retrofitConfig = new RetrofitConfig();
         guardianUserService = retrofitConfig.getGuardianUserService();
 
@@ -91,7 +92,8 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
     }
 
     private void createGuardianUser() {
-        guardianUserService.create(guardianUser).enqueue(new Callback<GuardianUser>() {
+        guardianUserService.create(guardianUser)
+                .enqueue(new Callback<GuardianUser>() {
             @Override
             public void onResponse(Call<GuardianUser> call, Response<GuardianUser> response) {
                 if(response.isSuccessful()) {
@@ -113,6 +115,23 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
     }
 
     private void updateGuardianUser() {
+        guardianUserService.update(guardianUser.getGuardianUserId(), guardianUser)
+                .enqueue(new Callback<GuardianUser>() {
+            @Override
+            public void onResponse(Call<GuardianUser> call, Response<GuardianUser> response) {
+                if(response.isSuccessful()) {
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                } else {
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GuardianUser> call, Throwable t) {
+
+            }
+        });
     }
 
     private void resetErrors(){
@@ -129,7 +148,7 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
             guardianUser.setGuardianUserEmail(Objects.requireNonNull(etGuardianUserEmail.getText()).toString());
             guardianUser.setGuardianUserPassword(Objects.requireNonNull(etGuardianUserPassword.getText()).toString());
 
-            if (receivedBundle.getBoolean("IS_EDIT_MODE")) {
+            if (receivedBundle.getBoolean(getString(R.string.bundle_is_edit_mode))) {
                 updateGuardianUser();
             } else {
                 createGuardianUser();

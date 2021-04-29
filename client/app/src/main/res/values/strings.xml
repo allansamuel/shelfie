@@ -10,6 +10,7 @@
     <!-- Bundle -->
     <string name="bundle_guardian_user">GUARDIAN_USER_DATA</string>
     <string name="bundle_child_profile">CHILD_PROFILE_DATA</string>
+    <string name="bundle_is_edit_mode">IS_EDIT_MODE</string>
 
     <!-- Titles and labels -->
     <string name="app_subtitle_login">A biblioteca interativa da sua família!</string>
