@@ -64,12 +64,12 @@ public class ManageChildProfileActivity extends FragmentActivity {
 
     private void mapChildProfiles(List<ChildProfile> childProfileList) {
         FragmentTransaction childProfileTransaction = getSupportFragmentManager().beginTransaction();
-        for(int index = 0; index < childProfileList.size(); index++) {
+        for(ChildProfile childProfile : childProfileList) {
             Fragment profileAvatarFragment = ProfileAvatarFragment.newInstance(
                     guardianUser,
-                    childProfileList.get(index),
+                    childProfile,
                     true);
-            childProfileTransaction.add(R.id.flexbox_child_profiles, profileAvatarFragment, String.valueOf(index));
+            childProfileTransaction.add(R.id.flexbox_child_profiles, profileAvatarFragment, childProfile.getNickname());
         }
         childProfileTransaction.commit();
     }
