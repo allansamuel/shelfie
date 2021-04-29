@@ -18,7 +18,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
-import com.mobsandgeeks.saripaar.annotation.Digits;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.shelfie.R;
@@ -66,33 +65,13 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
 
         init();
 
-        ibPreviousCharacter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getPreviousCharacter();
-            }
-        });
+        ibPreviousCharacter.setOnClickListener(view -> getPreviousCharacter());
 
-        ibNextCharacter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getNextCharacter();
-            }
-        });
+        ibNextCharacter.setOnClickListener(view -> getNextCharacter());
 
-        btnCreateChildProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createChildProfile();
-            }
-        });
+        btnCreateChildProfile.setOnClickListener(view -> createChildProfile());
 
-        btnDeleteChildProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                deleteChildProfile();
-            }
-        });
+        btnDeleteChildProfile.setOnClickListener(view -> deleteChildProfile());
     }
 
     private void init() {
@@ -112,8 +91,8 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
         progressCircularCharacterLoader = findViewById(R.id.progress_circular_character_loader);
 
         prevBundle = getIntent().getExtras();
-        guardianUser = (GuardianUser) prevBundle.getSerializable("GUARDIAN_USER_DATA");
-        childProfile = (ChildProfile) prevBundle.getSerializable("CHILD_PROFILE_DATA");
+        guardianUser = (GuardianUser) prevBundle.getSerializable(getString(R.string.bundle_guardian_user));
+        childProfile = (ChildProfile) prevBundle.getSerializable(getString(R.string.bundle_child_profile));
 
         if(childProfile != null){
             currentCharacter = childProfile.getCharacter();

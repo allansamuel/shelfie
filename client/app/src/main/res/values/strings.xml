@@ -11,6 +11,9 @@
     <string name="bundle_guardian_user">GUARDIAN_USER_DATA</string>
     <string name="bundle_child_profile">CHILD_PROFILE_DATA</string>
 
+    <!-- Titles and labels -->
+    <string name="app_subtitle_login">A biblioteca interativa da sua família!</string>
+
     <!-- Form -->
     <string name="name">Nome</string>
     <string name="email">Email</string>
@@ -24,6 +27,9 @@
     <string name="error_invalid_password_confirmation">As senhas não condizem.</string>
 
     <!-- Button -->
+    <string name="register">Inscreva-se</string>
+    <string name="login">Entrar</string>
+    <string name="logoff">Sair</string>
     <string name="next">Próximo</string>
     <string name="save">Salvar</string>
 </resources>
