@@ -32,7 +32,7 @@ public class ChildProfile {
 	private String  nickname;
 	
 	@Column(name = "coins")
-	private Integer coins;
+	private Integer coins = 0;
 
 	@JsonProperty(access = Access.WRITE_ONLY)
 	@ManyToOne
