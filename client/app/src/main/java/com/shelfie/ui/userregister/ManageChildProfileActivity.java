@@ -1,4 +1,4 @@
-package com.shelfie.ui.formChildProfile;
+package com.shelfie.ui.userregister;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;

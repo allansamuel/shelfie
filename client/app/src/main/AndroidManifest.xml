@@ -13,9 +13,9 @@
         <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login"></activity>
-        <activity android:name=".ui.formChildProfile.FormChildProfileActivity" />
-        <activity android:name=".ui.formChildProfile.ManageChildProfileActivity" />
-        <activity android:name=".ui.formGuardianUser.FormGuardianUserActivity">
+        <activity android:name=".ui.userregister.FormChildProfileActivity" />
+        <activity android:name=".ui.userregister.ManageChildProfileActivity" />
+        <activity android:name=".ui.userregister.FormGuardianUserActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

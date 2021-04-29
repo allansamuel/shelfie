@@ -1,4 +1,4 @@
-package com.shelfie.ui.formGuardianUser;
+package com.shelfie.ui.userregister;
 
 import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
@@ -17,7 +17,6 @@ import com.shelfie.R;
 import com.shelfie.config.RetrofitConfig;
 import com.shelfie.model.GuardianUser;
 import com.shelfie.service.GuardianUserService;
-import com.shelfie.ui.formChildProfile.ManageChildProfileActivity;
 
 public class FormGuardianUserActivity extends AppCompatActivity {
 
