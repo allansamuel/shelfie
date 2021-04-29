@@ -13,26 +13,47 @@ import android.widget.Button;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
+import com.mobsandgeeks.saripaar.annotation.Email;
+import com.mobsandgeeks.saripaar.annotation.Length;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Password;
 import com.shelfie.R;
 import com.shelfie.config.RetrofitConfig;
 import com.shelfie.model.GuardianUser;
 import com.shelfie.service.GuardianUserService;
 
-public class FormGuardianUserActivity extends AppCompatActivity {
+import java.util.List;
+
+public class FormGuardianUserActivity extends AppCompatActivity implements Validator.ValidationListener {
 
     private RetrofitConfig retrofitConfig;
     private GuardianUserService guardianUserService;
     private GuardianUser guardianUser;
 
     private TextInputLayout txtGuardianUserName;
-    private TextInputEditText etGuardianUserName;
     private TextInputLayout txtGuardianUserEmail;
-    private TextInputEditText etGuardianUserEmail;
     private TextInputLayout txtGuardianUserPassword;
-    private TextInputEditText etGuardianUserPassword;
     private TextInputLayout txtGuardianUserPasswordConfirm;
-    private TextInputEditText etGuardianUserPasswordConfirm;
     private Button btnGuardianUserNext;
+
+    @NotEmpty(message = "Campo obrigatório.")
+    @Length(min = 3, max = 50, message = "O nome deve possuir entre 3 e 50 caracteres.")
+    private TextInputEditText etGuardianUserName;
+
+    @NotEmpty(message = "Campo obrigatório.")
+    @Email(message = "Email inválido.")
+    private TextInputEditText etGuardianUserEmail;
+
+    @NotEmpty(message = "Campo obrigatório.")
+    @Password(message = "Senha inválida.")
+    private TextInputEditText etGuardianUserPassword;
+    
+    @NotEmpty(message = "Campo obrigatório.")
+    @ConfirmPassword(message = "As senhas não estão iguais.")
+    private TextInputEditText etGuardianUserPasswordConfirm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,5 +110,15 @@ public class FormGuardianUserActivity extends AppCompatActivity {
                 Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_LONG).show();
             }
         });
+    }
+
+    @Override
+    public void onValidationSucceeded() {
+
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+
     }
 }

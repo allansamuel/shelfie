@@ -16,6 +16,10 @@ import android.widget.ProgressBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.Length;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.shelfie.R;
 import com.shelfie.config.ImageDecoder;
 import com.shelfie.config.RetrofitConfig;
@@ -29,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
-public class FormChildProfileActivity extends AppCompatActivity {
+public class FormChildProfileActivity extends AppCompatActivity implements Validator.ValidationListener {
 
     private Bundle prevBundle;
     private GuardianUser guardianUser;
@@ -43,13 +47,16 @@ public class FormChildProfileActivity extends AppCompatActivity {
     private Character currentCharacter;
 
     private TextInputLayout txtChildProfileNickname;
-    private TextInputEditText etChildProfileNickname;
     private ImageButton ibPreviousCharacter;
     private ImageView imgCharacterPreview;
     private ImageButton ibNextCharacter;
     private Button btnCreateChildProfile;
     private Button btnDeleteChildProfile;
     private ProgressBar progressCircularCharacterLoader;
+
+    @NotEmpty(message = "Campo obrigatório.")
+    @Length(min = 3, max = 20, message = "O nome deve possuir entre 3 e 20 caracteres.")
+    private TextInputEditText etChildProfileNickname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -225,5 +232,15 @@ public class FormChildProfileActivity extends AppCompatActivity {
                 Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_LONG).show();
             }
         });
+    }
+
+    @Override
+    public void onValidationSucceeded() {
+
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+
     }
 }
