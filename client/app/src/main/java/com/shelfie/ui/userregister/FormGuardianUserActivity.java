@@ -97,7 +97,9 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
 
     @Override
     public void onValidationSucceeded() {
-        startChildProfileFormIntent();
+        if(guardianUser != null) {
+            startChildProfileFormIntent();
+        }
     }
 
     @Override

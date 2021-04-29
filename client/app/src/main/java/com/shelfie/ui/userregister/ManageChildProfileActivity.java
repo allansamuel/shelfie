@@ -1,23 +1,17 @@
 package com.shelfie.ui.userregister;
 
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.FrameLayout;
+import android.widget.Button;
 
 import com.google.android.flexbox.FlexboxLayout;
-import com.google.android.flexbox.JustifyContent;
 import com.google.android.material.snackbar.Snackbar;
 import com.shelfie.R;
 import com.shelfie.config.RetrofitConfig;
@@ -31,44 +25,44 @@ import java.util.List;
 
 public class ManageChildProfileActivity extends FragmentActivity {
 
-    private Bundle prevBundle;
     private GuardianUser guardianUser;
-
-    private RetrofitConfig retrofitConfig;
     private GuardianUserService guardianUserService;
-
-    private FlexboxLayout flexboxChildProfiles;
+    private Button btnSaveUserProfiles;
     private FragmentTransaction fragmentTransaction;
-    private Fragment addProfileAvatarFragment;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_child_profile);
+
         init();
+
+        btnSaveUserProfiles.setOnClickListener(view -> {
+            createGuardianUser();
+        });
     }
 
     private void init() {
-        retrofitConfig = new RetrofitConfig();
+        RetrofitConfig retrofitConfig = new RetrofitConfig();
         guardianUserService = retrofitConfig.getGuardianUserService();
 
-        prevBundle = getIntent().getExtras();
-        guardianUser = (GuardianUser) prevBundle.getSerializable("GUARDIAN_USER_DATA");
+        Bundle previousBundle = getIntent().getExtras();
+        guardianUser = (GuardianUser) previousBundle.getSerializable(getString(R.string.bundle_guardian_user));
 
-        flexboxChildProfiles = findViewById(R.id.flexbox_child_profiles);
-        addProfileAvatarFragment = new ProfileAvatarFragment();
+        btnSaveUserProfiles = findViewById(R.id.btn_save_user_profiles);
+        Fragment addProfileAvatarFragment = new ProfileAvatarFragment();
         Bundle addProfileAvatarArgs = new Bundle();
         addProfileAvatarArgs.putSerializable("GUARDIAN_USER", guardianUser);
         addProfileAvatarFragment.setArguments(addProfileAvatarArgs);
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.add_profile_avatar_container, addProfileAvatarFragment, null);
         fragmentTransaction.commit();
 
-        setChildProfiles();
+        getChildProfiles();
     }
 
-    private void mapChildProfileAvatars(List<ChildProfile> childProfileList) {
+    private void mapChildProfiles(List<ChildProfile> childProfileList) {
         FragmentTransaction childProfileTransaction = getSupportFragmentManager().beginTransaction();
         for(int index = 0; index < childProfileList.size(); index++) {
             Fragment profileAvatarFragment = ProfileAvatarFragment.newInstance(
@@ -80,25 +74,40 @@ public class ManageChildProfileActivity extends FragmentActivity {
         childProfileTransaction.commit();
     }
 
-    private void setChildProfiles() {
-        if(guardianUser != null) {
-            guardianUserService.getChildProfiles(guardianUser.getGuardianUserId())
-                .enqueue(new Callback<ArrayList<ChildProfile>>() {
-                @Override
-                public void onResponse(Call<ArrayList<ChildProfile>> call, Response<ArrayList<ChildProfile>> response) {
-                    if(response.isSuccessful()) {
-                        mapChildProfileAvatars(response.body());
-                    } else {
-                        Snackbar.make(getWindow().getDecorView().getRootView(), "nao rolou", Snackbar.LENGTH_LONG).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ArrayList<ChildProfile>> call, Throwable t) {
+    private void getChildProfiles() {
+        guardianUserService.getChildProfiles(guardianUser.getGuardianUserId())
+            .enqueue(new Callback<ArrayList<ChildProfile>>() {
+            @Override
+            public void onResponse(Call<ArrayList<ChildProfile>> call, Response<ArrayList<ChildProfile>> response) {
+                if(response.isSuccessful()) {
+                    mapChildProfiles(response.body());
+                } else {
                     Snackbar.make(getWindow().getDecorView().getRootView(), "nao rolou", Snackbar.LENGTH_LONG).show();
                 }
-            });
-        }
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<ChildProfile>> call, Throwable t) {
+                Snackbar.make(getWindow().getDecorView().getRootView(), "nao rolou", Snackbar.LENGTH_LONG).show();
+            }
+        });
     }
 
+    private void createGuardianUser() {
+        guardianUserService.create(guardianUser).enqueue(new Callback<GuardianUser>() {
+            @Override
+            public void onResponse(Call<GuardianUser> call, Response<GuardianUser> response) {
+                if(response.isSuccessful()) {
+                    Snackbar.make(getWindow().getDecorView().getRootView(), "BOA!", Snackbar.LENGTH_LONG).show();
+                } else {
+                    Snackbar.make(getWindow().getDecorView().getRootView(), "nao rolou", Snackbar.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GuardianUser> call, Throwable t) {
+                Snackbar.make(getWindow().getDecorView().getRootView(), "nao rolou", Snackbar.LENGTH_LONG).show();
+            }
+        });
+    }
 }

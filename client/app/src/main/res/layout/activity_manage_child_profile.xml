@@ -9,48 +9,31 @@
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="16dp"
-        android:orientation="horizontal"
+        android:layout_marginBottom="32dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/flexbox_child_profiles"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageButton
-            android:id="@+id/imageButton"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/ic_arrow_back_black_24dp" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:text="Estamos quase lá!"
+            android:textAlignment="center"
+            android:textSize="24sp" />
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Estamos quase lá!"
-                android:textAlignment="textEnd"
-                android:textSize="24sp" />
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Queremos conhecer você."
-                android:textAlignment="textEnd" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Queremos conhecer você."
+            android:textAlignment="center" />
     </LinearLayout>
 
     <com.google.android.flexbox.FlexboxLayout
@@ -65,7 +48,7 @@
         app:alignItems="flex_start"
         app:flexWrap="wrap"
         app:justifyContent="space_between"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btn_save_user_profiles"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
@@ -82,6 +65,19 @@
 
     </com.google.android.flexbox.FlexboxLayout>
 
+    <Button
+        android:id="@+id/btn_save_user_profiles"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:text="@string/save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/flexbox_child_profiles" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
