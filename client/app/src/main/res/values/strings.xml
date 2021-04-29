@@ -7,6 +7,9 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
+    <!-- Bundle -->
+    <string name="bundle_guardian_user">GUARDIAN_USER_DATA</string>
+
     <!-- Form -->
     <string name="name">Nome</string>
     <string name="email">Email</string>
