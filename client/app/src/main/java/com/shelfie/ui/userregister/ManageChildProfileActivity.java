@@ -24,6 +24,7 @@ import java.util.List;
 public class ManageChildProfileActivity extends FragmentActivity {
 
     private GuardianUser guardianUser;
+    private List<ChildProfile> childProfiles;
     private GuardianUserService guardianUserService;
     private Button btnSaveUserProfiles;
     private FragmentTransaction fragmentTransaction;
