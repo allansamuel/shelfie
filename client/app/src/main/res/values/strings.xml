@@ -13,7 +13,8 @@
     <string name="password">Senha</string>
     <string name="password_confirm">Confirmação de senha</string>
     <string name="error_required_field">Campo obrigatório.</string>
-    <string name="error_invalid_length">O campo deve possuir entre %1$d e %2$d caracteres.</string>
+    <string name="error_invalid_name_length">O campo deve possuir entre 3 e 50 letras.</string>
+    <string name="error_invalid_nickname_length">O campo deve possuir entre 3 e 20 letras.</string>
     <string name="error_invalid_email">Email inválido.</string>
     <string name="error_invalid_password">A senha deve conter ao menos %1$d caracteres, com letras e números.</string>
     <string name="error_invalid_password_confirmation">As senhas não condizem.</string>

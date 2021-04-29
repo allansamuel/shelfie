@@ -39,11 +39,8 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
     private TextInputLayout txtGuardianUserPasswordConfirm;
     private Button btnGuardianUserNext;
 
-    private static final int NAME_FIELD_LENGTH_MIN = 3;
-    private static final int NAME_FIELD_LENGTH_MAX = 50;
-    private final String NAME_FIELD_LENGTH_MESSAGE = getString(R.string.error_invalid_length, NAME_FIELD_LENGTH_MIN, NAME_FIELD_LENGTH_MAX);
     @NotEmpty(messageResId = R.string.error_required_field)
-    @Length(message = NAME_FIELD_LENGTH_MESSAGE, min = NAME_FIELD_LENGTH_MIN, max = NAME_FIELD_LENGTH_MAX)
+    @Length(messageResId = R.string.error_invalid_name_length, min = 3, max = 50, trim = true)
     private TextInputEditText etGuardianUserName;
 
     @NotEmpty(messageResId = R.string.error_required_field)

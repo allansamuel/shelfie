@@ -18,6 +18,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.Digits;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.shelfie.R;
@@ -54,11 +55,8 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
     private Button btnDeleteChildProfile;
     private ProgressBar progressCircularCharacterLoader;
 
-    private static final int NICKNAME_FIELD_LENGTH_MIN = 3;
-    private static final int NICKNAME_FIELD_LENGTH_MAX = 20;
-    private final String NICKNAME_FIELD_LENGTH_MESSAGE = getString(R.string.error_invalid_length, NICKNAME_FIELD_LENGTH_MIN, NICKNAME_FIELD_LENGTH_MAX);
     @NotEmpty(messageResId = R.string.error_required_field)
-    @Length(min = NICKNAME_FIELD_LENGTH_MIN, max = NICKNAME_FIELD_LENGTH_MAX, message = NICKNAME_FIELD_LENGTH_MESSAGE)
+    @Length(messageResId = R.string.error_invalid_nickname_length, min = 3, max = 20, trim = true)
     private TextInputEditText etChildProfileNickname;
 
     @Override
