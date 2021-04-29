@@ -34,6 +34,7 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
     private RetrofitConfig retrofitConfig;
     private GuardianUserService guardianUserService;
     private GuardianUser guardianUser;
+    private Boolean isFormInEditMode = false;
 
     private Validator formValidator;
     private TextInputLayout txtGuardianUserName;
@@ -72,9 +73,9 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
     }
 
     private void init() {
-        receivedBundle = new Bundle();
-        guardianUser = receivedBundle.getBoolean(getString(R.string.bundle_is_edit_mode)) ?
-                (GuardianUser) receivedBundle.getSerializable(getString(R.string.bundle_guardian_user)) : new GuardianUser();
+        receivedBundle = getIntent().getExtras();
+        isFormInEditMode = receivedBundle.getBoolean(getString(R.string.bundle_is_edit_mode));
+        guardianUser = isFormInEditMode ? (GuardianUser) receivedBundle.getSerializable(getString(R.string.bundle_guardian_user)) : new GuardianUser();
         retrofitConfig = new RetrofitConfig();
         guardianUserService = retrofitConfig.getGuardianUserService();
 
@@ -100,6 +101,7 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
                     Intent intent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable(getString(R.string.bundle_guardian_user), guardianUser);
+                    bundle.putBoolean(getString(R.string.bundle_is_edit_mode), isFormInEditMode);
                     intent.putExtras(bundle);
                     startActivity(intent);
                 } else {
@@ -148,7 +150,7 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
             guardianUser.setGuardianUserEmail(Objects.requireNonNull(etGuardianUserEmail.getText()).toString());
             guardianUser.setGuardianUserPassword(Objects.requireNonNull(etGuardianUserPassword.getText()).toString());
 
-            if (receivedBundle.getBoolean(getString(R.string.bundle_is_edit_mode))) {
+            if (isFormInEditMode) {
                 updateGuardianUser();
             } else {
                 createGuardianUser();
