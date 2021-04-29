@@ -8,17 +8,15 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 
-import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.material.snackbar.Snackbar;
 import com.shelfie.R;
 import com.shelfie.config.RetrofitConfig;
 import com.shelfie.model.ChildProfile;
 import com.shelfie.model.GuardianUser;
 import com.shelfie.service.GuardianUserService;
-import com.shelfie.ui.customViews.ProfileAvatarFragment;
+import com.shelfie.ui.fragments.ProfileAvatarFragment;
 
 import java.util.ArrayList;
 import java.util.List;

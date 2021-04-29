@@ -1,4 +1,4 @@
-package com.shelfie.ui.customViews;
+package com.shelfie.ui.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,10 +20,12 @@ import com.shelfie.model.ChildProfile;
 import com.shelfie.model.GuardianUser;
 import com.shelfie.ui.userregister.FormChildProfileActivity;
 
+import org.jetbrains.annotations.NotNull;
+
 public class ProfileAvatarFragment extends Fragment {
 
-    private static final String ARG_GUARDIAN_USER = "GUARDIAN_USER";
-    private static final String ARG_CHILD_PROFILE = "CHILD_PROFILE";
+    private static final String ARG_GUARDIAN_USER = "GUARDIAN_USER_DATA";
+    private static final String ARG_CHILD_PROFILE = "CHILD_PROFILE_DATA";
     private static final String ARG_IS_EDIT_MODE = "IS_EDIT_MODE";
 
     private GuardianUser guardianUser;
@@ -46,8 +48,7 @@ public class ProfileAvatarFragment extends Fragment {
         return fragment;
     }
 
-    public ProfileAvatarFragment() {
-    }
+    public ProfileAvatarFragment() { }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,38 +67,33 @@ public class ProfileAvatarFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NotNull View view, @Nullable Bundle savedInstanceState) {
 
         init();
 
-        cvChildProfileAvatarContainer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(childProfile == null) {
-                    Intent newIntent = new Intent(getActivity().getApplicationContext(), FormChildProfileActivity.class);
-                    Bundle newIntentBundle = new Bundle();
-                    newIntentBundle.putSerializable("GUARDIAN_USER_DATA", guardianUser);
-                    newIntent.putExtras(newIntentBundle);
-                    startActivity(newIntent);
-                }
-            }
-        });
-
-        fabChildProfileEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent newIntent = new Intent(getActivity().getApplicationContext(), FormChildProfileActivity.class);
+        cvChildProfileAvatarContainer.setOnClickListener(view1 -> {
+            if(childProfile == null) {
+                Intent newIntent = new Intent(requireActivity().getApplicationContext(), FormChildProfileActivity.class);
                 Bundle newIntentBundle = new Bundle();
-                newIntentBundle.putSerializable("CHILD_PROFILE_DATA", childProfile);
-                newIntentBundle.putSerializable("GUARDIAN_USER_DATA", guardianUser);
+                newIntentBundle.putSerializable(getString(R.string.bundle_guardian_user), guardianUser);
                 newIntent.putExtras(newIntentBundle);
                 startActivity(newIntent);
             }
+        });
+
+        fabChildProfileEdit.setOnClickListener(view12 -> {
+            Intent newIntent = new Intent(requireActivity().getApplicationContext(), FormChildProfileActivity.class);
+            Bundle newIntentBundle = new Bundle();
+            newIntentBundle.putSerializable(getString(R.string.bundle_child_profile), childProfile);
+            newIntentBundle.putSerializable(getString(R.string.bundle_guardian_user), guardianUser);
+            newIntent.putExtras(newIntentBundle);
+            startActivity(newIntent);
         });
     }
 
     private void init() {
         View view = getView();
+        assert view != null;
         cvChildProfileAvatarContainer = view.findViewById(R.id.cv_child_profile_avatar_container);
         imgChildProfileAvatar = view.findViewById(R.id.img_child_profile_avatar);
         fabChildProfileEdit = view.findViewById(R.id.fab_child_profile_edit);
