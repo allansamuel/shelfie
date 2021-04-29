@@ -70,6 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/name"
+            app:boxStrokeColor="@android:color/secondary_text_dark"
             app:errorEnabled="true"
             app:hintAnimationEnabled="true">
 
@@ -87,6 +88,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/email"
+            app:boxStrokeColor="@android:color/secondary_text_dark"
             app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -102,6 +104,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
+            app:boxStrokeColor="@android:color/secondary_text_dark"
             app:errorEnabled="true"
             app:hintAnimationEnabled="true">
 
@@ -118,6 +121,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password_confirm"
+            app:boxStrokeColor="@android:color/secondary_text_dark"
             app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
