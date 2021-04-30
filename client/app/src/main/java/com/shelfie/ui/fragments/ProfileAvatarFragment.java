@@ -1,6 +1,7 @@
 package com.shelfie.ui.fragments;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -30,7 +31,7 @@ public class ProfileAvatarFragment extends Fragment {
 
     private GuardianUser guardianUser;
     private ChildProfile childProfile;
-    private boolean isEditMode;
+    private Boolean isFormInEditMode;
 
     private CardView cvChildProfileAvatarContainer;
     private ImageView imgChildProfileAvatar;
@@ -56,7 +57,8 @@ public class ProfileAvatarFragment extends Fragment {
         if (getArguments() != null) {
             guardianUser = (GuardianUser) getArguments().getSerializable(ARG_GUARDIAN_USER);
             childProfile = (ChildProfile) getArguments().getSerializable(ARG_CHILD_PROFILE);
-            isEditMode = getArguments().getBoolean(ARG_IS_EDIT_MODE);
+            isFormInEditMode = getArguments().getBoolean(ARG_IS_EDIT_MODE)
+                    ? getArguments().getBoolean(ARG_IS_EDIT_MODE) : false;
         }
     }
 
@@ -101,9 +103,12 @@ public class ProfileAvatarFragment extends Fragment {
 
         if(childProfile != null) {
             imgChildProfileAvatar.setPadding(0, 0, 0, 0);
-            imgChildProfileAvatar.setImageBitmap(ImageDecoder.decodeBase64(childProfile.getCharacter().getCharacterImage()));
+            Bitmap profileAvatarImage = ImageDecoder.decodeBase64(childProfile.getCharacter().getCharacterImage());
+            profileAvatarImage = Bitmap.createBitmap(profileAvatarImage, 0, 0, 1000, 1000);
+            imgChildProfileAvatar.setImageBitmap(profileAvatarImage);
+            imgChildProfileAvatar.setBackgroundColor(getResources().getColor(R.color.blue_200));
             tvChildProfileNickname.setText(childProfile.getNickname());
-            if(isEditMode) {
+            if(isFormInEditMode) {
                 fabChildProfileEdit.setVisibility(View.VISIBLE);
             }
         }

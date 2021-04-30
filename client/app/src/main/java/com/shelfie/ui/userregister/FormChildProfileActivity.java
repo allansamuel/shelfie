@@ -31,12 +31,11 @@ import com.shelfie.service.ChildProfileService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 public class FormChildProfileActivity extends AppCompatActivity implements Validator.ValidationListener {
 
     private Validator formValidator;
-    private Bundle prevBundle;
+    private Bundle receivedBundle;
     private GuardianUser guardianUser;
 
     private RetrofitConfig retrofitConfig;
@@ -44,7 +43,6 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
     private ChildProfile childProfile;
     private CharacterService characterService;
     private List<Character> characterList;
-    private ListIterator characterListIterator;
     private Character currentCharacter;
 
     private TextInputLayout txtChildProfileNickname;
@@ -66,6 +64,8 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
 
         init();
 
+        getCharacterList();
+
         ibPreviousCharacter.setOnClickListener(view -> getPreviousCharacter());
 
         ibNextCharacter.setOnClickListener(view -> getNextCharacter());
@@ -76,10 +76,13 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
     }
 
     private void init() {
+        receivedBundle = getIntent().getExtras();
+        guardianUser = (GuardianUser) receivedBundle.getSerializable(getString(R.string.bundle_guardian_user));
+        childProfile = (ChildProfile) receivedBundle.getSerializable(getString(R.string.bundle_child_profile));
+
         formValidator = new Validator(this);
         formValidator.setValidationListener(this);
         characterList = new ArrayList<>();
-        characterListIterator = characterList.listIterator();
         retrofitConfig = new RetrofitConfig();
         childProfileService = retrofitConfig.getChildProfileService();
         characterService = retrofitConfig.getCharacterService();
@@ -93,10 +96,6 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
         btnDeleteChildProfile = findViewById(R.id.btn_child_profile_delete);
         progressCircularCharacterLoader = findViewById(R.id.progress_circular_character_loader);
 
-        prevBundle = getIntent().getExtras();
-        guardianUser = (GuardianUser) prevBundle.getSerializable(getString(R.string.bundle_guardian_user));
-        childProfile = (ChildProfile) prevBundle.getSerializable(getString(R.string.bundle_child_profile));
-
         if(childProfile != null){
             currentCharacter = childProfile.getCharacter();
             etChildProfileNickname.setText(childProfile.getNickname());
@@ -104,10 +103,9 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
         } else {
             childProfile = new ChildProfile();
         }
-        setCharacterList();
     }
 
-    private void setCharacterList() {
+    private void getCharacterList() {
         characterService.getAll().enqueue(new Callback<ArrayList<Character>>() {
             @Override
             public void onResponse(Call<ArrayList<Character>> call, Response<ArrayList<Character>> response) {
@@ -184,7 +182,7 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
                 if(response.isSuccessful()) {
                     Intent intent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
                     Bundle newIntentBundle = new Bundle();
-                    newIntentBundle.putSerializable("GUARDIAN_USER_DATA", guardianUser);
+                    newIntentBundle.putSerializable(getString(R.string.bundle_guardian_user), guardianUser);
                     intent.putExtras(newIntentBundle);
                     startActivity(intent);
                 } else {
@@ -205,7 +203,7 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
             public void onResponse(Call<Void> call, Response<Void> response) {
                 Intent intent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
                 Bundle newIntentBundle = new Bundle();
-                newIntentBundle.putSerializable("GUARDIAN_USER_DATA", guardianUser);
+                newIntentBundle.putSerializable(getString(R.string.bundle_guardian_user), guardianUser);
                 intent.putExtras(newIntentBundle);
                 startActivity(intent);
             }

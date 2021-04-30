@@ -122,6 +122,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ainda não possui uma conta?"
+                android:textAlignment="center" />
+
             <Button
                 android:id="@+id/btn_register"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
@@ -130,13 +137,6 @@
                 android:text="@string/register"
                 app:strokeColor="@color/blue_400"
                 app:strokeWidth="2dp" />
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Ainda não possui uma conta?"
-                android:textAlignment="center" />
 
         </LinearLayout>
     </LinearLayout>

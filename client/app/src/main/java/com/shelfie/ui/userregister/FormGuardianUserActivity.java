@@ -34,7 +34,7 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
     private RetrofitConfig retrofitConfig;
     private GuardianUserService guardianUserService;
     private GuardianUser guardianUser;
-    private Boolean isFormInEditMode = false;
+    private Boolean isFormInEditMode;
 
     private Validator formValidator;
     private TextInputLayout txtGuardianUserName;
@@ -44,19 +44,19 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
     private Button btnGuardianUserNext;
 
     @NotEmpty(messageResId = R.string.error_required_field)
-    @Length(messageResId = R.string.error_invalid_name_length, min = 3, max = 50, trim = true)
+//    @Length(messageResId = R.string.error_invalid_name_length, min = 3, max = 50, trim = true)
     private TextInputEditText etGuardianUserName;
 
-    @NotEmpty(messageResId = R.string.error_required_field)
-    @Email(messageResId = R.string.error_invalid_email)
+//    @NotEmpty(messageResId = R.string.error_required_field)
+//    @Email(messageResId = R.string.error_invalid_email)
     private TextInputEditText etGuardianUserEmail;
 
-    @NotEmpty(messageResId = R.string.error_required_field)
-    @Password(messageResId = R.string.error_invalid_password, scheme = Password.Scheme.ALPHA_NUMERIC)
+//    @NotEmpty(messageResId = R.string.error_required_field)
+//    @Password(messageResId = R.string.error_invalid_password, scheme = Password.Scheme.ALPHA_NUMERIC)
     private TextInputEditText etGuardianUserPassword;
 
-    @NotEmpty(messageResId = R.string.error_required_field)
-    @ConfirmPassword(messageResId = R.string.error_invalid_password_confirmation)
+//    @NotEmpty(messageResId = R.string.error_required_field)
+//    @ConfirmPassword(messageResId = R.string.error_invalid_password_confirmation)
     private TextInputEditText etGuardianUserPasswordConfirm;
 
     @Override
@@ -74,8 +74,13 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
 
     private void init() {
         receivedBundle = getIntent().getExtras();
-        isFormInEditMode = receivedBundle.getBoolean(getString(R.string.bundle_is_edit_mode));
-        guardianUser = isFormInEditMode ? (GuardianUser) receivedBundle.getSerializable(getString(R.string.bundle_guardian_user)) : new GuardianUser();
+        guardianUser = new GuardianUser();
+        isFormInEditMode = false;
+        if(receivedBundle != null && receivedBundle.getSerializable(getString(R.string.bundle_guardian_user)) != null) {
+            guardianUser = (GuardianUser) receivedBundle.get(getString(R.string.bundle_guardian_user));
+            isFormInEditMode = true;
+        }
+
         retrofitConfig = new RetrofitConfig();
         guardianUserService = retrofitConfig.getGuardianUserService();
 
@@ -98,10 +103,11 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
             @Override
             public void onResponse(Call<GuardianUser> call, Response<GuardianUser> response) {
                 if(response.isSuccessful()) {
+                    guardianUser = response.body();
                     Intent intent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable(getString(R.string.bundle_guardian_user), guardianUser);
-                    bundle.putBoolean(getString(R.string.bundle_is_edit_mode), isFormInEditMode);
+                    bundle.putBoolean(getString(R.string.bundle_is_edit_mode), true);
                     intent.putExtras(bundle);
                     startActivity(intent);
                 } else {
@@ -122,7 +128,11 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
             @Override
             public void onResponse(Call<GuardianUser> call, Response<GuardianUser> response) {
                 if(response.isSuccessful()) {
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable(getString(R.string.bundle_guardian_user), guardianUser);
+                    bundle.putBoolean(getString(R.string.bundle_is_edit_mode), false);
+                    intent.putExtras(bundle);
                     startActivity(intent);
                 } else {
 
@@ -145,16 +155,14 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
 
     @Override
     public void onValidationSucceeded() {
-        if(guardianUser != null) {
-            guardianUser.setGuardianUserName(Objects.requireNonNull(etGuardianUserName.getText()).toString());
-            guardianUser.setGuardianUserEmail(Objects.requireNonNull(etGuardianUserEmail.getText()).toString());
-            guardianUser.setGuardianUserPassword(Objects.requireNonNull(etGuardianUserPassword.getText()).toString());
+        guardianUser.setGuardianUserName(Objects.requireNonNull(etGuardianUserName.getText()).toString());
+        guardianUser.setGuardianUserEmail(Objects.requireNonNull(etGuardianUserEmail.getText()).toString());
+        guardianUser.setGuardianUserPassword(Objects.requireNonNull(etGuardianUserPassword.getText()).toString());
 
-            if (isFormInEditMode) {
-                updateGuardianUser();
-            } else {
-                createGuardianUser();
-            }
+        if (isFormInEditMode) {
+            updateGuardianUser();
+        } else {
+            createGuardianUser();
         }
     }
 

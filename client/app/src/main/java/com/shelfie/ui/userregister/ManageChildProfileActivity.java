@@ -7,6 +7,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -90,18 +91,23 @@ public class ManageChildProfileActivity extends FragmentActivity {
                     childProfiles.addAll(response.body());
                     mapChildProfiles();
                 } else {
-                    Snackbar.make(getWindow().getDecorView().getRootView(), "nao rolou", Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(getWindow().getDecorView().getRootView(), "caiu aqui", Snackbar.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ArrayList<ChildProfile>> call, Throwable t) {
-                Snackbar.make(getWindow().getDecorView().getRootView(), "nao rolou", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_LONG).show();
             }
         });
     }
 
     private void saveAndAuthenticateUser() {
-
+        Intent newIntent = new Intent(getApplicationContext(), FormChildProfileActivity.class);
+        Bundle newIntentBundle = new Bundle();
+        newIntentBundle.putSerializable(getString(R.string.bundle_guardian_user), guardianUser);
+        newIntentBundle.putSerializable(getString(R.string.bundle_guardian_user), guardianUser);
+        newIntent.putExtras(newIntentBundle);
+        startActivity(newIntent);
     }
 }
