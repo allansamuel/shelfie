@@ -100,6 +100,8 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
             currentCharacter = childProfile.getCharacter();
             etChildProfileNickname.setText(childProfile.getNickname());
             btnDeleteChildProfile.setVisibility(View.VISIBLE);
+            ibNextCharacter.setVisibility(View.VISIBLE);
+            ibPreviousCharacter.setVisibility(View.VISIBLE);
         } else {
             childProfile = new ChildProfile();
         }
