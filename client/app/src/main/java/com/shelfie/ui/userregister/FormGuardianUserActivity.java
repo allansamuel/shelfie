@@ -1,14 +1,18 @@
 package com.shelfie.ui.userregister;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -24,6 +28,7 @@ import com.shelfie.R;
 import com.shelfie.config.RetrofitConfig;
 import com.shelfie.model.GuardianUser;
 import com.shelfie.service.GuardianUserService;
+import com.shelfie.ui.fragments.EmptyStateDialogFragment;
 
 import java.util.List;
 import java.util.Objects;
@@ -42,6 +47,7 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
     private TextInputLayout txtGuardianUserPassword;
     private TextInputLayout txtGuardianUserPasswordConfirm;
     private Button btnGuardianUserNext;
+    private ProgressBar progressGuardianUserSave;
 
     @NotEmpty(messageResId = R.string.error_required_field)
 //    @Length(messageResId = R.string.error_invalid_name_length, min = 3, max = 50, trim = true)
@@ -95,6 +101,7 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
         txtGuardianUserPasswordConfirm = findViewById(R.id.txt_guardian_user_password_confirm);
         etGuardianUserPasswordConfirm = findViewById(R.id.et_guardian_user_password_confirm);
         btnGuardianUserNext = findViewById(R.id.btn_guardian_user_next);
+        progressGuardianUserSave = findViewById(R.id.progress_guardian_user_save);
     }
 
     private void createGuardianUser() {
@@ -113,11 +120,14 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
                 } else {
 
                 }
+                progressGuardianUserSave.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onFailure(Call<GuardianUser> call, Throwable t) {
-
+                EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
+                emptyStateDialogFragment.show(getSupportFragmentManager(), "EmptyStateDialogFragment");
+                progressGuardianUserSave.setVisibility(View.INVISIBLE);
             }
         });
     }
@@ -137,11 +147,14 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
                 } else {
 
                 }
+                progressGuardianUserSave.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onFailure(Call<GuardianUser> call, Throwable t) {
-
+                EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
+                emptyStateDialogFragment.show(getSupportFragmentManager(), "EmptyStateDialogFragment");
+                progressGuardianUserSave.setVisibility(View.INVISIBLE);
             }
         });
     }
@@ -155,6 +168,7 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
 
     @Override
     public void onValidationSucceeded() {
+        progressGuardianUserSave.setVisibility(View.VISIBLE);
         guardianUser.setGuardianUserName(Objects.requireNonNull(etGuardianUserName.getText()).toString());
         guardianUser.setGuardianUserEmail(Objects.requireNonNull(etGuardianUserEmail.getText()).toString());
         guardianUser.setGuardianUserPassword(Objects.requireNonNull(etGuardianUserPassword.getText()).toString());

@@ -141,6 +141,14 @@
             app:strokeColor="@color/blue_400"
             app:strokeWidth="2dp" />
 
+        <ProgressBar
+            android:id="@+id/progress_guardian_user_save"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="invisible" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

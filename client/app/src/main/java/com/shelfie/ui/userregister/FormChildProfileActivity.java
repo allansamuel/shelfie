@@ -1,10 +1,12 @@
 package com.shelfie.ui.userregister;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -194,7 +196,14 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
 
             @Override
             public void onFailure(Call<ChildProfile> call, Throwable t) {
-                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_LONG).show();
+                AlertDialog.Builder alert = new AlertDialog.Builder(getApplicationContext());
+                alert.setTitle("Não foi possível conectar com o servidor. Por favor, tente novamente mais tarde.");
+
+                alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //Your action here
+                    }
+                });
             }
         });
     }
