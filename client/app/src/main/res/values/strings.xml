@@ -33,4 +33,7 @@
     <string name="logoff">Sair</string>
     <string name="next">Próximo</string>
     <string name="save">Salvar</string>
+    <string name="search">Buscar</string>
+    <string name="home">Início</string>
+    <string name="my_profile">Meu perfil</string>
 </resources>

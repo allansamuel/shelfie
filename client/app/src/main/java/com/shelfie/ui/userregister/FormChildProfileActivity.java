@@ -30,6 +30,7 @@ import com.shelfie.model.ChildProfile;
 import com.shelfie.model.GuardianUser;
 import com.shelfie.service.CharacterService;
 import com.shelfie.service.ChildProfileService;
+import com.shelfie.ui.fragments.EmptyStateDialogFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,21 +120,24 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
                         currentCharacter = childProfile.getCharacter() != null ? childProfile.getCharacter() : characterList.get(0);
                         setCharacterImagePreview();
                     }
-                    System.out.println(characterList.size());
+                    progressCircularCharacterLoader.setVisibility(View.GONE);
                 } else {
-                    Snackbar.make(getWindow().getDecorView().getRootView(), "deu ruim meu", Snackbar.LENGTH_LONG).show();
+                    EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
+                    emptyStateDialogFragment.show(getSupportFragmentManager(), "EmptyStateDialogFragment");
+                    progressCircularCharacterLoader.setVisibility(View.INVISIBLE);
                 }
             }
 
             @Override
             public void onFailure(Call<ArrayList<Character>> call, Throwable t) {
-                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_LONG).show();
+                EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
+                emptyStateDialogFragment.show(getSupportFragmentManager(), "EmptyStateDialogFragment");
+                progressCircularCharacterLoader.setVisibility(View.INVISIBLE);
             }
         });
     }
 
     private void setCharacterImagePreview() {
-        progressCircularCharacterLoader.setVisibility(View.GONE);
         imgCharacterPreview.setVisibility(View.VISIBLE);
         imgCharacterPreview.setImageBitmap(ImageDecoder.decodeBase64(currentCharacter.getCharacterImage()));
         hideCharacterNavigationButtons();
