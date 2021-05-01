@@ -39,9 +39,10 @@ import java.util.List;
 public class FormChildProfileActivity extends AppCompatActivity implements Validator.ValidationListener {
 
     private ApplicationStateManager applicationStateManager;
-    private Validator formValidator;
     private GuardianUser guardianUser;
 
+    private Validator formValidator;
+    private Bundle receivedBundle;
     private RetrofitConfig retrofitConfig;
     private ChildProfileService childProfileService;
     private ChildProfile childProfile;
@@ -82,8 +83,12 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
     private void init() {
         applicationStateManager = new ApplicationStateManager();
         guardianUser = applicationStateManager.getCurrentGuardianUser();
-        childProfile = applicationStateManager.getCurrentChildProfile() != null ?
-                applicationStateManager.getCurrentChildProfile() : new ChildProfile();
+
+        receivedBundle = getIntent().getExtras();
+        childProfile = new ChildProfile();
+        if (receivedBundle != null) {
+            childProfile = (ChildProfile) receivedBundle.getSerializable(getString(R.string.arg_child_profile));
+        }
 
         formValidator = new Validator(this);
         formValidator.setValidationListener(this);
@@ -182,6 +187,7 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
             @Override
             public void onResponse(Call<ChildProfile> call, Response<ChildProfile> response) {
                 if(response.isSuccessful()) {
+                    applicationStateManager.setCurrentChildProfile(null);
                     Intent intent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
                     startActivity(intent);
                 } else {

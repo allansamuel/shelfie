@@ -55,9 +55,6 @@ public class ManageChildProfileActivity extends FragmentActivity {
         guardianUserService = retrofitConfig.getGuardianUserService();
 
         Fragment addProfileAvatarFragment = new ProfileAvatarFragment();
-        Bundle addProfileAvatarArgs = new Bundle();
-        addProfileAvatarArgs.putSerializable(getString(R.string.bundle_guardian_user), guardianUser);
-        addProfileAvatarFragment.setArguments(addProfileAvatarArgs);
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.add_profile_avatar_container, addProfileAvatarFragment, null);
         fragmentTransaction.commit();
@@ -73,9 +70,7 @@ public class ManageChildProfileActivity extends FragmentActivity {
     private void mapChildProfiles() {
         FragmentTransaction childProfileTransaction = getSupportFragmentManager().beginTransaction();
         for(ChildProfile childProfile : childProfiles) {
-            Fragment profileAvatarFragment = ProfileAvatarFragment.newInstance(
-                    guardianUser,
-                    childProfile);
+            Fragment profileAvatarFragment = ProfileAvatarFragment.newInstance(childProfile);
             childProfileTransaction.add(R.id.flexbox_child_profiles, profileAvatarFragment, childProfile.getNickname());
         }
         childProfileTransaction.commit();
