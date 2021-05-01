@@ -137,7 +137,7 @@
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="@string/next"
+            android:text="@string/save"
             app:strokeColor="@color/blue_400"
             app:strokeWidth="2dp" />
 

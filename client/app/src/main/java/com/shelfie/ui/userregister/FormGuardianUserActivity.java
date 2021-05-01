@@ -29,17 +29,19 @@ import com.shelfie.config.RetrofitConfig;
 import com.shelfie.model.GuardianUser;
 import com.shelfie.service.GuardianUserService;
 import com.shelfie.ui.fragments.EmptyStateDialogFragment;
+import com.shelfie.utils.ApplicationStateManager;
 
 import java.util.List;
 import java.util.Objects;
 
 public class FormGuardianUserActivity extends AppCompatActivity implements Validator.ValidationListener {
 
+    private ApplicationStateManager applicationStateManager;
+
     private Bundle receivedBundle;
     private RetrofitConfig retrofitConfig;
     private GuardianUserService guardianUserService;
     private GuardianUser guardianUser;
-    private Boolean isFormInEditMode;
 
     private Validator formValidator;
     private TextInputLayout txtGuardianUserName;
@@ -79,13 +81,9 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
     }
 
     private void init() {
-        receivedBundle = getIntent().getExtras();
-        guardianUser = new GuardianUser();
-        isFormInEditMode = false;
-        if(receivedBundle != null && receivedBundle.getSerializable(getString(R.string.bundle_guardian_user)) != null) {
-            guardianUser = (GuardianUser) receivedBundle.get(getString(R.string.bundle_guardian_user));
-            isFormInEditMode = true;
-        }
+        applicationStateManager = new ApplicationStateManager();
+        guardianUser = applicationStateManager.getCurrentGuardianUser() != null ?
+                applicationStateManager.getCurrentGuardianUser() : new GuardianUser();
 
         retrofitConfig = new RetrofitConfig();
         guardianUserService = retrofitConfig.getGuardianUserService();
@@ -111,11 +109,8 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
             public void onResponse(Call<GuardianUser> call, Response<GuardianUser> response) {
                 if(response.isSuccessful()) {
                     guardianUser = response.body();
+                    applicationStateManager.setCurrentGuardianUser(guardianUser);
                     Intent intent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable(getString(R.string.bundle_guardian_user), guardianUser);
-                    bundle.putBoolean(getString(R.string.bundle_is_edit_mode), true);
-                    intent.putExtras(bundle);
                     startActivity(intent);
                 } else {
 
@@ -138,11 +133,10 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
             @Override
             public void onResponse(Call<GuardianUser> call, Response<GuardianUser> response) {
                 if(response.isSuccessful()) {
+                    guardianUser = response.body();
+                    applicationStateManager.setCurrentGuardianUser(guardianUser);
+                    applicationStateManager.setFormInteractionMode(ApplicationStateManager.READ_MODE);
                     Intent intent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putSerializable(getString(R.string.bundle_guardian_user), guardianUser);
-                    bundle.putBoolean(getString(R.string.bundle_is_edit_mode), false);
-                    intent.putExtras(bundle);
                     startActivity(intent);
                 } else {
 
@@ -173,11 +167,12 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
         guardianUser.setGuardianUserEmail(Objects.requireNonNull(etGuardianUserEmail.getText()).toString());
         guardianUser.setGuardianUserPassword(Objects.requireNonNull(etGuardianUserPassword.getText()).toString());
 
-        if (isFormInEditMode) {
+        if (ApplicationStateManager.getFormInteractionMode() == ApplicationStateManager.EDIT_MODE) {
             updateGuardianUser();
         } else {
             createGuardianUser();
         }
+
     }
 
     @Override

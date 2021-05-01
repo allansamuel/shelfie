@@ -20,6 +20,7 @@ import com.shelfie.config.ImageDecoder;
 import com.shelfie.model.ChildProfile;
 import com.shelfie.model.GuardianUser;
 import com.shelfie.ui.userregister.FormChildProfileActivity;
+import com.shelfie.utils.ApplicationStateManager;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -27,11 +28,11 @@ public class ProfileAvatarFragment extends Fragment {
 
     private static final String ARG_GUARDIAN_USER = "GUARDIAN_USER_DATA";
     private static final String ARG_CHILD_PROFILE = "CHILD_PROFILE_DATA";
-    private static final String ARG_IS_EDIT_MODE = "IS_EDIT_MODE";
+    private static final String ARG_FORM_INTERACTION_MODE = "FORM_INTERACTION_MODE";
 
     private GuardianUser guardianUser;
     private ChildProfile childProfile;
-    private Boolean isFormInEditMode;
+    private int formInteractionMode;
 
     private CardView cvChildProfileAvatarContainer;
     private ImageView imgChildProfileAvatar;
@@ -39,12 +40,12 @@ public class ProfileAvatarFragment extends Fragment {
     private TextView tvChildProfileNickname;
 
     public static ProfileAvatarFragment newInstance(GuardianUser guardianUser,
-            ChildProfile childProfile, boolean isEditMode) {
+            ChildProfile childProfile, int formInteractionMode) {
         ProfileAvatarFragment fragment = new ProfileAvatarFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_GUARDIAN_USER, guardianUser);
         args.putSerializable(ARG_CHILD_PROFILE, childProfile);
-        args.putBoolean(ARG_IS_EDIT_MODE, isEditMode);
+        args.putInt(ARG_FORM_INTERACTION_MODE, formInteractionMode);
         fragment.setArguments(args);
         return fragment;
     }
@@ -57,8 +58,7 @@ public class ProfileAvatarFragment extends Fragment {
         if (getArguments() != null) {
             guardianUser = (GuardianUser) getArguments().getSerializable(ARG_GUARDIAN_USER);
             childProfile = (ChildProfile) getArguments().getSerializable(ARG_CHILD_PROFILE);
-            isFormInEditMode = getArguments().getBoolean(ARG_IS_EDIT_MODE)
-                    ? getArguments().getBoolean(ARG_IS_EDIT_MODE) : false;
+            formInteractionMode = getArguments().getInt(ARG_FORM_INTERACTION_MODE);
         }
     }
 
@@ -108,7 +108,7 @@ public class ProfileAvatarFragment extends Fragment {
             imgChildProfileAvatar.setImageBitmap(profileAvatarImage);
             imgChildProfileAvatar.setBackgroundColor(getResources().getColor(R.color.blue_200));
             tvChildProfileNickname.setText(childProfile.getNickname());
-            if(isFormInEditMode) {
+            if(formInteractionMode == ApplicationStateManager.EDIT_MODE) {
                 fabChildProfileEdit.setVisibility(View.VISIBLE);
             }
         }
