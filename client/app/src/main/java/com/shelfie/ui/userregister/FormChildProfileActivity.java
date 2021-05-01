@@ -31,14 +31,15 @@ import com.shelfie.model.GuardianUser;
 import com.shelfie.service.CharacterService;
 import com.shelfie.service.ChildProfileService;
 import com.shelfie.ui.fragments.EmptyStateDialogFragment;
+import com.shelfie.utils.ApplicationStateManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FormChildProfileActivity extends AppCompatActivity implements Validator.ValidationListener {
 
+    private ApplicationStateManager applicationStateManager;
     private Validator formValidator;
-    private Bundle receivedBundle;
     private GuardianUser guardianUser;
 
     private RetrofitConfig retrofitConfig;
@@ -52,7 +53,7 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
     private ImageButton ibPreviousCharacter;
     private ImageView imgCharacterPreview;
     private ImageButton ibNextCharacter;
-    private Button btnCreateChildProfile;
+    private Button btnSaveChildProfile;
     private Button btnDeleteChildProfile;
     private ProgressBar progressCircularCharacterLoader;
 
@@ -73,15 +74,16 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
 
         ibNextCharacter.setOnClickListener(view -> getNextCharacter());
 
-        btnCreateChildProfile.setOnClickListener(view -> createChildProfile());
+        btnSaveChildProfile.setOnClickListener(view -> formValidator.validate());
 
         btnDeleteChildProfile.setOnClickListener(view -> deleteChildProfile());
     }
 
     private void init() {
-        receivedBundle = getIntent().getExtras();
-        guardianUser = (GuardianUser) receivedBundle.getSerializable(getString(R.string.bundle_guardian_user));
-        childProfile = (ChildProfile) receivedBundle.getSerializable(getString(R.string.bundle_child_profile));
+        applicationStateManager = new ApplicationStateManager();
+        guardianUser = applicationStateManager.getCurrentGuardianUser();
+        childProfile = applicationStateManager.getCurrentChildProfile() != null ?
+                applicationStateManager.getCurrentChildProfile() : new ChildProfile();
 
         formValidator = new Validator(this);
         formValidator.setValidationListener(this);
@@ -95,18 +97,14 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
         ibPreviousCharacter = findViewById(R.id.ib_previous_character);
         imgCharacterPreview = findViewById(R.id.img_character_preview);
         ibNextCharacter = findViewById(R.id.ib_next_character);
-        btnCreateChildProfile = findViewById(R.id.btn_child_profile_create);
+        btnSaveChildProfile = findViewById(R.id.btn_child_profile_create);
         btnDeleteChildProfile = findViewById(R.id.btn_child_profile_delete);
         progressCircularCharacterLoader = findViewById(R.id.progress_circular_character_loader);
 
-        if(childProfile != null){
+        if(applicationStateManager.getFormInteractionMode() == ApplicationStateManager.EDIT_MODE){
             currentCharacter = childProfile.getCharacter();
             etChildProfileNickname.setText(childProfile.getNickname());
             btnDeleteChildProfile.setVisibility(View.VISIBLE);
-            ibNextCharacter.setVisibility(View.VISIBLE);
-            ibPreviousCharacter.setVisibility(View.VISIBLE);
-        } else {
-            childProfile = new ChildProfile();
         }
     }
 
@@ -180,18 +178,11 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
     }
 
     private void createChildProfile() {
-        childProfile.setNickname(etChildProfileNickname.getText().toString());
-        childProfile.setCharacter(currentCharacter);
-        childProfile.setGuardianUser(guardianUser);
-
         childProfileService.create(childProfile).enqueue(new Callback<ChildProfile>() {
             @Override
             public void onResponse(Call<ChildProfile> call, Response<ChildProfile> response) {
                 if(response.isSuccessful()) {
                     Intent intent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
-                    Bundle newIntentBundle = new Bundle();
-                    newIntentBundle.putSerializable(getString(R.string.bundle_guardian_user), guardianUser);
-                    intent.putExtras(newIntentBundle);
                     startActivity(intent);
                 } else {
                     Snackbar.make(getWindow().getDecorView().getRootView(), "nao rolou", Snackbar.LENGTH_LONG).show();
@@ -200,14 +191,28 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
 
             @Override
             public void onFailure(Call<ChildProfile> call, Throwable t) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(getApplicationContext());
-                alert.setTitle("Não foi possível conectar com o servidor. Por favor, tente novamente mais tarde.");
+                EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
+                emptyStateDialogFragment.show(getSupportFragmentManager(), "EmptyStateDialogFragment");
+            }
+        });
+    }
 
-                alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        //Your action here
-                    }
-                });
+    private void updateChildProfile() {
+        childProfileService.update(childProfile.getChildProfileId(), childProfile).enqueue(new Callback<ChildProfile>() {
+            @Override
+            public void onResponse(Call<ChildProfile> call, Response<ChildProfile> response) {
+                if(response.isSuccessful()) {
+                    Intent intent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
+                    startActivity(intent);
+                } else {
+                    Snackbar.make(getWindow().getDecorView().getRootView(), "nao rolou", Snackbar.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ChildProfile> call, Throwable t) {
+                EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
+                emptyStateDialogFragment.show(getSupportFragmentManager(), "EmptyStateDialogFragment");
             }
         });
     }
@@ -217,9 +222,6 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 Intent intent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
-                Bundle newIntentBundle = new Bundle();
-                newIntentBundle.putSerializable(getString(R.string.bundle_guardian_user), guardianUser);
-                intent.putExtras(newIntentBundle);
                 startActivity(intent);
             }
 
@@ -232,11 +234,26 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
 
     @Override
     public void onValidationSucceeded() {
+        childProfile.setGuardianUser(guardianUser);
+        childProfile.setNickname(etChildProfileNickname.getText().toString());
+        childProfile.setCharacter(currentCharacter);
 
+        if (ApplicationStateManager.getFormInteractionMode() == ApplicationStateManager.EDIT_MODE) {
+            updateChildProfile();
+        } else {
+            createChildProfile();
+        }
     }
 
     @Override
     public void onValidationFailed(List<ValidationError> errors) {
+        for(ValidationError e:errors) {
+            View view = e.getView();
+            String errorMessage = e.getCollatedErrorMessage(this);
 
+            if(view.getId() == R.id.et_child_profile_nickname){
+                txtChildProfileNickname.setError(errorMessage);
+            }
+        }
     }
 }
