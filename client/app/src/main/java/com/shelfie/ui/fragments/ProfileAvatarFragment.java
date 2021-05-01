@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.shelfie.MainActivity;
 import com.shelfie.R;
 import com.shelfie.config.ImageDecoder;
 import com.shelfie.model.ChildProfile;
@@ -26,26 +27,20 @@ import org.jetbrains.annotations.NotNull;
 
 public class ProfileAvatarFragment extends Fragment {
 
-    private static final String ARG_GUARDIAN_USER = "GUARDIAN_USER_DATA";
     private static final String ARG_CHILD_PROFILE = "CHILD_PROFILE_DATA";
-    private static final String ARG_FORM_INTERACTION_MODE = "FORM_INTERACTION_MODE";
 
-    private GuardianUser guardianUser;
+    private ApplicationStateManager applicationStateManager;
     private ChildProfile childProfile;
-    private int formInteractionMode;
 
     private CardView cvChildProfileAvatarContainer;
     private ImageView imgChildProfileAvatar;
     private FloatingActionButton fabChildProfileEdit;
     private TextView tvChildProfileNickname;
 
-    public static ProfileAvatarFragment newInstance(GuardianUser guardianUser,
-            ChildProfile childProfile, int formInteractionMode) {
+    public static ProfileAvatarFragment newInstance(ChildProfile childProfile) {
         ProfileAvatarFragment fragment = new ProfileAvatarFragment();
         Bundle args = new Bundle();
-        args.putSerializable(ARG_GUARDIAN_USER, guardianUser);
         args.putSerializable(ARG_CHILD_PROFILE, childProfile);
-        args.putInt(ARG_FORM_INTERACTION_MODE, formInteractionMode);
         fragment.setArguments(args);
         return fragment;
     }
@@ -56,9 +51,7 @@ public class ProfileAvatarFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            guardianUser = (GuardianUser) getArguments().getSerializable(ARG_GUARDIAN_USER);
             childProfile = (ChildProfile) getArguments().getSerializable(ARG_CHILD_PROFILE);
-            formInteractionMode = getArguments().getInt(ARG_FORM_INTERACTION_MODE);
         }
     }
 
@@ -75,25 +68,25 @@ public class ProfileAvatarFragment extends Fragment {
 
         cvChildProfileAvatarContainer.setOnClickListener(view1 -> {
             if(childProfile == null) {
-                Intent newIntent = new Intent(requireActivity().getApplicationContext(), FormChildProfileActivity.class);
-                Bundle newIntentBundle = new Bundle();
-                newIntentBundle.putSerializable(getString(R.string.bundle_guardian_user), guardianUser);
-                newIntent.putExtras(newIntentBundle);
-                startActivity(newIntent);
+                Intent createChildProfileIntent = new Intent(requireActivity().getApplicationContext(), FormChildProfileActivity.class);
+                startActivity(createChildProfileIntent);
+            }
+            if (applicationStateManager.getFormInteractionMode() == ApplicationStateManager.READ_MODE) {
+                Intent accessChildProfileIntent = new Intent(requireActivity().getApplicationContext(), MainActivity.class);
+                startActivity(accessChildProfileIntent);
             }
         });
 
         fabChildProfileEdit.setOnClickListener(view12 -> {
-            Intent newIntent = new Intent(requireActivity().getApplicationContext(), FormChildProfileActivity.class);
-            Bundle newIntentBundle = new Bundle();
-            newIntentBundle.putSerializable(getString(R.string.bundle_child_profile), childProfile);
-            newIntentBundle.putSerializable(getString(R.string.bundle_guardian_user), guardianUser);
-            newIntent.putExtras(newIntentBundle);
-            startActivity(newIntent);
+            applicationStateManager.setCurrentChildProfile(childProfile);
+            applicationStateManager.setFormInteractionMode(ApplicationStateManager.EDIT_MODE);
+            Intent editChildProfileIntent = new Intent(requireActivity().getApplicationContext(), FormChildProfileActivity.class);
+            startActivity(editChildProfileIntent);
         });
     }
 
     private void init() {
+        applicationStateManager = new ApplicationStateManager();
         View view = getView();
         assert view != null;
         cvChildProfileAvatarContainer = view.findViewById(R.id.cv_child_profile_avatar_container);
@@ -108,7 +101,8 @@ public class ProfileAvatarFragment extends Fragment {
             imgChildProfileAvatar.setImageBitmap(profileAvatarImage);
             imgChildProfileAvatar.setBackgroundColor(getResources().getColor(R.color.blue_200));
             tvChildProfileNickname.setText(childProfile.getNickname());
-            if(formInteractionMode == ApplicationStateManager.EDIT_MODE) {
+
+            if(applicationStateManager.getFormInteractionMode() != ApplicationStateManager.READ_MODE) {
                 fabChildProfileEdit.setVisibility(View.VISIBLE);
             }
         }

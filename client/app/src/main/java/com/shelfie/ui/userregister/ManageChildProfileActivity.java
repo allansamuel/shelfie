@@ -65,7 +65,7 @@ public class ManageChildProfileActivity extends FragmentActivity {
         getChildProfiles();
 
         btnSaveUserProfiles = findViewById(R.id.btn_save_user_profiles);
-        if(applicationStateManager.getFormInteractionMode() == ApplicationStateManager.EDIT_MODE && childProfiles.size() > 0) {
+        if(applicationStateManager.getFormInteractionMode() != ApplicationStateManager.READ_MODE && childProfiles.size() > 0) {
             btnSaveUserProfiles.setVisibility(View.VISIBLE);
         }
     }
@@ -75,8 +75,7 @@ public class ManageChildProfileActivity extends FragmentActivity {
         for(ChildProfile childProfile : childProfiles) {
             Fragment profileAvatarFragment = ProfileAvatarFragment.newInstance(
                     guardianUser,
-                    childProfile,
-                    applicationStateManager.getFormInteractionMode());
+                    childProfile);
             childProfileTransaction.add(R.id.flexbox_child_profiles, profileAvatarFragment, childProfile.getNickname());
         }
         childProfileTransaction.commit();

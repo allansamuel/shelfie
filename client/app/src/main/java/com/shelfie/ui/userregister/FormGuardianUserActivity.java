@@ -38,7 +38,6 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
 
     private ApplicationStateManager applicationStateManager;
 
-    private Bundle receivedBundle;
     private RetrofitConfig retrofitConfig;
     private GuardianUserService guardianUserService;
     private GuardianUser guardianUser;
@@ -172,7 +171,6 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
         } else {
             createGuardianUser();
         }
-
     }
 
     @Override
