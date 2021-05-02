@@ -21,7 +21,6 @@
             android:id="@+id/tv_child_profile_nickname"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
-            android:text="Novo perfil"
             android:textAlignment="center"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -45,12 +44,7 @@
                 android:id="@+id/img_child_profile_avatar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:contentDescription="Adicionar novo perfil"
-                android:paddingStart="10dp"
-                android:paddingTop="10dp"
-                android:paddingEnd="10dp"
-                android:paddingBottom="10dp"
-                android:src="@drawable/ic_add_black_48dp"/>
+                android:contentDescription="Adicionar novo perfil"/>
 
         </androidx.cardview.widget.CardView>
 
@@ -59,6 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
+            android:contentDescription="edit profile"
             android:src="@drawable/ic_edit_black_24dp"
             android:visibility="gone"
             app:backgroundTint="@color/white"

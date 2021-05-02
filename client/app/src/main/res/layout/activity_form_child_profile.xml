@@ -38,7 +38,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColorHint="@color/white"
-            app:boxStrokeColor="@color/white">
+            app:boxStrokeColor="@color/white"
+            app:counterTextColor="@color/white"
+            app:errorEnabled="true"
+            app:helperTextTextColor="@color/white"
+            app:hintTextColor="@color/white"
+            app:placeholderTextColor="@color/white"
+            app:prefixTextColor="@color/white"
+            app:suffixTextColor="@color/white">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_child_profile_nickname"
@@ -47,8 +54,11 @@
                 android:hint="Qual é o seu nome?"
                 android:inputType="textPersonName|textCapWords"
                 android:textColor="@color/white"
-                android:textColorHint="@color/white" />
+                android:textColorHighlight="@color/white"
+                android:textColorHint="@color/white"
+                android:textColorLink="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
+
     </LinearLayout>
 
     <LinearLayout
@@ -141,6 +151,14 @@
                 app:srcCompat="@drawable/ic_arrow_forward_black_24dp" />
 
         </com.google.android.flexbox.FlexboxLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_child_profile_save"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="invisible" />
 
         <Button
             android:id="@+id/btn_child_profile_create"

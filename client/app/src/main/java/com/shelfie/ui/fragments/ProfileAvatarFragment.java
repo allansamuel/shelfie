@@ -67,10 +67,6 @@ public class ProfileAvatarFragment extends Fragment {
         init();
 
         cvChildProfileAvatarContainer.setOnClickListener(view1 -> {
-            if(childProfile == null) {
-                Intent createChildProfileIntent = new Intent(requireActivity().getApplicationContext(), FormChildProfileActivity.class);
-                startActivity(createChildProfileIntent);
-            }
             if (applicationStateManager.getFormInteractionMode() == ApplicationStateManager.READ_MODE) {
                 Intent accessChildProfileIntent = new Intent(requireActivity().getApplicationContext(), MainActivity.class);
                 startActivity(accessChildProfileIntent);
@@ -95,7 +91,6 @@ public class ProfileAvatarFragment extends Fragment {
         tvChildProfileNickname = view.findViewById(R.id.tv_child_profile_nickname);
 
         if(childProfile != null) {
-            imgChildProfileAvatar.setPadding(0, 0, 0, 0);
             Bitmap profileAvatarImage = ImageDecoder.decodeBase64(childProfile.getCharacter().getCharacterImage());
             profileAvatarImage = Bitmap.createBitmap(profileAvatarImage, 0, 0, 1000, 1000);
             imgChildProfileAvatar.setImageBitmap(profileAvatarImage);

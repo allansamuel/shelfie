@@ -56,6 +56,7 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
     private Button btnSaveChildProfile;
     private Button btnDeleteChildProfile;
     private ProgressBar progressCircularCharacterLoader;
+    private ProgressBar progressChildProfileSave;
 
     @NotEmpty(messageResId = R.string.error_required_field)
     @Length(messageResId = R.string.error_invalid_nickname_length, min = 3, max = 20, trim = true)
@@ -100,6 +101,7 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
         btnSaveChildProfile = findViewById(R.id.btn_child_profile_create);
         btnDeleteChildProfile = findViewById(R.id.btn_child_profile_delete);
         progressCircularCharacterLoader = findViewById(R.id.progress_circular_character_loader);
+        progressChildProfileSave = findViewById(R.id.progress_child_profile_save);
 
         if(applicationStateManager.getFormInteractionMode() == ApplicationStateManager.EDIT_MODE){
             currentCharacter = childProfile.getCharacter();
@@ -141,28 +143,28 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
         hideCharacterNavigationButtons();
     }
 
-    private boolean isFirstCharacter(Character character) {
+    private boolean isFirstCharacter() {
         return characterList.indexOf(currentCharacter) == 0 ? true : false;
     }
 
-    private boolean isLastCharacter(Character character) {
+    private boolean isLastCharacter() {
         return characterList.indexOf(currentCharacter) == characterList.size() - 1 ? true : false;
     }
 
     private void hideCharacterNavigationButtons() {
         ibPreviousCharacter.setVisibility(View.VISIBLE);
-        if(isFirstCharacter(currentCharacter)) {
+        if(isFirstCharacter()) {
             ibPreviousCharacter.setVisibility(View.INVISIBLE);
         }
 
         ibNextCharacter.setVisibility(View.VISIBLE);
-        if(isLastCharacter(currentCharacter)) {
+        if(isLastCharacter()) {
             ibNextCharacter.setVisibility(View.INVISIBLE);
         }
     }
 
     private void getPreviousCharacter() {
-        if(!isFirstCharacter(currentCharacter)) {
+        if(!isFirstCharacter()) {
             currentCharacter = characterList.get(characterList.indexOf(currentCharacter) - 1);
             setCharacterImagePreview();
             hideCharacterNavigationButtons();
@@ -170,7 +172,7 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
     }
 
     private void getNextCharacter() {
-        if(!isLastCharacter(currentCharacter)) {
+        if(!isLastCharacter()) {
             currentCharacter = characterList.get(characterList.indexOf(currentCharacter) + 1);
             setCharacterImagePreview();
             hideCharacterNavigationButtons();
@@ -187,10 +189,12 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
                 } else {
                     Snackbar.make(getWindow().getDecorView().getRootView(), "nao rolou", Snackbar.LENGTH_LONG).show();
                 }
+                progressChildProfileSave.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onFailure(Call<ChildProfile> call, Throwable t) {
+                progressChildProfileSave.setVisibility(View.INVISIBLE);
                 EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
                 emptyStateDialogFragment.show(getSupportFragmentManager(), "EmptyStateDialogFragment");
             }
@@ -207,10 +211,12 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
                 } else {
                     Snackbar.make(getWindow().getDecorView().getRootView(), "nao rolou", Snackbar.LENGTH_LONG).show();
                 }
+                progressChildProfileSave.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onFailure(Call<ChildProfile> call, Throwable t) {
+                progressChildProfileSave.setVisibility(View.INVISIBLE);
                 EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
                 emptyStateDialogFragment.show(getSupportFragmentManager(), "EmptyStateDialogFragment");
             }
@@ -218,22 +224,27 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
     }
 
     private void deleteChildProfile() {
+        progressChildProfileSave.setVisibility(View.VISIBLE);
         childProfileService.delete(childProfile.getChildProfileId()).enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 Intent intent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
                 startActivity(intent);
+                progressChildProfileSave.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_LONG).show();
+                progressChildProfileSave.setVisibility(View.INVISIBLE);
+                EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
+                emptyStateDialogFragment.show(getSupportFragmentManager(), "EmptyStateDialogFragment");
             }
         });
     }
 
     @Override
     public void onValidationSucceeded() {
+        progressChildProfileSave.setVisibility(View.VISIBLE);
         childProfile.setGuardianUser(guardianUser);
         childProfile.setNickname(etChildProfileNickname.getText().toString());
         childProfile.setCharacter(currentCharacter);

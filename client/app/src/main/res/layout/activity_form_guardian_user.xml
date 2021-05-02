@@ -132,6 +132,14 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <ProgressBar
+            android:id="@+id/progress_guardian_user_save"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="invisible" />
+
         <Button
             android:id="@+id/btn_guardian_user_next"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
@@ -140,14 +148,6 @@
             android:text="@string/save"
             app:strokeColor="@color/blue_400"
             app:strokeWidth="2dp" />
-
-        <ProgressBar
-            android:id="@+id/progress_guardian_user_save"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:indeterminate="true"
-            android:visibility="invisible" />
 
     </LinearLayout>
 
