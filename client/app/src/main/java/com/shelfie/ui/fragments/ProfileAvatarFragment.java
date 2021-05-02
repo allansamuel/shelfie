@@ -88,7 +88,7 @@ public class ProfileAvatarFragment extends Fragment {
     }
 
     private void init() {
-        applicationStateManager = new ApplicationStateManager();
+        applicationStateManager = ApplicationStateManager.getInstance();
         View view = getView();
         assert view != null;
         cvChildProfileAvatarContainer = view.findViewById(R.id.cv_child_profile_avatar_container);

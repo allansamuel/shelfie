@@ -47,9 +47,10 @@ public class ManageChildProfileActivity extends FragmentActivity {
     }
 
     private void init() {
-        applicationStateManager = new ApplicationStateManager();
+        applicationStateManager = ApplicationStateManager.getInstance();
         guardianUser = applicationStateManager.getCurrentGuardianUser() != null ?
                 applicationStateManager.getCurrentGuardianUser() : new GuardianUser();
+
 
         retrofitConfig = new RetrofitConfig();
         guardianUserService = retrofitConfig.getGuardianUserService();
@@ -92,6 +93,7 @@ public class ManageChildProfileActivity extends FragmentActivity {
 
             @Override
             public void onFailure(Call<ArrayList<ChildProfile>> call, Throwable t) {
+                System.out.println(t);
                 Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_LONG).show();
             }
         });

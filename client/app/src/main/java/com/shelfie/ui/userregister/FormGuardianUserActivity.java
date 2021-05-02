@@ -80,7 +80,7 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
     }
 
     private void init() {
-        applicationStateManager = new ApplicationStateManager();
+        applicationStateManager = ApplicationStateManager.getInstance();
         guardianUser = applicationStateManager.getCurrentGuardianUser() != null ?
                 applicationStateManager.getCurrentGuardianUser() : new GuardianUser();
 

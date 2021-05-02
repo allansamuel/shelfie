@@ -81,7 +81,7 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
     }
 
     private void init() {
-        applicationStateManager = new ApplicationStateManager();
+        applicationStateManager = ApplicationStateManager.getInstance();
         guardianUser = applicationStateManager.getCurrentGuardianUser();
 
         receivedBundle = getIntent().getExtras();
@@ -187,7 +187,6 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
             @Override
             public void onResponse(Call<ChildProfile> call, Response<ChildProfile> response) {
                 if(response.isSuccessful()) {
-                    applicationStateManager.setCurrentChildProfile(null);
                     Intent intent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
                     startActivity(intent);
                 } else {
@@ -244,7 +243,7 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
         childProfile.setNickname(etChildProfileNickname.getText().toString());
         childProfile.setCharacter(currentCharacter);
 
-        if (ApplicationStateManager.getFormInteractionMode() == ApplicationStateManager.EDIT_MODE) {
+        if (applicationStateManager.getFormInteractionMode() == ApplicationStateManager.EDIT_MODE) {
             updateChildProfile();
         } else {
             createChildProfile();
