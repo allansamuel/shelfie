@@ -57,7 +57,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="match_parent"
+                android:layout_height="260dp"
+                app:srcCompat="@drawable/search_empty_state" />
 
             <TextView
                 android:id="@+id/textView10"
@@ -66,29 +73,30 @@
                 android:text="Procure por seus livros favoritos"
                 android:textAlignment="center" />
 
-            <ImageView
-                android:id="@+id/imageView6"
-                android:layout_width="match_parent"
-                android:layout_height="260dp"
-                app:srcCompat="@drawable/search_empty_state" />
-
         </LinearLayout>
 
-        <com.google.android.flexbox.FlexboxLayout
-            android:id="@+id/flexbox_search_results"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:paddingStart="32dp"
-            android:paddingTop="16dp"
-            android:paddingEnd="32dp"
-            android:paddingBottom="32dp"
-            android:visibility="gone"
-            app:alignContent="flex_start"
-            app:alignItems="flex_start"
-            app:flexWrap="wrap"
-            app:justifyContent="space_between">
 
-        </com.google.android.flexbox.FlexboxLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/flexbox_search_results"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="32dp"
+                android:paddingTop="16dp"
+                android:paddingEnd="32dp"
+                android:paddingBottom="32dp"
+                android:visibility="visible"
+                app:alignContent="flex_start"
+                app:alignItems="flex_start"
+                app:flexWrap="wrap"
+                app:justifyContent="space_between">
+
+            </com.google.android.flexbox.FlexboxLayout>
+
+        </ScrollView>
 
     </LinearLayout>
 
