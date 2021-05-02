@@ -42,7 +42,6 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
     private GuardianUser guardianUser;
 
     private Validator formValidator;
-    private Bundle receivedBundle;
     private RetrofitConfig retrofitConfig;
     private ChildProfileService childProfileService;
     private ChildProfile childProfile;
@@ -83,12 +82,8 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
     private void init() {
         applicationStateManager = ApplicationStateManager.getInstance();
         guardianUser = applicationStateManager.getCurrentGuardianUser();
-
-        receivedBundle = getIntent().getExtras();
-        childProfile = new ChildProfile();
-        if (receivedBundle != null) {
-            childProfile = (ChildProfile) receivedBundle.getSerializable(getString(R.string.arg_child_profile));
-        }
+        childProfile = applicationStateManager.getCurrentChildProfile() != null ?
+                applicationStateManager.getCurrentChildProfile() : new ChildProfile();
 
         formValidator = new Validator(this);
         formValidator.setValidationListener(this);
@@ -248,6 +243,7 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
         } else {
             createChildProfile();
         }
+        applicationStateManager.setCurrentChildProfile(null);
     }
 
     @Override

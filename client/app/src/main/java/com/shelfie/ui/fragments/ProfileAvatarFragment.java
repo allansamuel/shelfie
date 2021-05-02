@@ -79,10 +79,8 @@ public class ProfileAvatarFragment extends Fragment {
 
         fabChildProfileEdit.setOnClickListener(view12 -> {
             applicationStateManager.setFormInteractionMode(ApplicationStateManager.EDIT_MODE);
+            applicationStateManager.setCurrentChildProfile(childProfile);
             Intent editChildProfileIntent = new Intent(requireActivity().getApplicationContext(), FormChildProfileActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable(ARG_CHILD_PROFILE, childProfile);
-            editChildProfileIntent.putExtras(bundle);
             startActivity(editChildProfileIntent);
         });
     }
