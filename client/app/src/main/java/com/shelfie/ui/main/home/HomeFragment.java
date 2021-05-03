@@ -1,4 +1,4 @@
-package com.shelfie.ui.home;
+package com.shelfie.ui.main.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

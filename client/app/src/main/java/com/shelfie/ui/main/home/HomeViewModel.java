@@ -1,4 +1,4 @@
-package com.shelfie.ui.home;
+package com.shelfie.ui.main.home;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

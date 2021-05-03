@@ -1,4 +1,4 @@
-package com.shelfie.ui.dashboard;
+package com.shelfie.ui.main.search;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,10 +9,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;

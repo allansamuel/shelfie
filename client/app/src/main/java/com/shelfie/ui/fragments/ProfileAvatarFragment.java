@@ -15,11 +15,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.shelfie.MainActivity;
+import com.shelfie.ui.main.MainActivity;
 import com.shelfie.R;
 import com.shelfie.config.ImageDecoder;
 import com.shelfie.model.ChildProfile;
-import com.shelfie.model.GuardianUser;
 import com.shelfie.ui.userregister.FormChildProfileActivity;
 import com.shelfie.utils.ApplicationStateManager;
 
