@@ -1,14 +1,12 @@
 package com.shelfie.ui.customViews;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +18,7 @@ import com.shelfie.R;
 import com.shelfie.config.ImageDecoder;
 import com.shelfie.model.ChildProfile;
 import com.shelfie.model.GuardianUser;
-import com.shelfie.ui.formChildProfile.FormChildProfileActivity;
+import com.shelfie.ui.userregister.FormChildProfileActivity;
 
 public class ProfileAvatarFragment extends Fragment {
 

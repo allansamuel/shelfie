@@ -1,4 +1,4 @@
-package com.shelfie.ui.formChildProfile;
+package com.shelfie.ui.userregister;
 
 import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
@@ -16,6 +16,11 @@ import android.widget.ProgressBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.Digits;
+import com.mobsandgeeks.saripaar.annotation.Length;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.shelfie.R;
 import com.shelfie.config.ImageDecoder;
 import com.shelfie.config.RetrofitConfig;
@@ -29,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
-public class FormChildProfileActivity extends AppCompatActivity {
+public class FormChildProfileActivity extends AppCompatActivity implements Validator.ValidationListener {
 
     private Bundle prevBundle;
     private GuardianUser guardianUser;
@@ -43,13 +48,16 @@ public class FormChildProfileActivity extends AppCompatActivity {
     private Character currentCharacter;
 
     private TextInputLayout txtChildProfileNickname;
-    private TextInputEditText etChildProfileNickname;
     private ImageButton ibPreviousCharacter;
     private ImageView imgCharacterPreview;
     private ImageButton ibNextCharacter;
     private Button btnCreateChildProfile;
     private Button btnDeleteChildProfile;
     private ProgressBar progressCircularCharacterLoader;
+
+    @NotEmpty(messageResId = R.string.error_required_field)
+    @Length(messageResId = R.string.error_invalid_nickname_length, min = 3, max = 20, trim = true)
+    private TextInputEditText etChildProfileNickname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -225,5 +233,15 @@ public class FormChildProfileActivity extends AppCompatActivity {
                 Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_LONG).show();
             }
         });
+    }
+
+    @Override
+    public void onValidationSucceeded() {
+
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+
     }
 }

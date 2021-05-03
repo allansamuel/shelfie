@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:clipChildren="false"
     android:orientation="vertical"
-    tools:context=".ui.formGuardianUser.FormGuardianUserActivity">
+    tools:context=".ui.userregister.FormGuardianUserActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout4"

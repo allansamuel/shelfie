@@ -7,23 +7,22 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
+    <!-- Bundle -->
+    <string name="bundle_guardian_user">GUARDIAN_USER_DATA</string>
+
     <!-- Form -->
     <string name="name">Nome</string>
     <string name="email">Email</string>
     <string name="password">Senha</string>
     <string name="password_confirm">Confirmação de senha</string>
+    <string name="error_required_field">Campo obrigatório.</string>
+    <string name="error_invalid_name_length">O campo deve possuir entre 3 e 50 letras.</string>
+    <string name="error_invalid_nickname_length">O campo deve possuir entre 3 e 20 letras.</string>
+    <string name="error_invalid_email">Email inválido.</string>
+    <string name="error_invalid_password">A senha deve conter ao menos %1$d caracteres, com letras e números.</string>
+    <string name="error_invalid_password_confirmation">As senhas não condizem.</string>
 
     <!-- Button -->
     <string name="next">Próximo</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
+    <string name="save">Salvar</string>
 </resources>
