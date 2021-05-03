@@ -18,19 +18,15 @@ public class Category {
 
 	@Column(name = "category_name", length = 255)
 	private String categoryName;
-	
-	@Column(name = "category_icon")
-	private String categoryIcon;
 
 	public Category() {
 		super();
 	}
 
-	public Category(Integer categoryId, String categoryName, String categoryIcon) {
+	public Category(Integer categoryId, String categoryName) {
 		super();
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
-		this.categoryIcon = categoryIcon;
 	}
 
 	public Integer getCategoryId() {
@@ -47,14 +43,6 @@ public class Category {
 
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
-	}
-
-	public String getCategoryIcon() {
-		return categoryIcon;
-	}
-
-	public void setCategoryIcon(String categoryIcon) {
-		this.categoryIcon = categoryIcon;
 	}
 	
 }
