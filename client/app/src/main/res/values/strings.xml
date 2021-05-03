@@ -9,6 +9,11 @@
 
     <!-- Bundle -->
     <string name="bundle_guardian_user">GUARDIAN_USER_DATA</string>
+    <string name="bundle_child_profile">CHILD_PROFILE_DATA</string>
+    <string name="bundle_is_edit_mode">IS_EDIT_MODE</string>
+
+    <!-- Titles and labels -->
+    <string name="app_subtitle_login">A biblioteca interativa da sua família!</string>
 
     <!-- Form -->
     <string name="name">Nome</string>
@@ -16,13 +21,19 @@
     <string name="password">Senha</string>
     <string name="password_confirm">Confirmação de senha</string>
     <string name="error_required_field">Campo obrigatório.</string>
-    <string name="error_invalid_name_length">O campo deve possuir entre 3 e 50 letras.</string>
+    <string name="error_invalid_name_length">O nome deve possuir entre 3 e 50 letras.</string>
     <string name="error_invalid_nickname_length">O campo deve possuir entre 3 e 20 letras.</string>
     <string name="error_invalid_email">Email inválido.</string>
-    <string name="error_invalid_password">A senha deve conter ao menos %1$d caracteres, com letras e números.</string>
+    <string name="error_invalid_password">A senha deve conter ao menos 6 caracteres, com letras e números.</string>
     <string name="error_invalid_password_confirmation">As senhas não condizem.</string>
 
     <!-- Button -->
+    <string name="register">Inscreva-se</string>
+    <string name="login">Entrar</string>
+    <string name="logoff">Sair</string>
     <string name="next">Próximo</string>
     <string name="save">Salvar</string>
+    <string name="search">Buscar</string>
+    <string name="home">Início</string>
+    <string name="my_profile">Meu perfil</string>
 </resources>

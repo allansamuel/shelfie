@@ -1,10 +1,12 @@
 package com.shelfie.ui.userregister;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -18,7 +20,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
-import com.mobsandgeeks.saripaar.annotation.Digits;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.shelfie.R;
@@ -29,14 +30,15 @@ import com.shelfie.model.ChildProfile;
 import com.shelfie.model.GuardianUser;
 import com.shelfie.service.CharacterService;
 import com.shelfie.service.ChildProfileService;
+import com.shelfie.ui.fragments.EmptyStateDialogFragment;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 public class FormChildProfileActivity extends AppCompatActivity implements Validator.ValidationListener {
 
-    private Bundle prevBundle;
+    private Validator formValidator;
+    private Bundle receivedBundle;
     private GuardianUser guardianUser;
 
     private RetrofitConfig retrofitConfig;
@@ -44,7 +46,6 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
     private ChildProfile childProfile;
     private CharacterService characterService;
     private List<Character> characterList;
-    private ListIterator characterListIterator;
     private Character currentCharacter;
 
     private TextInputLayout txtChildProfileNickname;
@@ -66,38 +67,25 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
 
         init();
 
-        ibPreviousCharacter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getPreviousCharacter();
-            }
-        });
+        getCharacterList();
 
-        ibNextCharacter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getNextCharacter();
-            }
-        });
+        ibPreviousCharacter.setOnClickListener(view -> getPreviousCharacter());
 
-        btnCreateChildProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createChildProfile();
-            }
-        });
+        ibNextCharacter.setOnClickListener(view -> getNextCharacter());
 
-        btnDeleteChildProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                deleteChildProfile();
-            }
-        });
+        btnCreateChildProfile.setOnClickListener(view -> createChildProfile());
+
+        btnDeleteChildProfile.setOnClickListener(view -> deleteChildProfile());
     }
 
     private void init() {
+        receivedBundle = getIntent().getExtras();
+        guardianUser = (GuardianUser) receivedBundle.getSerializable(getString(R.string.bundle_guardian_user));
+        childProfile = (ChildProfile) receivedBundle.getSerializable(getString(R.string.bundle_child_profile));
+
+        formValidator = new Validator(this);
+        formValidator.setValidationListener(this);
         characterList = new ArrayList<>();
-        characterListIterator = characterList.listIterator();
         retrofitConfig = new RetrofitConfig();
         childProfileService = retrofitConfig.getChildProfileService();
         characterService = retrofitConfig.getCharacterService();
@@ -111,21 +99,18 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
         btnDeleteChildProfile = findViewById(R.id.btn_child_profile_delete);
         progressCircularCharacterLoader = findViewById(R.id.progress_circular_character_loader);
 
-        prevBundle = getIntent().getExtras();
-        guardianUser = (GuardianUser) prevBundle.getSerializable("GUARDIAN_USER_DATA");
-        childProfile = (ChildProfile) prevBundle.getSerializable("CHILD_PROFILE_DATA");
-
         if(childProfile != null){
             currentCharacter = childProfile.getCharacter();
             etChildProfileNickname.setText(childProfile.getNickname());
             btnDeleteChildProfile.setVisibility(View.VISIBLE);
+            ibNextCharacter.setVisibility(View.VISIBLE);
+            ibPreviousCharacter.setVisibility(View.VISIBLE);
         } else {
             childProfile = new ChildProfile();
         }
-        setCharacterList();
     }
 
-    private void setCharacterList() {
+    private void getCharacterList() {
         characterService.getAll().enqueue(new Callback<ArrayList<Character>>() {
             @Override
             public void onResponse(Call<ArrayList<Character>> call, Response<ArrayList<Character>> response) {
@@ -135,21 +120,24 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
                         currentCharacter = childProfile.getCharacter() != null ? childProfile.getCharacter() : characterList.get(0);
                         setCharacterImagePreview();
                     }
-                    System.out.println(characterList.size());
+                    progressCircularCharacterLoader.setVisibility(View.GONE);
                 } else {
-                    Snackbar.make(getWindow().getDecorView().getRootView(), "deu ruim meu", Snackbar.LENGTH_LONG).show();
+                    EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
+                    emptyStateDialogFragment.show(getSupportFragmentManager(), "EmptyStateDialogFragment");
+                    progressCircularCharacterLoader.setVisibility(View.INVISIBLE);
                 }
             }
 
             @Override
             public void onFailure(Call<ArrayList<Character>> call, Throwable t) {
-                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_LONG).show();
+                EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
+                emptyStateDialogFragment.show(getSupportFragmentManager(), "EmptyStateDialogFragment");
+                progressCircularCharacterLoader.setVisibility(View.INVISIBLE);
             }
         });
     }
 
     private void setCharacterImagePreview() {
-        progressCircularCharacterLoader.setVisibility(View.GONE);
         imgCharacterPreview.setVisibility(View.VISIBLE);
         imgCharacterPreview.setImageBitmap(ImageDecoder.decodeBase64(currentCharacter.getCharacterImage()));
         hideCharacterNavigationButtons();
@@ -202,7 +190,7 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
                 if(response.isSuccessful()) {
                     Intent intent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
                     Bundle newIntentBundle = new Bundle();
-                    newIntentBundle.putSerializable("GUARDIAN_USER_DATA", guardianUser);
+                    newIntentBundle.putSerializable(getString(R.string.bundle_guardian_user), guardianUser);
                     intent.putExtras(newIntentBundle);
                     startActivity(intent);
                 } else {
@@ -212,7 +200,14 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
 
             @Override
             public void onFailure(Call<ChildProfile> call, Throwable t) {
-                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_LONG).show();
+                AlertDialog.Builder alert = new AlertDialog.Builder(getApplicationContext());
+                alert.setTitle("Não foi possível conectar com o servidor. Por favor, tente novamente mais tarde.");
+
+                alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        //Your action here
+                    }
+                });
             }
         });
     }
@@ -223,7 +218,7 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
             public void onResponse(Call<Void> call, Response<Void> response) {
                 Intent intent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
                 Bundle newIntentBundle = new Bundle();
-                newIntentBundle.putSerializable("GUARDIAN_USER_DATA", guardianUser);
+                newIntentBundle.putSerializable(getString(R.string.bundle_guardian_user), guardianUser);
                 intent.putExtras(newIntentBundle);
                 startActivity(intent);
             }

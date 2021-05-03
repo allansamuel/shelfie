@@ -70,6 +70,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/name"
+            app:boxStrokeColor="@android:color/secondary_text_dark"
+            app:errorEnabled="true"
             app:hintAnimationEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -85,7 +87,9 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/email">
+            android:hint="@string/email"
+            app:boxStrokeColor="@android:color/secondary_text_dark"
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_guardian_user_email"
@@ -100,6 +104,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
+            app:boxStrokeColor="@android:color/secondary_text_dark"
+            app:errorEnabled="true"
             app:hintAnimationEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -114,7 +120,9 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/password_confirm">
+            android:hint="@string/password_confirm"
+            app:boxStrokeColor="@android:color/secondary_text_dark"
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_guardian_user_password_confirm"
@@ -128,10 +136,18 @@
             android:id="@+id/btn_guardian_user_next"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:text="@string/next"
-            app:strokeColor="#1391D8"
+            app:strokeColor="@color/blue_400"
             app:strokeWidth="2dp" />
+
+        <ProgressBar
+            android:id="@+id/progress_guardian_user_save"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="invisible" />
 
     </LinearLayout>
 

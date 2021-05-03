@@ -28,6 +28,7 @@
             android:layout_height="wrap_content"
             android:text="É um prazer te conhecer!"
             android:textAlignment="center"
+            android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -35,14 +36,18 @@
             android:id="@+id/txt_child_profile_nickname"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/white"
+            app:boxStrokeColor="@color/white">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_child_profile_nickname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Qual é o seu nome?"
-                android:inputType="textPersonName|textCapWords" />
+                android:inputType="textPersonName|textCapWords"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
@@ -73,6 +78,7 @@
                 android:layout_height="wrap_content"
                 android:text="Escolha um personagens dos nossos melhores livros para ser seu avatar."
                 android:textAlignment="center"
+                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -81,7 +87,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Você pode alterar mais tarde, se quiser."
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <com.google.android.flexbox.FlexboxLayout
@@ -103,6 +110,7 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:focusable="auto"
+                android:visibility="invisible"
                 app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
 
             <ImageView
@@ -119,8 +127,8 @@
                 style="?android:attr/progressBarStyle"
                 android:layout_width="250dp"
                 android:layout_height="350dp"
-                android:paddingStart="32dp"
-                android:paddingEnd="32dp" />
+                android:paddingStart="60dp"
+                android:paddingEnd="60dp" />
 
             <ImageButton
                 android:id="@+id/ib_next_character"
@@ -129,6 +137,7 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:focusable="auto"
+                android:visibility="invisible"
                 app:srcCompat="@drawable/ic_arrow_forward_black_24dp" />
 
         </com.google.android.flexbox.FlexboxLayout>
