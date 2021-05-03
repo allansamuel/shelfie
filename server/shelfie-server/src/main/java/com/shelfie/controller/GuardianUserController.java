@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,9 @@ public class GuardianUserController {
 	@Autowired
 	private GuardianUserRepository guardianUserRepository;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	
 	@GetMapping("{id}")
 	public ResponseEntity<GuardianUser> getById(@PathVariable Integer id) throws Exception {
@@ -45,6 +49,9 @@ public class GuardianUserController {
 	public ResponseEntity<GuardianUser> create(@RequestBody GuardianUser guardianUser) throws Exception{
 		try {
 			GuardianUser newGuardianUser = guardianUserRepository.save(guardianUser);
+			
+			newGuardianUser.setGuardianUserPassword(passwordEncoder.encode(guardianUser.getGuardianUserPassword()));
+			
 			 return ResponseEntity.ok().body(newGuardianUser);
 		} catch (Exception exception) {
 			throw exception;
