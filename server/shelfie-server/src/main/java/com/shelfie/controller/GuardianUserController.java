@@ -89,8 +89,12 @@ public class GuardianUserController {
 			GuardianUser guardianUser = guardianUserRepository.findByGuardianUserEmail(guardianUserBody.getGuardianUserEmail())
 				 .orElseThrow(() -> new NotFoundException ("Email não cadastrado" + guardianUserBody.getGuardianUserEmail()));
 			
+//			guardianUserBody.getGuardianUserPassword(
+			
+			
 			if(guardianUser.getGuardianUserEmail().equals(guardianUserBody.getGuardianUserEmail()) 
-					&& guardianUser.getGuardianUserPassword().equals(guardianUserBody.getGuardianUserPassword())) {
+					&& passwordEncoder.matches(guardianUserBody.getGuardianUserPassword(), guardianUser.getGuardianUserPassword()) ) {
+				
 				return ResponseEntity.ok().body(guardianUser);
 			}else{
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
