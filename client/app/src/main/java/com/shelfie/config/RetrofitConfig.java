@@ -2,6 +2,7 @@ package com.shelfie.config;
 
 
 import com.shelfie.R;
+import com.shelfie.service.CategoryService;
 import com.shelfie.service.CharacterService;
 import com.shelfie.service.ChildProfileService;
 import com.shelfie.service.GuardianUserService;
@@ -30,5 +31,9 @@ public class RetrofitConfig {
 
     public CharacterService getCharacterService() {
         return this.retrofit.create(CharacterService.class);
+    }
+
+    public CategoryService getCategoryService() {
+        return this.retrofit.create(CategoryService.class);
     }
 }

@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.shelfie.ui.dashboard.DashboardFragment"
+        android:name="com.shelfie.ui.dashboard.SearchFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_search" />
 
