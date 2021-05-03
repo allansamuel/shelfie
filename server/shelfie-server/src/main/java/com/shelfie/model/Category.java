@@ -15,18 +15,22 @@ public class Category {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "category_id")
 	private Integer categoryId;
-	
+
 	@Column(name = "category_name", length = 255)
 	private String categoryName;
+	
+	@Column(name = "category_icon")
+	private String categoryIcon;
 
 	public Category() {
 		super();
 	}
 
-	public Category(Integer categoryId, String categoryName) {
+	public Category(Integer categoryId, String categoryName, String categoryIcon) {
 		super();
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
+		this.categoryIcon = categoryIcon;
 	}
 
 	public Integer getCategoryId() {
@@ -45,6 +49,12 @@ public class Category {
 		this.categoryName = categoryName;
 	}
 
-	
+	public String getCategoryIcon() {
+		return categoryIcon;
+	}
+
+	public void setCategoryIcon(String categoryIcon) {
+		this.categoryIcon = categoryIcon;
+	}
 	
 }
