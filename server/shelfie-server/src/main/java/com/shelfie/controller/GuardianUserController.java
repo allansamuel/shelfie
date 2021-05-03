@@ -3,6 +3,7 @@ package com.shelfie.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,7 @@ public class GuardianUserController {
 
 	@Autowired
 	private GuardianUserRepository guardianUserRepository;
+	
 	
 	@GetMapping("{id}")
 	public ResponseEntity<GuardianUser> getById(@PathVariable Integer id) throws Exception {
@@ -71,5 +73,24 @@ public class GuardianUserController {
 				 .orElseThrow(() -> new NotFoundException ("not found" + id));
 		
 		guardianUserRepository.delete(guardianUser);
+	}
+	
+	@PostMapping("/login")
+	public ResponseEntity<GuardianUser> login(@RequestBody GuardianUser guardianUserBody) throws Exception {
+		
+		try {
+			GuardianUser guardianUser = guardianUserRepository.findByGuardianUserEmail(guardianUserBody.getGuardianUserEmail())
+				 .orElseThrow(() -> new NotFoundException ("Email não cadastrado" + guardianUserBody.getGuardianUserEmail()));
+			
+			if(guardianUser.getGuardianUserEmail().equals(guardianUserBody.getGuardianUserEmail()) 
+					&& guardianUser.getGuardianUserPassword().equals(guardianUserBody.getGuardianUserPassword())) {
+				return ResponseEntity.ok().body(guardianUser);
+			}else{
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+			}
+			
+		} catch (Exception exception) {
+			throw exception;
+		} 
 	}
 }

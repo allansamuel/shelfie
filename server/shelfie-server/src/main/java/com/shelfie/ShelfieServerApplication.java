@@ -9,5 +9,4 @@ public class ShelfieServerApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ShelfieServerApplication.class, args);
 	}
-
 }
