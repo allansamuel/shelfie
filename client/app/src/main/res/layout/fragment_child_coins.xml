@@ -9,7 +9,6 @@
     tools:context=".ui.fragments.ChildCoinsFragment">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_margin="10dp"
@@ -18,7 +17,7 @@
         app:cardCornerRadius="25dp">
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/tv_coins_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
