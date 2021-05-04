@@ -45,7 +45,9 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal">
+                        android:divider="@drawable/divider10dp"
+                        android:orientation="horizontal"
+                        android:showDividers="middle">
 
                         <TextView
                             android:id="@+id/tv_book_title"
@@ -53,16 +55,18 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
                             android:text="TextView"
-                            android:textColor="@color/black"
+                            android:textColor="@android:color/primary_text_light"
                             android:textSize="24sp"
                             android:textStyle="bold" />
 
                         <FrameLayout
+                            android:id="@+id/frame_play_book_button"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1">
 
                         </FrameLayout>
+
                     </LinearLayout>
 
                     <com.google.android.flexbox.FlexboxLayout
@@ -107,7 +111,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Autor"
-                                android:textColor="@color/black"
+                                android:textColor="@android:color/primary_text_light"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -115,7 +119,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="TextView"
-                                android:textColor="@color/black" />
+                                android:textColor="@android:color/primary_text_light" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -129,7 +133,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Publicado em"
-                                android:textColor="@color/black"
+                                android:textColor="@android:color/primary_text_light"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -137,7 +141,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="TextView"
-                                android:textColor="@color/black" />
+                                android:textColor="@android:color/primary_text_light" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -146,7 +150,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="TextView"
-                        android:textColor="@color/black" />
+                        android:textColor="@android:color/primary_text_light" />
 
                 </LinearLayout>
 
@@ -171,7 +175,7 @@
                     android:drawablePadding="5dp"
                     android:text="Personagens"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
+                    android:textColor="@android:color/primary_text_light"
                     android:textStyle="bold"
                     app:drawableStartCompat="@drawable/sentiment_satisfied_alt_black_24dp" />
 
@@ -207,7 +211,7 @@
                     android:drawablePadding="5dp"
                     android:text="Missões"
                     android:textAlignment="center"
-                    android:textColor="@color/black"
+                    android:textColor="@android:color/primary_text_light"
                     android:textStyle="bold"
                     app:drawableStartCompat="@drawable/beenhere_black_24dp" />
 
@@ -245,7 +249,7 @@
                         android:layout_height="wrap_content"
                         android:text="Você gostou do livro?"
                         android:textAlignment="center"
-                        android:textColor="@color/black"
+                        android:textColor="@android:color/primary_text_light"
                         android:textStyle="bold" />
 
                     <TextView
@@ -254,7 +258,7 @@
                         android:layout_height="wrap_content"
                         android:text="Você pode desbloquear seus X capítulos por:"
                         android:textAlignment="center"
-                        android:textColor="@color/black" />
+                        android:textColor="@android:color/primary_text_light" />
                 </LinearLayout>
 
                 <TextView
