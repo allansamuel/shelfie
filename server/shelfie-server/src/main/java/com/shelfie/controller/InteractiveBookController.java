@@ -3,6 +3,8 @@ package com.shelfie.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,11 +29,15 @@ public class InteractiveBookController {
 	@Autowired
 	private InteractiveBookRepository interactiveBookRepository;
 	
-	@GetMapping
-	public ResponseEntity<List<InteractiveBook>> getAll() {
+	@GetMapping("/page/{pageNumber}")
+	public ResponseEntity<List<InteractiveBook>> getAll(@PathVariable int pageNumber) {
+		
 		try {
-			List <InteractiveBook> interactivebooks = interactiveBookRepository.findAll();
+			pageNumber = pageNumber-1;
+			Page<InteractiveBook> page = interactiveBookRepository.findAll(PageRequest.of(pageNumber, 5));
+			List <InteractiveBook> interactivebooks = page.getContent();
 			return ResponseEntity.ok().body(interactivebooks);
+	
 		} catch (Exception exception) {
 			throw exception;
 		}	
@@ -55,8 +61,7 @@ public class InteractiveBookController {
 	}
 	
 	@PutMapping("{id}/upload_image")
-	public void uploadImage(@RequestParam("imageFile") MultipartFile file, 
-			@PathVariable Integer id) throws Exception {
+	public void uploadImage(@RequestParam("imageFile") MultipartFile file, @PathVariable Integer id) throws Exception {
 		InteractiveBook updatedInteractiveBook = interactiveBookRepository.findById(id)
 				 .orElseThrow(() -> new NotFoundException ("not found" + id));
 		
@@ -88,13 +93,11 @@ public class InteractiveBookController {
 	    return ResponseEntity.ok().body(updatedInteractiveBook);
 	}
 	
-	
 	@DeleteMapping("{id}")
 	public void delete(@PathVariable Integer id) throws Exception {
 		
 		InteractiveBook interactiveBook = interactiveBookRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("not found"));
-		
 		interactiveBookRepository.delete(interactiveBook);
 	}
 	
