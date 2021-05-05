@@ -21,7 +21,7 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/img_book_character_preview"
                 android:layout_width="match_parent"
                 android:layout_height="240dp" />
 
@@ -146,7 +146,7 @@
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/textView10"
+                        android:id="@+id/tv_book_character_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="TextView"

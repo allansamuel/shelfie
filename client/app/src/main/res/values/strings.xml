@@ -7,12 +7,19 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
-
     <!-- Bundle -->
     <string name="arg_child_profile">CHILD_PROFILE_DATA</string>
 
     <!-- Titles and labels -->
-    <string name="app_subtitle_login">A biblioteca interativa da sua família!</string>
+    <string name="subtitle_app_login">A biblioteca interativa da sua família!</string>
+    <string name="title_form_child_profile">É um prazer te conhecer!</string>
+    <string name="title_welcome_form_guardian_user">Boas vindas!</string>
+    <string name="subtitle_form_guardian_user">Insira os dados de um de seus responsáveis</string>
+    <string name="label_child_profile_nickname">Qual é o seu nome?</string>
+    <string name="label_child_profile_character_selector">Escolha um personagem de nossos livros para ser o avatar do seu perfil</string>
+    <string name="title_manage_child_profile_add">Estamos quase lá!</string>
+    <string name="subtitle_manage_child_profile_add">Queremos conhecer você</string>
+    <string name="empty_state_book_search">Procure por seus livros favoritos</string>
 
     <!-- Form -->
     <string name="name">Nome</string>
@@ -32,12 +39,17 @@
     <string name="logoff">Sair</string>
     <string name="next">Próximo</string>
     <string name="save">Salvar</string>
+    <string name="delete_profile">Remover perfil</string>
     <string name="search">Buscar</string>
     <string name="home">Início</string>
     <string name="my_profile">Meu perfil</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Images content description -->
-    <string name="content_description_quest_icon">Ícone de missão</string>
+    <string name="content_form_illustration">Formulário</string>
+    <string name="content_character">Personagem</string>
+    <string name="content_quest_icon">Ícone de missão</string>
+    <string name="content_background_blob">Plano de fundo</string>
+    <string name="content_add_child_profile">Criar novo perfil</string>
+    <string name="content_previous_button">Anterior</string>
+    <string name="content_next_button">Próximo</string>
 </resources>

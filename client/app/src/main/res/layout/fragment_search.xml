@@ -75,7 +75,7 @@
                 android:id="@+id/tv_search_empty_state"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Procure por seus livros favoritos"
+                android:text="@string/empty_state_book_search"
                 android:textAlignment="center"
                 app:drawableBottomCompat="@drawable/search_empty_state" />
 

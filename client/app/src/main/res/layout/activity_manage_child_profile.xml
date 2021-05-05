@@ -21,18 +21,18 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/tv_title_child_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Estamos quase lá!"
+            android:text="@string/title_manage_child_profile_add"
             android:textAlignment="center"
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/tv_subtitle_manage_child_profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Queremos conhecer você."
+            android:text="@string/subtitle_manage_child_profile_add"
             android:textAlignment="center" />
     </LinearLayout>
 
@@ -75,7 +75,7 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:contentDescription="Adicionar novo perfil"
+                    android:contentDescription="@string/content_add_child_profile"
                     android:paddingStart="10dp"
                     android:paddingTop="10dp"
                     android:paddingEnd="10dp"
