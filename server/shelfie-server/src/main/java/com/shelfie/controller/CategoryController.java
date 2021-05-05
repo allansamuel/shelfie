@@ -2,6 +2,8 @@ package com.shelfie.controller;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,11 +30,14 @@ public class CategoryController {
 	 return ResponseEntity.ok().body(category);
 	}
 	
-	@GetMapping
-	public ResponseEntity<List<Category>> getAll(){
+	@GetMapping("/page/{pageNumber}")
+	public ResponseEntity<List<Category>> getAll(@PathVariable int pageNumber){
+		
 		try {
-		List <Category> category = categoryRepository.findAll();
-		return ResponseEntity.ok().body(category);
+			pageNumber = pageNumber-1;	
+			Page<Category> page = categoryRepository.findAll(PageRequest.of(pageNumber, 5));
+			List <Category> category = page.getContent();
+			return ResponseEntity.ok().body(category);
 		} catch (Exception exception) {
 			throw exception;
 		} 
