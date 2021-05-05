@@ -1,5 +1,6 @@
 package com.shelfie.ui.userregister;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -19,19 +20,19 @@ import com.shelfie.model.ChildProfile;
 import com.shelfie.model.GuardianUser;
 import com.shelfie.service.GuardianUserService;
 import com.shelfie.ui.fragments.ProfileAvatarFragment;
+import com.shelfie.utils.ApplicationStateManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ManageChildProfileActivity extends FragmentActivity {
 
-    private Bundle receivedBundle;
+    private ApplicationStateManager applicationStateManager;
     private RetrofitConfig retrofitConfig;
     private GuardianUser guardianUser;
     private List<ChildProfile> childProfiles;
-    private Boolean isFormInEditMode = false;
     private GuardianUserService guardianUserService;
-    private FragmentTransaction fragmentTransaction;
+    private CardView cvAddChildProfile;
     private Button btnSaveUserProfiles;
 
     @Override
@@ -41,41 +42,42 @@ public class ManageChildProfileActivity extends FragmentActivity {
 
         init();
 
+        cvAddChildProfile.setOnClickListener(view -> {
+            addChildProfile();
+        });
+
         btnSaveUserProfiles.setOnClickListener(view -> {
             saveAndAuthenticateUser();
         });
     }
 
     private void init() {
-        receivedBundle = getIntent().getExtras();
-        isFormInEditMode = receivedBundle.getBoolean(getString(R.string.bundle_is_edit_mode));
-        guardianUser = (GuardianUser) receivedBundle.getSerializable(getString(R.string.bundle_guardian_user));
+        applicationStateManager = ApplicationStateManager.getInstance();
+        guardianUser = applicationStateManager.getCurrentGuardianUser() != null ?
+                applicationStateManager.getCurrentGuardianUser() : new GuardianUser();
+
         retrofitConfig = new RetrofitConfig();
         guardianUserService = retrofitConfig.getGuardianUserService();
 
-        Fragment addProfileAvatarFragment = new ProfileAvatarFragment();
-        Bundle addProfileAvatarArgs = new Bundle();
-        addProfileAvatarArgs.putSerializable(getString(R.string.bundle_guardian_user), guardianUser);
-        addProfileAvatarFragment.setArguments(addProfileAvatarArgs);
-        fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.add_profile_avatar_container, addProfileAvatarFragment, null);
-        fragmentTransaction.commit();
-
+        cvAddChildProfile = findViewById(R.id.cv_add_child_profile);
+        btnSaveUserProfiles = findViewById(R.id.btn_save_user_profiles);
         getChildProfiles();
 
-        btnSaveUserProfiles = findViewById(R.id.btn_save_user_profiles);
-        if(isFormInEditMode && childProfiles.size() > 0) {
+//        if(applicationStateManager.getFormInteractionMode() != ApplicationStateManager.READ_MODE && childProfiles.size() > 0) {
             btnSaveUserProfiles.setVisibility(View.VISIBLE);
-        }
+//        }
+    }
+
+    private void addChildProfile() {
+        applicationStateManager.setFormInteractionMode(ApplicationStateManager.REGISTER_MODE);
+        Intent createChildProfileIntent = new Intent(getApplicationContext(), FormChildProfileActivity.class);
+        startActivity(createChildProfileIntent);
     }
 
     private void mapChildProfiles() {
         FragmentTransaction childProfileTransaction = getSupportFragmentManager().beginTransaction();
         for(ChildProfile childProfile : childProfiles) {
-            Fragment profileAvatarFragment = ProfileAvatarFragment.newInstance(
-                    guardianUser,
-                    childProfile,
-                    isFormInEditMode);
+            Fragment profileAvatarFragment = ProfileAvatarFragment.newInstance(childProfile);
             childProfileTransaction.add(R.id.flexbox_child_profiles, profileAvatarFragment, childProfile.getNickname());
         }
         childProfileTransaction.commit();
@@ -100,14 +102,12 @@ public class ManageChildProfileActivity extends FragmentActivity {
                 Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_LONG).show();
             }
         });
+
     }
 
     private void saveAndAuthenticateUser() {
-        Intent newIntent = new Intent(getApplicationContext(), FormChildProfileActivity.class);
-        Bundle newIntentBundle = new Bundle();
-        newIntentBundle.putSerializable(getString(R.string.bundle_guardian_user), guardianUser);
-        newIntentBundle.putSerializable(getString(R.string.bundle_guardian_user), guardianUser);
-        newIntent.putExtras(newIntentBundle);
+        Intent newIntent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
+        applicationStateManager.setFormInteractionMode(ApplicationStateManager.READ_MODE);
         startActivity(newIntent);
     }
 }
