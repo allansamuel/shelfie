@@ -99,16 +99,5 @@ public class GuardianUserController {
 		} catch (Exception exception) {
 			throw exception;
 		} 
-	}
-	
-	@PostMapping("/logout")
-	public ResponseEntity<GuardianUser> logout(@RequestBody GuardianUser guardianUserBody) throws Exception {
-
-//		guardianUserBody.setGuardianUserEmail(null);
-		
-		System.out.println("email: "+guardianUserBody.getGuardianUserEmail());
-		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
-
-	}
-	
+	}	
 }
