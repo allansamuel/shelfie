@@ -24,8 +24,6 @@ import com.shelfie.service.GuardianUserService;
 import com.shelfie.ui.fragments.EmptyStateDialogFragment;
 import com.shelfie.ui.main.MainActivity;
 import com.shelfie.ui.userregister.FormGuardianUserActivity;
-import com.shelfie.ui.userregister.ManageChildProfileActivity;
-import com.shelfie.utils.ApplicationStateManager;
 import com.shelfie.utils.UserSession;
 
 import java.util.List;
@@ -57,6 +55,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
         init();
 
         btnLogin.setOnClickListener(view -> {
+            resetErrors();
             formValidator.validate();
         });
 
@@ -82,12 +81,12 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
         btnRegister = findViewById(R.id.btn_register);
     }
 
-    @Override
-    public void onValidationSucceeded() {
-        progressGuardianUserLogin.setVisibility(View.VISIBLE);
-        guardianUser.setGuardianUserEmail(etLoginGuardianUserEmail.getText().toString());
-        guardianUser.setGuardianUserPassword(etLoginGuardianUserPassword.getText().toString());
+    private void resetErrors(){
+        txtLoginGuardianUserEmail.setError("");
+        txtLoginGuardianUserPassword.setError("");
+    }
 
+    private void login() {
         guardianUserService.login(guardianUser).enqueue(new Callback<GuardianUser>() {
             @Override
             public void onResponse(Call<GuardianUser> call, Response<GuardianUser> response) {
@@ -102,6 +101,14 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                 emptyStateDialogFragment.show(getSupportFragmentManager(), "EmptyStateDialogFragment");
             }
         });
+    }
+
+    @Override
+    public void onValidationSucceeded() {
+        progressGuardianUserLogin.setVisibility(View.VISIBLE);
+        guardianUser.setGuardianUserEmail(etLoginGuardianUserEmail.getText().toString());
+        guardianUser.setGuardianUserPassword(etLoginGuardianUserPassword.getText().toString());
+        login();
     }
 
     @Override

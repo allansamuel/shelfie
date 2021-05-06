@@ -15,8 +15,11 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
+import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Password;
 import com.shelfie.R;
 import com.shelfie.config.RetrofitConfig;
 import com.shelfie.model.GuardianUser;
@@ -48,13 +51,13 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
     @Length(messageResId = R.string.error_invalid_name_length, min = 3, max = 50, trim = true)
     private TextInputEditText etGuardianUserName;
 
-//    @Email(messageResId = R.string.error_invalid_email)
+    @Email(messageResId = R.string.error_invalid_email)
     private TextInputEditText etGuardianUserEmail;
 
-//    @Password(messageResId = R.string.error_invalid_password, scheme = Password.Scheme.ALPHA_NUMERIC)
+    @Password(messageResId = R.string.error_invalid_password, scheme = Password.Scheme.ALPHA_NUMERIC)
     private TextInputEditText etGuardianUserPassword;
 
-//    @ConfirmPassword(messageResId = R.string.error_invalid_password_confirmation)
+    @ConfirmPassword(messageResId = R.string.error_invalid_password_confirmation)
     private TextInputEditText etGuardianUserPasswordConfirm;
 
     @Override
