@@ -6,6 +6,7 @@
     tools:context=".CategoryBooksFragment">
 
     <LinearLayout
+        android:id="@+id/ll_category_books_container"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:divider="@drawable/divider10dp"
@@ -19,18 +20,23 @@
             android:layout_marginStart="32dp" />
 
         <ProgressBar
-            android:id="@+id/progressBar"
+            android:id="@+id/progress_category_books"
             style="?android:attr/progressBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <LinearLayout
-            android:id="@+id/ll_category_books"
+        <HorizontalScrollView
+            android:id="@+id/hv_category_books"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="32dp"
-            android:orientation="horizontal"
-            android:visibility="gone"></LinearLayout>
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/ll_category_books"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical" />
+        </HorizontalScrollView>
 
     </LinearLayout>
 </FrameLayout>

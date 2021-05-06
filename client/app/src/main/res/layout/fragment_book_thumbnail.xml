@@ -7,11 +7,12 @@
     tools:context=".ui.fragments.BookThumbnailFragment">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cv_book_thumbnail"
         android:layout_width="160dp"
         android:layout_height="200dp"
         android:layout_margin="10dp"
         android:background="@drawable/home_black_24dp"
-        app:cardCornerRadius="10dp" >
+        app:cardCornerRadius="10dp">
 
         <ImageView
             android:id="@+id/img_book_thumbnail"

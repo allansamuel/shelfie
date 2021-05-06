@@ -57,12 +57,6 @@ public class ProfileAvatarFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_profile_avatar, container, false);
-    }
-
-    @Override
-    public void onViewCreated(@NotNull View view, @Nullable Bundle savedInstanceState) {
-
         init();
 
         cvChildProfileAvatarContainer.setOnClickListener(view1 -> {
@@ -78,6 +72,7 @@ public class ProfileAvatarFragment extends Fragment {
             Intent editChildProfileIntent = new Intent(requireActivity().getApplicationContext(), FormChildProfileActivity.class);
             startActivity(editChildProfileIntent);
         });
+        return inflater.inflate(R.layout.fragment_profile_avatar, container, false);
     }
 
     private void init() {
