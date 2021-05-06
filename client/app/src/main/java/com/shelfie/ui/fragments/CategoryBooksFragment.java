@@ -1,4 +1,4 @@
-package com.shelfie;
+package com.shelfie.ui.fragments;
 
 import android.os.Bundle;
 
@@ -15,12 +15,11 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.shelfie.R;
 import com.shelfie.config.RetrofitConfig;
 import com.shelfie.model.Category;
 import com.shelfie.model.InteractiveBook;
 import com.shelfie.service.CategoryService;
-import com.shelfie.ui.fragments.BookThumbnailFragment;
-import com.shelfie.utils.ApplicationStateManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,12 +66,15 @@ public class CategoryBooksFragment extends Fragment {
     private void init() {
         retrofitConfig = new RetrofitConfig();
         categoryService = retrofitConfig.getCategoryService();
+        interactiveBooks = new ArrayList<>();
 
         View view = getView();
         assert view != null;
         tvCategoryName = view.findViewById(R.id.tv_category_name);
         llCategoryBooks = view.findViewById(R.id.ll_category_books);
         progressCategoryBooks = view.findViewById(R.id.progress_category_books);
+
+        getCategoryBooks(1);
     }
 
     private void mapBooks() {
@@ -83,15 +85,19 @@ public class CategoryBooksFragment extends Fragment {
         }
     }
 
-    private void getCategoryBooks() {
-        categoryService.getAll(1).enqueue(new Callback<ArrayList<Category>>() {
+    private void getCategoryBooks(int pageNumber) {
+        categoryService.getInteractiveBooks(pageNumber).enqueue(new Callback<ArrayList<InteractiveBook>>() {
             @Override
-            public void onResponse(Call<ArrayList<Category>> call, Response<ArrayList<Category>> response) {
+            public void onResponse(Call<ArrayList<InteractiveBook>> call, Response<ArrayList<InteractiveBook>> response) {
+                if(response.isSuccessful()) {
+                  interactiveBooks.addAll(response.body());
+                } else {
 
+                }
             }
 
             @Override
-            public void onFailure(Call<ArrayList<Category>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<InteractiveBook>> call, Throwable t) {
 
             }
         });
