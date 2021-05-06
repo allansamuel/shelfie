@@ -16,6 +16,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Email;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Password;
 import com.shelfie.R;
 import com.shelfie.config.RetrofitConfig;
@@ -41,9 +42,11 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
     private Button btnLogin;
     private Button btnRegister;
 
+    @NotEmpty(messageResId = R.string.error_required_field)
     @Email(messageResId = R.string.error_invalid_email)
     private TextInputEditText etLoginGuardianUserEmail;
 
+    @NotEmpty(messageResId = R.string.error_required_field)
     @Password(messageResId = R.string.error_invalid_password, scheme = Password.Scheme.ALPHA_NUMERIC)
     private TextInputEditText etLoginGuardianUserPassword;
 
@@ -119,10 +122,10 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
 
             if(view instanceof TextInputEditText){
                 switch (view.getId()){
-                    case R.id.et_guardian_user_name:
+                    case R.id.et_login_guardian_user_email:
                         txtLoginGuardianUserEmail.setError(errorMessage);
                         break;
-                    case R.id.et_guardian_user_email:
+                    case R.id.et_login_guardian_user_password:
                         txtLoginGuardianUserPassword.setError(errorMessage);
                         break;
                 }
