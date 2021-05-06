@@ -10,19 +10,19 @@ public class ChildProfile implements Serializable {
     private Integer coins;
     private GuardianUser guardianUser;
     private Character character;
-//    private List<Quest> childCompletedQuests;
-//    private List<InteractiveBook> childUnlockedBooks;
-//    private List<ChildSavedBook> childSavedBooks;
+    private List<Quest> childCompletedQuests;
+    private List<InteractiveBook> childUnlockedBooks;
+    private List<ChildSavedBook> childSavedBooks;
 
     public ChildProfile() {
         super();
     }
 
     public ChildProfile(Integer childProfileId, String nickname, Integer coins, GuardianUser guardianUser,
-                        Character character
-//                        List<Quest> childCompletedQuests,
-//                        List<InteractiveBook> childUnlockedBooks,
-//                        List<ChildSavedBook> childSavedBooks
+                        Character character,
+                        List<Quest> childCompletedQuests,
+                        List<InteractiveBook> childUnlockedBooks,
+                        List<ChildSavedBook> childSavedBooks
     ) {
         super();
         this.childProfileId = childProfileId;
@@ -30,9 +30,9 @@ public class ChildProfile implements Serializable {
         this.coins = coins;
         this.guardianUser = guardianUser;
         this.character = character;
-//        this.childCompletedQuests = childCompletedQuests;
-//        this.childUnlockedBooks = childUnlockedBooks;
-//        this.childSavedBooks = childSavedBooks;
+        this.childCompletedQuests = childCompletedQuests;
+        this.childUnlockedBooks = childUnlockedBooks;
+        this.childSavedBooks = childSavedBooks;
     }
 
     public Integer getChildProfileId() {
@@ -75,28 +75,28 @@ public class ChildProfile implements Serializable {
         this.character = character;
     }
 
-//    public List<Quest> getChildCompletedQuests() {
-//        return childCompletedQuests;
-//    }
-//
-//    public void setChildCompletedQuests(List<Quest> childCompletedQuests) {
-//        this.childCompletedQuests = childCompletedQuests;
-//    }
-//
-//    public List<InteractiveBook> getChildUnlockedBooks() {
-//        return childUnlockedBooks;
-//    }
-//
-//    public void setChildUnlockedBooks(List<InteractiveBook> childUnlockedBooks) {
-//        this.childUnlockedBooks = childUnlockedBooks;
-//    }
-//
-//    public List<ChildSavedBook> getChildSavedBooks() {
-//        return childSavedBooks;
-//    }
-//
-//    public void setChildSavedBooks(List<ChildSavedBook> childSavedBooks) {
-//        this.childSavedBooks = childSavedBooks;
-//    }
+    public List<Quest> getChildCompletedQuests() {
+        return childCompletedQuests;
+    }
+
+    public void setChildCompletedQuests(List<Quest> childCompletedQuests) {
+        this.childCompletedQuests = childCompletedQuests;
+    }
+
+    public List<InteractiveBook> getChildUnlockedBooks() {
+        return childUnlockedBooks;
+    }
+
+    public void setChildUnlockedBooks(List<InteractiveBook> childUnlockedBooks) {
+        this.childUnlockedBooks = childUnlockedBooks;
+    }
+
+    public List<ChildSavedBook> getChildSavedBooks() {
+        return childSavedBooks;
+    }
+
+    public void setChildSavedBooks(List<ChildSavedBook> childSavedBooks) {
+        this.childSavedBooks = childSavedBooks;
+    }
 
 }
