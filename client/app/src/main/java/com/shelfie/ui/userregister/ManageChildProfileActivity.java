@@ -21,13 +21,13 @@ import com.shelfie.model.GuardianUser;
 import com.shelfie.service.GuardianUserService;
 import com.shelfie.ui.fragments.ProfileAvatarFragment;
 import com.shelfie.utils.ApplicationStateManager;
+import com.shelfie.utils.UserSession;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ManageChildProfileActivity extends FragmentActivity {
 
-    private ApplicationStateManager applicationStateManager;
     private RetrofitConfig retrofitConfig;
     private GuardianUser guardianUser;
     private List<ChildProfile> childProfiles;
@@ -52,10 +52,8 @@ public class ManageChildProfileActivity extends FragmentActivity {
     }
 
     private void init() {
-        applicationStateManager = ApplicationStateManager.getInstance();
-        guardianUser = applicationStateManager.getCurrentGuardianUser() != null ?
-                applicationStateManager.getCurrentGuardianUser() : new GuardianUser();
-
+        guardianUser = UserSession.getGuardianUser() != null ?
+                UserSession.getGuardianUser() : new GuardianUser();
         retrofitConfig = new RetrofitConfig();
         guardianUserService = retrofitConfig.getGuardianUserService();
 
@@ -63,13 +61,13 @@ public class ManageChildProfileActivity extends FragmentActivity {
         btnSaveUserProfiles = findViewById(R.id.btn_save_user_profiles);
         getChildProfiles();
 
-//        if(applicationStateManager.getFormInteractionMode() != ApplicationStateManager.READ_MODE && childProfiles.size() > 0) {
+        if(childProfiles.size() > 0) {
             btnSaveUserProfiles.setVisibility(View.VISIBLE);
-//        }
+        }
     }
 
     private void addChildProfile() {
-        applicationStateManager.setFormInteractionMode(ApplicationStateManager.REGISTER_MODE);
+//        applicationStateManager.setFormInteractionMode(ApplicationStateManager.REGISTER_MODE);
         Intent createChildProfileIntent = new Intent(getApplicationContext(), FormChildProfileActivity.class);
         startActivity(createChildProfileIntent);
     }
@@ -107,7 +105,7 @@ public class ManageChildProfileActivity extends FragmentActivity {
 
     private void saveAndAuthenticateUser() {
         Intent newIntent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
-        applicationStateManager.setFormInteractionMode(ApplicationStateManager.READ_MODE);
+//        applicationStateManager.setFormInteractionMode(ApplicationStateManager.READ_MODE);
         startActivity(newIntent);
     }
 }

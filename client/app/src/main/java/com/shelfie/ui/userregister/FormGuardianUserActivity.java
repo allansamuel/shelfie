@@ -33,7 +33,6 @@ import java.util.Objects;
 
 public class FormGuardianUserActivity extends AppCompatActivity implements Validator.ValidationListener {
 
-    private ApplicationStateManager applicationStateManager;
     private RetrofitConfig retrofitConfig;
     private GuardianUserService guardianUserService;
     private GuardianUser guardianUser;
@@ -72,10 +71,8 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
     }
 
     private void init() {
-        applicationStateManager = ApplicationStateManager.getInstance();
-        guardianUser = applicationStateManager.getCurrentGuardianUser() != null ?
-                applicationStateManager.getCurrentGuardianUser() : new GuardianUser();
-
+        guardianUser = UserSession.getGuardianUser() != null ?
+                UserSession.getGuardianUser() : new GuardianUser();
         retrofitConfig = new RetrofitConfig();
         guardianUserService = retrofitConfig.getGuardianUserService();
 
@@ -100,7 +97,7 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
             public void onResponse(Call<GuardianUser> call, Response<GuardianUser> response) {
                 if(response.isSuccessful()) {
                     guardianUser = response.body();
-                    applicationStateManager.setCurrentGuardianUser(guardianUser);
+                    UserSession.startSession(getApplicationContext(), guardianUser);
                     Intent intent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
                     startActivity(intent);
                 } else {
@@ -125,8 +122,8 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
             public void onResponse(Call<GuardianUser> call, Response<GuardianUser> response) {
                 if(response.isSuccessful()) {
                     guardianUser = response.body();
-                    applicationStateManager.setCurrentGuardianUser(guardianUser);
-                    applicationStateManager.setFormInteractionMode(ApplicationStateManager.READ_MODE);
+                    UserSession.setGuardianUser(guardianUser);
+//                    applicationStateManager.setFormInteractionMode(ApplicationStateManager.READ_MODE);
                     Intent intent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
                     startActivity(intent);
                 } else {

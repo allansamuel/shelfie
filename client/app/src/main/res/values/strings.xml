@@ -4,8 +4,8 @@
 
     <string name="app_name">Shelfie</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_search">Pesquisar</string>
+    <string name="title_profile">Perfil</string>
 
     <!-- Bundle -->
     <string name="arg_child_profile">CHILD_PROFILE_DATA</string>
