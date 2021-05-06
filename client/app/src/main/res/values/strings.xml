@@ -12,6 +12,7 @@
 
     <!-- Titles and labels -->
     <string name="subtitle_app_login">A biblioteca interativa da sua família!</string>
+    <string name="label_register">Ainda não possui uma conta?</string>
     <string name="title_form_child_profile">É um prazer te conhecer!</string>
     <string name="title_welcome_form_guardian_user">Boas vindas!</string>
     <string name="subtitle_form_guardian_user">Insira os dados de um de seus responsáveis</string>
@@ -45,6 +46,7 @@
     <string name="my_profile">Meu perfil</string>
 
     <!-- Images content description -->
+    <string name="content_login_illustration">Fundo ilustrado com livros</string>
     <string name="content_form_illustration">Formulário</string>
     <string name="content_character">Personagem</string>
     <string name="content_quest_icon">Ícone de missão</string>
