@@ -8,21 +8,20 @@ public class Character implements Serializable {
     private String characterName;
     private String characterImage;
     private String characterDescription;
-//    private InteractiveBook interactiveBook;
+    private InteractiveBook interactiveBook;
 
     public Character() {
         super();
     }
 
-    public Character(Integer characterId, String characterName, String characterImage, String characterDescription
-//                     InteractiveBook interactiveBook
-    ) {
+    public Character(Integer characterId, String characterName, String characterImage, String characterDescription,
+                     InteractiveBook interactiveBook){
         super();
         this.characterId = characterId;
         this.characterName = characterName;
         this.characterImage = characterImage;
         this.characterDescription = characterDescription;
-//        this.interactiveBook = interactiveBook;
+        this.interactiveBook = interactiveBook;
     }
 
     public Integer getCharacterId() {
@@ -57,12 +56,12 @@ public class Character implements Serializable {
         this.characterDescription = characterDescription;
     }
 
-//    public InteractiveBook getInteractiveBook() {
-//        return interactiveBook;
-//    }
-//
-//    public void setInteractiveBook(InteractiveBook interactiveBook) {
-//        this.interactiveBook = interactiveBook;
-//    }
+    public InteractiveBook getInteractiveBook() {
+        return interactiveBook;
+    }
+
+    public void setInteractiveBook(InteractiveBook interactiveBook) {
+        this.interactiveBook = interactiveBook;
+    }
 
 }
