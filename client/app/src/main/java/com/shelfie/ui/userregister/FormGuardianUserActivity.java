@@ -15,6 +15,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.shelfie.R;
 import com.shelfie.config.RetrofitConfig;
@@ -22,6 +23,7 @@ import com.shelfie.model.GuardianUser;
 import com.shelfie.service.GuardianUserService;
 import com.shelfie.ui.fragments.EmptyStateDialogFragment;
 import com.shelfie.utils.ApplicationStateManager;
+import com.shelfie.utils.UserSession;
 
 import java.util.List;
 import java.util.Objects;
@@ -30,6 +32,7 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
 
     private ApplicationStateManager applicationStateManager;
 
+    private UserSession userSession;
     private RetrofitConfig retrofitConfig;
     private GuardianUserService guardianUserService;
     private GuardianUser guardianUser;
@@ -42,19 +45,15 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
     private Button btnGuardianUserNext;
     private ProgressBar progressGuardianUserSave;
 
-    @NotEmpty(messageResId = R.string.error_required_field)
-//    @Length(messageResId = R.string.error_invalid_name_length, min = 3, max = 50, trim = true)
+    @Length(messageResId = R.string.error_invalid_name_length, min = 3, max = 50, trim = true)
     private TextInputEditText etGuardianUserName;
 
-//    @NotEmpty(messageResId = R.string.error_required_field)
 //    @Email(messageResId = R.string.error_invalid_email)
     private TextInputEditText etGuardianUserEmail;
 
-//    @NotEmpty(messageResId = R.string.error_required_field)
 //    @Password(messageResId = R.string.error_invalid_password, scheme = Password.Scheme.ALPHA_NUMERIC)
     private TextInputEditText etGuardianUserPassword;
 
-//    @NotEmpty(messageResId = R.string.error_required_field)
 //    @ConfirmPassword(messageResId = R.string.error_invalid_password_confirmation)
     private TextInputEditText etGuardianUserPasswordConfirm;
 
