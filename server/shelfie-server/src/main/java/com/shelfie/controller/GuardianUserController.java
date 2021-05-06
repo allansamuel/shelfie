@@ -80,29 +80,23 @@ public class GuardianUserController {
 	}
 	
 	private boolean checkHash(String plainPassword, String hashedPassword) {
-		 if (BCrypt.checkpw (plainPassword, hashedPassword)) {
-			return true;
-		 }else {
-			return false;
-		}
+		 return BCrypt.checkpw (plainPassword, hashedPassword) ? true : false;
 	}
 	
 	@PostMapping("/login")
 	public ResponseEntity<GuardianUser> login(@RequestBody GuardianUser guardianUserBody) throws Exception {
-		
 		try {
 			GuardianUser guardianUser = guardianUserRepository.findByGuardianUserEmail(guardianUserBody.getGuardianUserEmail())
 				 .orElseThrow(() -> new NotFoundException ("Email não cadastrado" + guardianUserBody.getGuardianUserEmail()));
 			
-			boolean check = checkHash(guardianUserBody.getGuardianUserPassword(), guardianUser.getGuardianUserPassword());
+			boolean isPasswordValid = checkHash(guardianUserBody.getGuardianUserPassword(), guardianUser.getGuardianUserPassword());
 			
-			if(guardianUser.getGuardianUserEmail().equals(guardianUserBody.getGuardianUserEmail()) && check == true) {
+			if(guardianUser.getGuardianUserEmail().equals(guardianUserBody.getGuardianUserEmail()) && isPasswordValid) {
 				return ResponseEntity.ok().body(guardianUser);
 			}else{
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
 			}
 		} catch (Exception exception) {
-			
 			throw exception;
 		} 
 	}
