@@ -46,19 +46,15 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
     private Button btnGuardianUserNext;
     private ProgressBar progressGuardianUserSave;
 
-    @NotEmpty(messageResId = R.string.error_required_field)
     @Length(messageResId = R.string.error_invalid_name_length, min = 3, max = 50, trim = true)
     private TextInputEditText etGuardianUserName;
 
-    @NotEmpty(messageResId = R.string.error_required_field)
     @Email(messageResId = R.string.error_invalid_email)
     private TextInputEditText etGuardianUserEmail;
 
-    @NotEmpty(messageResId = R.string.error_required_field)
     @Password(messageResId = R.string.error_invalid_password, scheme = Password.Scheme.ALPHA_NUMERIC)
     private TextInputEditText etGuardianUserPassword;
 
-    @NotEmpty(messageResId = R.string.error_required_field)
     @ConfirmPassword(messageResId = R.string.error_invalid_password_confirmation)
     private TextInputEditText etGuardianUserPasswordConfirm;
 

@@ -58,7 +58,6 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
     private ProgressBar progressCircularCharacterLoader;
     private ProgressBar progressChildProfileSave;
 
-    @NotEmpty(messageResId = R.string.error_required_field)
     @Length(messageResId = R.string.error_invalid_nickname_length, min = 3, max = 20, trim = true)
     private TextInputEditText etChildProfileNickname;
 
