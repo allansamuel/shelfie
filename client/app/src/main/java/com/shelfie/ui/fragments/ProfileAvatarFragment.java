@@ -20,7 +20,6 @@ import com.shelfie.R;
 import com.shelfie.config.ImageDecoder;
 import com.shelfie.model.ChildProfile;
 import com.shelfie.ui.userregister.FormChildProfileActivity;
-import com.shelfie.utils.ApplicationStateManager;
 import com.shelfie.utils.UserSession;
 
 public class ProfileAvatarFragment extends Fragment {
@@ -64,7 +63,6 @@ public class ProfileAvatarFragment extends Fragment {
         });
 
         fabChildProfileEdit.setOnClickListener(view12 -> {
-//            applicationStateManager.setCurrentChildProfile(childProfile);
             UserSession.setFormInteractionMode(UserSession.EDIT_MODE);
             Intent editChildProfileIntent = new Intent(requireActivity().getApplicationContext(), FormChildProfileActivity.class);
             editChildProfileIntent.putExtra(ARG_CHILD_PROFILE, childProfile);

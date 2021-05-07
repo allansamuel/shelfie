@@ -12,8 +12,9 @@ public final class UserSession {
     public static final int EDIT_MODE = 1;
     public static final int READ_MODE = 2;
 
-    private static final String PREF_GUARDIAN_USER = "PREF_GUARDIAN_USER";
-    private static final String PREF_FORM_INTERACTION_MODE = "PREF_FORM_INTERACTION_MODE";
+    private static final String PREFS_NAME = "com.shelfie";
+    private static final String KEY_GUARDIAN_USER = "KEY_GUARDIAN_USER";
+    private static final String KEY_FORM_INTERACTION_MODE = "KEY_FORM_INTERACTION_MODE";
 
     private static SharedPreferences settings;
     private static SharedPreferences.Editor editor;
@@ -25,7 +26,7 @@ public final class UserSession {
 
     public static void startSession(Context ctx, GuardianUser guardianUser, int formInteractionMode) {
         if(settings == null) {
-            settings = ctx.getSharedPreferences(PREF_GUARDIAN_USER, Context.MODE_PRIVATE );
+            settings = ctx.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE );
         }
         editor = settings.edit();
         if(guardianUser != null)
@@ -34,28 +35,29 @@ public final class UserSession {
     }
 
     public static void setGuardianUser(GuardianUser guardianUser){
-        if(guardianUser != null) {
-            editor.putString( PREF_GUARDIAN_USER, gson.toJson(guardianUser) );
-            editor.commit();
-        }
+        editor.putString(KEY_GUARDIAN_USER, gson.toJson(guardianUser));
+        editor.commit();
     }
 
     public static GuardianUser getGuardianUser(){
-        return gson.fromJson(settings.getString(PREF_GUARDIAN_USER, ""), GuardianUser.class);
+        String guardianUserJson = settings.getString(KEY_GUARDIAN_USER, "");
+        if(guardianUserJson != null)
+            return gson.fromJson(guardianUserJson, GuardianUser.class);
+        return null;
     }
 
     public void deleteGuardianUser(){
-        editor.remove( PREF_GUARDIAN_USER );
+        editor.remove(KEY_GUARDIAN_USER);
         editor.commit();
     }
 
     public static void setFormInteractionMode(int formInteractionMode) {
-        editor.putInt(PREF_FORM_INTERACTION_MODE, formInteractionMode);
+        editor.putInt(KEY_FORM_INTERACTION_MODE, formInteractionMode);
         editor.commit();
     }
 
     public static int getFormInteractionMode() {
-        return settings.getInt(PREF_FORM_INTERACTION_MODE, REGISTER_MODE);
+        return settings.getInt(KEY_FORM_INTERACTION_MODE, REGISTER_MODE);
     }
 
     public static boolean isFormInEditMode() {

@@ -52,6 +52,7 @@ public class ManageChildProfileActivity extends FragmentActivity {
     }
 
     private void init() {
+        System.out.println(UserSession.getGuardianUser().getGuardianUserName());
         guardianUser = UserSession.getGuardianUser() != null ?
                 UserSession.getGuardianUser() : new GuardianUser();
         retrofitConfig = new RetrofitConfig();

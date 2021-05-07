@@ -64,7 +64,6 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
 
         init();
 
-        System.out.println(UserSession.getFormInteractionMode() + " " + UserSession.getGuardianUser());
         btnGuardianUserNext.setOnClickListener(view -> {
             resetErrors();
             formValidator.validate();
@@ -156,7 +155,6 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
         guardianUser.setGuardianUserEmail(Objects.requireNonNull(etGuardianUserEmail.getText()).toString());
         guardianUser.setGuardianUserPassword(Objects.requireNonNull(etGuardianUserPassword.getText()).toString());
 
-        System.out.println("EDIT" + UserSession.isFormInEditMode());
         if (UserSession.isFormInEditMode()) {
             updateGuardianUser();
         } else {

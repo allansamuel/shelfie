@@ -80,12 +80,9 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
     }
 
     private void init() {
-        guardianUser = UserSession.getGuardianUser();
+        guardianUser = UserSession.getGuardianUser() != null ?
+                UserSession.getGuardianUser() : new GuardianUser();
         childProfile = new ChildProfile();
-        if(UserSession.isFormInEditMode()) {
-            receivedBundle = getIntent().getExtras();
-            childProfile = (ChildProfile) receivedBundle.getSerializable(getString(R.string.arg_child_profile));
-        }
 
         formValidator = new Validator(this);
         formValidator.setValidationListener(this);
@@ -105,6 +102,8 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
         progressChildProfileSave = findViewById(R.id.progress_child_profile_save);
 
         if(UserSession.isFormInEditMode()){
+            receivedBundle = getIntent().getExtras();
+            childProfile = (ChildProfile) receivedBundle.getSerializable(getString(R.string.arg_child_profile));
             currentCharacter = childProfile.getCharacter();
             etChildProfileNickname.setText(childProfile.getNickname());
             btnDeleteChildProfile.setVisibility(View.VISIBLE);

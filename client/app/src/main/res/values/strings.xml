@@ -8,6 +8,7 @@
     <string name="title_profile">Perfil</string>
 
     <!-- Bundle -->
+    <string name="key_guardian_user">KEY_GUARDIAN_USER</string>
     <string name="arg_child_profile">CHILD_PROFILE_DATA</string>
 
     <!-- Titles and labels -->
