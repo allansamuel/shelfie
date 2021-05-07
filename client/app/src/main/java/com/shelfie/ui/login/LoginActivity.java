@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -61,6 +62,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
         });
 
         btnRegister.setOnClickListener(view -> {
+            UserSession.startSession(getApplicationContext());
             Intent intent = new Intent(getApplicationContext(), FormGuardianUserActivity.class);
             startActivity(intent);
         });
@@ -91,9 +93,13 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
         guardianUserService.login(guardianUser).enqueue(new Callback<GuardianUser>() {
             @Override
             public void onResponse(Call<GuardianUser> call, Response<GuardianUser> response) {
-                UserSession.startSession(getApplicationContext(), guardianUser);
-                Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(mainActivity);
+                if(response.isSuccessful()) {
+                    UserSession.startSession(getApplicationContext(), response.body());
+                    Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(mainActivity);
+                } else {
+                    Snackbar.make(getWindow().getDecorView().getRootView(), "caiu aqui", Snackbar.LENGTH_LONG).show();
+                }
             }
 
             @Override
