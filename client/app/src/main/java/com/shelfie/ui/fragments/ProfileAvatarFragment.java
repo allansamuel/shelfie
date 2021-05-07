@@ -21,16 +21,13 @@ import com.shelfie.config.ImageDecoder;
 import com.shelfie.model.ChildProfile;
 import com.shelfie.ui.userregister.FormChildProfileActivity;
 import com.shelfie.utils.ApplicationStateManager;
-
-import org.jetbrains.annotations.NotNull;
+import com.shelfie.utils.UserSession;
 
 public class ProfileAvatarFragment extends Fragment {
 
     private static final String ARG_CHILD_PROFILE = "CHILD_PROFILE_DATA";
 
-    private ApplicationStateManager applicationStateManager;
     private ChildProfile childProfile;
-
     private CardView cvChildProfileAvatarContainer;
     private ImageView imgChildProfileAvatar;
     private FloatingActionButton fabChildProfileEdit;
@@ -60,23 +57,23 @@ public class ProfileAvatarFragment extends Fragment {
         init();
 
         cvChildProfileAvatarContainer.setOnClickListener(view1 -> {
-            if (applicationStateManager.getFormInteractionMode() == ApplicationStateManager.READ_MODE) {
+            if (UserSession.isFormInReadMode()) {
                 Intent accessChildProfileIntent = new Intent(requireActivity().getApplicationContext(), MainActivity.class);
                 startActivity(accessChildProfileIntent);
             }
         });
 
         fabChildProfileEdit.setOnClickListener(view12 -> {
-            applicationStateManager.setFormInteractionMode(ApplicationStateManager.EDIT_MODE);
-            applicationStateManager.setCurrentChildProfile(childProfile);
+//            applicationStateManager.setCurrentChildProfile(childProfile);
+            UserSession.setFormInteracionMode(UserSession.EDIT_MODE);
             Intent editChildProfileIntent = new Intent(requireActivity().getApplicationContext(), FormChildProfileActivity.class);
+            editChildProfileIntent.putExtra(ARG_CHILD_PROFILE, childProfile);
             startActivity(editChildProfileIntent);
         });
         return inflater.inflate(R.layout.fragment_profile_avatar, container, false);
     }
 
     private void init() {
-        applicationStateManager = ApplicationStateManager.getInstance();
         View view = getView();
         assert view != null;
         cvChildProfileAvatarContainer = view.findViewById(R.id.cv_child_profile_avatar_container);
@@ -91,7 +88,7 @@ public class ProfileAvatarFragment extends Fragment {
             imgChildProfileAvatar.setBackgroundColor(getResources().getColor(R.color.blue_200));
             tvChildProfileNickname.setText(childProfile.getNickname());
 
-            if(applicationStateManager.getFormInteractionMode() != ApplicationStateManager.READ_MODE) {
+            if(!UserSession.isFormInReadMode()) {
                 fabChildProfileEdit.setVisibility(View.VISIBLE);
             }
         }

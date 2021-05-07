@@ -94,7 +94,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
             @Override
             public void onResponse(Call<GuardianUser> call, Response<GuardianUser> response) {
                 if(response.isSuccessful()) {
-                    UserSession.startSession(getApplicationContext(), response.body());
+                    UserSession.startSession(getApplicationContext(), response.body(), UserSession.READ_MODE);
                     Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(mainActivity);
                 } else {

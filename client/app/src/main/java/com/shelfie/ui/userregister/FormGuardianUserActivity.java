@@ -97,7 +97,7 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
             public void onResponse(Call<GuardianUser> call, Response<GuardianUser> response) {
                 if(response.isSuccessful()) {
                     guardianUser = response.body();
-                    UserSession.startSession(getApplicationContext(), guardianUser);
+                    UserSession.setGuardianUser(guardianUser);
                     Intent intent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
                     startActivity(intent);
                 } else {
@@ -123,7 +123,7 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
                 if(response.isSuccessful()) {
                     guardianUser = response.body();
                     UserSession.setGuardianUser(guardianUser);
-//                    applicationStateManager.setFormInteractionMode(ApplicationStateManager.READ_MODE);
+                    UserSession.setFormInteracionMode(UserSession.READ_MODE);
                     Intent intent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
                     startActivity(intent);
                 } else {
@@ -155,7 +155,7 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
         guardianUser.setGuardianUserEmail(Objects.requireNonNull(etGuardianUserEmail.getText()).toString());
         guardianUser.setGuardianUserPassword(Objects.requireNonNull(etGuardianUserPassword.getText()).toString());
 
-        if (ApplicationStateManager.getFormInteractionMode() == ApplicationStateManager.EDIT_MODE) {
+        if (UserSession.isFormInEditMode()) {
             updateGuardianUser();
         } else {
             createGuardianUser();
