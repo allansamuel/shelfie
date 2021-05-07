@@ -81,9 +81,11 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
 
     private void init() {
         guardianUser = UserSession.getGuardianUser();
-        receivedBundle = getIntent().getExtras();
-        childProfile = receivedBundle.getSerializable(getString(R.string.arg_child_profile)) != null ?
-                (ChildProfile) receivedBundle.getSerializable(getString(R.string.arg_child_profile)) : new ChildProfile();
+        childProfile = new ChildProfile();
+        if(UserSession.isFormInEditMode()) {
+            receivedBundle = getIntent().getExtras();
+            childProfile = (ChildProfile) receivedBundle.getSerializable(getString(R.string.arg_child_profile));
+        }
 
         formValidator = new Validator(this);
         formValidator.setValidationListener(this);

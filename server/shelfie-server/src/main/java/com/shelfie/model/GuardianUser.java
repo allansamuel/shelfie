@@ -1,4 +1,4 @@
-package com.shelfie.model;
+ package com.shelfie.model;
 
 //import java.io.Serializable;
 import java.util.List;

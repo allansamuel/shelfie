@@ -104,7 +104,7 @@ public class ManageChildProfileActivity extends FragmentActivity {
     }
 
     private void saveAndAuthenticateUser() {
-        UserSession.setFormInteracionMode(UserSession.READ_MODE);
+        UserSession.setFormInteractionMode(UserSession.READ_MODE);
         Intent newIntent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
         startActivity(newIntent);
     }

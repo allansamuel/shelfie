@@ -8,9 +8,9 @@ import com.shelfie.model.GuardianUser;
 
 public final class UserSession {
 
-    public static final int READ_MODE = 0;
-    public static final int REGISTER_MODE = 1;
-    public static final int EDIT_MODE = 2;
+    public static final int REGISTER_MODE = 0;
+    public static final int EDIT_MODE = 1;
+    public static final int READ_MODE = 2;
 
     private static final String PREF_GUARDIAN_USER = "PREF_GUARDIAN_USER";
     private static final String PREF_FORM_INTERACTION_MODE = "PREF_FORM_INTERACTION_MODE";
@@ -30,7 +30,7 @@ public final class UserSession {
         editor = settings.edit();
         if(guardianUser != null)
             setGuardianUser(guardianUser);
-        setFormInteracionMode(formInteractionMode);
+        setFormInteractionMode(formInteractionMode);
     }
 
     public static void setGuardianUser(GuardianUser guardianUser){
@@ -49,12 +49,13 @@ public final class UserSession {
         editor.commit();
     }
 
-    public static void setFormInteracionMode(int formInteractionMode) {
+    public static void setFormInteractionMode(int formInteractionMode) {
         editor.putInt(PREF_FORM_INTERACTION_MODE, formInteractionMode);
+        editor.commit();
     }
 
     public static int getFormInteractionMode() {
-        return settings.getInt(PREF_FORM_INTERACTION_MODE, 0);
+        return settings.getInt(PREF_FORM_INTERACTION_MODE, REGISTER_MODE);
     }
 
     public static boolean isFormInEditMode() {
