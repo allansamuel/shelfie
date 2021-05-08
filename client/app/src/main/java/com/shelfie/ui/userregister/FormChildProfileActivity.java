@@ -80,8 +80,8 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
     }
 
     private void init() {
-        guardianUser = UserSession.getGuardianUser() != null ?
-                UserSession.getGuardianUser() : new GuardianUser();
+        guardianUser = UserSession.getGuardianUser(getApplicationContext()) != null ?
+                UserSession.getGuardianUser(getApplicationContext()) : new GuardianUser();
         childProfile = new ChildProfile();
 
         formValidator = new Validator(this);
@@ -101,7 +101,7 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
         progressCircularCharacterLoader = findViewById(R.id.progress_circular_character_loader);
         progressChildProfileSave = findViewById(R.id.progress_child_profile_save);
 
-        if(UserSession.isFormInEditMode()){
+        if(UserSession.isFormInEditMode(getApplicationContext())){
             receivedBundle = getIntent().getExtras();
             childProfile = (ChildProfile) receivedBundle.getSerializable(getString(R.string.arg_child_profile));
             currentCharacter = childProfile.getCharacter();
@@ -249,7 +249,7 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
         childProfile.setNickname(etChildProfileNickname.getText().toString());
         childProfile.setCharacter(currentCharacter);
 
-        if (UserSession.isFormInEditMode()) {
+        if (UserSession.isFormInEditMode(getApplicationContext())) {
             updateChildProfile();
         } else {
             createChildProfile();

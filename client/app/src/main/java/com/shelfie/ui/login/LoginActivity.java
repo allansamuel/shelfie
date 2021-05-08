@@ -26,6 +26,7 @@ import com.shelfie.service.GuardianUserService;
 import com.shelfie.ui.fragments.EmptyStateDialogFragment;
 import com.shelfie.ui.main.MainActivity;
 import com.shelfie.ui.userregister.FormGuardianUserActivity;
+import com.shelfie.ui.userregister.ManageChildProfileActivity;
 import com.shelfie.utils.UserSession;
 
 import java.util.List;
@@ -72,7 +73,10 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
         retrofitConfig = new RetrofitConfig();
         guardianUserService = retrofitConfig.getGuardianUserService();
         guardianUser = new GuardianUser();
-
+        if(UserSession.getGuardianUser(getApplicationContext()) != null) {
+            guardianUser = UserSession.getGuardianUser(getApplicationContext());
+            login();
+        }
         formValidator = new Validator(this);
         formValidator.setValidationListener(this);
         txtLoginGuardianUserEmail = findViewById(R.id.txt_login_guardian_user_email);
@@ -94,9 +98,15 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
             @Override
             public void onResponse(Call<GuardianUser> call, Response<GuardianUser> response) {
                 if(response.isSuccessful()) {
-                    UserSession.startSession(getApplicationContext(), response.body(), UserSession.READ_MODE);
-                    Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(mainActivity);
+                    if(guardianUser.getChildProfiles().isEmpty()) {
+                        UserSession.startSession(getApplicationContext(), response.body(), UserSession.REGISTER_MODE);
+                        Intent createProfilesActivity = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
+                        startActivity(createProfilesActivity);
+                    } else {
+                        UserSession.startSession(getApplicationContext(), response.body(), UserSession.READ_MODE);
+                        Intent accessProfiles = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
+                        startActivity(accessProfiles);
+                    }
                 } else {
                     Snackbar.make(getWindow().getDecorView().getRootView(), "caiu aqui", Snackbar.LENGTH_LONG).show();
                 }

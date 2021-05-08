@@ -65,4 +65,14 @@ public class GuardianUser implements Serializable {
         this.childProfiles = childProfiles;
     }
 
+    @Override
+    public String toString() {
+        return "GuardianUser{" +
+                "guardianUserId=" + guardianUserId +
+                ", guardianUserName='" + guardianUserName + '\'' +
+                ", guardianUserEmail='" + guardianUserEmail + '\'' +
+                ", guardianUserPassword='" + guardianUserPassword + '\'' +
+                ", childProfiles=" + childProfiles +
+                '}';
+    }
 }

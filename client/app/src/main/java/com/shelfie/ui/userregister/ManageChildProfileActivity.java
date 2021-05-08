@@ -52,9 +52,9 @@ public class ManageChildProfileActivity extends FragmentActivity {
     }
 
     private void init() {
-        System.out.println(UserSession.getGuardianUser().getGuardianUserName());
-        guardianUser = UserSession.getGuardianUser() != null ?
-                UserSession.getGuardianUser() : new GuardianUser();
+        System.out.println(UserSession.getGuardianUser(getApplicationContext()).getGuardianUserName());
+        guardianUser = UserSession.getGuardianUser(getApplicationContext()) != null ?
+                UserSession.getGuardianUser(getApplicationContext()) : new GuardianUser();
         retrofitConfig = new RetrofitConfig();
         guardianUserService = retrofitConfig.getGuardianUserService();
         childProfiles = new ArrayList<>();
@@ -63,7 +63,7 @@ public class ManageChildProfileActivity extends FragmentActivity {
         btnSaveUserProfiles = findViewById(R.id.btn_save_user_profiles);
         getChildProfiles();
 
-        if(!UserSession.isFormInReadMode() && childProfiles.size() > 0) {
+        if(!UserSession.isFormInReadMode(getApplicationContext()) && childProfiles.size() > 0) {
             btnSaveUserProfiles.setVisibility(View.VISIBLE);
         }
     }
@@ -105,7 +105,7 @@ public class ManageChildProfileActivity extends FragmentActivity {
     }
 
     private void saveAndAuthenticateUser() {
-        UserSession.setFormInteractionMode(UserSession.READ_MODE);
+        UserSession.setFormInteractionMode(getApplicationContext(), UserSession.READ_MODE);
         Intent newIntent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
         startActivity(newIntent);
     }

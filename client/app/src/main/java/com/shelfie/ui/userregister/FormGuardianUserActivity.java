@@ -71,8 +71,8 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
     }
 
     private void init() {
-        guardianUser = UserSession.getGuardianUser() != null ?
-                UserSession.getGuardianUser() : new GuardianUser();
+        guardianUser = UserSession.getGuardianUser(getApplicationContext()) != null ?
+                UserSession.getGuardianUser(getApplicationContext()) : new GuardianUser();
         retrofitConfig = new RetrofitConfig();
         guardianUserService = retrofitConfig.getGuardianUserService();
 
@@ -91,13 +91,15 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
     }
 
     private void createGuardianUser() {
+        System.out.println("REGISTERING");
+        System.out.println("ID:" + guardianUser.getGuardianUserId());
         guardianUserService.create(guardianUser)
                 .enqueue(new Callback<GuardianUser>() {
             @Override
             public void onResponse(Call<GuardianUser> call, Response<GuardianUser> response) {
                 if(response.isSuccessful()) {
                     guardianUser = response.body();
-                    UserSession.setGuardianUser(guardianUser);
+                    UserSession.setGuardianUser(getApplicationContext(), guardianUser);
                     Intent intent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
                     startActivity(intent);
                 } else {
@@ -116,14 +118,16 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
     }
 
     private void updateGuardianUser() {
+        System.out.println("EDITING");
+        System.out.println(guardianUser.toString());
         guardianUserService.update(guardianUser.getGuardianUserId(), guardianUser)
                 .enqueue(new Callback<GuardianUser>() {
             @Override
             public void onResponse(Call<GuardianUser> call, Response<GuardianUser> response) {
                 if(response.isSuccessful()) {
                     guardianUser = response.body();
-                    UserSession.setGuardianUser(guardianUser);
-                    UserSession.setFormInteractionMode(UserSession.READ_MODE);
+                    UserSession.setGuardianUser(getApplicationContext(), guardianUser);
+                    UserSession.setFormInteractionMode(getApplicationContext(), UserSession.READ_MODE);
                     Intent intent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
                     startActivity(intent);
                 } else {
@@ -155,7 +159,7 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
         guardianUser.setGuardianUserEmail(Objects.requireNonNull(etGuardianUserEmail.getText()).toString());
         guardianUser.setGuardianUserPassword(Objects.requireNonNull(etGuardianUserPassword.getText()).toString());
 
-        if (UserSession.isFormInEditMode()) {
+        if (UserSession.isFormInEditMode(getApplicationContext())) {
             updateGuardianUser();
         } else {
             createGuardianUser();
