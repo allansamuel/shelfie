@@ -71,10 +71,12 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
     }
 
     private void init() {
-        guardianUser = UserSession.getGuardianUser(getApplicationContext()) != null ?
-                UserSession.getGuardianUser(getApplicationContext()) : new GuardianUser();
+        guardianUser = new GuardianUser();
         retrofitConfig = new RetrofitConfig();
         guardianUserService = retrofitConfig.getGuardianUserService();
+        if(UserSession.isFormInEditMode(getApplicationContext())) {
+            guardianUser = UserSession.getGuardianUser(getApplicationContext());
+        }
 
         formValidator = new Validator(this);
         formValidator.setValidationListener(this);

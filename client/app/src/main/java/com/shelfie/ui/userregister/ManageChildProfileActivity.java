@@ -34,6 +34,7 @@ public class ManageChildProfileActivity extends FragmentActivity {
     private GuardianUserService guardianUserService;
     private CardView cvAddChildProfile;
     private Button btnSaveUserProfiles;
+    private Button btnUserSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,19 +53,24 @@ public class ManageChildProfileActivity extends FragmentActivity {
     }
 
     private void init() {
-        System.out.println(UserSession.getGuardianUser(getApplicationContext()).getGuardianUserName());
-        guardianUser = UserSession.getGuardianUser(getApplicationContext()) != null ?
-                UserSession.getGuardianUser(getApplicationContext()) : new GuardianUser();
+        System.out.println(UserSession.getFormInteractionMode(getApplicationContext()));
+        guardianUser = UserSession.getGuardianUser(getApplicationContext());
         retrofitConfig = new RetrofitConfig();
         guardianUserService = retrofitConfig.getGuardianUserService();
         childProfiles = new ArrayList<>();
 
         cvAddChildProfile = findViewById(R.id.cv_add_child_profile);
         btnSaveUserProfiles = findViewById(R.id.btn_save_user_profiles);
+        btnUserSettings = findViewById(R.id.btn_user_settings);
+
         getChildProfiles();
 
-        if(!UserSession.isFormInReadMode(getApplicationContext()) && childProfiles.size() > 0) {
-            btnSaveUserProfiles.setVisibility(View.VISIBLE);
+        if(childProfiles.size() > 0) {
+            if(UserSession.isFormInReadMode(getApplicationContext())) {
+                btnUserSettings.setVisibility(View.VISIBLE);
+            } else {
+                btnSaveUserProfiles.setVisibility(View.VISIBLE);
+            }
         }
     }
 

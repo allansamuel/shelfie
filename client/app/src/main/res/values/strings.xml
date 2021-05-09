@@ -39,6 +39,7 @@
     <string name="register">Inscreva-se</string>
     <string name="login">Entrar</string>
     <string name="logoff">Sair</string>
+    <string name="settings">Configurações</string>
     <string name="next">Próximo</string>
     <string name="save">Salvar</string>
     <string name="delete_profile">Remover perfil</string>
