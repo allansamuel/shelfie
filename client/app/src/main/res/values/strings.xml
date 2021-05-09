@@ -46,6 +46,8 @@
     <string name="search">Buscar</string>
     <string name="home">Início</string>
     <string name="my_profile">Meu perfil</string>
+    <string name="edit_guardian_user">Editar cadastro</string>
+    <string name="edit_child_profiles">Editar perfis</string>
 
     <!-- Images content description -->
     <string name="content_book_thumbnail">Miniatura do livro</string>
@@ -57,6 +59,7 @@
     <string name="content_add_child_profile">Criar novo perfil</string>
     <string name="content_previous_button">Anterior</string>
     <string name="content_next_button">Próximo</string>
+    <string name="content_settings_illustration">Configurações</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -99,15 +99,14 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
             @Override
             public void onResponse(Call<GuardianUser> call, Response<GuardianUser> response) {
                 if(response.isSuccessful()) {
+                    guardianUser = response.body();
+                    Intent manageChildProfilesActivity = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
                     if(guardianUser.getChildProfiles().isEmpty()) {
-                        UserSession.startSession(getApplicationContext(), response.body(), UserSession.REGISTER_MODE);
-                        Intent createProfilesActivity = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
-                        startActivity(createProfilesActivity);
+                        UserSession.startSession(getApplicationContext(), guardianUser, UserSession.REGISTER_MODE);
                     } else {
-                        UserSession.startSession(getApplicationContext(), response.body(), UserSession.READ_MODE);
-                        Intent accessProfiles = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
-                        startActivity(accessProfiles);
+                        UserSession.startSession(getApplicationContext(), guardianUser, UserSession.READ_MODE);
                     }
+                    startActivity(manageChildProfilesActivity);
                 } else {
                     Snackbar.make(getWindow().getDecorView().getRootView(), "caiu aqui", Snackbar.LENGTH_LONG).show();
                 }

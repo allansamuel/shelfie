@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:divider="@drawable/divider10dp"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="32dp"
+    android:showDividers="middle">
+
+    <ImageView
+        android:src="@drawable/mirage_robot_settings_1"
+        android:id="@+id/img_settings_illustration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/content_settings_illustration" />
+
+    <Button
+        android:id="@+id/btn_edit_guardian_user"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/handyman_black_24dp"
+        android:drawablePadding="10dp"
+        android:text="@string/edit_guardian_user"
+        android:textAllCaps="false"
+        android:textColor="@android:color/primary_text_light"
+        android:textColorHighlight="@android:color/primary_text_light"
+        android:textColorLink="@android:color/primary_text_light" />
+
+    <Button
+        android:id="@+id/btn_edit_child_profiles"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_edit_black_24dp"
+        android:drawablePadding="10dp"
+        android:text="@string/edit_child_profiles"
+        android:textAllCaps="false"
+        android:textColor="@android:color/primary_text_light"
+        android:textColorHighlight="@android:color/primary_text_light"
+        android:textColorLink="@android:color/primary_text_light" />
+
+    <Button
+        android:id="@+id/btn_logoff"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/logout_black_24dp"
+        android:drawablePadding="10dp"
+        android:text="@string/logoff"
+        android:textAllCaps="false"
+        android:textColor="@android:color/primary_text_light"
+        android:textColorHighlight="@android:color/primary_text_light"
+        android:textColorLink="@android:color/primary_text_light" />
+
+</LinearLayout>

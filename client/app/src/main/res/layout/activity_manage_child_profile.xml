@@ -118,17 +118,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:drawableStart="@drawable/settings_black_24dp"
             android:gravity="center"
             android:text="@string/settings"
             android:visibility="gone"
-            app:icon="@drawable/settings_black_24dp"
-            app:iconGravity="textStart"
-            app:iconTint="@color/blue_400"
-            app:iconTintMode="src_in"
             app:strokeColor="@color/blue_400"
             app:strokeWidth="2dp" />
     </LinearLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

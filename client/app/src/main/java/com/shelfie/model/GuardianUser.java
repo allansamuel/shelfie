@@ -1,6 +1,7 @@
 package com.shelfie.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GuardianUser implements Serializable {

@@ -21,6 +21,7 @@ import com.shelfie.config.RetrofitConfig;
 import com.shelfie.model.ChildProfile;
 import com.shelfie.model.GuardianUser;
 import com.shelfie.service.GuardianUserService;
+import com.shelfie.ui.fragments.BottomSheetLayout;
 import com.shelfie.ui.fragments.ProfileAvatarFragment;
 import com.shelfie.utils.ApplicationStateManager;
 import com.shelfie.utils.UserSession;
@@ -55,7 +56,8 @@ public class ManageChildProfileActivity extends FragmentActivity {
         });
 
         btnUserSettings.setOnClickListener(view -> {
-
+            BottomSheetLayout bottomSheetLayout = new BottomSheetLayout();
+            bottomSheetLayout.show(getSupportFragmentManager(), "teste");
         });
     }
 
