@@ -99,6 +99,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
+        android:gravity="center_horizontal"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -114,14 +115,16 @@
 
         <Button
             android:id="@+id/btn_user_settings"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:drawableStart="@drawable/settings_black_24dp"
+            android:drawablePadding="10dp"
             android:text="@string/settings"
+            android:textColor="@android:color/primary_text_light"
+            android:textColorHighlight="@android:color/primary_text_light"
+            android:textColorLink="@android:color/primary_text_light"
             android:visibility="gone"
-            app:strokeColor="@color/blue_400"
             app:strokeWidth="2dp" />
     </LinearLayout>
 
