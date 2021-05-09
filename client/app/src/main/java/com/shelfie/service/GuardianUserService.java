@@ -15,7 +15,7 @@ import retrofit2.http.Path;
 
 public interface GuardianUserService {
 
-    @POST("login/")
+    @POST("guardian_user/login/")
     Call<GuardianUser> login(@Body GuardianUser guardianUser);
 
     @GET("guardian_user/{id}/child_profiles/")

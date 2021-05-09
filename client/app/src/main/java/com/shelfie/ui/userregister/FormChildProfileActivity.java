@@ -32,22 +32,22 @@ import com.shelfie.service.CharacterService;
 import com.shelfie.service.ChildProfileService;
 import com.shelfie.ui.fragments.EmptyStateDialogFragment;
 import com.shelfie.utils.ApplicationStateManager;
+import com.shelfie.utils.UserSession;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FormChildProfileActivity extends AppCompatActivity implements Validator.ValidationListener {
 
-    private ApplicationStateManager applicationStateManager;
-    private GuardianUser guardianUser;
-
     private Validator formValidator;
     private RetrofitConfig retrofitConfig;
+    private GuardianUser guardianUser;
     private ChildProfileService childProfileService;
     private ChildProfile childProfile;
     private CharacterService characterService;
     private List<Character> characterList;
     private Character currentCharacter;
+    private Bundle receivedBundle;
 
     private TextInputLayout txtChildProfileNickname;
     private ImageButton ibPreviousCharacter;
@@ -58,7 +58,6 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
     private ProgressBar progressCircularCharacterLoader;
     private ProgressBar progressChildProfileSave;
 
-    @NotEmpty(messageResId = R.string.error_required_field)
     @Length(messageResId = R.string.error_invalid_nickname_length, min = 3, max = 20, trim = true)
     private TextInputEditText etChildProfileNickname;
 
@@ -81,10 +80,9 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
     }
 
     private void init() {
-        applicationStateManager = ApplicationStateManager.getInstance();
-        guardianUser = applicationStateManager.getCurrentGuardianUser();
-        childProfile = applicationStateManager.getCurrentChildProfile() != null ?
-                applicationStateManager.getCurrentChildProfile() : new ChildProfile();
+        guardianUser = UserSession.getGuardianUser(getApplicationContext()) != null ?
+                UserSession.getGuardianUser(getApplicationContext()) : new GuardianUser();
+        childProfile = new ChildProfile();
 
         formValidator = new Validator(this);
         formValidator.setValidationListener(this);
@@ -103,7 +101,9 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
         progressCircularCharacterLoader = findViewById(R.id.progress_circular_character_loader);
         progressChildProfileSave = findViewById(R.id.progress_child_profile_save);
 
-        if(applicationStateManager.getFormInteractionMode() == ApplicationStateManager.EDIT_MODE){
+        if(UserSession.isFormInEditMode(getApplicationContext())){
+            receivedBundle = getIntent().getExtras();
+            childProfile = (ChildProfile) receivedBundle.getSerializable(getString(R.string.arg_child_profile));
             currentCharacter = childProfile.getCharacter();
             etChildProfileNickname.setText(childProfile.getNickname());
             btnDeleteChildProfile.setVisibility(View.VISIBLE);
@@ -249,12 +249,11 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
         childProfile.setNickname(etChildProfileNickname.getText().toString());
         childProfile.setCharacter(currentCharacter);
 
-        if (applicationStateManager.getFormInteractionMode() == ApplicationStateManager.EDIT_MODE) {
+        if (UserSession.isFormInEditMode(getApplicationContext())) {
             updateChildProfile();
         } else {
             createChildProfile();
         }
-        applicationStateManager.setCurrentChildProfile(null);
     }
 
     @Override

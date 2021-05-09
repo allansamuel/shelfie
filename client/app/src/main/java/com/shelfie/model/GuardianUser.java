@@ -1,6 +1,7 @@
 package com.shelfie.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GuardianUser implements Serializable {
@@ -65,4 +66,14 @@ public class GuardianUser implements Serializable {
         this.childProfiles = childProfiles;
     }
 
+    @Override
+    public String toString() {
+        return "GuardianUser{" +
+                "guardianUserId=" + guardianUserId +
+                ", guardianUserName='" + guardianUserName + '\'' +
+                ", guardianUserEmail='" + guardianUserEmail + '\'' +
+                ", guardianUserPassword='" + guardianUserPassword + '\'' +
+                ", childProfiles=" + childProfiles +
+                '}';
+    }
 }

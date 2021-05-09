@@ -33,7 +33,6 @@ import java.util.Objects;
 
 public class FormGuardianUserActivity extends AppCompatActivity implements Validator.ValidationListener {
 
-    private ApplicationStateManager applicationStateManager;
     private RetrofitConfig retrofitConfig;
     private GuardianUserService guardianUserService;
     private GuardianUser guardianUser;
@@ -46,19 +45,15 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
     private Button btnGuardianUserNext;
     private ProgressBar progressGuardianUserSave;
 
-    @NotEmpty(messageResId = R.string.error_required_field)
     @Length(messageResId = R.string.error_invalid_name_length, min = 3, max = 50, trim = true)
     private TextInputEditText etGuardianUserName;
 
-    @NotEmpty(messageResId = R.string.error_required_field)
     @Email(messageResId = R.string.error_invalid_email)
     private TextInputEditText etGuardianUserEmail;
 
-    @NotEmpty(messageResId = R.string.error_required_field)
     @Password(messageResId = R.string.error_invalid_password, scheme = Password.Scheme.ALPHA_NUMERIC)
     private TextInputEditText etGuardianUserPassword;
 
-    @NotEmpty(messageResId = R.string.error_required_field)
     @ConfirmPassword(messageResId = R.string.error_invalid_password_confirmation)
     private TextInputEditText etGuardianUserPasswordConfirm;
 
@@ -76,12 +71,12 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
     }
 
     private void init() {
-        applicationStateManager = ApplicationStateManager.getInstance();
-        guardianUser = applicationStateManager.getCurrentGuardianUser() != null ?
-                applicationStateManager.getCurrentGuardianUser() : new GuardianUser();
-
+        guardianUser = new GuardianUser();
         retrofitConfig = new RetrofitConfig();
         guardianUserService = retrofitConfig.getGuardianUserService();
+        if(UserSession.isFormInEditMode(getApplicationContext())) {
+            guardianUser = UserSession.getGuardianUser(getApplicationContext());
+        }
 
         formValidator = new Validator(this);
         formValidator.setValidationListener(this);
@@ -104,7 +99,7 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
             public void onResponse(Call<GuardianUser> call, Response<GuardianUser> response) {
                 if(response.isSuccessful()) {
                     guardianUser = response.body();
-                    applicationStateManager.setCurrentGuardianUser(guardianUser);
+                    UserSession.setGuardianUser(getApplicationContext(), guardianUser);
                     Intent intent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
                     startActivity(intent);
                 } else {
@@ -129,8 +124,8 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
             public void onResponse(Call<GuardianUser> call, Response<GuardianUser> response) {
                 if(response.isSuccessful()) {
                     guardianUser = response.body();
-                    applicationStateManager.setCurrentGuardianUser(guardianUser);
-                    applicationStateManager.setFormInteractionMode(ApplicationStateManager.READ_MODE);
+                    UserSession.setGuardianUser(getApplicationContext(), guardianUser);
+                    UserSession.setFormInteractionMode(getApplicationContext(), UserSession.READ_MODE);
                     Intent intent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
                     startActivity(intent);
                 } else {
@@ -162,7 +157,7 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
         guardianUser.setGuardianUserEmail(Objects.requireNonNull(etGuardianUserEmail.getText()).toString());
         guardianUser.setGuardianUserPassword(Objects.requireNonNull(etGuardianUserPassword.getText()).toString());
 
-        if (ApplicationStateManager.getFormInteractionMode() == ApplicationStateManager.EDIT_MODE) {
+        if (UserSession.isFormInEditMode(getApplicationContext())) {
             updateGuardianUser();
         } else {
             createGuardianUser();
