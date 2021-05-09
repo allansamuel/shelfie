@@ -55,8 +55,12 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_add_child_profile_container"
             android:layout_width="160dp"
-            android:layout_height="160dp">
+            android:layout_height="160dp"
+            android:visibility="gone"
+            tools:layout_editor_absoluteX="32dp"
+            tools:layout_editor_absoluteY="16dp">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_add_child_profile"
@@ -113,11 +117,15 @@
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:drawableStart="@drawable/settings_black_24dp"
+            android:gravity="center"
             android:text="@string/settings"
             android:visibility="gone"
             app:icon="@drawable/settings_black_24dp"
             app:iconGravity="textStart"
+            app:iconTint="@color/blue_400"
+            app:iconTintMode="src_in"
             app:strokeColor="@color/blue_400"
             app:strokeWidth="2dp" />
     </LinearLayout>

@@ -72,10 +72,10 @@ public final class UserSession {
     }
 
     public static boolean isFormInRegisterMode(Context context) {
-        return getFormInteractionMode(context) == READ_MODE;
+        return getFormInteractionMode(context) == REGISTER_MODE;
     }
 
     public static boolean isFormInReadMode(Context context) {
-        return getFormInteractionMode(context) == REGISTER_MODE;
+        return getFormInteractionMode(context) == READ_MODE;
     }
 }

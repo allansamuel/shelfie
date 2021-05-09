@@ -1,6 +1,8 @@
 package com.shelfie.ui.userregister;
 
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.solver.state.State;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
@@ -32,6 +34,7 @@ public class ManageChildProfileActivity extends FragmentActivity {
     private GuardianUser guardianUser;
     private List<ChildProfile> childProfiles;
     private GuardianUserService guardianUserService;
+    private ConstraintLayout clAddChildProfileContainer;
     private CardView cvAddChildProfile;
     private Button btnSaveUserProfiles;
     private Button btnUserSettings;
@@ -50,28 +53,24 @@ public class ManageChildProfileActivity extends FragmentActivity {
         btnSaveUserProfiles.setOnClickListener(view -> {
             saveAndAuthenticateUser();
         });
+
+        btnUserSettings.setOnClickListener(view -> {
+
+        });
     }
 
     private void init() {
-        System.out.println(UserSession.getFormInteractionMode(getApplicationContext()));
         guardianUser = UserSession.getGuardianUser(getApplicationContext());
         retrofitConfig = new RetrofitConfig();
         guardianUserService = retrofitConfig.getGuardianUserService();
         childProfiles = new ArrayList<>();
 
+        clAddChildProfileContainer = findViewById(R.id.cl_add_child_profile_container);
         cvAddChildProfile = findViewById(R.id.cv_add_child_profile);
         btnSaveUserProfiles = findViewById(R.id.btn_save_user_profiles);
         btnUserSettings = findViewById(R.id.btn_user_settings);
 
         getChildProfiles();
-
-        if(childProfiles.size() > 0) {
-            if(UserSession.isFormInReadMode(getApplicationContext())) {
-                btnUserSettings.setVisibility(View.VISIBLE);
-            } else {
-                btnSaveUserProfiles.setVisibility(View.VISIBLE);
-            }
-        }
     }
 
     private void addChildProfile() {
@@ -89,7 +88,6 @@ public class ManageChildProfileActivity extends FragmentActivity {
     }
 
     private void getChildProfiles() {
-        childProfiles = new ArrayList<>();
         guardianUserService.getChildProfiles(guardianUser.getGuardianUserId())
             .enqueue(new Callback<ArrayList<ChildProfile>>() {
             @Override
@@ -97,6 +95,12 @@ public class ManageChildProfileActivity extends FragmentActivity {
                 if(response.isSuccessful()) {
                     childProfiles.addAll(response.body());
                     mapChildProfiles();
+                    if(UserSession.isFormInReadMode(getApplicationContext())) {
+                        btnUserSettings.setVisibility(View.VISIBLE);
+                    } else {
+                        clAddChildProfileContainer.setVisibility(View.VISIBLE);
+                        btnSaveUserProfiles.setVisibility(View.VISIBLE);
+                    }
                 } else {
                     Snackbar.make(getWindow().getDecorView().getRootView(), "caiu aqui", Snackbar.LENGTH_LONG).show();
                 }

@@ -77,6 +77,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
             guardianUser = UserSession.getGuardianUser(getApplicationContext());
             login();
         }
+
         formValidator = new Validator(this);
         formValidator.setValidationListener(this);
         txtLoginGuardianUserEmail = findViewById(R.id.txt_login_guardian_user_email);

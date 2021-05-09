@@ -93,8 +93,6 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
     }
 
     private void createGuardianUser() {
-        System.out.println("REGISTERING");
-        System.out.println("ID:" + guardianUser.getGuardianUserId());
         guardianUserService.create(guardianUser)
                 .enqueue(new Callback<GuardianUser>() {
             @Override
@@ -120,8 +118,6 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
     }
 
     private void updateGuardianUser() {
-        System.out.println("EDITING");
-        System.out.println(guardianUser.toString());
         guardianUserService.update(guardianUser.getGuardianUserId(), guardianUser)
                 .enqueue(new Callback<GuardianUser>() {
             @Override
