@@ -50,6 +50,15 @@ public class InteractiveBookController {
 		return ResponseEntity.ok().body(interactiveBook);		
 	}
 	
+	@GetMapping("category/{categoryId}")
+	public ResponseEntity<List<InteractiveBook>> getBookByCategories(@PathVariable Integer categoryId) throws Exception {
+		
+		List<InteractiveBook> books = interactiveBookRepository.findByBookCategories_CategoryId(categoryId)
+				 .orElseThrow(() -> new NotFoundException ("not found" + categoryId));
+		
+		 return ResponseEntity.ok().body(books);
+	}
+
 	@PostMapping
 	public ResponseEntity<InteractiveBook> create(@RequestBody InteractiveBook interactiveBookBody) throws Exception {
 		try {

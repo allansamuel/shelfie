@@ -9,6 +9,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 @Entity
 @Table(name = "quests")
 public class Quest {
@@ -27,6 +30,7 @@ public class Quest {
 	@Column(name = "coins_reward")
 	private Integer coinsReward;
 	
+	@JsonProperty(access = Access.WRITE_ONLY)
 	@ManyToOne
 	@JoinColumn(name = "interactive_book_id")
 	private InteractiveBook interactiveBook;
