@@ -12,4 +12,6 @@ public interface InteractiveBookRepository extends JpaRepository<InteractiveBook
 
 	Optional <List<InteractiveBook>> findByBookCategories_CategoryId(Integer categoryId);
 
+	Optional<List<InteractiveBook>> findByTitleIgnoreCaseContaining(String title);
+	
 }

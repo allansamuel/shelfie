@@ -51,10 +51,19 @@ public class InteractiveBookController {
 	}
 	
 	@GetMapping("category/{categoryId}")
-	public ResponseEntity<List<InteractiveBook>> getBookByCategories(@PathVariable Integer categoryId) throws Exception {
+	public ResponseEntity<List<InteractiveBook>> getByCategories(@PathVariable Integer categoryId) throws Exception {
 		
 		List<InteractiveBook> books = interactiveBookRepository.findByBookCategories_CategoryId(categoryId)
 				 .orElseThrow(() -> new NotFoundException ("not found" + categoryId));
+		
+		 return ResponseEntity.ok().body(books);
+	}
+	
+	@GetMapping("title/{title}")
+	public ResponseEntity<List<InteractiveBook>> getByTitle(@PathVariable String title) throws Exception {
+		
+		List<InteractiveBook> books = interactiveBookRepository.findByTitleIgnoreCaseContaining(title)
+				 .orElseThrow(() -> new NotFoundException ("not found" + title));
 		
 		 return ResponseEntity.ok().body(books);
 	}
