@@ -6,22 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.shelfie.R;
 import com.shelfie.model.Category;
-import com.shelfie.model.ChildProfile;
 import com.shelfie.ui.fragments.CategoryBooksFragment;
-import com.shelfie.ui.fragments.ProfileAvatarFragment;
 
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class CategoryBooksAdapter extends RecyclerView.Adapter<CategoryBooksAdapter.ViewHolder> {
@@ -37,7 +31,7 @@ public class CategoryBooksAdapter extends RecyclerView.Adapter<CategoryBooksAdap
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_category_books_container, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_books_container, parent, false);
         return new ViewHolder(view);
     }
 
@@ -64,7 +58,7 @@ public class CategoryBooksAdapter extends RecyclerView.Adapter<CategoryBooksAdap
         public ViewHolder(View view) {
             super(view);
             context = view.getContext();
-            frameLayout = view.findViewById(R.id.fl_teste);
+            frameLayout = view.findViewById(R.id.fl_category_books_container);
         }
     }
 }
