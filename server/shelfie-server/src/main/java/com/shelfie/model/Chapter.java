@@ -9,6 +9,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 @Entity
 @Table(name = "chapters")
 public class Chapter {
@@ -21,6 +24,7 @@ public class Chapter {
 	@Column(name = "title", length = 255)
 	private String title;
 	
+	@JsonProperty(access = Access.WRITE_ONLY)
 	@ManyToOne
 	@JoinColumn(name = "interactive_book_id")
 	private InteractiveBook interactiveBook;

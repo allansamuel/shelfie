@@ -1,6 +1,7 @@
 package com.shelfie.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,14 +49,23 @@ public class GuardianUserController {
 	@PostMapping
 	public ResponseEntity<GuardianUser> create(@RequestBody GuardianUser guardianUser) throws Exception{
 		
-		try {
-			guardianUser.setGuardianUserPassword(hashPassword(guardianUser.getGuardianUserPassword()));
-			GuardianUser newGuardianUser = guardianUserRepository.save(guardianUser);
-			return ResponseEntity.ok().body(newGuardianUser);
+		Optional<GuardianUser> validGuardianUser = guardianUserRepository.findByGuardianUserEmail(guardianUser.getGuardianUserEmail());
+
+		if(validGuardianUser.isEmpty()) {
 			
-		} catch (Exception exception) {
-			throw exception;
-		} 
+			try {
+				guardianUser.setGuardianUserPassword(hashPassword(guardianUser.getGuardianUserPassword()));
+				GuardianUser newGuardianUser = guardianUserRepository.save(guardianUser);
+				return ResponseEntity.ok().body(newGuardianUser);
+				
+			} catch (Exception exception) {
+				throw exception;
+			}
+			
+		}else {
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+		}
+		
 	}
 	
 	@PutMapping("{id}")
