@@ -2,10 +2,12 @@ package com.shelfie.config;
 
 
 import com.shelfie.R;
+import com.shelfie.model.InteractiveBook;
 import com.shelfie.service.CategoryService;
 import com.shelfie.service.CharacterService;
 import com.shelfie.service.ChildProfileService;
 import com.shelfie.service.GuardianUserService;
+import com.shelfie.service.InteractiveBookService;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -35,5 +37,9 @@ public class RetrofitConfig {
 
     public CategoryService getCategoryService() {
         return this.retrofit.create(CategoryService.class);
+    }
+
+    public InteractiveBookService getInteractiveBookService() {
+        return this.retrofit.create(InteractiveBookService.class);
     }
 }
