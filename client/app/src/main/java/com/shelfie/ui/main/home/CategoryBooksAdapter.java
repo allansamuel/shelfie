@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.shelfie.R;
@@ -36,7 +37,7 @@ public class CategoryBooksAdapter extends RecyclerView.Adapter<CategoryBooksAdap
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_category_books, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_category_books_container, parent, false);
         return new ViewHolder(view);
     }
 
@@ -44,22 +45,12 @@ public class CategoryBooksAdapter extends RecyclerView.Adapter<CategoryBooksAdap
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         FragmentManager fragmentManager = ((AppCompatActivity)holder.context)
                 .getSupportFragmentManager();
-
         Category category = categories.get(position);
-
-        // Delete old fragment
-//        int containerId = holder.mediaContainer.getId();// Get container id
-//        Fragment oldFragment = fragmentManager.findFragmentById(containerId);
-//        if(oldFragment != null) {
-//            fragmentManager.beginTransaction().remove(oldFragment).commit();
-//        }
-//
-//        int newContainerId = View.generateViewId();// Generate unique container id
-//        holder.mediaContainer.setId(newContainerId);// Set container id
-//
-//        // Add new fragment
-//        Fragment categoryBooksFragment = CategoryBooksFragment.newInstance(category);
-//        fragmentManager.beginTransaction().replace(newContainerId, categoryBooksFragment).commit();
+        holder.frameLayout.setId(View.generateViewId());
+        fragmentManager.beginTransaction().replace(
+                holder.frameLayout.getId(),
+                CategoryBooksFragment.newInstance(category))
+                .commit();
     }
 
     @Override
@@ -68,14 +59,12 @@ public class CategoryBooksAdapter extends RecyclerView.Adapter<CategoryBooksAdap
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-//        FrameLayout mediaContainer;
-        RecyclerView recyclerView;
         Context context;
+        FrameLayout frameLayout;
         public ViewHolder(View view) {
             super(view);
             context = view.getContext();
-            recyclerView = view.findViewById(R.id.rv_category_books);
-//            mediaContainer = view.findViewById(R.id.fl_category_books_container);
+            frameLayout = view.findViewById(R.id.fl_teste);
         }
     }
 }
