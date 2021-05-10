@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -21,9 +22,12 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.shelfie.R;
 import com.shelfie.config.RetrofitConfig;
 import com.shelfie.model.Category;
+import com.shelfie.model.ChildProfile;
 import com.shelfie.model.InteractiveBook;
 import com.shelfie.service.CategoryService;
 import com.shelfie.service.InteractiveBookService;
+import com.shelfie.ui.fragments.BookThumbnailFragment;
+import com.shelfie.ui.fragments.ProfileAvatarFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +36,7 @@ public class SearchFragment extends Fragment {
 
     private RetrofitConfig retrofitConfig;
     private InteractiveBookService interactiveBookService;
-    private List<InteractiveBook> categories;
+    private List<InteractiveBook> interactiveBooks;
 
     private TextInputLayout txtSearchBook;
     private TextInputEditText etSearchBook;
@@ -56,7 +60,7 @@ public class SearchFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                getInteractiveBooksResult((String) charSequence);
+                getInteractiveBooksResult((String) charSequence, i);
             }
 
             @Override
@@ -69,7 +73,7 @@ public class SearchFragment extends Fragment {
     private void init() {
         retrofitConfig = new RetrofitConfig();
         interactiveBookService = retrofitConfig.getInteractiveBookService();
-        categories = new ArrayList<>();
+        interactiveBooks = new ArrayList<>();
 
         View view = getView();
         assert view != null;
@@ -79,11 +83,23 @@ public class SearchFragment extends Fragment {
         svSearchResults = view.findViewById(R.id.sv_search_results);
     }
 
-    private void getInteractiveBooksResult(String searchedTitle) {
-        interactiveBookService.getAll(1).enqueue(new Callback<ArrayList<InteractiveBook>>() {
+    private void mapInteractiveBooks() {
+        FragmentTransaction interactiveBooksTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        for(InteractiveBook interactiveBook : interactiveBooks) {
+            Fragment profileAvatarFragment = BookThumbnailFragment.newInstance(interactiveBook);
+            interactiveBooksTransaction.add(R.id.flexbox_search_results, profileAvatarFragment, interactiveBook.getTitle());
+        }
+        interactiveBooksTransaction.commit();
+    }
+
+    private void getInteractiveBooksResult(String searchedTitle, int pageNumber) {
+        interactiveBookService.getByTitle(searchedTitle, pageNumber).enqueue(new Callback<ArrayList<InteractiveBook>>() {
             @Override
             public void onResponse(Call<ArrayList<InteractiveBook>> call, Response<ArrayList<InteractiveBook>> response) {
-
+                if(response.isSuccessful()) {
+                    interactiveBooks.addAll(response.body());
+                    mapInteractiveBooks();
+                }
             }
 
             @Override

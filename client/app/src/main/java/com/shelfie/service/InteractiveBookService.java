@@ -16,6 +16,12 @@ public interface InteractiveBookService {
     @GET("interactive_book/page/{pageNumber}")
     Call<ArrayList<InteractiveBook>> getAll(@Path("pageNumber") int pageNumber);
 
+    @GET("interactive_book/category/{categoryId}/page/{pageNumber}")
+    Call<ArrayList<InteractiveBook>> getByCategories(@Path("categoryId") Integer categoryId, @Path("pageNumber") int pageNumber);
+
+    @GET("interactive_book/title/{title}/page/{pageNumber}")
+    Call<ArrayList<InteractiveBook>> getByTitle(@Path("title") String title, @Path("pageNumber") int pageNumber);
+
     @GET("interactive_book/{id}")
     Call<InteractiveBook> getById(@Path("id") Integer id);
 
