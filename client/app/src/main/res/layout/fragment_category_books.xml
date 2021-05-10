@@ -1,42 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     tools:context=".ui.fragments.CategoryBooksFragment">
 
-    <LinearLayout
-        android:id="@+id/ll_category_books_container"
+    <TextView
+        android:id="@+id/tv_category_name"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:divider="@drawable/divider10dp"
-        android:orientation="vertical"
-        android:showDividers="middle">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp" />
 
-        <TextView
-            android:id="@+id/tv_category_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp" />
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <ProgressBar
-            android:id="@+id/progress_category_books"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <HorizontalScrollView
-            android:id="@+id/hv_category_books"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:visibility="gone">
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:id="@+id/ll_category_books"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical" />
-        </HorizontalScrollView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:nestedScrollingEnabled="false"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/fragment_book_thumbnail" />
 
-    </LinearLayout>
-</FrameLayout>
+            <ProgressBar
+                android:id="@+id/progress_category_books"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+</LinearLayout>
