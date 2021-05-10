@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sv_home_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.main.home.HomeFragment">
 
     <LinearLayout
+        android:id="@+id/ll_category_books_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@drawable/divider10dp"
@@ -16,15 +17,16 @@
         android:showDividers="middle|beginning">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_category_books"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:nestedScrollingEnabled="false"
-            tools:listitem="@layout/fragment_category_books" >
+            tools:listitem="@layout/fragment_category_books">
 
         </androidx.recyclerview.widget.RecyclerView>
 
         <ProgressBar
-            android:id="@+id/progressBar2"
+            android:id="@+id/progress_category_books_list"
             style="?android:attr/progressBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

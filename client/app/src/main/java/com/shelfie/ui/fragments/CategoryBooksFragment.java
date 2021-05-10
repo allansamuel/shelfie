@@ -71,19 +71,18 @@ public class CategoryBooksFragment extends Fragment {
         View view = getView();
         assert view != null;
         tvCategoryName = view.findViewById(R.id.tv_category_name);
-        llCategoryBooks = view.findViewById(R.id.ll_category_books);
         progressCategoryBooks = view.findViewById(R.id.progress_category_books);
 
         getCategoryBooks(1);
     }
 
-    private void mapBooks() {
-        FragmentTransaction bookFragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        for(InteractiveBook interactiveBook : interactiveBooks) {
-            Fragment bookThumbnailFragment = BookThumbnailFragment.newInstance(interactiveBook);
-            bookFragmentTransaction.add(R.id.ll_category_books, bookThumbnailFragment, bookThumbnailFragment.getTag());
-        }
-    }
+//    private void mapBooks() {
+//        FragmentTransaction bookFragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+//        for(InteractiveBook interactiveBook : interactiveBooks) {
+//            Fragment bookThumbnailFragment = BookThumbnailFragment.newInstance(interactiveBook);
+//            bookFragmentTransaction.add(R.id.ll_category_books, bookThumbnailFragment, bookThumbnailFragment.getTag());
+//        }
+//    }
 
     private void getCategoryBooks(int pageNumber) {
         categoryService.getInteractiveBooks(pageNumber).enqueue(new Callback<ArrayList<InteractiveBook>>() {
