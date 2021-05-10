@@ -2,6 +2,9 @@ package com.shelfie.ui.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import retrofit2.Call;
@@ -11,6 +14,7 @@ import retrofit2.Response;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -32,10 +36,12 @@ public class CategoryBooksFragment extends Fragment {
     private CategoryService categoryService;
     private List<InteractiveBook> interactiveBooks;
 
+    private NestedScrollView svCategoryBooksList;
     private Category category;
     private TextView tvCategoryName;
     private LinearLayout llCategoryBooks;
     private ProgressBar progressCategoryBooks;
+    private int pageNumber = 1;
 
     public CategoryBooksFragment() {
     }
@@ -59,8 +65,21 @@ public class CategoryBooksFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        init();
         return inflater.inflate(R.layout.fragment_category_books, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        init();
+        svCategoryBooksList.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if(scrollX == v.getChildAt(0).getMeasuredWidth() - v.getMeasuredWidth()) {
+                    pageNumber++;
+                    getCategoryBooks(pageNumber);
+                }
+            }
+        });
     }
 
     private void init() {
@@ -69,20 +88,12 @@ public class CategoryBooksFragment extends Fragment {
         interactiveBooks = new ArrayList<>();
 
         View view = getView();
-        assert view != null;
+        svCategoryBooksList = view.findViewById(R.id.sv_category_books_list);
         tvCategoryName = view.findViewById(R.id.tv_category_name);
         progressCategoryBooks = view.findViewById(R.id.progress_category_books);
 
-        getCategoryBooks(1);
+        tvCategoryName.setText(category.getCategoryName());
     }
-
-//    private void mapBooks() {
-//        FragmentTransaction bookFragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-//        for(InteractiveBook interactiveBook : interactiveBooks) {
-//            Fragment bookThumbnailFragment = BookThumbnailFragment.newInstance(interactiveBook);
-//            bookFragmentTransaction.add(R.id.ll_category_books, bookThumbnailFragment, bookThumbnailFragment.getTag());
-//        }
-//    }
 
     private void getCategoryBooks(int pageNumber) {
         categoryService.getInteractiveBooks(pageNumber).enqueue(new Callback<ArrayList<InteractiveBook>>() {

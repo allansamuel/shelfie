@@ -13,9 +13,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp" />
 
-    <HorizontalScrollView
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/sv_category_books_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -29,15 +31,18 @@
                 android:nestedScrollingEnabled="false"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/fragment_book_thumbnail" />
+                tools:listitem="@layout/fragment_book_thumbnail">
+
+            </androidx.recyclerview.widget.RecyclerView>
 
             <ProgressBar
                 android:id="@+id/progress_category_books"
-                style="?android:attr/progressBarStyle"
+                style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:indeterminate="true" />
 
         </LinearLayout>
-    </HorizontalScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

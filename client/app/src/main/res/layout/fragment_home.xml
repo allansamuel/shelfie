@@ -21,15 +21,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:nestedScrollingEnabled="false"
-            tools:listitem="@layout/fragment_category_books">
-
-        </androidx.recyclerview.widget.RecyclerView>
+            tools:listitem="@layout/fragment_category_books"/>
 
         <ProgressBar
             android:id="@+id/progress_category_books_list"
             style="?android:attr/progressBarStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
