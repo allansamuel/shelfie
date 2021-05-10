@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,22 +51,38 @@ public class InteractiveBookController {
 		return ResponseEntity.ok().body(interactiveBook);		
 	}
 	
-	@GetMapping("category/{categoryId}")
-	public ResponseEntity<List<InteractiveBook>> getByCategories(@PathVariable Integer categoryId) throws Exception {
+	@GetMapping("category/{categoryId}/page/{pageNumber}")
+	public ResponseEntity<List<InteractiveBook>> getByCategories(@PathVariable Integer categoryId, @PathVariable int pageNumber) throws Exception {
 		
-		List<InteractiveBook> books = interactiveBookRepository.findByBookCategories_CategoryId(categoryId)
-				 .orElseThrow(() -> new NotFoundException ("not found" + categoryId));
-		
-		 return ResponseEntity.ok().body(books);
+		try {
+			
+			pageNumber = pageNumber -1;
+			Pageable pageable = PageRequest.of(pageNumber, 5);
+			Page<InteractiveBook> page = interactiveBookRepository.findByBookCategories_CategoryId(categoryId, pageable);
+			List<InteractiveBook> books = page.getContent();
+			return ResponseEntity.ok().body(books);
+			
+		} catch (Exception exception) {
+			
+			throw exception;
+		}
 	}
 	
-	@GetMapping("title/{title}")
-	public ResponseEntity<List<InteractiveBook>> getByTitle(@PathVariable String title) throws Exception {
+	@GetMapping("title/{title}/page/{pageNumber}")
+	public ResponseEntity<List<InteractiveBook>> getByTitle(@PathVariable String title, @PathVariable int pageNumber) throws Exception {
 		
-		List<InteractiveBook> books = interactiveBookRepository.findByTitleIgnoreCaseContaining(title)
-				 .orElseThrow(() -> new NotFoundException ("not found" + title));
+		try {
+			
+			pageNumber = pageNumber -1;
+			Pageable pageable = PageRequest.of(pageNumber, 5);
+			Page<InteractiveBook> page = interactiveBookRepository.findByTitleIgnoreCaseContaining(title, pageable);
+			List<InteractiveBook> books = page.getContent();
+			return ResponseEntity.ok().body(books);
+			
+		}catch (Exception exception) {
 		
-		 return ResponseEntity.ok().body(books);
+			throw exception;
+		}
 	}
 
 	@PostMapping
