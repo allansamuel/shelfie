@@ -120,7 +120,8 @@
                                 android:id="@+id/tv_book_authors"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="TextView" />
+                                android:text="TextView"
+                                android:textColor="@android:color/primary_text_light" />
 
                         </LinearLayout>
 
@@ -253,7 +254,6 @@
                         android:id="@+id/tv_book_chapters"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Você pode desbloquear seus X capítulos por:"
                         android:textAlignment="center"
                         android:textColor="@android:color/primary_text_light" />
                 </LinearLayout>

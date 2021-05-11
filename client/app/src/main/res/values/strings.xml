@@ -24,6 +24,8 @@
     <string name="title_manage_child_profile_add">Estamos quase lá!</string>
     <string name="subtitle_manage_child_profile_add">Queremos conhecer você</string>
     <string name="empty_state_book_search">Procure por seus livros favoritos</string>
+    <string name="label_interactive_book_chapters_amount">Você pode desbloquear seus %1$d capítulos por:</string>
+
 
     <!-- Form -->
     <string name="name">Nome</string>
@@ -63,5 +65,5 @@
     <string name="content_next_button">Próximo</string>
     <string name="content_settings_illustration">Configurações</string>
 
-    <string name="date_formatter">dd/mm/yyyy</string>
+    <string name="date_formatter">dd/MM/yyyy</string>
 </resources>

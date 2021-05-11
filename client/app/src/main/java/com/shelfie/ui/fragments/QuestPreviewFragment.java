@@ -2,48 +2,36 @@ package com.shelfie.ui.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.shelfie.R;
+import com.shelfie.model.Quest;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link QuestPreviewFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class QuestPreviewFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_QUEST = "QUEST_DATA";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private Quest quest;
+    private ImageView imgQuestIcon;
+    private TextView tvQuestTitle;
+    private TextView tvQuestDescription;
+    private TextView tvQuestReward;
 
     public QuestPreviewFragment() {
-        // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment QuestPreviewFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static QuestPreviewFragment newInstance(String param1, String param2) {
+    public static QuestPreviewFragment newInstance(Quest quest) {
         QuestPreviewFragment fragment = new QuestPreviewFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putSerializable(ARG_QUEST, quest);
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,15 +40,29 @@ public class QuestPreviewFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            quest = (Quest) getArguments().getSerializable(ARG_QUEST);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_quest_preview, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        init();
+    }
+
+    private void init() {
+        View view = getView();
+        tvQuestTitle = view.findViewById(R.id.tv_quest_title);
+        tvQuestDescription = view.findViewById(R.id.tv_quest_description);
+        tvQuestReward = view.findViewById(R.id.tv_quest_reward);
+
+        tvQuestTitle.setText(quest.getQuestTitle());
+        tvQuestDescription.setText(quest.getQuestDescription());
+        tvQuestReward.setText(quest.getCoinsReward());
     }
 }

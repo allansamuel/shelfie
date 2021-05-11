@@ -2,6 +2,7 @@ package com.shelfie.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class InteractiveBook implements Serializable {
 
@@ -11,17 +12,29 @@ public class InteractiveBook implements Serializable {
     private Date publishDate;
     private Integer price;
     private String title;
+    private List<Chapter> chapters;
+    private List<Character> characters;
+    private List<Quest> quests;
+    private List<Category> bookCategories;
+    private List<ChildSavedBook> childSavedBooks;
+    private List<Author> bookAuthors;
 
     public InteractiveBook() {
     }
 
-    public InteractiveBook(Integer interactiveBookId, String bookCover, String sinopsys, Date publishDate, Integer price, String title) {
+    public InteractiveBook(Integer interactiveBookId, String bookCover, String sinopsys, Date publishDate, Integer price, String title, List<Chapter> chapters, List<Character> characters, List<Quest> quests, List<Category> bookCategories, List<ChildSavedBook> childSavedBooks, List<Author> bookAuthors) {
         this.interactiveBookId = interactiveBookId;
         this.bookCover = bookCover;
         this.sinopsys = sinopsys;
         this.publishDate = publishDate;
         this.price = price;
         this.title = title;
+        this.chapters = chapters;
+        this.characters = characters;
+        this.quests = quests;
+        this.bookCategories = bookCategories;
+        this.childSavedBooks = childSavedBooks;
+        this.bookAuthors = bookAuthors;
     }
 
     public Integer getInteractiveBookId() {
@@ -70,5 +83,53 @@ public class InteractiveBook implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public List<Chapter> getChapters() {
+        return chapters;
+    }
+
+    public void setChapters(List<Chapter> chapters) {
+        this.chapters = chapters;
+    }
+
+    public List<Character> getCharacters() {
+        return characters;
+    }
+
+    public void setCharacters(List<Character> characters) {
+        this.characters = characters;
+    }
+
+    public List<Quest> getQuests() {
+        return quests;
+    }
+
+    public void setQuests(List<Quest> quests) {
+        this.quests = quests;
+    }
+
+    public List<Category> getBookCategories() {
+        return bookCategories;
+    }
+
+    public void setBookCategories(List<Category> bookCategories) {
+        this.bookCategories = bookCategories;
+    }
+
+    public List<ChildSavedBook> getChildSavedBooks() {
+        return childSavedBooks;
+    }
+
+    public void setChildSavedBooks(List<ChildSavedBook> childSavedBooks) {
+        this.childSavedBooks = childSavedBooks;
+    }
+
+    public List<Author> getBookAuthors() {
+        return bookAuthors;
+    }
+
+    public void setBookAuthors(List<Author> bookAuthors) {
+        this.bookAuthors = bookAuthors;
     }
 }

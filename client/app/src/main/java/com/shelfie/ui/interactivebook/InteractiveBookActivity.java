@@ -2,6 +2,8 @@ package com.shelfie.ui.interactivebook;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -11,13 +13,18 @@ import android.widget.TextView;
 
 import com.shelfie.R;
 import com.shelfie.model.Author;
+import com.shelfie.model.ChildProfile;
 import com.shelfie.model.InteractiveBook;
+import com.shelfie.model.Quest;
+import com.shelfie.ui.fragments.ProfileAvatarFragment;
+import com.shelfie.ui.fragments.QuestPreviewFragment;
 import com.shelfie.utils.ImageDecoder;
 import com.shelfie.utils.UserSession;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class InteractiveBookActivity extends AppCompatActivity {
 
@@ -63,8 +70,28 @@ public class InteractiveBookActivity extends AppCompatActivity {
         tvBookTitle.setText(interactiveBook.getTitle());
         tvBookSinopsys.setText(interactiveBook.getSinopsys());
         tvBookPublishDate.setText(formatPublishDate(interactiveBook.getPublishDate()));
-//        tvBookAuthors.setText(formatAuthors(interactiveBook.getBookAuthors()));
+        tvBookAuthors.setText(formatAuthors(interactiveBook.getBookAuthors()));
+        tvBookChapters.setText(getString(R.string.label_interactive_book_chapters_amount, interactiveBook.getChapters().size()));
+        tvBookPrice.setText(String.valueOf(interactiveBook.getPrice()));
+        mapBookCategories();
+        mapBookCharacters();
+        mapBookQuests();
 
+    }
+
+    private void mapBookQuests() {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        for(Quest quest : interactiveBook.getQuests()) {
+            Fragment profileAvatarFragment = QuestPreviewFragment.newInstance(quest);
+            fragmentTransaction.add(R.id.flexbox_child_profiles, profileAvatarFragment, quest.getQuestTitle());
+        }
+        fragmentTransaction.commit();
+    }
+
+    private void mapBookCharacters() {
+    }
+
+    private void mapBookCategories() {
     }
 
     private String formatPublishDate(Date date) {
@@ -72,12 +99,14 @@ public class InteractiveBookActivity extends AppCompatActivity {
         return dateFormatter.format(date);
     }
 
-    private String formatAuthors(ArrayList<Author> authors) {
+    private String formatAuthors(List<Author> authors) {
         String formattedAuthors = "";
         for(Author author : authors) {
-            formattedAuthors.concat(author.getAuthorName());
-            if(authors.indexOf(author) != authors.size() - 1)
-                formattedAuthors.concat(", ");
+            System.out.println("formattedAuthors");
+            formattedAuthors = formattedAuthors.concat(author.getAuthorName());
+            if(authors.indexOf(author) != authors.size() - 1) {
+                formattedAuthors = formattedAuthors.concat(",\n");
+            }
         }
         return formattedAuthors;
     }
