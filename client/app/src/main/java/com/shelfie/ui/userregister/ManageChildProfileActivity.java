@@ -1,7 +1,6 @@
 package com.shelfie.ui.userregister;
 
 import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.solver.state.State;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -17,13 +16,12 @@ import android.widget.Button;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.shelfie.R;
-import com.shelfie.config.RetrofitConfig;
+import com.shelfie.utils.RetrofitConfig;
 import com.shelfie.model.ChildProfile;
 import com.shelfie.model.GuardianUser;
 import com.shelfie.service.GuardianUserService;
 import com.shelfie.ui.fragments.BottomSheetLayout;
 import com.shelfie.ui.fragments.ProfileAvatarFragment;
-import com.shelfie.utils.ApplicationStateManager;
 import com.shelfie.utils.UserSession;
 
 import java.util.ArrayList;

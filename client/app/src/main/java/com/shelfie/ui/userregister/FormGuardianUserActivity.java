@@ -18,14 +18,12 @@ import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.ConfirmPassword;
 import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.Length;
-import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Password;
 import com.shelfie.R;
-import com.shelfie.config.RetrofitConfig;
+import com.shelfie.utils.RetrofitConfig;
 import com.shelfie.model.GuardianUser;
 import com.shelfie.service.GuardianUserService;
 import com.shelfie.ui.fragments.EmptyStateDialogFragment;
-import com.shelfie.utils.ApplicationStateManager;
 import com.shelfie.utils.UserSession;
 
 import java.util.List;

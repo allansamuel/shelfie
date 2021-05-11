@@ -5,14 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
@@ -20,9 +17,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import com.shelfie.R;
-import com.shelfie.config.RetrofitConfig;
+import com.shelfie.utils.RetrofitConfig;
 import com.shelfie.model.Category;
 import com.shelfie.service.CategoryService;
+import com.shelfie.utils.CategoryBooksAdapter;
 
 import java.util.ArrayList;
 
@@ -66,7 +64,7 @@ public class HomeFragment extends Fragment {
         categories = new ArrayList<>();
 
         getCategories(pageNumber);
-        categoryBooksAdapter = new CategoryBooksAdapter(getActivity(), categories);
+        categoryBooksAdapter = new CategoryBooksAdapter(categories);
         rvCategoryBooks.setLayoutManager(new LinearLayoutManager(getContext()));
         rvCategoryBooks.setAdapter(categoryBooksAdapter);
     }
@@ -78,7 +76,7 @@ public class HomeFragment extends Fragment {
                 if(response.isSuccessful() && response.body() != null) {
                     progressCategoryBooksList.setVisibility(View.GONE);
                     categories.addAll(response.body());
-                    categoryBooksAdapter = new CategoryBooksAdapter(getActivity(), categories);
+                    categoryBooksAdapter = new CategoryBooksAdapter(categories);
                     rvCategoryBooks.setAdapter(categoryBooksAdapter);
                 } else {
 

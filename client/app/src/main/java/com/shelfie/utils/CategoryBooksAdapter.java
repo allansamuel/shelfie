@@ -1,6 +1,5 @@
-package com.shelfie.ui.main.home;
+package com.shelfie.utils;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,17 +20,15 @@ import androidx.recyclerview.widget.RecyclerView;
 public class CategoryBooksAdapter extends RecyclerView.Adapter<CategoryBooksAdapter.ViewHolder> {
 
     private ArrayList<Category> categories;
-    private Activity activity;
 
-    public CategoryBooksAdapter(Activity activity, ArrayList<Category> categories) {
+    public CategoryBooksAdapter(ArrayList<Category> categories) {
         this.categories = categories;
-        this.activity = activity;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_books_container, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_holder_container, parent, false);
         return new ViewHolder(view);
     }
 
@@ -55,10 +52,10 @@ public class CategoryBooksAdapter extends RecyclerView.Adapter<CategoryBooksAdap
     public class ViewHolder extends RecyclerView.ViewHolder {
         Context context;
         FrameLayout frameLayout;
-        public ViewHolder(View view) {
-            super(view);
-            context = view.getContext();
-            frameLayout = view.findViewById(R.id.fl_category_books_container);
+        public ViewHolder(View itemView) {
+            super(itemView);
+            context = itemView.getContext();
+            frameLayout = itemView.findViewById(R.id.fragment_holder_container);
         }
     }
 }

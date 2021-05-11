@@ -1,12 +1,10 @@
 package com.shelfie.ui.userregister;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -21,17 +19,15 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Length;
-import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.shelfie.R;
-import com.shelfie.config.ImageDecoder;
-import com.shelfie.config.RetrofitConfig;
+import com.shelfie.utils.ImageDecoder;
+import com.shelfie.utils.RetrofitConfig;
 import com.shelfie.model.Character;
 import com.shelfie.model.ChildProfile;
 import com.shelfie.model.GuardianUser;
 import com.shelfie.service.CharacterService;
 import com.shelfie.service.ChildProfileService;
 import com.shelfie.ui.fragments.EmptyStateDialogFragment;
-import com.shelfie.utils.ApplicationStateManager;
 import com.shelfie.utils.UserSession;
 
 import java.util.ArrayList;

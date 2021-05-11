@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:nestedScrollingEnabled="false"
-            tools:listitem="@layout/category_books_container"/>
+            tools:listitem="@layout/fragment_holder_container"/>
 
         <ProgressBar
             android:id="@+id/progress_category_books_list"

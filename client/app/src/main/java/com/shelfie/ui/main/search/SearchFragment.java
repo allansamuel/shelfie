@@ -20,14 +20,10 @@ import retrofit2.Response;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.shelfie.R;
-import com.shelfie.config.RetrofitConfig;
-import com.shelfie.model.Category;
-import com.shelfie.model.ChildProfile;
+import com.shelfie.utils.RetrofitConfig;
 import com.shelfie.model.InteractiveBook;
-import com.shelfie.service.CategoryService;
 import com.shelfie.service.InteractiveBookService;
 import com.shelfie.ui.fragments.BookThumbnailFragment;
-import com.shelfie.ui.fragments.ProfileAvatarFragment;
 
 import java.util.ArrayList;
 import java.util.List;

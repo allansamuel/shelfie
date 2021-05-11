@@ -1,4 +1,4 @@
-package com.shelfie.config;
+package com.shelfie.utils;
 
 
 import com.shelfie.R;

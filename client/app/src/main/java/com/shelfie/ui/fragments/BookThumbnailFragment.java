@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
@@ -13,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.shelfie.R;
-import com.shelfie.config.ImageDecoder;
+import com.shelfie.utils.ImageDecoder;
 import com.shelfie.model.InteractiveBook;
 import com.shelfie.ui.main.MainActivity;
 
@@ -22,7 +24,6 @@ public class BookThumbnailFragment extends Fragment {
     private static final String ARG_INTERACTIVE_BOOK = "INTERACTIVE_BOOK_DATA";
 
     private CardView cvBookThumbnail;
-    private ImageView imgBookThumbnail;
     private InteractiveBook interactiveBook;
 
     public BookThumbnailFragment() {
@@ -47,25 +48,24 @@ public class BookThumbnailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_book_thumbnail, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         init();
 
-        cvBookThumbnail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent interactiveBookIntent = new Intent(requireActivity().getApplicationContext(), MainActivity.class);
-                interactiveBookIntent.putExtra(ARG_INTERACTIVE_BOOK, interactiveBook);
-                startActivity(interactiveBookIntent);
-            }
+        cvBookThumbnail.setOnClickListener(view1 -> {
+            Intent interactiveBookIntent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+            interactiveBookIntent.putExtra(ARG_INTERACTIVE_BOOK, interactiveBook);
+            startActivity(interactiveBookIntent);
         });
-
-        return inflater.inflate(R.layout.fragment_book_thumbnail, container, false);
     }
 
     private void init() {
         View view = getView();
-        assert view != null;
         cvBookThumbnail = view.findViewById(R.id.cv_book_thumbnail);
-        imgBookThumbnail = view.findViewById(R.id.img_book_thumbnail);
+        ImageView imgBookThumbnail = view.findViewById(R.id.img_book_thumbnail);
         Bitmap bookCover = ImageDecoder.decodeBase64(interactiveBook.getBookCover());
         bookCover = Bitmap.createBitmap(bookCover, 0, 0, 1000, 1000);
         imgBookThumbnail.setImageBitmap(bookCover);

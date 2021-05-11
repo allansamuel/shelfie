@@ -5,27 +5,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.shelfie.R;
-import com.shelfie.config.RetrofitConfig;
+import com.shelfie.utils.RetrofitConfig;
 import com.shelfie.model.ChildProfile;
 import com.shelfie.model.GuardianUser;
-import com.shelfie.service.ChildProfileService;
 import com.shelfie.service.GuardianUserService;
 import com.shelfie.ui.fragments.ProfileAvatarFragment;
 import com.shelfie.utils.UserSession;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ChildProfileFragment extends Fragment {
