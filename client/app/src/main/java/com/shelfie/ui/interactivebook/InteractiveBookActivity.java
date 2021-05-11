@@ -13,9 +13,11 @@ import android.widget.TextView;
 
 import com.shelfie.R;
 import com.shelfie.model.Author;
+import com.shelfie.model.Character;
 import com.shelfie.model.ChildProfile;
 import com.shelfie.model.InteractiveBook;
 import com.shelfie.model.Quest;
+import com.shelfie.ui.fragments.CharacterPreviewFragment;
 import com.shelfie.ui.fragments.ProfileAvatarFragment;
 import com.shelfie.ui.fragments.QuestPreviewFragment;
 import com.shelfie.utils.ImageDecoder;
@@ -83,12 +85,18 @@ public class InteractiveBookActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         for(Quest quest : interactiveBook.getQuests()) {
             Fragment profileAvatarFragment = QuestPreviewFragment.newInstance(quest);
-            fragmentTransaction.add(R.id.flexbox_child_profiles, profileAvatarFragment, quest.getQuestTitle());
+            fragmentTransaction.add(R.id.ll_book_quests, profileAvatarFragment, quest.getQuestTitle());
         }
         fragmentTransaction.commit();
     }
 
     private void mapBookCharacters() {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        for(Character character : interactiveBook.getCharacters()) {
+            Fragment profileAvatarFragment = CharacterPreviewFragment.newInstance(character);
+            fragmentTransaction.add(R.id.ll_book_characters, profileAvatarFragment, character.getCharacterName());
+        }
+        fragmentTransaction.commit();
     }
 
     private void mapBookCategories() {
@@ -102,7 +110,6 @@ public class InteractiveBookActivity extends AppCompatActivity {
     private String formatAuthors(List<Author> authors) {
         String formattedAuthors = "";
         for(Author author : authors) {
-            System.out.println("formattedAuthors");
             formattedAuthors = formattedAuthors.concat(author.getAuthorName());
             if(authors.indexOf(author) != authors.size() - 1) {
                 formattedAuthors = formattedAuthors.concat(",\n");
