@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.shelfie.model.GuardianUser;
+import com.shelfie.model.InteractiveBook;
 
 public final class UserSession {
 
@@ -16,6 +17,7 @@ public final class UserSession {
     private static final String PREFS_NAME = "com.shelfie";
     private static final String KEY_GUARDIAN_USER = "KEY_GUARDIAN_USER";
     private static final String KEY_FORM_INTERACTION_MODE = "KEY_FORM_INTERACTION_MODE";
+    private static final String KEY_INTERACTIVE_BOOK = "KEY_INTERACTIVE_BOOK";
 
 //    private static SharedPreferences settings;
 //    private static SharedPreferences.Editor editor;
@@ -77,5 +79,20 @@ public final class UserSession {
 
     public static boolean isFormInReadMode(Context context) {
         return getFormInteractionMode(context) == READ_MODE;
+    }
+
+    public static void setInteractiveBook(Context context, InteractiveBook interactiveBook){
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString(KEY_INTERACTIVE_BOOK, new Gson().toJson(interactiveBook));
+        editor.commit();
+    }
+
+    public static InteractiveBook getInteractiveBook(Context context){
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        String interactiveBookJson = settings.getString(KEY_INTERACTIVE_BOOK, "");
+        if(interactiveBookJson != null)
+            return new Gson().fromJson(interactiveBookJson, InteractiveBook.class);
+        return null;
     }
 }

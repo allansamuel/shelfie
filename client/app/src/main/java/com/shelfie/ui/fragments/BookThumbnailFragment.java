@@ -20,6 +20,9 @@ import com.shelfie.ui.interactivebook.InteractiveBookActivity;
 import com.shelfie.utils.ImageDecoder;
 import com.shelfie.model.InteractiveBook;
 import com.shelfie.ui.main.MainActivity;
+import com.shelfie.utils.UserSession;
+
+import java.io.ByteArrayOutputStream;
 
 public class BookThumbnailFragment extends Fragment {
 
@@ -60,10 +63,8 @@ public class BookThumbnailFragment extends Fragment {
         cvBookThumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                UserSession.setInteractiveBook(getContext(), interactiveBook);
                 Intent interactiveBookIntent = new Intent(getContext(), InteractiveBookActivity.class);
-                interactiveBook.setBookCover("");
-                interactiveBookIntent.putExtra(ARG_INTERACTIVE_BOOK, interactiveBook);
-//                interactiveBookIntent.putExtra("IMG_TEST", ImageDecoder.decodeBase64(interactiveBook.getBookCover()));
                 startActivity(interactiveBookIntent);
             }});
     }
@@ -72,6 +73,8 @@ public class BookThumbnailFragment extends Fragment {
         View view = getView();
         cvBookThumbnail = view.findViewById(R.id.cv_book_thumbnail);
         ImageView imgBookThumbnail = view.findViewById(R.id.img_book_thumbnail);
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
         imgBookThumbnail.setImageBitmap(ImageDecoder.decodeBase64(interactiveBook.getBookCover()));
     }
 }

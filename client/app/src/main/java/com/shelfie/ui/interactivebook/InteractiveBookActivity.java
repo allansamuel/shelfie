@@ -13,6 +13,7 @@ import com.shelfie.R;
 import com.shelfie.model.Author;
 import com.shelfie.model.InteractiveBook;
 import com.shelfie.utils.ImageDecoder;
+import com.shelfie.utils.UserSession;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ public class InteractiveBookActivity extends AppCompatActivity {
 
     private void init() {
         receivedBundle = getIntent().getExtras();
-        interactiveBook = (InteractiveBook) receivedBundle.getSerializable(getString(R.string.arg_interactive_book));
+        interactiveBook = UserSession.getInteractiveBook(getApplicationContext());
 
         imgBookCover = findViewById(R.id.img_book_cover);
         tvBookTitle = findViewById(R.id.tv_book_title);

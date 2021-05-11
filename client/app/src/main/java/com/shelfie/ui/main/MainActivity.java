@@ -1,10 +1,12 @@
 package com.shelfie.ui.main;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.shelfie.R;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -22,4 +24,9 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
     }
 
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.clear();
+    }
 }
