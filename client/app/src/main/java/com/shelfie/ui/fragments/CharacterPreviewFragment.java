@@ -28,8 +28,8 @@ public class CharacterPreviewFragment extends Fragment {
     public CharacterPreviewFragment() {
     }
 
-    public static QuestPreviewFragment newInstance(Character character) {
-        QuestPreviewFragment fragment = new QuestPreviewFragment();
+    public static CharacterPreviewFragment newInstance(Character character) {
+        CharacterPreviewFragment fragment = new CharacterPreviewFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_CHARACTER, character);
         fragment.setArguments(args);

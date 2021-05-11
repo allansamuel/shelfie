@@ -22,12 +22,11 @@
             android:showDividers="middle">
 
             <ImageView
+                android:src="@drawable/quest_icon"
                 android:id="@+id/img_quest_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/content_quest_icon"
-                android:src="@drawable/account_circle_black_24dp"
-                app:srcCompat="@drawable/quest_icon" />
+                android:contentDescription="@string/content_quest_icon" />
 
             <LinearLayout
                 android:layout_width="wrap_content"

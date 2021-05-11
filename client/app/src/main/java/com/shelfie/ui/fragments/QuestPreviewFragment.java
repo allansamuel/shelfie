@@ -61,8 +61,11 @@ public class QuestPreviewFragment extends Fragment {
         tvQuestDescription = view.findViewById(R.id.tv_quest_description);
         tvQuestReward = view.findViewById(R.id.tv_quest_reward);
 
-        tvQuestTitle.setText(quest.getQuestTitle());
-        tvQuestDescription.setText(quest.getQuestDescription());
-        tvQuestReward.setText(quest.getCoinsReward());
+        if(quest != null) {
+            tvQuestTitle.setText(quest.getQuestTitle());
+            tvQuestDescription.setText(quest.getQuestDescription());
+            tvQuestReward.setText(String.valueOf(quest.getCoinsReward()));
+        }
+
     }
 }

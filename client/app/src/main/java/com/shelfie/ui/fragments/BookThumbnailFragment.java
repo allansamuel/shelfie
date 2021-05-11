@@ -69,6 +69,12 @@ public class BookThumbnailFragment extends Fragment {
             }});
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.clear();
+    }
+
     private void init() {
         View view = getView();
         cvBookThumbnail = view.findViewById(R.id.cv_book_thumbnail);

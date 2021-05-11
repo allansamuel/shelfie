@@ -76,8 +76,8 @@ public class InteractiveBookActivity extends AppCompatActivity {
         tvBookChapters.setText(getString(R.string.label_interactive_book_chapters_amount, interactiveBook.getChapters().size()));
         tvBookPrice.setText(String.valueOf(interactiveBook.getPrice()));
         mapBookCategories();
-        mapBookCharacters();
         mapBookQuests();
+        mapBookCharacters();
 
     }
 
