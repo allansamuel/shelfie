@@ -20,6 +20,7 @@
             android:layout_height="match_parent"
             android:background="@android:color/darker_gray"
             android:contentDescription="@string/content_book_thumbnail"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/art_pink2" />
     </androidx.cardview.widget.CardView>
 </FrameLayout>

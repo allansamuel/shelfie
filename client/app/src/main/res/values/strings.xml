@@ -10,6 +10,8 @@
     <!-- Bundle -->
     <string name="key_guardian_user">KEY_GUARDIAN_USER</string>
     <string name="arg_child_profile">CHILD_PROFILE_DATA</string>
+    <string name="arg_interactive_book">INTERACTIVE_BOOK_DATA</string>
+
 
     <!-- Titles and labels -->
     <string name="subtitle_app_login">A biblioteca interativa da sua família!</string>
@@ -61,5 +63,5 @@
     <string name="content_next_button">Próximo</string>
     <string name="content_settings_illustration">Configurações</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="date_formatter">dd/mm/yyyy</string>
 </resources>

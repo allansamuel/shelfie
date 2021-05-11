@@ -7,7 +7,7 @@ public class InteractiveBook implements Serializable {
 
     private Integer interactiveBookId;
     private String bookCover;
-    private String interactiveBookSinopsys;
+    private String sinopsys;
     private Date publishDate;
     private Integer price;
     private String title;
@@ -15,10 +15,10 @@ public class InteractiveBook implements Serializable {
     public InteractiveBook() {
     }
 
-    public InteractiveBook(Integer interactiveBookId, String bookCover, String interactiveBookSinopsys, Date publishDate, Integer price, String title) {
+    public InteractiveBook(Integer interactiveBookId, String bookCover, String sinopsys, Date publishDate, Integer price, String title) {
         this.interactiveBookId = interactiveBookId;
         this.bookCover = bookCover;
-        this.interactiveBookSinopsys = interactiveBookSinopsys;
+        this.sinopsys = sinopsys;
         this.publishDate = publishDate;
         this.price = price;
         this.title = title;
@@ -40,12 +40,12 @@ public class InteractiveBook implements Serializable {
         this.bookCover = bookCover;
     }
 
-    public String getInteractiveBookSinopsys() {
-        return interactiveBookSinopsys;
+    public String getSinopsys() {
+        return sinopsys;
     }
 
-    public void setInteractiveBookSinopsys(String interactiveBookSinopsys) {
-        this.interactiveBookSinopsys = interactiveBookSinopsys;
+    public void setSinopsys(String interactiveBookSinopsys) {
+        this.sinopsys = interactiveBookSinopsys;
     }
 
     public Date getPublishDate() {

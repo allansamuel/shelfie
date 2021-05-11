@@ -9,12 +9,14 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import android.os.PersistableBundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.shelfie.R;
+import com.shelfie.ui.interactivebook.InteractiveBookActivity;
 import com.shelfie.utils.ImageDecoder;
 import com.shelfie.model.InteractiveBook;
 import com.shelfie.ui.main.MainActivity;
@@ -55,19 +57,21 @@ public class BookThumbnailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         init();
 
-        cvBookThumbnail.setOnClickListener(view1 -> {
-            Intent interactiveBookIntent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
-            interactiveBookIntent.putExtra(ARG_INTERACTIVE_BOOK, interactiveBook);
-            startActivity(interactiveBookIntent);
-        });
+        cvBookThumbnail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent interactiveBookIntent = new Intent(getContext(), InteractiveBookActivity.class);
+                interactiveBook.setBookCover("");
+                interactiveBookIntent.putExtra(ARG_INTERACTIVE_BOOK, interactiveBook);
+//                interactiveBookIntent.putExtra("IMG_TEST", ImageDecoder.decodeBase64(interactiveBook.getBookCover()));
+                startActivity(interactiveBookIntent);
+            }});
     }
 
     private void init() {
         View view = getView();
         cvBookThumbnail = view.findViewById(R.id.cv_book_thumbnail);
         ImageView imgBookThumbnail = view.findViewById(R.id.img_book_thumbnail);
-        Bitmap bookCover = ImageDecoder.decodeBase64(interactiveBook.getBookCover());
-        bookCover = Bitmap.createBitmap(bookCover, 0, 0, 1000, 1000);
-        imgBookThumbnail.setImageBitmap(bookCover);
+        imgBookThumbnail.setImageBitmap(ImageDecoder.decodeBase64(interactiveBook.getBookCover()));
     }
 }
