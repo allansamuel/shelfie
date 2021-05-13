@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,8 +40,9 @@ public class HomeFragment extends Fragment {
     private ProgressBar progressCategoryBooksList;
     private ArrayList<Category> categories;
     private CategoryBooksAdapter categoryBooksAdapter;
-    private FrameLayout flHomeChildProfileData;
+//    private FrameLayout flHomeChildProfileData;
     int pageNumber = 1;
+    private FragmentContainerView fragmentHomeChildProfileData;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -68,7 +70,8 @@ public class HomeFragment extends Fragment {
         svHomeContainer = getView().findViewById(R.id.sv_home_container);
         rvCategoryBooks = getView().findViewById(R.id.rv_category_books);
         progressCategoryBooksList = getView().findViewById(R.id.progress_category_books_list);
-        flHomeChildProfileData = getView().findViewById(R.id.fl_home_child_data_container);
+//        flHomeChildProfileData = getView().findViewById(R.id.fl_home_child_data_container);
+        fragmentHomeChildProfileData = getView().findViewById(R.id.fragment_home_child_data_container);
         setFlHomeChildProfileData();
 
         categories = new ArrayList<>();
@@ -103,7 +106,7 @@ public class HomeFragment extends Fragment {
         ChildProfile childProfile = UserSession.getChildProfile(getContext());
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         Fragment profileAvatarFragment = new ChildCoinsFragment();
-        fragmentTransaction.replace(flHomeChildProfileData.getId(), profileAvatarFragment, childProfile.getNickname());
+        fragmentTransaction.add(fragmentHomeChildProfileData.getId(), profileAvatarFragment, childProfile.getNickname());
         fragmentTransaction.commit();
     }
 }

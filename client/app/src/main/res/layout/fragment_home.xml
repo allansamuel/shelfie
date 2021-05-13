@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/sv_home_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".ui.main.home.HomeFragment">
 
     <LinearLayout
@@ -16,19 +16,18 @@
         android:orientation="vertical"
         android:showDividers="middle|beginning">
 
-        <FrameLayout
-            android:id="@+id/fl_home_child_data_container"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragment_home_child_data_container"
+            android:name="com.shelfie.ui.fragments.ChildCoinsFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </FrameLayout>
+            android:layout_height="wrap_content" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_category_books"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:nestedScrollingEnabled="false"
-            tools:listitem="@layout/fragment_holder_container"/>
+            tools:listitem="@layout/fragment_holder_container" />
 
         <ProgressBar
             android:id="@+id/progress_category_books_list"
