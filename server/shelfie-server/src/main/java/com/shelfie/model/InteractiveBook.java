@@ -15,6 +15,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table (name = "interactive_books")
@@ -32,12 +33,15 @@ public class InteractiveBook {
 	@Column (name = "sinopsys", length = 800)
 	private String sinopsys;
 
+	@NotNull
 	@Column (name = "publish_date")
 	private Date publishDate;
 	
+	@NotNull
 	@Column (name = "price")
-	private Integer price;
+	private Integer price = 0;
 	
+	@NotNull
 	@Column (name = "title", length = 255)
 	private String title;
 

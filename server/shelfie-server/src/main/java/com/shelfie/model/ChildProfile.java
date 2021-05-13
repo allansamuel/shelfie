@@ -14,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -28,6 +29,7 @@ public class ChildProfile {
 	@Column(name = "child_profile_id")
 	private Integer childProfileId;
 	
+	@NotNull
 	@Column(name = "nickname", length = 255)
 	private String  nickname;
 	

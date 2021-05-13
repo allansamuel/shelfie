@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
 
 @Entity
 @Table (name = "author")
@@ -16,6 +18,7 @@ public class Author {
 	@Column (name = "author_id")
 	private Integer authorId;
 	
+	@NotNull
 	@Column (name = "author_name")
 	private String authorName;
 

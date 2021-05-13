@@ -9,9 +9,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 
 @Entity
 @Table(name = "characters")
@@ -22,6 +24,7 @@ public class Character {
 	@Column(name = "character_id")
 	private Integer characterId;
 	
+	@NotNull
 	@Column(name = "character_name", length = 255)
 	private String characterName;
 	

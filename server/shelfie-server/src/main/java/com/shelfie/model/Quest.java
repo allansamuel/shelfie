@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
@@ -21,12 +22,15 @@ public class Quest {
 	@Column(name = "quest_id")
 	private Integer questId;
 
+	@NotNull
 	@Column(name = "quest_title")
 	private String questTitle;
 
+	@NotNull
 	@Column(name = "quest_description")
 	private String questDescription;
 
+	@NotNull
 	@Column(name = "coins_reward")
 	private Integer coinsReward;
 	

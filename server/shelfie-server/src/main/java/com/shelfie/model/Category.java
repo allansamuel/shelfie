@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
@@ -22,6 +23,7 @@ public class Category {
 	@Column(name = "category_id")
 	private Integer categoryId;
 
+	@NotNull
 	@Column(name = "category_name", length = 255)
 	private String categoryName;
 

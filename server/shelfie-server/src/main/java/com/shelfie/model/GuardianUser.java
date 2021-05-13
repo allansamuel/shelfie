@@ -13,22 +13,26 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table (name = "guardian_users")
 public class GuardianUser {
-
+ 
 	@Id 
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	@Column (name = "guardian_user_id")
 	private Integer guardianUserId;
 
+	@NotNull
 	@Column (name = "guardian_user_name", length = 255)
 	private String guardianUserName;
 
+	@NotNull
 	@Column (name = "guardian_user_email", length = 320)
 	private String guardianUserEmail;
 
+	@NotNull
 	@Column (name = "guardian_user_password", length = 255)
 	private String guardianUserPassword;
 	

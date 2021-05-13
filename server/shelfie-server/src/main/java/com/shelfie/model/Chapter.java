@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
@@ -21,6 +22,7 @@ public class Chapter {
 	@Column(name = "chapter_id")
 	private Integer chapterId;
 	
+	@NotNull
 	@Column(name = "title", length = 255)
 	private String title;
 	
