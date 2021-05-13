@@ -65,6 +65,7 @@ public class ProfileAvatarFragment extends Fragment {
 
         cvChildProfileAvatarContainer.setOnClickListener(view1 -> {
             if (UserSession.isFormInReadMode(getActivity().getApplicationContext())) {
+                UserSession.setChildProfile(getActivity().getApplicationContext(), childProfile);
                 Intent accessChildProfileIntent = new Intent(requireActivity().getApplicationContext(), MainActivity.class);
                 startActivity(accessChildProfileIntent);
             }

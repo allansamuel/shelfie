@@ -2,6 +2,8 @@ package com.shelfie.ui.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 import com.shelfie.R;
 import com.shelfie.model.ChildProfile;
 import com.shelfie.utils.ImageDecoder;
+import com.shelfie.utils.UserSession;
 
 public class ChildCoinsFragment extends Fragment {
 
@@ -49,6 +52,11 @@ public class ChildCoinsFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_child_coins, container, false);
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        init();
+    }
+
     private void init() {
         View view = getView();
 
@@ -56,6 +64,7 @@ public class ChildCoinsFragment extends Fragment {
         tvLoggedChildProfileNickname = view.findViewById(R.id.tv_logged_child_nickname);
         tvLoggedChildProfileCoins = view.findViewById(R.id.tv_logged_child_coins);
 
+        childProfile = UserSession.getChildProfile(getActivity().getApplicationContext());
         imgLoggedChildProfileAvatar.setImageBitmap(ImageDecoder.decodeBase64(childProfile.getCharacter().getCharacterImage()));
         tvLoggedChildProfileNickname.setText(childProfile.getNickname());
         tvLoggedChildProfileCoins.setText(String.valueOf(childProfile.getCoins()));

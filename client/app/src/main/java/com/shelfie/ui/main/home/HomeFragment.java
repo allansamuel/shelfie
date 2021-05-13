@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
@@ -17,10 +19,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import com.shelfie.R;
+import com.shelfie.model.ChildProfile;
+import com.shelfie.ui.fragments.ChildCoinsFragment;
+import com.shelfie.ui.fragments.ProfileAvatarFragment;
 import com.shelfie.utils.RetrofitConfig;
 import com.shelfie.model.Category;
 import com.shelfie.service.CategoryService;
 import com.shelfie.utils.CategoryBooksAdapter;
+import com.shelfie.utils.UserSession;
 
 import java.util.ArrayList;
 
@@ -33,6 +39,7 @@ public class HomeFragment extends Fragment {
     private ProgressBar progressCategoryBooksList;
     private ArrayList<Category> categories;
     private CategoryBooksAdapter categoryBooksAdapter;
+    private FrameLayout flHomeChildProfileData;
     int pageNumber = 1;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -61,8 +68,10 @@ public class HomeFragment extends Fragment {
         svHomeContainer = getView().findViewById(R.id.sv_home_container);
         rvCategoryBooks = getView().findViewById(R.id.rv_category_books);
         progressCategoryBooksList = getView().findViewById(R.id.progress_category_books_list);
-        categories = new ArrayList<>();
+        flHomeChildProfileData = getView().findViewById(R.id.fl_home_child_data_container);
+        setFlHomeChildProfileData();
 
+        categories = new ArrayList<>();
         getCategories(pageNumber);
         categoryBooksAdapter = new CategoryBooksAdapter(categories);
         rvCategoryBooks.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -88,5 +97,13 @@ public class HomeFragment extends Fragment {
 
             }
         });
+    }
+
+    private void setFlHomeChildProfileData() {
+        ChildProfile childProfile = UserSession.getChildProfile(getContext());
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        Fragment profileAvatarFragment = new ChildCoinsFragment();
+        fragmentTransaction.replace(flHomeChildProfileData.getId(), profileAvatarFragment, childProfile.getNickname());
+        fragmentTransaction.commit();
     }
 }

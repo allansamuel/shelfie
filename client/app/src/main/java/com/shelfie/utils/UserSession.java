@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.shelfie.model.ChildProfile;
 import com.shelfie.model.GuardianUser;
 import com.shelfie.model.InteractiveBook;
 
@@ -16,6 +17,7 @@ public final class UserSession {
 
     private static final String PREFS_NAME = "com.shelfie";
     private static final String KEY_GUARDIAN_USER = "KEY_GUARDIAN_USER";
+    private static final String KEY_CHILD_PROFILE = "KEY_CHILD_PROFILE";
     private static final String KEY_FORM_INTERACTION_MODE = "KEY_FORM_INTERACTION_MODE";
     private static final String KEY_INTERACTIVE_BOOK = "KEY_INTERACTIVE_BOOK";
 
@@ -93,6 +95,21 @@ public final class UserSession {
         String interactiveBookJson = settings.getString(KEY_INTERACTIVE_BOOK, "");
         if(interactiveBookJson != null)
             return new Gson().fromJson(interactiveBookJson, InteractiveBook.class);
+        return null;
+    }
+
+    public static void setChildProfile(Context context, ChildProfile childProfile){
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString(KEY_CHILD_PROFILE, new Gson().toJson(childProfile));
+        editor.commit();
+    }
+
+    public static ChildProfile getChildProfile(Context context){
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        String childProfileJson = settings.getString(KEY_CHILD_PROFILE, "");
+        if(childProfileJson != null)
+            return new Gson().fromJson(childProfileJson, ChildProfile.class);
         return null;
     }
 }
