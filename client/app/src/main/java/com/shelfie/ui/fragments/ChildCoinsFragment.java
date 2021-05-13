@@ -7,43 +7,30 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.shelfie.R;
+import com.shelfie.model.ChildProfile;
+import com.shelfie.utils.ImageDecoder;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ChildCoinsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ChildCoinsFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_CHILD_PROFILE = "CHILD_PROFILE_DATA";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private ChildProfile childProfile;
+    private ImageView imgLoggedChildProfileAvatar;
+    private TextView tvLoggedChildProfileNickname;
+    private TextView tvLoggedChildProfileCoins;
 
     public ChildCoinsFragment() {
-        // Required empty public constructor
+
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ChildCoinsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ChildCoinsFragment newInstance(String param1, String param2) {
+    public static ChildCoinsFragment newInstance(ChildProfile childProfile) {
         ChildCoinsFragment fragment = new ChildCoinsFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putSerializable(ARG_CHILD_PROFILE, childProfile);
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,15 +39,25 @@ public class ChildCoinsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            childProfile = (ChildProfile) getArguments().getSerializable(ARG_CHILD_PROFILE);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_child_coins, container, false);
+    }
+
+    private void init() {
+        View view = getView();
+
+        imgLoggedChildProfileAvatar = view.findViewById(R.id.img_logged_child_avatar);
+        tvLoggedChildProfileNickname = view.findViewById(R.id.tv_logged_child_nickname);
+        tvLoggedChildProfileCoins = view.findViewById(R.id.tv_logged_child_coins);
+
+        imgLoggedChildProfileAvatar.setImageBitmap(ImageDecoder.decodeBase64(childProfile.getCharacter().getCharacterImage()));
+        tvLoggedChildProfileNickname.setText(childProfile.getNickname());
+        tvLoggedChildProfileCoins.setText(String.valueOf(childProfile.getCoins()));
     }
 }
