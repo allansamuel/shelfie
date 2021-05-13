@@ -1,5 +1,6 @@
 package com.shelfie.ui.fragments;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -65,7 +66,10 @@ public class ChildCoinsFragment extends Fragment {
         tvLoggedChildProfileCoins = view.findViewById(R.id.tv_logged_child_coins);
 
         childProfile = UserSession.getChildProfile(getActivity().getApplicationContext());
-        imgLoggedChildProfileAvatar.setImageBitmap(ImageDecoder.decodeBase64(childProfile.getCharacter().getCharacterImage()));
+
+        Bitmap profileAvatarImage = ImageDecoder.cropAvatarImage(
+                ImageDecoder.decodeBase64(childProfile.getCharacter().getCharacterImage()));
+        imgLoggedChildProfileAvatar.setImageBitmap(profileAvatarImage);
         tvLoggedChildProfileNickname.setText(childProfile.getNickname());
         tvLoggedChildProfileCoins.setText(String.valueOf(childProfile.getCoins()));
     }

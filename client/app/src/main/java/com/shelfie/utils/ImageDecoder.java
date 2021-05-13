@@ -15,4 +15,7 @@ public class ImageDecoder {
         return bitmapImage;
     }
 
+    public static Bitmap cropAvatarImage(Bitmap bitmap) {
+        return Bitmap.createBitmap(bitmap, 0, 0, 1000, 1000);
+    }
 }

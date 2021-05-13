@@ -44,7 +44,8 @@
                 android:id="@+id/img_child_profile_avatar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:contentDescription="Adicionar novo perfil"/>
+                android:background="@color/blue_400"
+                android:contentDescription="Adicionar novo perfil" />
 
         </androidx.cardview.widget.CardView>
 

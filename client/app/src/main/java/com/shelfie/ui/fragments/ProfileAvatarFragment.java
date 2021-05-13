@@ -87,8 +87,8 @@ public class ProfileAvatarFragment extends Fragment {
         tvChildProfileNickname = view.findViewById(R.id.tv_child_profile_nickname);
 
         if(childProfile != null) {
-            Bitmap profileAvatarImage = ImageDecoder.decodeBase64(childProfile.getCharacter().getCharacterImage());
-            profileAvatarImage = Bitmap.createBitmap(profileAvatarImage, 0, 0, 1000, 1000);
+            Bitmap profileAvatarImage = ImageDecoder.cropAvatarImage(
+                    ImageDecoder.decodeBase64(childProfile.getCharacter().getCharacterImage()));
             imgChildProfileAvatar.setImageBitmap(profileAvatarImage);
             imgChildProfileAvatar.setBackgroundColor(getResources().getColor(R.color.blue_200));
             tvChildProfileNickname.setText(childProfile.getNickname());
