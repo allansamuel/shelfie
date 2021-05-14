@@ -38,7 +38,12 @@ public class CategoryBooksAdapter extends RecyclerView.Adapter<CategoryBooksAdap
                 .getSupportFragmentManager();
         Category category = categories.get(position);
         holder.frameLayout.setId(View.generateViewId());
-        fragmentManager.beginTransaction().replace(
+        holder.frameLayout.setLayoutParams(
+                new FrameLayout.LayoutParams(
+                        FrameLayout.LayoutParams.MATCH_PARENT,
+                        FrameLayout.LayoutParams.WRAP_CONTENT)
+        );
+        fragmentManager.beginTransaction().add(
                 holder.frameLayout.getId(),
                 CategoryBooksFragment.newInstance(category))
                 .commit();

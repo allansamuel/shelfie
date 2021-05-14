@@ -46,6 +46,7 @@ public class CategoryBooksFragment extends Fragment {
     private LinearLayout llCategoryBooks;
     private RecyclerView rvBookThumbnails;
     private ProgressBar progressBookThumbnails;
+    private LinearLayoutManager linearLayoutManager;
     private int pageNumber = 1;
 
     public CategoryBooksFragment() {
@@ -102,7 +103,9 @@ public class CategoryBooksFragment extends Fragment {
 
         getCategoryBooks(pageNumber);
         bookAdapter = new BookAdapter(interactiveBooks);
-        rvBookThumbnails.setLayoutManager(new LinearLayoutManager(getContext()));
+        linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(RecyclerView.HORIZONTAL);
+        rvBookThumbnails.setLayoutManager(linearLayoutManager);
         rvBookThumbnails.setAdapter(bookAdapter);
     }
 

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:flow_wrapMode="chain"
     tools:context=".ui.main.search.SearchFragment">
 
     <LinearLayout
@@ -15,48 +16,81 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txt_search_book"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="32dp"
-            android:gravity="top">
+            android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_search_book"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txt_search_book"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableStart="@drawable/search_black_24dp"
-                android:hint="@string/search" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:gravity="top"
+                app:boxStrokeColor="@android:color/secondary_text_dark">
 
-        <ScrollView
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_search_book"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/search_black_24dp"
+                    android:hint="@string/search"
+                    android:singleLine="true" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ProgressBar
+                android:id="@+id/progress_search_book"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:visibility="invisible" />
+
+        </LinearLayout>
+
+        <androidx.core.widget.NestedScrollView
             android:id="@+id/sv_search_results"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:paddingStart="32dp"
+            android:paddingEnd="32dp"
             android:visibility="gone">
 
             <com.google.android.flexbox.FlexboxLayout
                 android:id="@+id/flexbox_search_results"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="32dp"
+                android:layout_gravity="center_horizontal"
                 android:paddingTop="16dp"
-                android:paddingEnd="32dp"
-                android:paddingBottom="32dp"
-                app:alignContent="flex_start"
+                app:alignContent="center"
                 app:alignItems="flex_start"
+                app:dividerDrawable="@drawable/divider10dp"
                 app:flexWrap="wrap"
-                app:justifyContent="space_between">
+                app:justifyContent="space_between"
+                app:showDivider="middle"
+                app:showDividerHorizontal="middle"
+                app:showDividerVertical="middle">
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_search_results"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layoutDirection="inherit"
+                    android:layoutMode="clipBounds"
+                    android:nestedScrollingEnabled="false"
+                    tools:listitem="@layout/fragment_holder_container">
+
+                </androidx.recyclerview.widget.RecyclerView>
 
             </com.google.android.flexbox.FlexboxLayout>
 
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
 
         <com.google.android.flexbox.FlexboxLayout
             android:id="@+id/flexbox_search_empty_state"
@@ -66,7 +100,7 @@
             android:paddingTop="16dp"
             android:paddingEnd="32dp"
             android:paddingBottom="32dp"
-            app:alignContent="flex_start"
+            app:alignContent="center"
             app:alignItems="center"
             app:flexWrap="wrap"
             app:justifyContent="space_between">
@@ -80,6 +114,7 @@
                 app:drawableBottomCompat="@drawable/search_empty_state" />
 
         </com.google.android.flexbox.FlexboxLayout>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
