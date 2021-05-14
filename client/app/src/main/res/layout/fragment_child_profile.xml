@@ -6,18 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.childprofile.ChildProfileFragment">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/ll_child_profiles_list"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" />
-    </ScrollView>
+            android:layout_height="200dp"
+            android:layout_marginTop="32dp">
+
+            <LinearLayout
+                android:id="@+id/ll_child_profiles_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
+        </ScrollView>
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragment_child_profile_child_data_container"
+            android:name="com.shelfie.ui.fragments.ChildCoinsFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

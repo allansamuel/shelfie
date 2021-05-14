@@ -28,14 +28,9 @@ public interface InteractiveBookService {
     @POST("interactive_book/")
     Call<InteractiveBook> create(@Body InteractiveBook interactiveBook);
 
-    //por como o parametro de imagem?
-    @PUT("interactive_book/{id}/upload_image")
-    Call<Void> uploadImage(@Path("id") Integer id);
-
     @PUT("interactive_book/{id}")
     Call<InteractiveBook> update(@Path("id") Integer id, @Body InteractiveBook interactiveBook);
 
     @DELETE("interactive_book/{id}")
     Call<Void> delete(@Path("id") Integer id);
-
 }
