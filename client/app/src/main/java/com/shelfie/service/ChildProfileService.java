@@ -28,5 +28,4 @@ public interface ChildProfileService {
 
     @DELETE("child_profile/{id}")
     Call<Void> delete(@Path("id") Integer id);
-
 }

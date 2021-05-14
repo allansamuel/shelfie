@@ -21,11 +21,6 @@ public interface CharacterService {
     @POST("character/")
     Call<Character> create(@Body Character character);
 
-    //Parametro de imagem?
-    @PUT("character/{id}/upload_image")
-    Call<Void> uploadImage(@Path("id") Integer id);
-
     @PUT("character/{id}")
     Call<Character> update(@Path("id") Integer id, @Body Character character);
-
 }

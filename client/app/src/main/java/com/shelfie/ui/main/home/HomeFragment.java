@@ -105,8 +105,8 @@ public class HomeFragment extends Fragment {
     private void setFlHomeChildProfileData() {
         ChildProfile childProfile = UserSession.getChildProfile(getContext());
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        Fragment profileAvatarFragment = new ChildCoinsFragment();
-        fragmentTransaction.add(fragmentHomeChildProfileData.getId(), profileAvatarFragment, childProfile.getNickname());
+        Fragment childCoinsFragment = new ChildCoinsFragment();
+        fragmentTransaction.add(fragmentHomeChildProfileData.getId(), childCoinsFragment, childProfile.getNickname());
         fragmentTransaction.commit();
     }
 }

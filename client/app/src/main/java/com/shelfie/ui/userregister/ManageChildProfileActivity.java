@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.shelfie.R;
@@ -50,7 +51,8 @@ public class ManageChildProfileActivity extends FragmentActivity {
         });
 
         btnSaveUserProfiles.setOnClickListener(view -> {
-            saveAndAuthenticateUser();
+                saveAndAuthenticateUser();
+
         });
 
         btnUserSettings.setOnClickListener(view -> {
@@ -71,6 +73,8 @@ public class ManageChildProfileActivity extends FragmentActivity {
         btnUserSettings = findViewById(R.id.btn_user_settings);
 
         getChildProfiles();
+
+
     }
 
     private void addChildProfile() {
@@ -100,6 +104,13 @@ public class ManageChildProfileActivity extends FragmentActivity {
                     } else {
                         clAddChildProfileContainer.setVisibility(View.VISIBLE);
                         btnSaveUserProfiles.setVisibility(View.VISIBLE);
+                    }
+
+                    if(childProfiles.isEmpty()){
+                        btnSaveUserProfiles.setEnabled(false);
+                    }else{
+                        System.out.println(childProfiles.get(0));
+                        btnSaveUserProfiles.setEnabled(true);
                     }
                 } else {
                     Snackbar.make(getWindow().getDecorView().getRootView(), "caiu aqui", Snackbar.LENGTH_LONG).show();
