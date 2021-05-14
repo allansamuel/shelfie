@@ -6,20 +6,31 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import com.google.android.flexbox.AlignContent;
+import com.google.android.flexbox.AlignItems;
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexboxLayout;
+import com.google.android.flexbox.FlexboxLayoutManager;
+import com.google.android.flexbox.JustifyContent;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.shelfie.R;
+import com.shelfie.utils.BookAdapter;
 import com.shelfie.utils.RetrofitConfig;
 import com.shelfie.model.InteractiveBook;
 import com.shelfie.service.InteractiveBookService;
@@ -32,12 +43,19 @@ public class SearchFragment extends Fragment {
 
     private RetrofitConfig retrofitConfig;
     private InteractiveBookService interactiveBookService;
-    private List<InteractiveBook> interactiveBooks;
+    private ArrayList<InteractiveBook> interactiveBooks;
 
+    private BookAdapter bookAdapter;
     private TextInputLayout txtSearchBook;
     private TextInputEditText etSearchBook;
     private TextView tvSearchEmptyState;
-    private ScrollView svSearchResults;
+    private NestedScrollView svSearchResults;
+    private FlexboxLayout flexboxSearchEmptyState;
+    private FlexboxLayout flexboxSearchResults;
+    private RecyclerView rvSearchResults;
+    private FlexboxLayoutManager flexboxLayoutManager;
+    private ProgressBar progressSearchBook;
+    private int pageNumber = 1;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -56,12 +74,21 @@ public class SearchFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                getInteractiveBooksResult((String) charSequence, i);
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
+                getInteractiveBooksResult(editable.toString(), pageNumber);
+            }
+        });
 
+        svSearchResults.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if(scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
+                    pageNumber++;
+                    getInteractiveBooksResult(tvSearchEmptyState.getText().toString(), pageNumber);
+                }
             }
         });
     }
@@ -77,30 +104,38 @@ public class SearchFragment extends Fragment {
         etSearchBook = view.findViewById(R.id.et_search_book);
         tvSearchEmptyState = view.findViewById(R.id.tv_search_empty_state);
         svSearchResults = view.findViewById(R.id.sv_search_results);
-    }
+        flexboxSearchEmptyState = view.findViewById(R.id.flexbox_search_empty_state);
+        flexboxSearchResults = view.findViewById(R.id.flexbox_search_results);
+        rvSearchResults = view.findViewById(R.id.rv_search_results);
+        progressSearchBook = view.findViewById(R.id.progress_search_book);
 
-    private void mapInteractiveBooks() {
-        FragmentTransaction interactiveBooksTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        for(InteractiveBook interactiveBook : interactiveBooks) {
-            Fragment profileAvatarFragment = BookThumbnailFragment.newInstance(interactiveBook);
-            interactiveBooksTransaction.add(R.id.flexbox_search_results, profileAvatarFragment, interactiveBook.getTitle());
-        }
-        interactiveBooksTransaction.commit();
+        bookAdapter = new BookAdapter(interactiveBooks);
+        flexboxLayoutManager = new FlexboxLayoutManager(getActivity().getApplicationContext());
+        flexboxLayoutManager.setJustifyContent(JustifyContent.SPACE_BETWEEN);
+        rvSearchResults.setAdapter(bookAdapter);
+        rvSearchResults.setLayoutManager(flexboxLayoutManager);
     }
 
     private void getInteractiveBooksResult(String searchedTitle, int pageNumber) {
+        flexboxSearchEmptyState.setVisibility(View.GONE);
+        progressSearchBook.setVisibility(View.VISIBLE);
+        interactiveBooks.clear();
         interactiveBookService.getByTitle(searchedTitle, pageNumber).enqueue(new Callback<ArrayList<InteractiveBook>>() {
             @Override
             public void onResponse(Call<ArrayList<InteractiveBook>> call, Response<ArrayList<InteractiveBook>> response) {
+                interactiveBooks.clear();
                 if(response.isSuccessful()) {
                     interactiveBooks.addAll(response.body());
-                    mapInteractiveBooks();
+                    rvSearchResults.setLayoutManager(flexboxLayoutManager);
+                    rvSearchResults.setAdapter(bookAdapter);
+                    svSearchResults.setVisibility(View.VISIBLE);
                 }
+                progressSearchBook.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onFailure(Call<ArrayList<InteractiveBook>> call, Throwable t) {
-
+                progressSearchBook.setVisibility(View.INVISIBLE);
             }
         });
     }

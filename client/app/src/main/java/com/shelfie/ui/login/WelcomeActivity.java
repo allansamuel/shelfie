@@ -46,12 +46,12 @@ public class WelcomeActivity extends AppCompatActivity {
                 new java.util.TimerTask() {
                     @Override
                     public void run() {
-                        finish();
                         if(UserSession.getGuardianUser(getApplicationContext()) != null) {
                             startActivity(new Intent(getApplicationContext(), ManageChildProfileActivity.class));
                         } else {
                             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                         }
+                        finish();
                     }
                 },
                 1500

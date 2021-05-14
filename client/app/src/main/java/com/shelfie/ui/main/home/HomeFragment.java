@@ -40,7 +40,6 @@ public class HomeFragment extends Fragment {
     private ProgressBar progressCategoryBooksList;
     private ArrayList<Category> categories;
     private CategoryBooksAdapter categoryBooksAdapter;
-//    private FrameLayout flHomeChildProfileData;
     int pageNumber = 1;
     private FragmentContainerView fragmentHomeChildProfileData;
 
@@ -70,7 +69,6 @@ public class HomeFragment extends Fragment {
         svHomeContainer = getView().findViewById(R.id.sv_home_container);
         rvCategoryBooks = getView().findViewById(R.id.rv_category_books);
         progressCategoryBooksList = getView().findViewById(R.id.progress_category_books_list);
-//        flHomeChildProfileData = getView().findViewById(R.id.fl_home_child_data_container);
         fragmentHomeChildProfileData = getView().findViewById(R.id.fragment_home_child_data_container);
         setFlHomeChildProfileData();
 

@@ -79,8 +79,8 @@ public class BookThumbnailFragment extends Fragment {
         View view = getView();
         cvBookThumbnail = view.findViewById(R.id.cv_book_thumbnail);
         ImageView imgBookThumbnail = view.findViewById(R.id.img_book_thumbnail);
-
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        imgBookThumbnail.setImageBitmap(ImageDecoder.decodeBase64(interactiveBook.getBookCover()));
+        if(interactiveBook.getBookCover() != null) {
+            imgBookThumbnail.setImageBitmap(ImageDecoder.decodeBase64(interactiveBook.getBookCover()));
+        }
     }
 }
