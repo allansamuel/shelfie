@@ -24,6 +24,7 @@
     <string name="title_manage_child_profile_add">Estamos quase lá!</string>
     <string name="subtitle_manage_child_profile_add">Queremos conhecer você</string>
     <string name="empty_state_book_search">Procure por seus livros favoritos</string>
+    <string name="empty_state_book_search_not_found">Não encontramos livros com esse nome</string>
     <string name="label_interactive_book_chapters_amount">Você pode desbloquear seus %1$d capítulos por:</string>
 
 
