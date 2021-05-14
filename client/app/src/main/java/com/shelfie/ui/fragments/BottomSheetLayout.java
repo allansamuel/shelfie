@@ -32,7 +32,7 @@ public class BottomSheetLayout extends BottomSheetDialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         init();
         btnLogoff.setOnClickListener(view1 -> {
-            UserSession.deleteGuardianUser(getActivity().getApplicationContext());
+            UserSession.clearSession(getActivity().getApplicationContext());
             getActivity().finish();
             Intent intent = new Intent(getActivity().getApplicationContext(), LoginActivity.class);
             startActivity(intent);

@@ -42,10 +42,19 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     private void verifyUserSession() {
-        if(UserSession.getGuardianUser(getApplicationContext()) != null) {
-            startActivity(new Intent(getApplicationContext(), ManageChildProfileActivity.class));
-        } else {
-            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-        }
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        finish();
+                        if(UserSession.getGuardianUser(getApplicationContext()) != null) {
+                            startActivity(new Intent(getApplicationContext(), ManageChildProfileActivity.class));
+                        } else {
+                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                        }
+                    }
+                },
+                1500
+        );
     }
 }

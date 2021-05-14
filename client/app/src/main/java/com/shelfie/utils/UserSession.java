@@ -21,20 +21,20 @@ public final class UserSession {
     private static final String KEY_FORM_INTERACTION_MODE = "KEY_FORM_INTERACTION_MODE";
     private static final String KEY_INTERACTIVE_BOOK = "KEY_INTERACTIVE_BOOK";
 
-//    private static SharedPreferences settings;
-//    private static SharedPreferences.Editor editor;
-//    private static Gson gson = new Gson();
-
     public static void startSession(Context context) {
         startSession(context, null, REGISTER_MODE);
     }
 
     public static void startSession(Context context, GuardianUser guardianUser, int formInteractionMode) {
-//        SharedPreferences settings = ctx.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = settings.edit();
         if(guardianUser != null)
             setGuardianUser(context, guardianUser);
         setFormInteractionMode(context, formInteractionMode);
+    }
+
+    public static void clearSession(Context context) {
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.clear().commit();
     }
 
     public static void setGuardianUser(Context context, GuardianUser guardianUser){

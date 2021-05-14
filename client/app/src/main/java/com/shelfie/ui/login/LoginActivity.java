@@ -71,10 +71,6 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
         retrofitConfig = new RetrofitConfig();
         guardianUserService = retrofitConfig.getGuardianUserService();
         guardianUser = new GuardianUser();
-        if(UserSession.getGuardianUser(getApplicationContext()) != null) {
-            guardianUser = UserSession.getGuardianUser(getApplicationContext());
-            login();
-        }
 
         formValidator = new Validator(this);
         formValidator.setValidationListener(this);
@@ -98,22 +94,25 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
             public void onResponse(Call<GuardianUser> call, Response<GuardianUser> response) {
                 if(response.isSuccessful()) {
                     guardianUser = response.body();
-                    Intent manageChildProfilesActivity = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
-                    if(guardianUser.getChildProfiles().isEmpty()) {
-                        UserSession.startSession(getApplicationContext(), guardianUser, UserSession.REGISTER_MODE);
-                    } else {
-                        UserSession.startSession(getApplicationContext(), guardianUser, UserSession.READ_MODE);
+                    UserSession.startSession(getApplicationContext());
+                    UserSession.setGuardianUser(getApplicationContext(), guardianUser);
+                    if(!guardianUser.getChildProfiles().isEmpty()) {
+                        UserSession.setFormInteractionMode(getApplicationContext(), UserSession.READ_MODE);
                     }
+                    finish();
+                    Intent manageChildProfilesActivity = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
                     startActivity(manageChildProfilesActivity);
                 } else {
                     Snackbar.make(getWindow().getDecorView().getRootView(), "caiu aqui", Snackbar.LENGTH_LONG).show();
                 }
+                progressGuardianUserLogin.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onFailure(Call<GuardianUser> call, Throwable t) {
                 EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
                 emptyStateDialogFragment.show(getSupportFragmentManager(), "EmptyStateDialogFragment");
+                progressGuardianUserLogin.setVisibility(View.INVISIBLE);
             }
         });
     }
