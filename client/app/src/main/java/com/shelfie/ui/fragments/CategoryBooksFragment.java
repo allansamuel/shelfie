@@ -15,6 +15,8 @@ import retrofit2.Response;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -40,7 +42,6 @@ public class CategoryBooksFragment extends Fragment {
     private InteractiveBookService interactiveBookService;
     private ArrayList<InteractiveBook> interactiveBooks;
 
-    private NestedScrollView svCategoryBooksList;
     private Category category;
     private TextView tvCategoryName;
     private LinearLayout llCategoryBooks;
@@ -77,13 +78,23 @@ public class CategoryBooksFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         init();
-        svCategoryBooksList.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+
+        rvBookThumbnails.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if(scrollX == v.getChildAt(0).getMeasuredWidth() - v.getMeasuredWidth()) {
-                    pageNumber++;
-                    getCategoryBooks(pageNumber);
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                if (dx > 0) {
+                    //check for scroll down
+                     int visibleItemCount = linearLayoutManager.getChildCount();
+                     int totalItemCount = linearLayoutManager.getItemCount();
+                     int pastVisibleItems = linearLayoutManager.findFirstVisibleItemPosition();
+                     if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
+                         pageNumber++;
+                         getCategoryBooks(pageNumber);
+                     }
                 }
+
             }
         });
     }
@@ -94,7 +105,6 @@ public class CategoryBooksFragment extends Fragment {
         interactiveBooks = new ArrayList<>();
 
         View view = getView();
-        svCategoryBooksList = view.findViewById(R.id.sv_category_books_list);
         tvCategoryName = view.findViewById(R.id.tv_category_name);
         rvBookThumbnails = view.findViewById(R.id.rv_book_thumbnails);
         progressBookThumbnails = view.findViewById(R.id.progress_book_thumbnails);
@@ -117,7 +127,6 @@ public class CategoryBooksFragment extends Fragment {
                 if(response.isSuccessful()) {
                     progressBookThumbnails.setVisibility(View.GONE);
                     interactiveBooks.addAll(response.body());
-                    bookAdapter = new BookAdapter(interactiveBooks);
                     rvBookThumbnails.setAdapter(bookAdapter);
                 } else {
 
