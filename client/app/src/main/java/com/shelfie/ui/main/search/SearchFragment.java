@@ -41,6 +41,8 @@ import com.shelfie.ui.fragments.BookThumbnailFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.nfc.tech.MifareUltralight.PAGE_SIZE;
+
 public class SearchFragment extends Fragment {
 
     private RetrofitConfig retrofitConfig;
@@ -100,16 +102,27 @@ public class SearchFragment extends Fragment {
             };
         });
 
-//        svSearchResults.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-//            @Override
-//            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-//                if(scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
-//                    System.out.println("Entrou na funçao");
-//                    pageNumber++;
-//                    getInteractiveBooksResult(etSearchBook.getText().toString(), pageNumber);
-//                }
-//            }
-//        });
+        RecyclerView.OnScrollListener recyclerViewOnScrollListener = new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int visibleItemCount = flexboxLayoutManager.getChildCount();
+                int totalItemCount = flexboxLayoutManager.getItemCount();
+                int firstVisibleItemPosition = flexboxLayoutManager.findFirstVisibleItemPosition();
+
+                if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
+                        && firstVisibleItemPosition >= 0
+                        && totalItemCount >= PAGE_SIZE) {
+                    pageNumber++;
+                    getInteractiveBooksResult(etSearchBook.getText().toString(), pageNumber);
+                }
+            }
+        };
     }
 
     private void init() {

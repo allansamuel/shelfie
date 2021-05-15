@@ -74,7 +74,7 @@ public class InteractiveBookController {
 		try {
 			
 			pageNumber = pageNumber -1;
-			Pageable pageable = PageRequest.of(pageNumber, 5);
+			Pageable pageable = PageRequest.of(pageNumber, 8);
 			Page<InteractiveBook> page = interactiveBookRepository.findByTitleIgnoreCaseContaining(title, pageable);
 			List<InteractiveBook> books = page.getContent();
 			return ResponseEntity.ok().body(books);
