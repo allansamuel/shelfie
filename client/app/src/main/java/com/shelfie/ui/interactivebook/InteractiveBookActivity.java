@@ -7,6 +7,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -44,6 +46,11 @@ public class InteractiveBookActivity extends AppCompatActivity {
     private LinearLayout llBookCategories;
     private LinearLayout llBookCharacters;
     private LinearLayout llBookQuests;
+    private LinearLayout llBookUnlock;
+    private Button btnBookUnlock;
+    private Button btnBookRead;
+
+    private boolean isBookUnlocked = false;
 
 
     @Override
@@ -51,6 +58,13 @@ public class InteractiveBookActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interactive_book);
         init();
+
+        btnBookUnlock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isBookUnlocked = true;
+            }
+        });
     }
 
     private void init() {
@@ -67,18 +81,26 @@ public class InteractiveBookActivity extends AppCompatActivity {
         llBookCategories = findViewById(R.id.ll_book_categories);
         llBookCharacters = findViewById(R.id.ll_book_characters);
         llBookQuests = findViewById(R.id.ll_book_quests);
+        llBookUnlock = findViewById(R.id.ll_book_unlock);
+        btnBookUnlock = findViewById(R.id.btn_book_unlock);
+        btnBookRead = findViewById(R.id.btn_book_read);
 
         imgBookCover.setImageBitmap(ImageDecoder.decodeBase64(interactiveBook.getBookCover()));
         tvBookTitle.setText(interactiveBook.getTitle());
         tvBookSinopsys.setText(interactiveBook.getSinopsys());
         tvBookPublishDate.setText(formatPublishDate(interactiveBook.getPublishDate()));
         tvBookAuthors.setText(formatAuthors(interactiveBook.getBookAuthors()));
-        tvBookChapters.setText(getString(R.string.label_interactive_book_chapters_amount, interactiveBook.getChapters().size()));
+        tvBookChapters.setText(getString(R.string.label_book_chapters_amount, interactiveBook.getChapters().size()));
         tvBookPrice.setText(String.valueOf(interactiveBook.getPrice()));
+
         mapBookCategories();
         mapBookQuests();
         mapBookCharacters();
 
+        if(isBookUnlocked) {
+            llBookUnlock.setVisibility(View.GONE);
+            btnBookRead.setVisibility(View.VISIBLE);
+        }
     }
 
     private void mapBookQuests() {

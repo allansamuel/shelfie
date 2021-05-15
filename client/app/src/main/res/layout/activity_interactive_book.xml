@@ -58,7 +58,7 @@
                             android:textStyle="bold" />
 
                         <Button
-                            android:id="@+id/button"
+                            android:id="@+id/btn_book_read"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/read"
@@ -174,7 +174,8 @@
 
                 <HorizontalScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="200dp">
+                    android:layout_height="wrap_content"
+                    android:minHeight="200dp">
 
                     <LinearLayout
                         android:id="@+id/ll_book_characters"
@@ -215,6 +216,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_book_unlock"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:divider="@drawable/divider10dp"
