@@ -84,7 +84,8 @@
                     android:layoutDirection="inherit"
                     android:layoutMode="clipBounds"
                     android:nestedScrollingEnabled="false"
-                    tools:listitem="@layout/fragment_holder_container">
+                    tools:listitem="@layout/fragment_holder_container"
+                    android:descendantFocusability="beforeDescendants">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
