@@ -154,12 +154,14 @@ public class SearchFragment extends Fragment {
                 .enqueue(new Callback<ArrayList<InteractiveBook>>() {
             @Override
             public void onResponse(Call<ArrayList<InteractiveBook>> call, Response<ArrayList<InteractiveBook>> response) {
-                if(response.isSuccessful() && !response.body().isEmpty()) {
-                    interactiveBooks.addAll(response.body());
-                    bookAdapter.notifyDataSetChanged();
+                if(response.isSuccessful()) {
+                    if(!response.body().isEmpty()) {
+                        interactiveBooks.addAll(response.body());
+                        rvSearchResults.setAdapter(bookAdapter);
 
-                    flexboxSearchEmptyState.setVisibility(View.GONE);
-                    rvSearchResults.setVisibility(View.VISIBLE);
+                        flexboxSearchEmptyState.setVisibility(View.GONE);
+                        rvSearchResults.setVisibility(View.VISIBLE);
+                    }
                 } else {
                     flexboxSearchEmptyState.setVisibility(View.VISIBLE);
                     rvSearchResults.setVisibility(View.GONE);

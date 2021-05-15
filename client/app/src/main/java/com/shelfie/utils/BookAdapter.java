@@ -39,11 +39,14 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>  {
                 .getSupportFragmentManager();
         InteractiveBook interactiveBook = interactiveBooks.get(position);
         holder.fragmentContainerView.setId(View.generateViewId());
-        fragmentManager.beginTransaction().add(
-                holder.fragmentContainerView.getId(),
-                BookThumbnailFragment.newInstance(interactiveBook))
-                .commit();
-
+        BookThumbnailFragment bookThumbnailFragment = BookThumbnailFragment.newInstance(interactiveBook);
+        try {
+            fragmentManager.beginTransaction().add(
+                    holder.fragmentContainerView.getId(),
+                    bookThumbnailFragment).commit();
+        } catch (Exception e) {
+            System.out.println(interactiveBook.getInteractiveBookId() + "\n" + e);
+        }
     }
 
     @Override

@@ -53,6 +53,8 @@
     <string name="my_profile">Meu perfil</string>
     <string name="edit_guardian_user">Editar cadastro</string>
     <string name="edit_child_profiles">Editar perfis</string>
+    <string name="read">Ler</string>
+    <string name="unlock">Desbloquear</string>
 
     <!-- Images content description -->
     <string name="content_book_thumbnail">Miniatura do livro</string>
