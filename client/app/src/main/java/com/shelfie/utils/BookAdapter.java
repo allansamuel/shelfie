@@ -38,13 +38,12 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>  {
         FragmentManager fragmentManager = ((AppCompatActivity)holder.context)
                 .getSupportFragmentManager();
         InteractiveBook interactiveBook = interactiveBooks.get(position);
-        if(holder.fragmentContainerView != null) {
-            holder.fragmentContainerView.setId(View.generateViewId());
-            fragmentManager.beginTransaction().add(
-                    holder.fragmentContainerView.getId(),
-                    BookThumbnailFragment.newInstance(interactiveBook))
-                    .commit();
-        }
+        holder.fragmentContainerView.setId(View.generateViewId());
+        fragmentManager.beginTransaction().add(
+                holder.fragmentContainerView.getId(),
+                BookThumbnailFragment.newInstance(interactiveBook))
+                .commit();
+
     }
 
     @Override
