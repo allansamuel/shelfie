@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,11 +38,13 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>  {
         FragmentManager fragmentManager = ((AppCompatActivity)holder.context)
                 .getSupportFragmentManager();
         InteractiveBook interactiveBook = interactiveBooks.get(position);
-        holder.frameLayout.setId(View.generateViewId());
-        fragmentManager.beginTransaction().replace(
-                holder.frameLayout.getId(),
-                BookThumbnailFragment.newInstance(interactiveBook))
-                .commit();
+        if(holder.fragmentContainerView != null) {
+            holder.fragmentContainerView.setId(View.generateViewId());
+            fragmentManager.beginTransaction().add(
+                    holder.fragmentContainerView.getId(),
+                    BookThumbnailFragment.newInstance(interactiveBook))
+                    .commit();
+        }
     }
 
     @Override
@@ -51,11 +54,11 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder>  {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private Context context;
-        private FrameLayout frameLayout;
+        private FragmentContainerView fragmentContainerView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             context = itemView.getContext();
-            frameLayout = itemView.findViewById(R.id.fragment_holder_container);
+            fragmentContainerView = itemView.findViewById(R.id.fragment_holder_container);
         }
     }
 }

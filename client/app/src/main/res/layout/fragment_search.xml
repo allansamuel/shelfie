@@ -52,46 +52,23 @@
 
         </LinearLayout>
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/sv_search_results"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_search_results"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
+            android:descendantFocusability="beforeDescendants"
+            android:layoutDirection="inherit"
+            android:layoutMode="clipBounds"
+            android:nestedScrollingEnabled="false"
             android:paddingStart="32dp"
             android:paddingEnd="32dp"
-            android:visibility="gone">
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:scrollbars="vertical"
+            android:verticalScrollbarPosition="right"
+            android:visibility="gone"
+            tools:listitem="@layout/fragment_holder_container">
 
-            <com.google.android.flexbox.FlexboxLayout
-                android:id="@+id/flexbox_search_results"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:paddingTop="16dp"
-                app:alignContent="center"
-                app:alignItems="flex_start"
-                app:dividerDrawable="@drawable/divider10dp"
-                app:flexWrap="wrap"
-                app:justifyContent="space_between"
-                app:showDivider="middle"
-                app:showDividerHorizontal="middle"
-                app:showDividerVertical="middle">
-
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_search_results"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layoutDirection="inherit"
-                    android:layoutMode="clipBounds"
-                    android:nestedScrollingEnabled="false"
-                    tools:listitem="@layout/fragment_holder_container"
-                    android:descendantFocusability="beforeDescendants">
-
-                </androidx.recyclerview.widget.RecyclerView>
-
-            </com.google.android.flexbox.FlexboxLayout>
-
-        </androidx.core.widget.NestedScrollView>
+        </androidx.recyclerview.widget.RecyclerView>
 
         <com.google.android.flexbox.FlexboxLayout
             android:id="@+id/flexbox_search_empty_state"

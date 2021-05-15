@@ -60,7 +60,6 @@ public class ChildCoinsFragment extends Fragment {
 
     private void init() {
         View view = getView();
-
         imgLoggedChildProfileAvatar = view.findViewById(R.id.img_logged_child_avatar);
         tvLoggedChildProfileNickname = view.findViewById(R.id.tv_logged_child_nickname);
         tvLoggedChildProfileCoins = view.findViewById(R.id.tv_logged_child_coins);

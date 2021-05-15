@@ -53,9 +53,7 @@ public class SearchFragment extends Fragment {
     private TextInputLayout txtSearchBook;
     private TextInputEditText etSearchBook;
     private TextView tvSearchEmptyState;
-    private NestedScrollView svSearchResults;
     private FlexboxLayout flexboxSearchEmptyState;
-    private FlexboxLayout flexboxSearchResults;
     private RecyclerView rvSearchResults;
     private FlexboxLayoutManager flexboxLayoutManager;
     private ProgressBar progressSearchBook;
@@ -102,27 +100,30 @@ public class SearchFragment extends Fragment {
             };
         });
 
-        RecyclerView.OnScrollListener recyclerViewOnScrollListener = new RecyclerView.OnScrollListener() {
+        rvSearchResults.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                int visibleItemCount = flexboxLayoutManager.getChildCount();
-                int totalItemCount = flexboxLayoutManager.getItemCount();
-                int firstVisibleItemPosition = flexboxLayoutManager.findFirstVisibleItemPosition();
+                if (dy > 0) { //check for scroll down
+                    int visibleItemCount = flexboxLayoutManager.getChildCount();
+                    int totalItemCount = flexboxLayoutManager.getItemCount();
+                    int pastVisibleItems = flexboxLayoutManager.findFirstVisibleItemPosition();
 
-                if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
-                        && firstVisibleItemPosition >= 0
-                        && totalItemCount >= PAGE_SIZE) {
-                    pageNumber++;
-                    getInteractiveBooksResult(etSearchBook.getText().toString(), pageNumber);
+                    if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
+                        pageNumber++;
+                        getInteractiveBooksResult(etSearchBook.getText().toString(), pageNumber);
+                    }
+
                 }
             }
-        };
+        });
+
+        bookAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+            }
+        });
     }
 
     private void init() {
@@ -136,9 +137,7 @@ public class SearchFragment extends Fragment {
         txtSearchBook = view.findViewById(R.id.txt_search_book);
         etSearchBook = view.findViewById(R.id.et_search_book);
         tvSearchEmptyState = view.findViewById(R.id.tv_search_empty_state);
-        svSearchResults = view.findViewById(R.id.sv_search_results);
         flexboxSearchEmptyState = view.findViewById(R.id.flexbox_search_empty_state);
-        flexboxSearchResults = view.findViewById(R.id.flexbox_search_results);
         rvSearchResults = view.findViewById(R.id.rv_search_results);
         progressSearchBook = view.findViewById(R.id.progress_search_book);
 
@@ -156,15 +155,14 @@ public class SearchFragment extends Fragment {
             @Override
             public void onResponse(Call<ArrayList<InteractiveBook>> call, Response<ArrayList<InteractiveBook>> response) {
                 if(response.isSuccessful() && !response.body().isEmpty()) {
-                    flexboxSearchEmptyState.setVisibility(View.GONE);
-                    svSearchResults.setVisibility(View.VISIBLE);
-
                     interactiveBooks.addAll(response.body());
-                    rvSearchResults.setLayoutManager(flexboxLayoutManager);
-                    rvSearchResults.setAdapter(bookAdapter);
+                    bookAdapter.notifyDataSetChanged();
+
+                    flexboxSearchEmptyState.setVisibility(View.GONE);
+                    rvSearchResults.setVisibility(View.VISIBLE);
                 } else {
                     flexboxSearchEmptyState.setVisibility(View.VISIBLE);
-                    svSearchResults.setVisibility(View.GONE);
+                    rvSearchResults.setVisibility(View.GONE);
                     tvSearchEmptyState.setText(getString(R.string.empty_state_book_search_not_found));
                     tvSearchEmptyState.setCompoundDrawablesWithIntrinsicBounds(
                             0, 0, 0, R.drawable.cherry_list_is_empty);

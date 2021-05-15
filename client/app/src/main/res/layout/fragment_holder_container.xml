@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.fragment.app.FragmentContainerView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/fragment_holder_container"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
-
-</FrameLayout>
+</androidx.fragment.app.FragmentContainerView>

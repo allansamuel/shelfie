@@ -73,8 +73,6 @@ public class ManageChildProfileActivity extends FragmentActivity {
         btnUserSettings = findViewById(R.id.btn_user_settings);
 
         getChildProfiles();
-
-
     }
 
     private void addChildProfile() {
@@ -109,7 +107,6 @@ public class ManageChildProfileActivity extends FragmentActivity {
                     if(childProfiles.isEmpty()){
                         btnSaveUserProfiles.setEnabled(false);
                     }else{
-                        System.out.println(childProfiles.get(0));
                         btnSaveUserProfiles.setEnabled(true);
                     }
                 } else {
