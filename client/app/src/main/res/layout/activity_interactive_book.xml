@@ -24,6 +24,7 @@
                 android:id="@+id/img_book_cover"
                 android:layout_width="match_parent"
                 android:layout_height="240dp"
+                android:contentDescription="@string/content_book_cover"
                 android:scaleType="centerCrop" />
 
             <LinearLayout
@@ -49,10 +50,9 @@
 
                         <TextView
                             android:id="@+id/tv_book_title"
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="0.5"
-                            android:text="TextView"
                             android:textColor="@android:color/primary_text_light"
                             android:textSize="24sp"
                             android:textStyle="bold" />
@@ -93,12 +93,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
-                        android:text="TextView"
                         android:textColor="@android:color/primary_text_light" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:baselineAligned="false"
                         android:divider="@drawable/divider10dp"
                         android:orientation="horizontal"
                         android:showDividers="middle">
@@ -113,7 +113,7 @@
                                 android:id="@+id/textView11"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Autor"
+                                android:text="@string/label_book_author"
                                 android:textColor="@android:color/primary_text_light"
                                 android:textStyle="bold" />
 
@@ -121,7 +121,6 @@
                                 android:id="@+id/tv_book_authors"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="TextView"
                                 android:textColor="@android:color/primary_text_light" />
 
                         </LinearLayout>
@@ -136,7 +135,7 @@
                                 android:id="@+id/textView14"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Publicado em"
+                                android:text="@string/label_book_publish_date"
                                 android:textColor="@android:color/primary_text_light"
                                 android:textStyle="bold" />
 
@@ -144,7 +143,6 @@
                                 android:id="@+id/tv_book_publish_date"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="TextView"
                                 android:textColor="@android:color/primary_text_light" />
                         </LinearLayout>
                     </LinearLayout>
@@ -168,21 +166,22 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:drawablePadding="5dp"
-                    android:text="Personagens"
+                    android:text="@string/label_book_characters"
                     android:textAlignment="center"
                     android:textColor="@android:color/primary_text_light"
                     android:textStyle="bold"
                     app:drawableStartCompat="@drawable/sentiment_satisfied_alt_black_24dp" />
 
-                <ScrollView
+                <HorizontalScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="260dp">
+                    android:layout_height="200dp">
 
                     <LinearLayout
                         android:id="@+id/ll_book_characters"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </ScrollView>
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal" />
+                </HorizontalScrollView>
 
             </LinearLayout>
 
@@ -196,27 +195,22 @@
                 android:showDividers="middle">
 
                 <TextView
-                    android:id="@+id/textView16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:drawablePadding="5dp"
-                    android:text="Missões"
+                    android:text="@string/label_book_quests"
                     android:textAlignment="center"
                     android:textColor="@android:color/primary_text_light"
                     android:textStyle="bold"
                     app:drawableStartCompat="@drawable/beenhere_black_24dp" />
 
-                <ScrollView
+                <LinearLayout
+                    android:id="@+id/ll_book_quests"
                     android:layout_width="match_parent"
-                    android:layout_height="160dp">
-
-                    <LinearLayout
-                        android:id="@+id/ll_book_quests"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical" />
-                </ScrollView>
+                    android:layout_height="wrap_content"
+                    android:minHeight="160dp"
+                    android:orientation="vertical" />
 
             </LinearLayout>
 
@@ -240,7 +234,7 @@
                         android:id="@+id/textView17"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Você gostou do livro?"
+                        android:text="@string/label_book_did_you_like"
                         android:textAlignment="center"
                         android:textColor="@android:color/primary_text_light"
                         android:textStyle="bold" />
@@ -249,6 +243,7 @@
                         android:id="@+id/tv_book_chapters"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="@string/label_book_chapters_amount"
                         android:textAlignment="center"
                         android:textColor="@android:color/primary_text_light" />
                 </LinearLayout>
@@ -258,12 +253,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:drawableStart="@drawable/child_profile_coin"
-                    android:text="X"
                     android:textAlignment="center"
                     android:textColor="@color/yellow_600"
                     android:textSize="30sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    app:drawableStartCompat="@drawable/child_profile_coin" />
 
                 <Button
                     android:id="@+id/btn_book_unlock"

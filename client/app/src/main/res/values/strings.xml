@@ -25,7 +25,12 @@
     <string name="subtitle_manage_child_profile_add">Queremos conhecer você</string>
     <string name="empty_state_book_search">Procure por seus livros favoritos</string>
     <string name="empty_state_book_search_not_found">Não encontramos livros com esse nome</string>
-    <string name="label_interactive_book_chapters_amount">Você pode desbloquear seus %1$d capítulos por:</string>
+    <string name="label_book_did_you_like">Você gostou do livro?</string>
+    <string name="label_book_chapters_amount">Você pode desbloquear seus %1$d capítulos por:</string>
+    <string name="label_book_author">Autor</string>
+    <string name="label_book_publish_date">Publicado em</string>
+    <string name="label_book_characters">Personagens</string>
+    <string name="label_book_quests">Missões</string>
 
 
     <!-- Form -->
@@ -58,6 +63,7 @@
 
     <!-- Images content description -->
     <string name="content_book_thumbnail">Miniatura do livro</string>
+    <string name="content_book_cover">Ilustração da capa do livro</string>
     <string name="content_login_illustration">Fundo ilustrado com livros</string>
     <string name="content_form_illustration">Formulário</string>
     <string name="content_character">Personagem</string>
