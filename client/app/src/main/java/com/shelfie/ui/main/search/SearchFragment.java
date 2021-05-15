@@ -86,12 +86,12 @@ public class SearchFragment extends Fragment {
             }
 
             Runnable userStoppedTyping = new Runnable() {
+
                 @Override
                 public void run() {
                     String searchedTitle = etSearchBook.getText().toString();
                     interactiveBooks.clear();
                     flexboxSearchEmptyState.setVisibility(View.VISIBLE);
-                    progressSearchBook.setVisibility(View.VISIBLE);
 
                     if(searchedTitle.trim() != "" && searchedTitle.length() >= 3) {
                         getInteractiveBooksResult(searchedTitle, pageNumber);
@@ -100,15 +100,16 @@ public class SearchFragment extends Fragment {
             };
         });
 
-        svSearchResults.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if(scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
-                    pageNumber++;
-                    getInteractiveBooksResult(etSearchBook.getText().toString(), pageNumber);
-                }
-            }
-        });
+//        svSearchResults.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+//            @Override
+//            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+//                if(scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
+//                    System.out.println("Entrou na funçao");
+//                    pageNumber++;
+//                    getInteractiveBooksResult(etSearchBook.getText().toString(), pageNumber);
+//                }
+//            }
+//        });
     }
 
     private void init() {
@@ -136,19 +137,18 @@ public class SearchFragment extends Fragment {
     }
 
     private void getInteractiveBooksResult(String searchedTitle, int pageNumber) {
+        progressSearchBook.setVisibility(View.VISIBLE);
         interactiveBookService.getByTitle(searchedTitle.trim(), pageNumber)
                 .enqueue(new Callback<ArrayList<InteractiveBook>>() {
             @Override
             public void onResponse(Call<ArrayList<InteractiveBook>> call, Response<ArrayList<InteractiveBook>> response) {
-                if(response.isSuccessful()) {
-                    if(!response.body().isEmpty()) {
-                        flexboxSearchEmptyState.setVisibility(View.GONE);
-                        svSearchResults.setVisibility(View.VISIBLE);
+                if(response.isSuccessful() && !response.body().isEmpty()) {
+                    flexboxSearchEmptyState.setVisibility(View.GONE);
+                    svSearchResults.setVisibility(View.VISIBLE);
 
-                        interactiveBooks.addAll(response.body());
-                        rvSearchResults.setLayoutManager(flexboxLayoutManager);
-                        rvSearchResults.setAdapter(bookAdapter);
-                    }
+                    interactiveBooks.addAll(response.body());
+                    rvSearchResults.setLayoutManager(flexboxLayoutManager);
+                    rvSearchResults.setAdapter(bookAdapter);
                 } else {
                     flexboxSearchEmptyState.setVisibility(View.VISIBLE);
                     svSearchResults.setVisibility(View.GONE);
