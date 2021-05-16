@@ -24,6 +24,8 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 @Table(name = "child_profiles")
 public class ChildProfile {
 
+	public static final int DEFAULT_START_COINS = 500;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "child_profile_id")
@@ -34,7 +36,7 @@ public class ChildProfile {
 	private String  nickname;
 	
 	@Column(name = "coins")
-	private Integer coins = 0;
+	private Integer coins = DEFAULT_START_COINS;
 
 	@JsonProperty(access = Access.WRITE_ONLY)
 	@ManyToOne
