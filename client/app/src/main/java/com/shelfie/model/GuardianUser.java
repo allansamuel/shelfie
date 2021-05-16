@@ -66,6 +66,9 @@ public class GuardianUser implements Serializable {
         this.childProfiles = childProfiles;
     }
 
+    public void addChildProfile(ChildProfile childProfile) {
+        this.childProfiles.add(childProfile);
+    }
     @Override
     public String toString() {
         return "GuardianUser{" +

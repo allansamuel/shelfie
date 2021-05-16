@@ -13,10 +13,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.shelfie.R;
+import com.shelfie.ui.fragments.EmptyStateDialogFragment;
 import com.shelfie.utils.RetrofitConfig;
 import com.shelfie.model.ChildProfile;
 import com.shelfie.model.GuardianUser;
@@ -34,10 +37,14 @@ public class ManageChildProfileActivity extends FragmentActivity {
     private GuardianUser guardianUser;
     private List<ChildProfile> childProfiles;
     private GuardianUserService guardianUserService;
+
     private ConstraintLayout clAddChildProfileContainer;
     private CardView cvAddChildProfile;
     private Button btnSaveUserProfiles;
     private Button btnUserSettings;
+    private ProgressBar progressChildProfiles;
+    private TextView tvTitleManageChildProfiles;
+    private TextView tvSubtitleManageChildProfiles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +78,13 @@ public class ManageChildProfileActivity extends FragmentActivity {
         cvAddChildProfile = findViewById(R.id.cv_add_child_profile);
         btnSaveUserProfiles = findViewById(R.id.btn_save_user_profiles);
         btnUserSettings = findViewById(R.id.btn_user_settings);
+        progressChildProfiles = findViewById(R.id.progress_child_profiles);
+        tvTitleManageChildProfiles = findViewById(R.id.tv_title_manage_child_profiles);
+        tvSubtitleManageChildProfiles = findViewById(R.id.tv_subtitle_manage_child_profile);
+        if(UserSession.isFormInReadMode(getApplicationContext())) {
+            tvTitleManageChildProfiles.setText(getString(R.string.title_manage_child_profile_read));
+            tvSubtitleManageChildProfiles.setText(getString(R.string.subtitle_manage_child_profile_read));
+        }
 
         getChildProfiles();
     }
@@ -90,33 +104,37 @@ public class ManageChildProfileActivity extends FragmentActivity {
     }
 
     private void getChildProfiles() {
+        progressChildProfiles.setVisibility(View.VISIBLE);
         guardianUserService.getChildProfiles(guardianUser.getGuardianUserId())
             .enqueue(new Callback<ArrayList<ChildProfile>>() {
             @Override
             public void onResponse(Call<ArrayList<ChildProfile>> call, Response<ArrayList<ChildProfile>> response) {
                 if(response.isSuccessful()) {
                     childProfiles.addAll(response.body());
-                    mapChildProfiles();
+                    if(childProfiles.isEmpty()){
+                        btnSaveUserProfiles.setEnabled(false);
+                    }else{
+                        mapChildProfiles();
+                        btnSaveUserProfiles.setEnabled(true);
+                    }
+
                     if(UserSession.isFormInReadMode(getApplicationContext())) {
                         btnUserSettings.setVisibility(View.VISIBLE);
                     } else {
                         clAddChildProfileContainer.setVisibility(View.VISIBLE);
                         btnSaveUserProfiles.setVisibility(View.VISIBLE);
                     }
-
-                    if(childProfiles.isEmpty()){
-                        btnSaveUserProfiles.setEnabled(false);
-                    }else{
-                        btnSaveUserProfiles.setEnabled(true);
-                    }
                 } else {
                     Snackbar.make(getWindow().getDecorView().getRootView(), "caiu aqui", Snackbar.LENGTH_LONG).show();
                 }
+                progressChildProfiles.setVisibility(View.GONE);
             }
 
             @Override
             public void onFailure(Call<ArrayList<ChildProfile>> call, Throwable t) {
-                Snackbar.make(getWindow().getDecorView().getRootView(), t.getMessage(), Snackbar.LENGTH_LONG).show();
+                EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
+                emptyStateDialogFragment.show(getSupportFragmentManager(), "EmptyStateDialogFragment");
+                progressChildProfiles.setVisibility(View.GONE);
             }
         });
 
