@@ -25,13 +25,14 @@
     <HorizontalScrollView
         android:id="@+id/sv_category_books"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:minHeight="200dp"
+        android:visibility="invisible">
 
         <LinearLayout
             android:id="@+id/ll_category_books"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minHeight="200dp"
             android:orientation="horizontal" />
     </HorizontalScrollView>
 

@@ -115,6 +115,7 @@ public class CategoryBooksFragment extends Fragment {
             public void onResponse(Call<ArrayList<InteractiveBook>> call, Response<ArrayList<InteractiveBook>> response) {
                 if(response.isSuccessful()) {
                     mapCategoryBooks(response.body());
+                    svCategoryBooks.setVisibility(View.VISIBLE);
                 }
                 progressBookThumbnails.setVisibility(View.GONE);
             }
