@@ -42,6 +42,7 @@ public class HomeFragment extends Fragment {
     private CategoryBooksAdapter categoryBooksAdapter;
     int pageNumber = 1;
     private FragmentContainerView fragmentHomeChildProfileData;
+    private LinearLayoutManager linearLayoutManager;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -53,13 +54,27 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         init();
 
-        svHomeContainer.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+//        svHomeContainer.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+//            @Override
+//            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+//                if (scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
+//                    pageNumber++;
+//                    getCategories(pageNumber);
+//                }
+//            }
+//        });
+        rvCategoryBooks.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if (scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
-                    pageNumber++;
-                    progressCategoryBooksList.setVisibility(View.VISIBLE);
-                    getCategories(pageNumber);
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0) {
+                    int visibleItemCount = linearLayoutManager.getChildCount();
+                    int totalItemCount = linearLayoutManager.getItemCount();
+                    int pastVisibleItems = linearLayoutManager.findFirstVisibleItemPosition();
+                    if ((visibleItemCount + pastVisibleItems) >= totalItemCount) {
+                        pageNumber++;
+                        getCategories(pageNumber);
+                    }
                 }
             }
         });
@@ -76,28 +91,28 @@ public class HomeFragment extends Fragment {
 
         categories = new ArrayList<>();
         getCategories(pageNumber);
+        linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         categoryBooksAdapter = new CategoryBooksAdapter(categories);
-        rvCategoryBooks.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvCategoryBooks.setLayoutManager(linearLayoutManager);
         rvCategoryBooks.setAdapter(categoryBooksAdapter);
     }
 
     private void getCategories(int pageNumber) {
+        progressCategoryBooksList.setVisibility(View.VISIBLE);
         categoryService.getAll(pageNumber).enqueue(new Callback<ArrayList<Category>>() {
             @Override
             public void onResponse(Call<ArrayList<Category>> call, Response<ArrayList<Category>> response) {
                 if(response.isSuccessful() && response.body() != null) {
                     progressCategoryBooksList.setVisibility(View.GONE);
                     categories.addAll(response.body());
-                    categoryBooksAdapter = new CategoryBooksAdapter(categories);
-                    rvCategoryBooks.setAdapter(categoryBooksAdapter);
-                } else {
-
+                    categoryBooksAdapter.notifyDataSetChanged();
                 }
+                progressCategoryBooksList.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onFailure(Call<ArrayList<Category>> call, Throwable t) {
-
+                progressCategoryBooksList.setVisibility(View.INVISIBLE);
             }
         });
     }
