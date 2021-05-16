@@ -18,17 +18,21 @@
         android:id="@+id/progress_book_thumbnails"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:indeterminate="true" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_book_thumbnails"
+    <HorizontalScrollView
+        android:id="@+id/sv_category_books"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:nestedScrollingEnabled="false"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/fragment_holder_container" />
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/ll_category_books"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="200dp"
+            android:orientation="horizontal" />
+    </HorizontalScrollView>
 
 </LinearLayout>

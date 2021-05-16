@@ -37,7 +37,6 @@ public class SearchFragment extends Fragment {
 
     private RetrofitConfig retrofitConfig;
     private InteractiveBookService interactiveBookService;
-    private ArrayList<InteractiveBook> interactiveBooks;
 
     private TextInputLayout txtSearchBook;
     private TextInputEditText etSearchBook;
@@ -77,7 +76,6 @@ public class SearchFragment extends Fragment {
             Runnable userStoppedTyping = new Runnable() {
                 @Override
                 public void run() {
-                    interactiveBooks.clear();
                     flexboxSearchBookList.removeAllViews();
                     pageNumber = 1;
                     String searchedTitle = etSearchBook.getText().toString();
@@ -102,7 +100,6 @@ public class SearchFragment extends Fragment {
     private void init() {
         retrofitConfig = new RetrofitConfig();
         interactiveBookService = retrofitConfig.getInteractiveBookService();
-        interactiveBooks = new ArrayList<>();
         inputTypingHandler = new Handler();
 
         View view = getView();
