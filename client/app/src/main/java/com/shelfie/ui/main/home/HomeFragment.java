@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
@@ -21,28 +21,33 @@ import retrofit2.Response;
 
 import com.shelfie.R;
 import com.shelfie.model.ChildProfile;
+import com.shelfie.model.InteractiveBook;
+import com.shelfie.ui.fragments.BookThumbnailFragment;
+import com.shelfie.ui.fragments.CategoryBooksFragment;
 import com.shelfie.ui.fragments.ChildCoinsFragment;
-import com.shelfie.ui.fragments.ProfileAvatarFragment;
+import com.shelfie.ui.fragments.EmptyStateDialogFragment;
+import com.shelfie.utils.CategoryBooksAdapter;
 import com.shelfie.utils.RetrofitConfig;
 import com.shelfie.model.Category;
 import com.shelfie.service.CategoryService;
-import com.shelfie.utils.CategoryBooksAdapter;
 import com.shelfie.utils.UserSession;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
     private RetrofitConfig retrofitConfig;
     private CategoryService categoryService;
-    private NestedScrollView svHomeContainer;
-    private RecyclerView rvCategoryBooks;
+    private NestedScrollView svCategories;
+    private LinearLayout llCategories;
     private ProgressBar progressCategoryBooksList;
+    private FragmentContainerView fragmentHomeChildProfileData;
+    private LinearLayoutManager linearLayoutManager;
+    private RecyclerView rvCategoryBooks;
     private ArrayList<Category> categories;
     private CategoryBooksAdapter categoryBooksAdapter;
     int pageNumber = 1;
-    private FragmentContainerView fragmentHomeChildProfileData;
-    private LinearLayoutManager linearLayoutManager;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -54,15 +59,6 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         init();
 
-//        svHomeContainer.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-//            @Override
-//            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-//                if (scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
-//                    pageNumber++;
-//                    getCategories(pageNumber);
-//                }
-//            }
-//        });
         rvCategoryBooks.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -81,14 +77,16 @@ public class HomeFragment extends Fragment {
     }
 
     private void init() {
+        View view = getView();
         retrofitConfig = new RetrofitConfig();
         categoryService = retrofitConfig.getCategoryService();
-        svHomeContainer = getView().findViewById(R.id.sv_home_container);
-        rvCategoryBooks = getView().findViewById(R.id.rv_category_books);
-        progressCategoryBooksList = getView().findViewById(R.id.progress_category_books_list);
-        fragmentHomeChildProfileData = getView().findViewById(R.id.fragment_home_child_data_container);
-        setFlHomeChildProfileData();
+        svCategories = view.findViewById(R.id.sv_categories);
+        llCategories = view.findViewById(R.id.ll_categories);
+        progressCategoryBooksList = view.findViewById(R.id.progress_categories);
+        fragmentHomeChildProfileData = view.findViewById(R.id.fragment_home_child_data_container);
+        rvCategoryBooks = view.findViewById(R.id.rv_category_books);
 
+        setFlHomeChildProfileData();
         categories = new ArrayList<>();
         getCategories(pageNumber);
         linearLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
@@ -97,12 +95,13 @@ public class HomeFragment extends Fragment {
         rvCategoryBooks.setAdapter(categoryBooksAdapter);
     }
 
+
     private void getCategories(int pageNumber) {
         progressCategoryBooksList.setVisibility(View.VISIBLE);
         categoryService.getAll(pageNumber).enqueue(new Callback<ArrayList<Category>>() {
             @Override
             public void onResponse(Call<ArrayList<Category>> call, Response<ArrayList<Category>> response) {
-                if(response.isSuccessful() && response.body() != null) {
+                if(response.isSuccessful()) {
                     progressCategoryBooksList.setVisibility(View.GONE);
                     categories.addAll(response.body());
                     categoryBooksAdapter.notifyDataSetChanged();
@@ -112,7 +111,9 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ArrayList<Category>> call, Throwable t) {
-                progressCategoryBooksList.setVisibility(View.INVISIBLE);
+                EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
+                emptyStateDialogFragment.show(getActivity().getSupportFragmentManager(), "EmptyStateDialogFragment");
+                progressCategoryBooksList.setVisibility(View.GONE);
             }
         });
     }
