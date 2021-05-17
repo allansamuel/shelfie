@@ -10,6 +10,7 @@ import android.widget.Button;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.shelfie.R;
 import com.shelfie.ui.login.LoginActivity;
+import com.shelfie.ui.userregister.FormGuardianUserActivity;
 import com.shelfie.ui.userregister.ManageChildProfileActivity;
 import com.shelfie.utils.UserSession;
 
@@ -36,6 +37,14 @@ public class BottomSheetLayout extends BottomSheetDialogFragment {
             getActivity().finish();
             Intent intent = new Intent(getActivity().getApplicationContext(), LoginActivity.class);
             startActivity(intent);
+        });
+        btnEditGuardianUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UserSession.setFormInteractionMode(getActivity().getApplicationContext(), UserSession.EDIT_MODE);
+                Intent intent = new Intent(getActivity().getApplicationContext(), FormGuardianUserActivity.class);
+                startActivity(intent);
+            }
         });
     }
 

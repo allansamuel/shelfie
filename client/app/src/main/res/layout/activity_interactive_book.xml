@@ -47,6 +47,15 @@
                         android:orientation="horizontal"
                         android:showDividers="middle">
 
+                        <TextView
+                            android:id="@+id/tv_book_title"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:textColor="@android:color/primary_text_light"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
                         <Button
                             android:id="@+id/btn_book_read"
                             android:layout_width="wrap_content"
@@ -56,15 +65,6 @@
                             android:visibility="invisible"
                             app:icon="@drawable/play_16dp"
                             app:iconTint="@android:color/secondary_text_light" />
-
-                        <TextView
-                            android:id="@+id/tv_book_title"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.5"
-                            android:textColor="@android:color/primary_text_light"
-                            android:textSize="24sp"
-                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -85,6 +85,14 @@
                     android:divider="@drawable/divider10dp"
                     android:orientation="vertical"
                     android:showDividers="middle">
+
+                    <TextView
+                        android:id="@+id/tv_book_sinopsys"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:textColor="@android:color/primary_text_light" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -136,14 +144,6 @@
                         </LinearLayout>
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/tv_book_sinopsys"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="16dp"
-                        android:textColor="@android:color/primary_text_light" />
-
                 </LinearLayout>
 
             </LinearLayout>
@@ -158,6 +158,17 @@
                 android:paddingBottom="32dp"
                 android:showDividers="middle">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawablePadding="5dp"
+                    android:text="@string/label_book_characters"
+                    android:textAlignment="center"
+                    android:textColor="@android:color/primary_text_light"
+                    android:textStyle="bold"
+                    app:drawableStartCompat="@drawable/sentiment_satisfied_alt_black_24dp" />
+
                 <HorizontalScrollView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -170,17 +181,6 @@
                         android:orientation="horizontal" />
                 </HorizontalScrollView>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:drawablePadding="5dp"
-                    android:text="@string/label_book_characters"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/primary_text_light"
-                    android:textStyle="bold"
-                    app:drawableStartCompat="@drawable/sentiment_satisfied_alt_black_24dp" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -192,13 +192,6 @@
                 android:padding="32dp"
                 android:showDividers="middle">
 
-                <LinearLayout
-                    android:id="@+id/ll_book_quests"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="160dp"
-                    android:orientation="vertical" />
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -209,6 +202,13 @@
                     android:textColor="@android:color/primary_text_light"
                     android:textStyle="bold"
                     app:drawableStartCompat="@drawable/beenhere_black_24dp" />
+
+                <LinearLayout
+                    android:id="@+id/ll_book_quests"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="160dp"
+                    android:orientation="vertical" />
 
             </LinearLayout>
 

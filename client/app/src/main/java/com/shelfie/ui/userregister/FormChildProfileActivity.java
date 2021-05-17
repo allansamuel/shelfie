@@ -186,6 +186,7 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
                     Snackbar.make(getWindow().getDecorView().getRootView(), "nao rolou", Snackbar.LENGTH_LONG).show();
                 }
                 progressChildProfileSave.setVisibility(View.INVISIBLE);
+                finish();
             }
 
             @Override
@@ -208,6 +209,7 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
                     Snackbar.make(getWindow().getDecorView().getRootView(), "nao rolou", Snackbar.LENGTH_LONG).show();
                 }
                 progressChildProfileSave.setVisibility(View.INVISIBLE);
+                finish();
             }
 
             @Override
