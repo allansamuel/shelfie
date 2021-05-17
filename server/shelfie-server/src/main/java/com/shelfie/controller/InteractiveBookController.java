@@ -77,10 +77,11 @@ public class InteractiveBookController {
 			Pageable pageable = PageRequest.of(pageNumber, 8);
 			Page<InteractiveBook> page = interactiveBookRepository.findByTitleIgnoreCaseContaining(title, pageable);
 			List<InteractiveBook> books = page.getContent();
-			return ResponseEntity.ok().body(books);
+			
+			return page.isFirst() && page.isEmpty() ? 
+					ResponseEntity.notFound().build() : ResponseEntity.ok().body(books);
 			
 		}catch (Exception exception) {
-		
 			throw exception;
 		}
 	}

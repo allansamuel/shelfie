@@ -52,6 +52,25 @@
 
         </LinearLayout>
 
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/sv_search_book_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:paddingStart="32dp"
+            android:paddingEnd="32dp"
+            android:visibility="gone">
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/flexbox_search_book_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:flexWrap="wrap"
+                app:justifyContent="space_between" >
+
+            </com.google.android.flexbox.FlexboxLayout>
+        </androidx.core.widget.NestedScrollView>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_search_results"
             android:layout_width="match_parent"

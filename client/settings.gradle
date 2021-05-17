@@ -1,2 +1,4 @@
+include ':unityLibrary-debug'
+include ':launcher-debug'
 include ':app'
 rootProject.name = "Shelfie"

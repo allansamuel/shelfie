@@ -6,158 +6,144 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipChildren="false"
-        android:orientation="vertical"
-        tools:context=".ui.userregister.FormGuardianUserActivity">
+        android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/ll_form_guardian_user_title"
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="28dp"
+            android:baselineAligned="false"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:contentDescription="@string/content_form_illustration"
+                app:srcCompat="@drawable/sign_up_illustration" />
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="28dp"
-                android:baselineAligned="false"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:layout_weight="1"
+                android:text="@string/title_welcome_form_guardian_user"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/title_welcome_form_guardian_user"
-                    android:textAlignment="center"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:contentDescription="@string/content_form_illustration"
-                    app:srcCompat="@drawable/sign_up_illustration" />
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/subtitle_form_guardian_user"
-                    android:textAlignment="center" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_form_guardian_user"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="32dp"
-                android:divider="@drawable/divider10dp"
-                android:gravity="center_vertical"
-                android:orientation="vertical"
-                android:showDividers="middle">
+                android:layout_weight="1"
+                android:text="@string/subtitle_form_guardian_user"
+                android:textAlignment="center" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/txt_guardian_user_name"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_form_guardian_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp"
+            android:divider="@drawable/divider10dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:showDividers="middle">
+
+            <Button
+                android:id="@+id/btn_guardian_user_next"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/save"
+                app:strokeColor="@color/blue_400"
+                app:strokeWidth="2dp" />
+
+            <ProgressBar
+                android:id="@+id/progress_guardian_user_save"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:visibility="invisible" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txt_guardian_user_password"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                app:boxStrokeColor="@android:color/secondary_text_dark"
+                app:errorEnabled="true"
+                app:hintAnimationEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_guardian_user_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/name"
-                    app:boxStrokeColor="@android:color/secondary_text_dark"
-                    app:errorEnabled="true"
-                    app:hintAnimationEnabled="true">
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_guardian_user_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPersonName|textCapWords" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txt_guardian_user_password_confirm"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password_confirm"
+                app:boxStrokeColor="@android:color/secondary_text_dark"
+                app:errorEnabled="true">
 
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/txt_guardian_user_email"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_guardian_user_password_confirm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/email"
-                    app:boxStrokeColor="@android:color/secondary_text_dark"
-                    app:errorEnabled="true">
+                    android:inputType="textPassword" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_guardian_user_email"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textEmailAddress" />
-                </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/txt_guardian_user_password"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txt_guardian_user_name"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/name"
+                app:boxStrokeColor="@android:color/secondary_text_dark"
+                app:errorEnabled="true"
+                app:hintAnimationEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_guardian_user_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/password"
-                    app:boxStrokeColor="@android:color/secondary_text_dark"
-                    app:errorEnabled="true"
-                    app:hintAnimationEnabled="true">
+                    android:inputType="textPersonName|textCapWords" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_guardian_user_password"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPassword" />
-                </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/txt_guardian_user_password_confirm"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txt_guardian_user_email"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/email"
+                app:boxStrokeColor="@android:color/secondary_text_dark"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_guardian_user_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/password_confirm"
-                    app:boxStrokeColor="@android:color/secondary_text_dark"
-                    app:errorEnabled="true">
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_guardian_user_password_confirm"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textPassword" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <Button
-                    android:id="@+id/btn_guardian_user_next"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:text="@string/save"
-                    app:strokeColor="@color/blue_400"
-                    app:strokeWidth="2dp" />
-
-                <Button
-                    android:id="@+id/btn_guardian_user_delete"
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:text="@string/delete_profile"
-                    android:visibility="invisible"
-                    app:strokeColor="@color/blue_400"
-                    app:strokeWidth="2dp" />
-
-                <ProgressBar
-                    android:id="@+id/progress_guardian_user_save"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:indeterminate="true"
-                    android:visibility="invisible" />
-
-            </LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
 

@@ -1,27 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
+    android:divider="@drawable/divider10dp"
+    android:orientation="vertical"
+    android:padding="32dp"
+    android:showDividers="middle"
     tools:context=".ui.userregister.ManageChildProfileActivity">
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="32dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/flexbox_child_profiles"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_title_child_profile"
+            android:id="@+id/tv_title_manage_child_profiles"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/title_manage_child_profile_add"
@@ -36,22 +32,22 @@
             android:textAlignment="center" />
     </LinearLayout>
 
+    <ProgressBar
+        android:id="@+id/progress_child_profiles"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
     <com.google.android.flexbox.FlexboxLayout
         android:id="@+id/flexbox_child_profiles"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingStart="32dp"
-        android:paddingTop="16dp"
-        android:paddingEnd="32dp"
-        android:paddingBottom="32dp"
+        android:layout_weight="1"
         app:alignContent="flex_start"
         app:alignItems="flex_start"
         app:flexWrap="wrap"
-        app:justifyContent="space_between"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+        app:justifyContent="space_between">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -92,19 +88,10 @@
     </com.google.android.flexbox.FlexboxLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
         android:gravity="center_horizontal"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/flexbox_child_profiles">
+        android:orientation="vertical">
 
         <Button
             android:id="@+id/btn_save_user_profiles"
@@ -129,5 +116,4 @@
     </LinearLayout>
 
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

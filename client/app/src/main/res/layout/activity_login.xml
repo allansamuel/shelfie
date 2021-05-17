@@ -31,13 +31,13 @@
         android:textAlignment="center"
         android:textColor="@color/blue_400"
         app:drawableTopCompat="@drawable/shelfie_logo"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
+        app:layout_constraintBottom_toTopOf="@+id/ll_login_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/linearLayout6"
+        android:id="@+id/ll_login_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
