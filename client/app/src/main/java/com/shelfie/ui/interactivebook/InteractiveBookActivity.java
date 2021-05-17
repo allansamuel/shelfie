@@ -73,7 +73,9 @@ public class InteractiveBookActivity extends AppCompatActivity {
         tvBookSinopsys.setText(interactiveBook.getSinopsys());
         tvBookPublishDate.setText(formatPublishDate(interactiveBook.getPublishDate()));
         tvBookAuthors.setText(formatAuthors(interactiveBook.getBookAuthors()));
-        tvBookChapters.setText(getString(R.string.label_interactive_book_chapters_amount, interactiveBook.getChapters().size()));
+
+        tvBookChapters.setText(getString(R.string.label_book_chapters_amount, interactiveBook.getChapters().size()));
+
         tvBookPrice.setText(String.valueOf(interactiveBook.getPrice()));
         mapBookCategories();
         mapBookQuests();

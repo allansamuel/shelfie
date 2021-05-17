@@ -9,6 +9,7 @@
 
     <!-- Bundle -->
     <string name="key_guardian_user">KEY_GUARDIAN_USER</string>
+    <string name="arg_guardian_user">GUARDIAN_USER_DATA</string>
     <string name="arg_child_profile">CHILD_PROFILE_DATA</string>
     <string name="arg_interactive_book">INTERACTIVE_BOOK_DATA</string>
 
