@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +21,7 @@ import com.shelfie.model.InteractiveBook;
 import com.shelfie.model.Quest;
 import com.shelfie.ui.fragments.CharacterPreviewFragment;
 import com.shelfie.ui.fragments.QuestPreviewFragment;
+import com.shelfie.ui.unityholders.UHVitoriaRegiaActivity;
 import com.shelfie.utils.ImageDecoder;
 import com.shelfie.utils.UserSession;
 
@@ -66,6 +68,14 @@ public class InteractiveBookActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 unlockInteractiveBook();
+            }
+        });
+
+        btnBookRead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent openBook = new Intent(InteractiveBookActivity.this, UHVitoriaRegiaActivity.class);
+                startActivity(openBook);
             }
         });
     }
