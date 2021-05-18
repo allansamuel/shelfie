@@ -8,8 +8,6 @@ import com.shelfie.model.ChildProfile;
 import com.shelfie.model.GuardianUser;
 import com.shelfie.model.InteractiveBook;
 
-import java.util.ArrayList;
-
 public final class UserSession {
 
     public static final int REGISTER_MODE = 0;
@@ -41,7 +39,6 @@ public final class UserSession {
     public static void setGuardianUser(Context context, GuardianUser guardianUser){
         SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
-        guardianUser.setChildProfiles(new ArrayList<>());
         editor.putString(KEY_GUARDIAN_USER, new Gson().toJson(guardianUser));
         editor.commit();
     }

@@ -63,7 +63,6 @@ public class InteractiveBookController {
 					.findByTitleIgnoreCaseContainingOrBookCategories_CategoryNameIgnoreCaseContainingOrderByPublishDateDesc
 					(searchTerm, searchTerm, pageable);
 			List<InteractiveBook> books = page.getContent();
-			
 			return page.isFirst() && page.isEmpty() ? 
 					ResponseEntity.notFound().build() : ResponseEntity.ok().body(books);
 			

@@ -44,6 +44,7 @@ public class SearchFragment extends Fragment {
     private FlexboxLayout flexboxSearchEmptyState;
     private FlexboxLayout flexboxSearchBookList;
     private ProgressBar progressSearchBook;
+    private ProgressBar progressSearchNextPage;
     private Handler inputTypingHandler;
     private int pageNumber = 1;
 
@@ -85,13 +86,12 @@ public class SearchFragment extends Fragment {
             };
         });
 
-        svSearchBookList.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
-            @Override
-            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if(scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
-                    pageNumber++;
-                    getInteractiveBooksResult(etSearchBook.getText().toString(), pageNumber);
-                }
+        svSearchBookList.setOnScrollChangeListener(
+                (NestedScrollView.OnScrollChangeListener) (v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
+            if(scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
+                pageNumber++;
+                progressSearchNextPage.setVisibility(View.VISIBLE);
+                getInteractiveBooksResult(etSearchBook.getText().toString(), pageNumber);
             }
         });
     }
@@ -109,6 +109,7 @@ public class SearchFragment extends Fragment {
         flexboxSearchBookList = view.findViewById(R.id.flexbox_search_book_list);
         flexboxSearchEmptyState = view.findViewById(R.id.flexbox_search_empty_state);
         progressSearchBook = view.findViewById(R.id.progress_search_book);
+        progressSearchNextPage = view.findViewById(R.id.progress_search_next_page);
         svSearchBookList = view.findViewById(R.id.sv_search_book_list);
     }
 
@@ -125,7 +126,7 @@ public class SearchFragment extends Fragment {
         flexboxSearchEmptyState.setVisibility(View.GONE);
         progressSearchBook.setVisibility(View.VISIBLE);
 
-        interactiveBookService.getByTitle(searchedTitle.trim(), pageNumber)
+        interactiveBookService.getByTitleOrCategory(searchedTitle.trim(), pageNumber)
                 .enqueue(new Callback<ArrayList<InteractiveBook>>() {
             @Override
             public void onResponse(Call<ArrayList<InteractiveBook>> call, Response<ArrayList<InteractiveBook>> response) {
@@ -140,6 +141,7 @@ public class SearchFragment extends Fragment {
                     tvSearchEmptyState.setCompoundDrawablesWithIntrinsicBounds(
                             0, 0, 0, R.drawable.cherry_list_is_empty);
                 }
+                progressSearchNextPage.setVisibility(View.INVISIBLE);
                 progressSearchBook.setVisibility(View.INVISIBLE);
             }
 
@@ -147,6 +149,7 @@ public class SearchFragment extends Fragment {
             public void onFailure(Call<ArrayList<InteractiveBook>> call, Throwable t) {
                 EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
                 emptyStateDialogFragment.show(getActivity().getSupportFragmentManager(), "EmptyStateDialogFragment");
+                progressSearchNextPage.setVisibility(View.INVISIBLE);
                 progressSearchBook.setVisibility(View.INVISIBLE);
             }
         });

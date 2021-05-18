@@ -10,8 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="32dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="32dp">
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment_home_child_data_container"
@@ -21,32 +21,34 @@
 
         </androidx.fragment.app.FragmentContainerView>
 
-        <ProgressBar
-            android:id="@+id/progress_categories"
-            style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:indeterminate="true" />
-
     </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/sv_categories"
+        android:id="@+id/sv_interactive_books"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp">
 
         <LinearLayout
-            android:id="@+id/ll_categories"
+            android:id="@+id/ll_interactive_books"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_category_books"
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/flexbox_interactive_books"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:listitem="@layout/fragment_holder_container"/>
+                android:layout_height="wrap_content"
+                app:flexWrap="wrap" />
+
+            <ProgressBar
+                android:id="@+id/progress_interactive_books"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
