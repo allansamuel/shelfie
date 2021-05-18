@@ -43,6 +43,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private void verifyUserSession() {
         UserSession.setFormInteractionMode(getApplicationContext(), UserSession.READ_MODE);
+        UserSession.deleteChildProfile(getApplicationContext());
         new java.util.Timer().schedule(
                 new java.util.TimerTask() {
                     @Override

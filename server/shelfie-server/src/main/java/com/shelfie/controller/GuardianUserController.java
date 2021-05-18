@@ -76,7 +76,7 @@ public class GuardianUserController {
 	 
 	 guardianUser.setGuardianUserName(guardianUserDetails.getGuardianUserName());
 	 guardianUser.setGuardianUserEmail(guardianUserDetails.getGuardianUserEmail());
-	 guardianUser.setGuardianUserPassword(guardianUserDetails.getGuardianUserPassword());
+	 guardianUser.setGuardianUserPassword(hashPassword(guardianUserDetails.getGuardianUserPassword()));
 	 guardianUser.setChildProfiles(guardianUserDetails.getChildProfiles());
 	 
 	 final GuardianUser updatedGuardianUser = guardianUserRepository.save(guardianUser);

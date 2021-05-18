@@ -1,24 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clipChildren="false"
-    android:orientation="vertical"
-    tools:context=".ui.userregister.FormGuardianUserActivity">
+    android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/ll_form_guardian_user_title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="28dp"
-        android:baselineAligned="false"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="32dp">
 
         <ImageView
             android:layout_width="150dp"
@@ -42,19 +33,10 @@
             android:text="@string/subtitle_form_guardian_user"
             android:textAlignment="center" />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_form_guardian_user"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
-        android:divider="@drawable/divider10dp"
-        android:gravity="center_vertical"
-        android:orientation="vertical"
-        android:showDividers="middle">
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="match_parent"
+            android:layout_height="32dp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/txt_guardian_user_name"
@@ -141,6 +123,20 @@
             app:strokeColor="@color/blue_400"
             app:strokeWidth="2dp" />
 
+        <Button
+            android:id="@+id/btn_guardian_user_delete"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_close_black_18dp"
+            android:text="@string/delete_profile"
+            android:textAllCaps="false"
+            android:textColor="@color/gray_600"
+            android:visibility="gone"
+            app:icon="@drawable/ic_close_black_18dp"
+            app:iconGravity="textStart"
+            app:iconTint="@color/gray_600" />
+
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>

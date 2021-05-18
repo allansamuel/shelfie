@@ -38,13 +38,19 @@ public class BottomSheetLayout extends BottomSheetDialogFragment {
             Intent intent = new Intent(getActivity().getApplicationContext(), LoginActivity.class);
             startActivity(intent);
         });
-        btnEditGuardianUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                UserSession.setFormInteractionMode(getActivity().getApplicationContext(), UserSession.EDIT_MODE);
-                Intent intent = new Intent(getActivity().getApplicationContext(), FormGuardianUserActivity.class);
-                startActivity(intent);
-            }
+
+        btnEditGuardianUser.setOnClickListener(view12 -> {
+            UserSession.setFormInteractionMode(getActivity().getApplicationContext(), UserSession.EDIT_MODE);
+            getActivity().finish();
+            Intent intent = new Intent(requireActivity().getApplicationContext(), FormGuardianUserActivity.class);
+            startActivity(intent);
+        });
+
+        btnEditChildProfiles.setOnClickListener(view13 -> {
+            UserSession.setFormInteractionMode(getActivity().getApplicationContext(), UserSession.EDIT_MODE);
+            getActivity().finish();
+            Intent intent = new Intent(requireActivity().getApplicationContext(), ManageChildProfileActivity.class);
+            startActivity(intent);
         });
     }
 

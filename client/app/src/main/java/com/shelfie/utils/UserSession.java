@@ -2,12 +2,15 @@ package com.shelfie.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.icu.lang.UScript;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.shelfie.model.ChildProfile;
 import com.shelfie.model.GuardianUser;
 import com.shelfie.model.InteractiveBook;
+
+import java.util.ArrayList;
 
 public final class UserSession {
 
@@ -40,6 +43,7 @@ public final class UserSession {
     public static void setGuardianUser(Context context, GuardianUser guardianUser){
         SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
+        guardianUser.setChildProfiles(new ArrayList<>());
         editor.putString(KEY_GUARDIAN_USER, new Gson().toJson(guardianUser));
         editor.commit();
     }
@@ -112,4 +116,17 @@ public final class UserSession {
             return new Gson().fromJson(childProfileJson, ChildProfile.class);
         return null;
     }
+
+
+
+
+
+    public static void deleteChildProfile(Context context){
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.remove(KEY_CHILD_PROFILE);
+        editor.commit();
+    }
+
+
 }

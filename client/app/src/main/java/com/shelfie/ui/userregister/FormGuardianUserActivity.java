@@ -20,6 +20,7 @@ import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.Password;
 import com.shelfie.R;
+import com.shelfie.model.ChildProfile;
 import com.shelfie.utils.RetrofitConfig;
 import com.shelfie.model.GuardianUser;
 import com.shelfie.service.GuardianUserService;
@@ -41,6 +42,7 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
     private TextInputLayout txtGuardianUserPassword;
     private TextInputLayout txtGuardianUserPasswordConfirm;
     private Button btnGuardianUserNext;
+    private Button btnGuardianUserDelete;
     private ProgressBar progressGuardianUserSave;
 
     @Length(messageResId = R.string.error_invalid_name_length, min = 3, max = 50, trim = true)
@@ -66,15 +68,15 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
             resetErrors();
             formValidator.validate();
         });
+
+
+
     }
 
     private void init() {
         guardianUser = new GuardianUser();
         retrofitConfig = new RetrofitConfig();
         guardianUserService = retrofitConfig.getGuardianUserService();
-        if(UserSession.isFormInEditMode(getApplicationContext())) {
-            guardianUser = UserSession.getGuardianUser(getApplicationContext());
-        }
 
         formValidator = new Validator(this);
         formValidator.setValidationListener(this);
@@ -87,7 +89,16 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
         txtGuardianUserPasswordConfirm = findViewById(R.id.txt_guardian_user_password_confirm);
         etGuardianUserPasswordConfirm = findViewById(R.id.et_guardian_user_password_confirm);
         btnGuardianUserNext = findViewById(R.id.btn_guardian_user_next);
+        btnGuardianUserDelete = findViewById(R.id.btn_guardian_user_delete);
         progressGuardianUserSave = findViewById(R.id.progress_guardian_user_save);
+
+        if(UserSession.isFormInEditMode(getApplicationContext())){
+            guardianUser = UserSession.getGuardianUser(getApplicationContext());
+            etGuardianUserName.setText(guardianUser.getGuardianUserName());
+            etGuardianUserEmail.setText(guardianUser.getGuardianUserEmail());
+            btnGuardianUserDelete.setVisibility(View.VISIBLE);
+        }
+
     }
 
     private void createGuardianUser() {
