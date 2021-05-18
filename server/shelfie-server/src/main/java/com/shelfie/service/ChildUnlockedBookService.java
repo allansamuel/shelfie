@@ -1,5 +1,7 @@
 package com.shelfie.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,25 +25,44 @@ public class ChildUnlockedBookService {
 	@Autowired
 	private ChildProfileRepository childProfileRepository;
 	
+	@Autowired
+	private ChildProfileService childProfileService;
+	
+	public Optional<ChildUnlockedBook> getByChildAndBook(Integer childProfileId, Integer interactiveBookId) throws Exception {
+		
+		 return childUnlockedBookRepository
+				.findByChildProfile_ChildProfileIdAndInteractiveBook_InteractiveBookId(childProfileId, interactiveBookId);
+		
+	}
+	
 	public ChildProfile unlock(Integer childProfileId, InteractiveBook interactiveBookBody) throws Exception{
 		
-		ChildProfile childProfile = childProfileRepository.findById(childProfileId)
-				.orElseThrow(() -> new NotFoundException("not found"));
+		System.out.println(getByChildAndBook(childProfileId, interactiveBookBody.getInteractiveBookId()));
 		
-		if(childProfile.getCoins() >= interactiveBookBody.getPrice()) {
+		if(getByChildAndBook(childProfileId, interactiveBookBody.getInteractiveBookId()).isEmpty() ) {
 		
+			ChildProfile childProfile = childProfileRepository.findById(childProfileId)
+					.orElseThrow(() -> new NotFoundException("not found"));
 			
-			ChildUnlockedBook childUnlockedBook = new ChildUnlockedBook();
+			if(childProfile.getCoins() >= interactiveBookBody.getPrice()) {
 			
-			childUnlockedBook.setChildProfile(childProfile);
-			childUnlockedBook.setInteractiveBook(interactiveBookBody);
-			
-			childUnlockedBook = childUnlockedBookRepository.save(childUnlockedBook);
-			
-			return childProfile;
-			
+				
+				ChildUnlockedBook childUnlockedBook = new ChildUnlockedBook();
+				
+				childUnlockedBook.setChildProfile(childProfile);
+				childUnlockedBook.setInteractiveBook(interactiveBookBody);
+				
+				childUnlockedBook = childUnlockedBookRepository.save(childUnlockedBook);
+				
+				childProfileService.updateCoins(childProfileId, -interactiveBookBody.getPrice());
+				
+				return childProfile;
+				
+			}else {
+				throw new NotAcceptableStatusException("not enough coins");
+			}
 		}else {
-			throw new NotAcceptableStatusException("not enough coins");
+			throw new NotAcceptableStatusException("already");
 		}
 	}
 }
