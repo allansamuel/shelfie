@@ -6,11 +6,11 @@
     <color name="gray_600">#FF757575</color>
     <color name="gray_900">#252525</color>
     <color name="grayed_blue_200">#D6E3F1</color>
-    <color name="grayed_blue_400">#A6B9C5</color>
+    <color name="grayed_blue_400">#B4CEDE</color>
     <color name="blue_200">#B5F2FF</color>
     <color name="blue_400">#1391D8</color>
     <color name="blue_600">#05558E</color>
-    <color name="green_400">#2FE462</color>
+    <color name="green_400">#34F280</color>
     <color name="yellow_400">#FFDE69</color>
     <color name="yellow_600">#F6AB40</color>
 </resources>

@@ -77,8 +77,9 @@ public class QuestPreviewFragment extends Fragment {
     private void setQuestCompleteStyle() {
         cvQuestPreviewContainer.setCardBackgroundColor(getContext().getColor(R.color.green_400));
         imgQuestIcon.setImageDrawable(getContext().getDrawable(R.drawable.quest_icon_finished));
-        tvQuestTitle.setTextColor(getContext().getColor(R.color.design_default_color_on_primary));
-        tvQuestDescription.setTextColor(getContext().getColor(R.color.design_default_color_on_primary));
+        tvQuestTitle.setTextColor(getContext().getColor(R.color.white));
+        tvQuestDescription.setTextColor(getContext().getColor(R.color.white));
+        tvQuestReward.setTextColor(getContext().getColor(R.color.white));
         tvQuestReward.setCompoundDrawablesWithIntrinsicBounds
                 (null, null, getContext().getDrawable(R.drawable.child_profile_coin_outlined), null);
     }
