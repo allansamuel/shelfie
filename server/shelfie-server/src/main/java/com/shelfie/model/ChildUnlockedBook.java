@@ -11,13 +11,13 @@ import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "child_saved_books")
-public class ChildSavedBook {
+@Table(name = "child_unlocked_books")
+public class ChildUnlockedBook {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "child_saved_book_id")
-	private Integer childSavedBookId;
+	@Column(name = "child_unlocked_book_id")
+	private Integer childUnluckedBookId;
 	
 	@ManyToOne
 	@JoinColumn(name = "child_profile_id")
@@ -26,29 +26,24 @@ public class ChildSavedBook {
 	@ManyToOne
 	@JoinColumn(name = "interactive_book_id")
 	private InteractiveBook interactiveBook;
-	
-	@Column(name = "chapter_id")
-	private Integer chapterId;
 
-	public ChildSavedBook() {
+	public ChildUnlockedBook() {
 		super();
 	}
 
-	public ChildSavedBook(Integer childSavedBookId, ChildProfile childProfile, InteractiveBook interactiveBook,
-			Integer chapterId) {
+	public ChildUnlockedBook(Integer childUnluckedBookId, ChildProfile childProfile, InteractiveBook interactiveBook) {
 		super();
-		this.childSavedBookId = childSavedBookId;
+		this.childUnluckedBookId = childUnluckedBookId;
 		this.childProfile = childProfile;
 		this.interactiveBook = interactiveBook;
-		this.chapterId = chapterId;
 	}
 
-	public Integer getChildSavedBookId() {
-		return childSavedBookId;
+	public Integer getChildUnluckedBookId() {
+		return childUnluckedBookId;
 	}
 
-	public void setChildSavedBookId(Integer childSavedBookId) {
-		this.childSavedBookId = childSavedBookId;
+	public void setChildUnluckedBookId(Integer childUnluckedBookId) {
+		this.childUnluckedBookId = childUnluckedBookId;
 	}
 
 	public ChildProfile getChildProfile() {
@@ -65,14 +60,6 @@ public class ChildSavedBook {
 
 	public void setInteractiveBook(InteractiveBook interactiveBook) {
 		this.interactiveBook = interactiveBook;
-	}
-
-	public Integer getChapterId() {
-		return chapterId;
-	}
-
-	public void setChapterId(Integer chapterId) {
-		this.chapterId = chapterId;
 	}
 
 }
