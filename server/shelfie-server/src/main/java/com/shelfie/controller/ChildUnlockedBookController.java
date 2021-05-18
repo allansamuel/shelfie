@@ -9,39 +9,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shelfie.model.ChildProfile;
-import com.shelfie.model.ChildUnlockedBook;
 import com.shelfie.model.InteractiveBook;
-import com.shelfie.repository.ChildProfileRepository;
-import com.shelfie.repository.ChildUnlockedBookRepository;
+import com.shelfie.service.ChildUnlockedBookService;
 
-import javassist.NotFoundException;
 
 @RestController
-@RequestMapping("child_unlocked_book")
+@RequestMapping("child_unlocked_books")
 public class ChildUnlockedBookController {
 	
 	@Autowired
-	private ChildUnlockedBookRepository childUnlockedBookRepository;
-	
-	@Autowired
-	private ChildProfileRepository childProfileRepository;
+	private ChildUnlockedBookService childUnlockedBookService ;
 	
 	@PostMapping("child_profile/{id}/unlock_book")
-	public ResponseEntity<ChildProfile> create( @PathVariable Integer id, @RequestBody InteractiveBook interactiveBookBody) 
+	public ResponseEntity<ChildProfile> unlock( @PathVariable Integer id, @RequestBody InteractiveBook interactiveBookBody) 
 			throws Exception {
 		
 		try {
-			ChildProfile childProfile = childProfileRepository.findById(id)
-					.orElseThrow(() -> new NotFoundException("not found"));
+			return ResponseEntity.ok(childUnlockedBookService.unlock(id, interactiveBookBody));
 			
-			ChildUnlockedBook childUnlockedBook = new ChildUnlockedBook();
-			
-			childUnlockedBook.setChildProfile(childProfile);
-			childUnlockedBook.setInteractiveBook(interactiveBookBody);
-			
-			childUnlockedBook = childUnlockedBookRepository.save(childUnlockedBook);
-			
-			return ResponseEntity.ok().body(childProfile);
 		} catch (Exception exception) {
 			throw exception;
 		}
