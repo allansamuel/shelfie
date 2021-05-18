@@ -21,9 +21,6 @@ import retrofit2.Response;
 
 import com.shelfie.R;
 import com.shelfie.model.ChildProfile;
-import com.shelfie.model.InteractiveBook;
-import com.shelfie.ui.fragments.BookThumbnailFragment;
-import com.shelfie.ui.fragments.CategoryBooksFragment;
 import com.shelfie.ui.fragments.ChildCoinsFragment;
 import com.shelfie.ui.fragments.EmptyStateDialogFragment;
 import com.shelfie.utils.CategoryBooksAdapter;
@@ -33,7 +30,6 @@ import com.shelfie.service.CategoryService;
 import com.shelfie.utils.UserSession;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class HomeFragment extends Fragment {
 

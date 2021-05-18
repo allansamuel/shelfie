@@ -24,7 +24,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.shelfie.R;
 import com.shelfie.ui.fragments.EmptyStateDialogFragment;
-import com.shelfie.utils.BookAdapter;
 import com.shelfie.utils.RetrofitConfig;
 import com.shelfie.model.InteractiveBook;
 import com.shelfie.service.InteractiveBookService;

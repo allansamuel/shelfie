@@ -4,14 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
-import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.shelfie.R;
-import com.shelfie.model.GuardianUser;
 import com.shelfie.ui.userregister.ManageChildProfileActivity;
 import com.shelfie.utils.UserSession;
 

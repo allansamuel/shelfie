@@ -1,8 +1,6 @@
 package com.shelfie.utils;
 
 
-import com.shelfie.R;
-import com.shelfie.model.InteractiveBook;
 import com.shelfie.service.CategoryService;
 import com.shelfie.service.CharacterService;
 import com.shelfie.service.ChildProfileService;

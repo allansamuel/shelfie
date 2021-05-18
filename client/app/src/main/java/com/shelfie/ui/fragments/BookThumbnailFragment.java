@@ -1,7 +1,6 @@
 package com.shelfie.ui.fragments;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,7 +8,6 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-import android.os.PersistableBundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +17,7 @@ import com.shelfie.R;
 import com.shelfie.ui.interactivebook.InteractiveBookActivity;
 import com.shelfie.utils.ImageDecoder;
 import com.shelfie.model.InteractiveBook;
-import com.shelfie.ui.main.MainActivity;
 import com.shelfie.utils.UserSession;
-
-import java.io.ByteArrayOutputStream;
 
 public class BookThumbnailFragment extends Fragment {
 

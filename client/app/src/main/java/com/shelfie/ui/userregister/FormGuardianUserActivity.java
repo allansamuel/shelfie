@@ -20,7 +20,6 @@ import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.Password;
 import com.shelfie.R;
-import com.shelfie.model.ChildProfile;
 import com.shelfie.utils.RetrofitConfig;
 import com.shelfie.model.GuardianUser;
 import com.shelfie.service.GuardianUserService;

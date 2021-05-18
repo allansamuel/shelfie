@@ -2,8 +2,6 @@ package com.shelfie.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.icu.lang.UScript;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.shelfie.model.ChildProfile;
