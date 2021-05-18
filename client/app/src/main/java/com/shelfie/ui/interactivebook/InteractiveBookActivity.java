@@ -34,7 +34,6 @@ public class InteractiveBookActivity extends AppCompatActivity {
 
     private ChildProfile childProfile;
     private SimpleDateFormat dateFormatter;
-    private Bundle receivedBundle;
     private InteractiveBook interactiveBook;
 
     private ImageView imgBookCover;
@@ -45,7 +44,7 @@ public class InteractiveBookActivity extends AppCompatActivity {
     private TextView tvBookChapters;
     private TextView tvBookPrice;
     private TextView tvChildCurrentCoinsAmount;
-    private LinearLayout llBookCategories;
+    private TextView tvBookCategories;
     private LinearLayout llBookCharacters;
     private LinearLayout llBookQuests;
     private LinearLayout llBookUnlock;
@@ -53,8 +52,6 @@ public class InteractiveBookActivity extends AppCompatActivity {
     private Button btnBookRead;
 
     private boolean isBookUnlocked = false;
-
-    private List<Category> bookCategories;
     private List<Character> bookCharacters;
     private List<Quest> bookQuests;
 
@@ -64,25 +61,16 @@ public class InteractiveBookActivity extends AppCompatActivity {
         setContentView(R.layout.activity_interactive_book);
         init();
 
-        btnBookUnlock.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                unlockInteractiveBook();
-            }
-        });
+        btnBookUnlock.setOnClickListener(view -> unlockInteractiveBook());
 
-        btnBookRead.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent openBook = new Intent(InteractiveBookActivity.this, UHVitoriaRegiaActivity.class);
-                startActivity(openBook);
-            }
+        btnBookRead.setOnClickListener(view -> {
+            Intent openBook = new Intent(InteractiveBookActivity.this, UHVitoriaRegiaActivity.class);
+            startActivity(openBook);
         });
     }
 
     private void init() {
         childProfile = UserSession.getChildProfile(getApplicationContext());
-        receivedBundle = getIntent().getExtras();
         interactiveBook = UserSession.getInteractiveBook(getApplicationContext());
 
         imgBookCover = findViewById(R.id.img_book_cover);
@@ -93,7 +81,7 @@ public class InteractiveBookActivity extends AppCompatActivity {
         tvBookChapters = findViewById(R.id.tv_book_chapters);
         tvBookPrice = findViewById(R.id.tv_book_price);
         tvChildCurrentCoinsAmount = findViewById(R.id.tv_child_current_coins_amount);
-        llBookCategories = findViewById(R.id.ll_book_categories);
+        tvBookCategories = findViewById(R.id.tv_book_categories);
         llBookCharacters = findViewById(R.id.ll_book_characters);
         llBookQuests = findViewById(R.id.ll_book_quests);
         llBookUnlock = findViewById(R.id.ll_book_unlock);
@@ -103,24 +91,21 @@ public class InteractiveBookActivity extends AppCompatActivity {
         imgBookCover.setImageBitmap(ImageDecoder.decodeBase64(interactiveBook.getBookCover()));
         tvBookTitle.setText(interactiveBook.getTitle());
         tvBookSinopsys.setText(interactiveBook.getSinopsys());
+        tvBookCategories.setText(mapBookCategories(interactiveBook.getBookCategories()));
         tvBookPublishDate.setText(formatPublishDate(interactiveBook.getPublishDate()));
-        tvBookAuthors.setText(formatAuthors(interactiveBook.getBookAuthors()));
+        tvBookAuthors.setText(mapBookAuthors(interactiveBook.getBookAuthors()));
         tvBookChapters.setText(getString(R.string.label_book_chapters_amount, interactiveBook.getChapters().size()));
         tvBookPrice.setText(String.valueOf(interactiveBook.getPrice()));
         tvChildCurrentCoinsAmount.setText(getString(R.string.label_book_child_current_coins_amount, childProfile.getCoins()));
         if(childProfile.getCoins() >= interactiveBook.getPrice()) {
-            btnBookUnlock.setEnabled(true);
+            btnBookUnlock.setVisibility(View.VISIBLE);
         }
-
-        bookCategories = new ArrayList<>();
-        bookCategories.addAll(interactiveBook.getBookCategories());
 
         bookQuests = new ArrayList<>();
         bookQuests.addAll(interactiveBook.getQuests());
 
         bookCharacters = new ArrayList<>();
         bookCharacters.addAll(interactiveBook.getCharacters());
-        mapBookCategories();
         mapBookQuests();
         mapBookCharacters();
 
@@ -145,15 +130,18 @@ public class InteractiveBookActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    private void mapBookCategories() {
+    private String mapBookCategories(List<Category> categories) {
+        String formattedCategories = "";
+        for(Category category : categories) {
+            formattedCategories = formattedCategories.concat(category.getCategoryName());
+            if(categories.indexOf(category) != categories.size() - 1) {
+                formattedCategories = formattedCategories.concat(", ");
+            }
+        }
+        return formattedCategories;
     }
 
-    private String formatPublishDate(Date date) {
-        dateFormatter = new SimpleDateFormat(getString(R.string.date_formatter));
-        return dateFormatter.format(date);
-    }
-
-    private String formatAuthors(List<Author> authors) {
+    private String mapBookAuthors(List<Author> authors) {
         String formattedAuthors = "";
         for(Author author : authors) {
             formattedAuthors = formattedAuthors.concat(author.getAuthorName());
@@ -162,6 +150,11 @@ public class InteractiveBookActivity extends AppCompatActivity {
             }
         }
         return formattedAuthors;
+    }
+
+    private String formatPublishDate(Date date) {
+        dateFormatter = new SimpleDateFormat(getString(R.string.date_formatter));
+        return dateFormatter.format(date);
     }
 
     private void unlockInteractiveBook() {
