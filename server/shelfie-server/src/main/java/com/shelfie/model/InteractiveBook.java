@@ -29,7 +29,8 @@ public class InteractiveBook {
 	@Lob
 	@Column (name = "book_cover")
 	private byte[] bookCover;
-	
+
+	@NotNull
 	@Column (name = "sinopsys", length = 800)
 	private String sinopsys;
 
@@ -44,6 +45,10 @@ public class InteractiveBook {
 	@NotNull
 	@Column (name = "title", length = 255)
 	private String title;
+	
+	@NotNull
+	@Column (name = "package_reference", length = 255)
+	private String packageReference;
 
 	@OneToMany(
 			mappedBy = "interactiveBook",
@@ -73,13 +78,6 @@ public class InteractiveBook {
 			inverseJoinColumns = {@JoinColumn(name = "category_id")}
 			)
 	private List<Category> bookCategories;
-	
-	@OneToMany(
-			mappedBy = "interactiveBook",
-	        cascade = CascadeType.ALL,
-	        orphanRemoval = true
-	        )
-	private List<ChildSavedBook> childSavedBooks;
 
 	@ManyToMany
 	@JoinTable(
@@ -93,9 +91,10 @@ public class InteractiveBook {
 		super();
 	}
 
-	public InteractiveBook(Integer interactiveBookId, byte[] bookCover, String sinopsys, Date publishDate, Integer price,
-			String title, List<Chapter> chapters, List<Character> characters, List<Quest> quests,
-			List<Category> bookCategories, List<Author> bookAuthors) {
+	public InteractiveBook(Integer interactiveBookId, byte[] bookCover, @NotNull String sinopsys,
+			@NotNull Date publishDate, @NotNull Integer price, @NotNull String title, @NotNull String packageReference,
+			List<Chapter> chapters, List<Character> characters, List<Quest> quests, List<Category> bookCategories, 
+			List<Author> bookAuthors) {
 		super();
 		this.interactiveBookId = interactiveBookId;
 		this.bookCover = bookCover;
@@ -103,6 +102,7 @@ public class InteractiveBook {
 		this.publishDate = publishDate;
 		this.price = price;
 		this.title = title;
+		this.packageReference = packageReference;
 		this.chapters = chapters;
 		this.characters = characters;
 		this.quests = quests;
@@ -156,6 +156,14 @@ public class InteractiveBook {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}	
+	
+	public String getPackageReference() {
+		return packageReference;
+	}
+
+	public void setPackageReference(String packageReference) {
+		this.packageReference = packageReference;
 	}
 
 	public List<Chapter> getChapters() {

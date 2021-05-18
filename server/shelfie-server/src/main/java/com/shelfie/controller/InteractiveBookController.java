@@ -68,14 +68,16 @@ public class InteractiveBookController {
 		}
 	}
 	
-	@GetMapping("title/{title}/page/{pageNumber}")
-	public ResponseEntity<List<InteractiveBook>> getByTitle(@PathVariable String title, @PathVariable int pageNumber) throws Exception {
+	@GetMapping("search/{searchTerm}/page/{pageNumber}")
+	public ResponseEntity<List<InteractiveBook>> getByTitle(@PathVariable String searchTerm, @PathVariable int pageNumber) throws Exception {
 		
 		try {
 			
 			pageNumber = pageNumber -1;
 			Pageable pageable = PageRequest.of(pageNumber, 8);
-			Page<InteractiveBook> page = interactiveBookRepository.findByTitleIgnoreCaseContaining(title, pageable);
+			Page<InteractiveBook> page = interactiveBookRepository
+					.findByTitleIgnoreCaseContainingOrBookCategories_CategoryNameIgnoreCaseContainingOrderByPublishDateDesc
+					(searchTerm, searchTerm, pageable);
 			List<InteractiveBook> books = page.getContent();
 			
 			return page.isFirst() && page.isEmpty() ? 

@@ -11,6 +11,7 @@ public interface InteractiveBookRepository extends JpaRepository<InteractiveBook
 
 	Page<InteractiveBook> findByBookCategories_CategoryId(Integer categoryId, Pageable pageble);
 
-	Page<InteractiveBook> findByTitleIgnoreCaseContaining(String title, Pageable pageble);
+	Page<InteractiveBook> findByTitleIgnoreCaseContainingOrBookCategories_CategoryNameIgnoreCaseContainingOrderByPublishDateDesc
+	(String title, String categoryName, Pageable pageble);
 	
 }
