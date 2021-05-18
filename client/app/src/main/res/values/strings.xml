@@ -57,6 +57,7 @@
     <string name="next">Próximo</string>
     <string name="save">Salvar</string>
     <string name="delete_profile">Remover perfil</string>
+    <string name="delete_user">Remover cadastro</string>
     <string name="search">Buscar</string>
     <string name="home">Início</string>
     <string name="my_profile">Meu perfil</string>
