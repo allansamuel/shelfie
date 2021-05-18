@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.shelfie.model.ChildProfile;
 import com.shelfie.repository.ChildProfileRepository;
+import com.shelfie.service.ChildProfileService;
 
 import javassist.NotFoundException;
 
@@ -24,6 +25,9 @@ public class ChildProfileController {
 
 	@Autowired
 	private ChildProfileRepository childProfileRepository;
+	
+	@Autowired
+	private ChildProfileService childProfileService;
 	
 	@GetMapping
 	public ResponseEntity<List<ChildProfile>> getAll() {
@@ -67,17 +71,14 @@ public class ChildProfileController {
 	}
 	
 	@PutMapping("{id}/update_coins/{value}")
-	public ResponseEntity<Integer> updateCoins(@PathVariable Integer id,
+	public ResponseEntity<ChildProfile> updateCoins(@PathVariable Integer id,
 			@PathVariable Integer value) throws Exception {
 		
-		ChildProfile childProfile = childProfileRepository.findById(id)
-				.orElseThrow(() -> new NotFoundException("not found"));
-		
-		Integer updatedCoins = childProfile.getCoins() + value;
-		childProfile.setCoins(updatedCoins);
-		
-		childProfileRepository.save(childProfile);
-	    return ResponseEntity.ok().body(updatedCoins);
+		try {
+	    return ResponseEntity.ok().body(childProfileService.updateCoins(id, value));
+		} catch (Exception exception) {
+			throw exception;
+		}
 	}
 	
 	@DeleteMapping("{id}")
