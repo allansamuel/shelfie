@@ -9,9 +9,8 @@ import com.shelfie.model.InteractiveBook;
 @Repository
 public interface InteractiveBookRepository extends JpaRepository<InteractiveBook, Integer>{
 
-	Page<InteractiveBook> findByBookCategories_CategoryId(Integer categoryId, Pageable pageble);
+	Page<InteractiveBook> findAllByOrderByPublishDateDescTitleAsc(Pageable pageble);
 
-	Page<InteractiveBook> findByTitleIgnoreCaseContainingOrBookCategories_CategoryNameIgnoreCaseContainingOrderByPublishDateDesc
-	(String title, String categoryName, Pageable pageble);
+	Page<InteractiveBook> findByTitleIgnoreCaseContainingOrBookCategories_CategoryNameIgnoreCaseContainingOrderByPublishDateDesc(String title, String categoryName, Pageable pageble);
 	
 }

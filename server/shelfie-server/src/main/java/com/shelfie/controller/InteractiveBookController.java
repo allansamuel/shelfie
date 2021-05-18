@@ -35,7 +35,8 @@ public class InteractiveBookController {
 		
 		try {
 			pageNumber = pageNumber-1;
-			Page<InteractiveBook> page = interactiveBookRepository.findAll(PageRequest.of(pageNumber, 5));
+			Page<InteractiveBook> page = interactiveBookRepository
+					.findAllByOrderByPublishDateDescTitleAsc(PageRequest.of(pageNumber, 8));
 			List <InteractiveBook> interactivebooks = page.getContent();
 			return ResponseEntity.ok().body(interactivebooks);
 	
@@ -51,25 +52,8 @@ public class InteractiveBookController {
 		return ResponseEntity.ok().body(interactiveBook);		
 	}
 	
-	@GetMapping("category/{categoryId}/page/{pageNumber}")
-	public ResponseEntity<List<InteractiveBook>> getByCategories(@PathVariable Integer categoryId, @PathVariable int pageNumber) throws Exception {
-		
-		try {
-			
-			pageNumber = pageNumber -1;
-			Pageable pageable = PageRequest.of(pageNumber, 5);
-			Page<InteractiveBook> page = interactiveBookRepository.findByBookCategories_CategoryId(categoryId, pageable);
-			List<InteractiveBook> books = page.getContent();
-			return ResponseEntity.ok().body(books);
-			
-		} catch (Exception exception) {
-			
-			throw exception;
-		}
-	}
-	
 	@GetMapping("search/{searchTerm}/page/{pageNumber}")
-	public ResponseEntity<List<InteractiveBook>> getByTitle(@PathVariable String searchTerm, @PathVariable int pageNumber) throws Exception {
+	public ResponseEntity<List<InteractiveBook>> getByTitleOrCategory(@PathVariable String searchTerm, @PathVariable int pageNumber) throws Exception {
 		
 		try {
 			
