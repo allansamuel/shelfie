@@ -3,6 +3,7 @@ package com.shelfie.utils;
 
 import com.shelfie.service.CategoryService;
 import com.shelfie.service.CharacterService;
+import com.shelfie.service.ChildCompletedQuestService;
 import com.shelfie.service.ChildProfileService;
 import com.shelfie.service.GuardianUserService;
 import com.shelfie.service.InteractiveBookService;
@@ -39,5 +40,9 @@ public class RetrofitConfig {
 
     public InteractiveBookService getInteractiveBookService() {
         return this.retrofit.create(InteractiveBookService.class);
+    }
+
+    public ChildCompletedQuestService getChildCompletedQuestService() {
+        return this.retrofit.create(ChildCompletedQuestService.class);
     }
 }

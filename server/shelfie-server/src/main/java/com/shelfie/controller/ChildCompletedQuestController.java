@@ -29,7 +29,7 @@ public class ChildCompletedQuestController {
 	}
 	
 	@GetMapping("child_profile/{childProfileId}/quest/{questId}")
-	public ResponseEntity<Boolean> isQuestCompleted(@PathVariable Integer childProfileId, @PathVariable Integer questId) throws Exception {
+	public ResponseEntity<Boolean> isCompleted(@PathVariable Integer childProfileId, @PathVariable Integer questId) throws Exception {
 		try {
 			return childCompletedQuestService.isQuestCompleted(childProfileId, questId) ?
 					ResponseEntity.ok(false) : ResponseEntity.ok(true);
