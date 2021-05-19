@@ -17,12 +17,11 @@ import com.shelfie.service.ChildUnlockedBookService;
 public class ChildUnlockedBookController {
 	
 	@Autowired
-	private ChildUnlockedBookService childUnlockedBookService ;
+	private ChildUnlockedBookService childUnlockedBookService;
 	
 	@PostMapping("child_profile/{id}/unlock_book/{interactiveBookId}")
 	public ResponseEntity<ChildProfile> unlock( @PathVariable Integer id, @PathVariable Integer interactiveBookId) 
 			throws Exception {
-		
 		try {
 			return ResponseEntity.ok(childUnlockedBookService.unlock(id, interactiveBookId));
 			
@@ -34,7 +33,6 @@ public class ChildUnlockedBookController {
 	@GetMapping("child_profile/{childProfileId}/interactive_book/{interactiveBookId}")
 	public ResponseEntity<ChildUnlockedBook> getByChildAndBook(@PathVariable Integer childProfileId,@PathVariable Integer interactiveBookId)
 			throws Exception {
-
 		try {
 			
 			ChildUnlockedBook childUnlockedBook = childUnlockedBookService.getByChildAndBook(childProfileId, interactiveBookId);
@@ -48,6 +46,5 @@ public class ChildUnlockedBookController {
 		}catch (Exception exception) {
 			throw exception;
 		}
-		
 	}
 }

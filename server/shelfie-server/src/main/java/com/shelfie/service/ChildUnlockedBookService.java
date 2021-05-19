@@ -41,11 +41,7 @@ public class ChildUnlockedBookService {
 	}
 	
 	public ChildProfile unlock(Integer childProfileId, Integer interactiveBookId) throws Exception{
-		
-//		System.out.println(getByChildAndBook(childProfileId, interactiveBookBody.getInteractiveBookId()));
-		
-		
-		
+	
 		if(getByChildAndBook(childProfileId, interactiveBookId) == null) {
 		
 			ChildProfile childProfile = childProfileRepository.findById(childProfileId)
@@ -56,23 +52,20 @@ public class ChildUnlockedBookService {
 			
 			if(childProfile.getCoins() >= interactiveBook.getPrice()) {
 			
-				
 				ChildUnlockedBook childUnlockedBook = new ChildUnlockedBook();
-				
 				childUnlockedBook.setChildProfile(childProfile);
+
 				childUnlockedBook.setInteractiveBook(interactiveBook);
-				
 				childUnlockedBook = childUnlockedBookRepository.save(childUnlockedBook);
-				
 				childProfileService.updateCoins(childProfileId, -interactiveBook.getPrice());
-				
+
 				return childProfile;
 				
 			}else {
 				throw new NotAcceptableStatusException("not enough coins");
 			}
 		}else {
-			throw new NotAcceptableStatusException("already");
+			throw new NotAcceptableStatusException("already unlocked");
 		}
 	}
 }

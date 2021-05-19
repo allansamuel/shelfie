@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -47,7 +48,7 @@ public class ChildProfile {
 	@JoinColumn(name = "character_id")
 	private Character character;
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
 			name = "child_completed_quests", 
 			joinColumns = {@JoinColumn(name = "child_profile_id")}, 
@@ -55,7 +56,7 @@ public class ChildProfile {
 			)
 	private List<Quest> childCompletedQuests;
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(
 			name = "child_unlocked_books", 
 			joinColumns = {@JoinColumn(name = "child_profile_id")}, 
@@ -66,7 +67,8 @@ public class ChildProfile {
 	@OneToMany(
 			mappedBy = "childProfile",
 	        cascade = CascadeType.ALL,
-	        orphanRemoval = true
+	        orphanRemoval = true,
+	        fetch = FetchType.LAZY
 	        )
 	private List<ChildSavedBook> childSavedBooks;
 	
