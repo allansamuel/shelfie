@@ -71,8 +71,7 @@ public class ChildProfileController {
 	}
 	
 	@PutMapping("{id}/update_coins/{value}")
-	public ResponseEntity<ChildProfile> updateCoins(@PathVariable Integer id,
-			@PathVariable Integer value) throws Exception {
+	public ResponseEntity<ChildProfile> updateCoins(@PathVariable Integer id,@PathVariable Integer value) throws Exception {
 		
 		try {
 	    return ResponseEntity.ok().body(childProfileService.updateCoins(id, value));

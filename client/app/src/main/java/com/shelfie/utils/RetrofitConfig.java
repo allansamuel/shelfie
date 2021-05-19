@@ -1,9 +1,11 @@
 package com.shelfie.utils;
 
 
+import com.shelfie.model.ChildUnlockedBook;
 import com.shelfie.service.CategoryService;
 import com.shelfie.service.CharacterService;
 import com.shelfie.service.ChildProfileService;
+import com.shelfie.service.ChildUnlockedBookService;
 import com.shelfie.service.GuardianUserService;
 import com.shelfie.service.InteractiveBookService;
 
@@ -16,7 +18,7 @@ public class RetrofitConfig {
 
     public RetrofitConfig() {
         this.retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.0.103:8080/")
+                .baseUrl("http://192.168.0.110:8080/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }
@@ -40,4 +42,9 @@ public class RetrofitConfig {
     public InteractiveBookService getInteractiveBookService() {
         return this.retrofit.create(InteractiveBookService.class);
     }
+
+    public ChildUnlockedBookService getChildUnlockedBookService() {
+        return this.retrofit.create(ChildUnlockedBookService.class);
+    }
+
 }

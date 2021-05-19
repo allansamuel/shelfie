@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class ChildSavedBook implements Serializable {
 
-    private ChildSavedBookId childSavedBookId;
+    private Integer childSavedBookId;
     private ChildProfile childProfile;
     private InteractiveBook interactiveBook;
     private Integer chapterId;
@@ -12,7 +12,7 @@ public class ChildSavedBook implements Serializable {
     public ChildSavedBook() {
     }
 
-    public ChildSavedBook(ChildSavedBookId childSavedBookId, ChildProfile childProfile,
+    public ChildSavedBook(Integer childSavedBookId, ChildProfile childProfile,
                           InteractiveBook interactiveBook, Integer chapterId) {
         this.childSavedBookId = childSavedBookId;
         this.childProfile = childProfile;
@@ -20,11 +20,11 @@ public class ChildSavedBook implements Serializable {
         this.chapterId = chapterId;
     }
 
-    public ChildSavedBookId getChildSavedBookId() {
+    public Integer getChildSavedBookId() {
         return childSavedBookId;
     }
 
-    public void setChildSavedBookId(ChildSavedBookId childSavedBookId) {
+    public void setChildSavedBookId(Integer childSavedBookId) {
         this.childSavedBookId = childSavedBookId;
     }
 

@@ -17,12 +17,17 @@ import com.shelfie.model.Author;
 import com.shelfie.model.Category;
 import com.shelfie.model.Character;
 import com.shelfie.model.ChildProfile;
+import com.shelfie.model.ChildUnlockedBook;
 import com.shelfie.model.InteractiveBook;
 import com.shelfie.model.Quest;
+import com.shelfie.service.ChildProfileService;
+import com.shelfie.service.ChildUnlockedBookService;
 import com.shelfie.ui.fragments.CharacterPreviewFragment;
+import com.shelfie.ui.fragments.EmptyStateDialogFragment;
 import com.shelfie.ui.fragments.QuestPreviewFragment;
 import com.shelfie.ui.unityholders.UHVitoriaRegiaActivity;
 import com.shelfie.utils.ImageDecoder;
+import com.shelfie.utils.RetrofitConfig;
 import com.shelfie.utils.UserSession;
 
 import java.text.SimpleDateFormat;
@@ -30,11 +35,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
 public class InteractiveBookActivity extends AppCompatActivity {
 
     private ChildProfile childProfile;
     private SimpleDateFormat dateFormatter;
     private InteractiveBook interactiveBook;
+
+    private RetrofitConfig retrofitConfig;
+    private ChildUnlockedBookService childUnlockedBookService;
+    private ChildProfileService childProfileService;
 
     private ImageView imgBookCover;
     private TextView tvBookTitle;
@@ -61,7 +75,12 @@ public class InteractiveBookActivity extends AppCompatActivity {
         setContentView(R.layout.activity_interactive_book);
         init();
 
-        btnBookUnlock.setOnClickListener(view -> unlockInteractiveBook());
+        btnBookUnlock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                unlockInteractiveBook();
+            }
+        });
 
         btnBookRead.setOnClickListener(view -> {
             Intent openBook = new Intent(InteractiveBookActivity.this, UHVitoriaRegiaActivity.class);
@@ -72,6 +91,10 @@ public class InteractiveBookActivity extends AppCompatActivity {
     private void init() {
         childProfile = UserSession.getChildProfile(getApplicationContext());
         interactiveBook = UserSession.getInteractiveBook(getApplicationContext());
+
+        retrofitConfig = new RetrofitConfig();
+        childUnlockedBookService = retrofitConfig.getChildUnlockedBookService();
+        childProfileService = retrofitConfig.getChildProfileService();
 
         imgBookCover = findViewById(R.id.img_book_cover);
         tvBookTitle = findViewById(R.id.tv_book_title);
@@ -97,6 +120,7 @@ public class InteractiveBookActivity extends AppCompatActivity {
         tvBookChapters.setText(getString(R.string.label_book_chapters_amount, interactiveBook.getChapters().size()));
         tvBookPrice.setText(String.valueOf(interactiveBook.getPrice()));
         tvChildCurrentCoinsAmount.setText(getString(R.string.label_book_child_current_coins_amount, childProfile.getCoins()));
+
         if(childProfile.getCoins() >= interactiveBook.getPrice()) {
             btnBookUnlock.setVisibility(View.VISIBLE);
         }
@@ -110,6 +134,7 @@ public class InteractiveBookActivity extends AppCompatActivity {
         mapBookCharacters();
 
         checkIfBookIsUnlocked();
+
     }
 
     private void mapBookQuests() {
@@ -158,16 +183,49 @@ public class InteractiveBookActivity extends AppCompatActivity {
     }
 
     private void unlockInteractiveBook() {
-        //chamar serviço para desbloquear
-        isBookUnlocked = true;
+
         checkIfBookIsUnlocked();
+
+        System.out.println(interactiveBook.toString());
+        childUnlockedBookService.unlock(childProfile.getChildProfileId(), interactiveBook.getInteractiveBookId()).enqueue(new Callback<ChildProfile>() {
+            @Override
+            public void onResponse(Call<ChildProfile> call, Response<ChildProfile> response) {
+                if(response.isSuccessful()) {
+                    System.out.println("sus");
+
+                    btnBookUnlock.setVisibility(View.INVISIBLE);
+                    btnBookRead.setVisibility(View.VISIBLE);
+                    UserSession.setChildProfile(getApplicationContext(), response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ChildProfile> call, Throwable t) {
+                EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
+                emptyStateDialogFragment.show(getSupportFragmentManager(), "EmptyStateDialogFragment");
+            }
+        });
     }
 
     private void checkIfBookIsUnlocked() {
-        //chamar serviço para verificar se o livro atual está desbloqueado pela criança logada
-        if(isBookUnlocked) {
-            llBookUnlock.setVisibility(View.GONE);
-            btnBookRead.setVisibility(View.VISIBLE);
-        }
+
+        childUnlockedBookService.getByChildAndBook(childProfile.getChildProfileId(), interactiveBook.getInteractiveBookId()).enqueue(new Callback<ChildUnlockedBook>() {
+            @Override
+            public void onResponse(Call<ChildUnlockedBook> call, Response<ChildUnlockedBook> response) {
+
+                if(response.isSuccessful()){
+                        llBookUnlock.setVisibility(View.GONE);
+                        btnBookRead.setVisibility(View.VISIBLE);
+                        btnBookUnlock.setVisibility(View.INVISIBLE);
+                }else{
+                    btnBookRead.setVisibility(View.INVISIBLE);
+                    btnBookUnlock.setVisibility(View.VISIBLE);
+                }
+            }
+            @Override
+            public void onFailure(Call<ChildUnlockedBook> call, Throwable t) {
+                EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
+                emptyStateDialogFragment.show(getSupportFragmentManager(), "EmptyStateDialogFragment");            }
+        });
     }
 }

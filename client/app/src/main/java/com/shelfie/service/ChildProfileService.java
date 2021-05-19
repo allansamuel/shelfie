@@ -26,6 +26,9 @@ public interface ChildProfileService {
     @PUT("child_profile/{id}")
     Call<ChildProfile> update(@Path("id") Integer id, @Body ChildProfile childProfile);
 
+    @PUT("child_profile/{id}/update_coins/{value}")
+    Call<ChildProfile> updateCoins(@Path("id") Integer id, Integer value);
+
     @DELETE("child_profile/{id}")
     Call<Void> delete(@Path("id") Integer id);
 }

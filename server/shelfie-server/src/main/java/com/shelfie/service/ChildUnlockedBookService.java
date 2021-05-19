@@ -1,7 +1,5 @@
 package com.shelfie.service;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +10,7 @@ import com.shelfie.model.ChildUnlockedBook;
 import com.shelfie.model.InteractiveBook;
 import com.shelfie.repository.ChildProfileRepository;
 import com.shelfie.repository.ChildUnlockedBookRepository;
+import com.shelfie.repository.InteractiveBookRepository;
 
 import javassist.NotFoundException;
 
@@ -28,33 +27,44 @@ public class ChildUnlockedBookService {
 	@Autowired
 	private ChildProfileService childProfileService;
 	
-	public Optional<ChildUnlockedBook> getByChildAndBook(Integer childProfileId, Integer interactiveBookId) throws Exception {
+	@Autowired
+	private InteractiveBookRepository interactiveBookRepository;
+	
+	public ChildUnlockedBook getByChildAndBook(Integer childProfileId, Integer interactiveBookId) throws Exception {
+		
+		System.out.println(childUnlockedBookRepository
+				.findByChildProfile_ChildProfileIdAndInteractiveBook_InteractiveBookId(childProfileId, interactiveBookId));
 		
 		 return childUnlockedBookRepository
 				.findByChildProfile_ChildProfileIdAndInteractiveBook_InteractiveBookId(childProfileId, interactiveBookId);
 		
 	}
 	
-	public ChildProfile unlock(Integer childProfileId, InteractiveBook interactiveBookBody) throws Exception{
+	public ChildProfile unlock(Integer childProfileId, Integer interactiveBookId) throws Exception{
 		
-		System.out.println(getByChildAndBook(childProfileId, interactiveBookBody.getInteractiveBookId()));
+//		System.out.println(getByChildAndBook(childProfileId, interactiveBookBody.getInteractiveBookId()));
 		
-		if(getByChildAndBook(childProfileId, interactiveBookBody.getInteractiveBookId()).isEmpty() ) {
+		
+		
+		if(getByChildAndBook(childProfileId, interactiveBookId) == null) {
 		
 			ChildProfile childProfile = childProfileRepository.findById(childProfileId)
 					.orElseThrow(() -> new NotFoundException("not found"));
 			
-			if(childProfile.getCoins() >= interactiveBookBody.getPrice()) {
+			InteractiveBook interactiveBook = interactiveBookRepository.findById(interactiveBookId)
+					.orElseThrow(() -> new NotFoundException("not found"));
+			
+			if(childProfile.getCoins() >= interactiveBook.getPrice()) {
 			
 				
 				ChildUnlockedBook childUnlockedBook = new ChildUnlockedBook();
 				
 				childUnlockedBook.setChildProfile(childProfile);
-				childUnlockedBook.setInteractiveBook(interactiveBookBody);
+				childUnlockedBook.setInteractiveBook(interactiveBook);
 				
 				childUnlockedBook = childUnlockedBookRepository.save(childUnlockedBook);
 				
-				childProfileService.updateCoins(childProfileId, -interactiveBookBody.getPrice());
+				childProfileService.updateCoins(childProfileId, -interactiveBook.getPrice());
 				
 				return childProfile;
 				
