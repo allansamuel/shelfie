@@ -22,7 +22,7 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
 
         init();
-//        UserSession.clearSession(getApplicationContext());
+        UserSession.clearSession(getApplicationContext());
         verifyUserSession();
     }
 

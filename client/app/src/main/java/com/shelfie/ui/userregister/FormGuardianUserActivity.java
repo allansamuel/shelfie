@@ -20,6 +20,7 @@ import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.Password;
 import com.shelfie.R;
+import com.shelfie.ui.login.LoginActivity;
 import com.shelfie.utils.RetrofitConfig;
 import com.shelfie.model.GuardianUser;
 import com.shelfie.service.GuardianUserService;
@@ -68,6 +69,12 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
             formValidator.validate();
         });
 
+        btnGuardianUserDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteUserGuardian();
+            }
+        });
 
 
     }
@@ -150,6 +157,28 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
             }
         });
     }
+
+
+    private void deleteUserGuardian(){
+        guardianUserService.delete(guardianUser.getGuardianUserId()).enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
+                emptyStateDialogFragment.show(getSupportFragmentManager(), "EmptyStateDialogFragment");
+            }
+        });
+    }
+
+
+
+
+
 
     private void resetErrors(){
         txtGuardianUserName.setError("");
