@@ -32,7 +32,7 @@ public class ChildCompletedQuestService {
 	public Boolean isQuestCompleted(Integer childProfileId, Integer questId) throws Exception {
 		Optional<ChildCompletedQuest> childCompletedQuest = childCompletedQuestRepository
 					.findByChildProfile_ChildProfileIdAndQuest_QuestId(childProfileId, questId);
-		return childCompletedQuest.isEmpty() ? true : false;
+		return childCompletedQuest.isEmpty() ? false : true;
 	}
 	
 	public ChildProfile complete(Integer childProfileId, Integer questId) throws Exception {

@@ -6,6 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,11 +19,16 @@ import android.widget.TextView;
 
 import com.shelfie.R;
 import com.shelfie.model.Quest;
+import com.shelfie.service.ChildCompletedQuestService;
+import com.shelfie.utils.RetrofitConfig;
+import com.shelfie.utils.UserSession;
 
 public class QuestPreviewFragment extends Fragment {
 
     private static final String ARG_QUEST = "QUEST_DATA";
 
+    private RetrofitConfig retrofitConfig;
+    private ChildCompletedQuestService childCompletedQuestService;
     private Quest quest;
     private CardView cvQuestPreviewContainer;
     private ImageView imgQuestIcon;
@@ -58,6 +67,9 @@ public class QuestPreviewFragment extends Fragment {
     }
 
     private void init() {
+        retrofitConfig = new RetrofitConfig();
+        childCompletedQuestService = retrofitConfig.getChildCompletedQuestService();
+
         View view = getView();
         cvQuestPreviewContainer = view.findViewById(R.id.cv_quest_preview_container);
         imgQuestIcon = view.findViewById(R.id.img_quest_icon);
@@ -69,9 +81,7 @@ public class QuestPreviewFragment extends Fragment {
         tvQuestDescription.setText(quest.getQuestDescription());
         tvQuestReward.setText(String.valueOf(quest.getCoinsReward()));
 
-        if(true) { //substituir por serviço de verificação se a missão está concluída
-            setQuestCompleteStyle();
-        }
+        checkIfQuestIsCompleted();
     }
 
     private void setQuestCompleteStyle() {
@@ -82,5 +92,25 @@ public class QuestPreviewFragment extends Fragment {
         tvQuestReward.setTextColor(getContext().getColor(R.color.white));
         tvQuestReward.setCompoundDrawablesWithIntrinsicBounds
                 (null, null, getContext().getDrawable(R.drawable.child_profile_coin_outlined), null);
+    }
+
+    private void checkIfQuestIsCompleted() {
+        childCompletedQuestService.isCompleted(UserSession.getChildProfile(getContext()).getChildProfileId(),
+                quest.getQuestId()).enqueue(new Callback<Boolean>() {
+            @Override
+            public void onResponse(Call<Boolean> call, Response<Boolean> response) {
+                if(response.isSuccessful()) {
+                    if(response.body()) {
+                        setQuestCompleteStyle();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Boolean> call, Throwable t) {
+                EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
+                emptyStateDialogFragment.show(getActivity().getSupportFragmentManager(), "EmptyStateDialogFragment");
+            }
+        });
     }
 }

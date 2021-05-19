@@ -32,7 +32,7 @@ public class ChildCompletedQuestController {
 	public ResponseEntity<Boolean> isCompleted(@PathVariable Integer childProfileId, @PathVariable Integer questId) throws Exception {
 		try {
 			return childCompletedQuestService.isQuestCompleted(childProfileId, questId) ?
-					ResponseEntity.ok(false) : ResponseEntity.ok(true);
+					ResponseEntity.ok(true) : ResponseEntity.ok(false);
 		} catch (Exception exception) {
 			throw exception;
 		}

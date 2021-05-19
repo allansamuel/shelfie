@@ -44,7 +44,7 @@ public class ChildProfile {
 	@JoinColumn(name = "guardian_user_id")
 	private GuardianUser guardianUser;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "character_id")
 	private Character character;
 
