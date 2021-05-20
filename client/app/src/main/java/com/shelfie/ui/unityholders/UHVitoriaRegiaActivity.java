@@ -1,10 +1,6 @@
 package com.shelfie.ui.unityholders;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.widget.FrameLayout;
-
-import com.shelfie.R;
 import com.shelfie.utils.UserSession;
 import com.unity3d.player.UnityPlayer;
 import com.unity3d.player.UnityPlayerActivity;

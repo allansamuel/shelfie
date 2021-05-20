@@ -183,16 +183,10 @@ public class InteractiveBookActivity extends AppCompatActivity {
     }
 
     private void unlockInteractiveBook() {
-
-        checkIfBookIsUnlocked();
-
-        System.out.println(interactiveBook.toString());
         childUnlockedBookService.unlock(childProfile.getChildProfileId(), interactiveBook.getInteractiveBookId()).enqueue(new Callback<ChildProfile>() {
             @Override
             public void onResponse(Call<ChildProfile> call, Response<ChildProfile> response) {
                 if(response.isSuccessful()) {
-                    System.out.println("sus");
-
                     btnBookUnlock.setVisibility(View.INVISIBLE);
                     btnBookRead.setVisibility(View.VISIBLE);
                     UserSession.setChildProfile(getApplicationContext(), response.body());
@@ -205,6 +199,7 @@ public class InteractiveBookActivity extends AppCompatActivity {
                 emptyStateDialogFragment.show(getSupportFragmentManager(), "EmptyStateDialogFragment");
             }
         });
+        checkIfBookIsUnlocked();
     }
 
     private void checkIfBookIsUnlocked() {
@@ -214,6 +209,7 @@ public class InteractiveBookActivity extends AppCompatActivity {
             public void onResponse(Call<ChildUnlockedBook> call, Response<ChildUnlockedBook> response) {
 
                 if(response.isSuccessful()){
+                        isBookUnlocked = true;
                         llBookUnlock.setVisibility(View.GONE);
                         btnBookRead.setVisibility(View.VISIBLE);
                         btnBookUnlock.setVisibility(View.INVISIBLE);
