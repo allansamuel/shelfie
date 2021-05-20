@@ -187,7 +187,7 @@ public class InteractiveBookActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ChildProfile> call, Response<ChildProfile> response) {
                 if(response.isSuccessful()) {
-                    btnBookUnlock.setVisibility(View.INVISIBLE);
+                    llBookUnlock.setVisibility(View.GONE);
                     btnBookRead.setVisibility(View.VISIBLE);
                     UserSession.setChildProfile(getApplicationContext(), response.body());
                 }
@@ -207,12 +207,10 @@ public class InteractiveBookActivity extends AppCompatActivity {
         childUnlockedBookService.getByChildAndBook(childProfile.getChildProfileId(), interactiveBook.getInteractiveBookId()).enqueue(new Callback<ChildUnlockedBook>() {
             @Override
             public void onResponse(Call<ChildUnlockedBook> call, Response<ChildUnlockedBook> response) {
-
                 if(response.isSuccessful()){
                         isBookUnlocked = true;
                         llBookUnlock.setVisibility(View.GONE);
                         btnBookRead.setVisibility(View.VISIBLE);
-                        btnBookUnlock.setVisibility(View.INVISIBLE);
                 }else{
                     btnBookRead.setVisibility(View.INVISIBLE);
                     btnBookUnlock.setVisibility(View.VISIBLE);
