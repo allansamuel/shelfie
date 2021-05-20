@@ -22,6 +22,8 @@ public class ChildCompletedQuestController {
 	@PostMapping("child_profile/{childProfileId}/quest/{questId}")
 	public ResponseEntity<ChildProfile> complete( @PathVariable Integer childProfileId, @PathVariable Integer questId) throws Exception {
 		try {
+			System.out.println(childProfileId);
+			System.out.println(questId);
 			return ResponseEntity.ok(childCompletedQuestService.complete(childProfileId, questId));
 		} catch (Exception exception) {
 			throw exception;

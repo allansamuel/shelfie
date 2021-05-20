@@ -1,4 +1,3 @@
-include ':unityLibrary-debug'
-include ':launcher-debug'
+include ':unityLibrary-vitoria-regia'
 include ':app'
 rootProject.name = "Shelfie"

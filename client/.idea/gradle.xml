@@ -12,8 +12,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/launcher-debug" />
-            <option value="$PROJECT_DIR$/unityLibrary-debug" />
+            <option value="$PROJECT_DIR$/unityLibrary-vitoria-regia" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

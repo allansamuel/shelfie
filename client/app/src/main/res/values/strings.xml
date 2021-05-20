@@ -1,6 +1,7 @@
 <resources>
     <!-- Shelfie server connection -->
-    <string name="server_baseurl">http://localhost:8080/</string>
+    <string name="server_baseurl">http://10.0.0.103:8080/</string>
+    <string name="game_view_content_description">Game view</string>
 
     <string name="app_name">Shelfie</string>
     <string name="title_home">Home</string>

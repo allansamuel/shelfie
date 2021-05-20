@@ -74,7 +74,7 @@ public class ChildProfileController {
 	public ResponseEntity<ChildProfile> updateCoins(@PathVariable Integer id,@PathVariable Integer value) throws Exception {
 		
 		try {
-	    return ResponseEntity.ok().body(childProfileService.updateCoins(id, value));
+			return ResponseEntity.ok().body(childProfileService.updateCoins(id, value));
 		} catch (Exception exception) {
 			throw exception;
 		}

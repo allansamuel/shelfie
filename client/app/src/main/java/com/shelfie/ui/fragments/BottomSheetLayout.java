@@ -47,7 +47,7 @@ public class BottomSheetLayout extends BottomSheetDialogFragment {
         });
 
         btnEditChildProfiles.setOnClickListener(view13 -> {
-            UserSession.setFormInteractionMode(getActivity().getApplicationContext(), UserSession.EDIT_MODE);
+            UserSession.setFormInteractionMode(getActivity().getApplicationContext(), UserSession.REGISTER_MODE);
             getActivity().finish();
             Intent intent = new Intent(requireActivity().getApplicationContext(), ManageChildProfileActivity.class);
             startActivity(intent);
