@@ -29,6 +29,9 @@ public class ChildCompletedQuestService {
 	@Autowired
 	private QuestRepository questRepository;
 	
+	@Autowired
+	private ChildProfileService childProfileService;
+
 	public Boolean isQuestCompleted(Integer childProfileId, Integer questId) throws Exception {
 		Optional<ChildCompletedQuest> childCompletedQuest = childCompletedQuestRepository
 					.findByChildProfile_ChildProfileIdAndQuest_QuestId(childProfileId, questId);
@@ -37,6 +40,7 @@ public class ChildCompletedQuestService {
 	
 	public ChildProfile complete(Integer childProfileId, Integer questId) throws Exception {
 		if(!isQuestCompleted(childProfileId, questId)) {
+			
 			ChildProfile childProfile = childProfileRepository.findById(childProfileId)
 					.orElseThrow(() -> new NotFoundException("not found"));
 			
@@ -47,6 +51,7 @@ public class ChildCompletedQuestService {
 				chChildCompletedQuest.setChildProfile(childProfile);
 				chChildCompletedQuest.setQuest(quest);
 				chChildCompletedQuest = childCompletedQuestRepository.save(chChildCompletedQuest);
+				childProfileService.updateCoins(childProfileId, quest.getCoinsReward());
 				
 				return childProfile;
 		} else {

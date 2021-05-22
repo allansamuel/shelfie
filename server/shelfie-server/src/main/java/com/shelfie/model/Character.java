@@ -30,6 +30,7 @@ public class Character {
 	
 	@Lob
 	@Column(name = "character_image", length = 100000)
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private byte[] characterImage;
 	
 	@Column(name = "character_description", length = 800)

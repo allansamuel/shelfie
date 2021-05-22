@@ -3,6 +3,7 @@ package com.shelfie.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,16 +27,24 @@ public class CharacterController {
 	@Autowired
 	private CharacterRepository characterRepository;
 
+	@GetMapping("{id}/image")
+	public ResponseEntity<byte[]> getImage(@PathVariable Integer id) throws Exception {
+		Character character = characterRepository.findById(id)
+				 .orElseThrow(() -> new NotFoundException ("Not found"));
+
+		 return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(character.getCharacterImage());
+	}
+	
 	@GetMapping("{id}")
 	public ResponseEntity<Character> getById(@PathVariable Integer id) throws Exception {
 	 Character character = characterRepository.findById(id)
-			 .orElseThrow(() -> new NotFoundException ("not found" + id));
+			 .orElseThrow(() -> new NotFoundException ("Not found"));
 
 	 return ResponseEntity.ok(character);
 	}
 	
 	@GetMapping
-	public ResponseEntity<List <Character>> getAll(){
+	public ResponseEntity<List<Character>> getAll(){
 		try {
 			List <Character> character = characterRepository.findAll();
 			return ResponseEntity.ok(character);
@@ -58,7 +67,7 @@ public class CharacterController {
 	public void uploadImage(@RequestParam("imageFile") MultipartFile file, 
 			@PathVariable Integer id) throws Exception {
 		Character updatedCharacter = characterRepository.findById(id)
-				 .orElseThrow(() -> new NotFoundException ("not found" + id));
+				 .orElseThrow(() -> new NotFoundException ("Not found"));
 		
 		updatedCharacter.setCharacterImage(file.getBytes());
 		characterRepository.save(updatedCharacter);
@@ -68,7 +77,7 @@ public class CharacterController {
 	public ResponseEntity<Character> update(@RequestBody() Character characterBody, 
 			@PathVariable Integer id) throws Exception {
 		Character character = characterRepository.findById(id)
-				 .orElseThrow(() -> new NotFoundException ("not found" + id));
+				 .orElseThrow(() -> new NotFoundException ("Not found"));
 		
 		character.setCharacterName(characterBody.getCharacterName());
 		character.setCharacterDescription(characterBody.getCharacterDescription());

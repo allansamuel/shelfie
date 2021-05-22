@@ -13,17 +13,17 @@ import com.shelfie.service.ChildCompletedQuestService;
 
 
 @RestController
-@RequestMapping("child_completed_quest")
+@RequestMapping("quest_complete")
 public class ChildCompletedQuestController {
 
 	@Autowired
 	private ChildCompletedQuestService childCompletedQuestService;
 	
 	@PostMapping("child_profile/{childProfileId}/quest/{questId}")
-	public ResponseEntity<ChildProfile> complete( @PathVariable Integer childProfileId, @PathVariable Integer questId) throws Exception {
+	public ResponseEntity<ChildProfile> complete(
+			@PathVariable Integer childProfileId,
+			@PathVariable Integer questId) throws Exception {
 		try {
-			System.out.println(childProfileId);
-			System.out.println(questId);
 			return ResponseEntity.ok(childCompletedQuestService.complete(childProfileId, questId));
 		} catch (Exception exception) {
 			throw exception;
@@ -31,7 +31,9 @@ public class ChildCompletedQuestController {
 	}
 	
 	@GetMapping("child_profile/{childProfileId}/quest/{questId}")
-	public ResponseEntity<Boolean> isCompleted(@PathVariable Integer childProfileId, @PathVariable Integer questId) throws Exception {
+	public ResponseEntity<Boolean> isCompleted(
+			@PathVariable Integer childProfileId,
+			@PathVariable Integer questId) throws Exception {
 		try {
 			return childCompletedQuestService.isQuestCompleted(childProfileId, questId) ?
 					ResponseEntity.ok(true) : ResponseEntity.ok(false);

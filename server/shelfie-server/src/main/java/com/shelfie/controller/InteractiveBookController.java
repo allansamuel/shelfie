@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +30,14 @@ public class InteractiveBookController {
 
 	@Autowired
 	private InteractiveBookRepository interactiveBookRepository;
+
+	@GetMapping("{id}/image")
+	public ResponseEntity<byte[]> getImage(@PathVariable Integer id) throws Exception {
+		InteractiveBook interactiveBook = interactiveBookRepository.findById(id)
+				 .orElseThrow(() -> new NotFoundException ("Not found"));
+
+		 return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(interactiveBook.getBookCover());
+	}
 	
 	@GetMapping("/page/{pageNumber}")
 	public ResponseEntity<List<InteractiveBook>> getAll(@PathVariable int pageNumber) {
@@ -97,14 +106,9 @@ public class InteractiveBookController {
 		InteractiveBook interactiveBook = interactiveBookRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("not found"));
 		
-		interactiveBook.setBookAuthors(interactiveBookBody.getBookAuthors());
-		interactiveBook.setBookCategories(interactiveBookBody.getBookCategories());
 		interactiveBook.setBookCover(interactiveBookBody.getBookCover());
-		interactiveBook.setChapters(interactiveBookBody.getChapters());
-		interactiveBook.setCharacters(interactiveBookBody.getCharacters());
 		interactiveBook.setPrice(interactiveBookBody.getPrice());
 		interactiveBook.setPublishDate(interactiveBookBody.getPublishDate());
-		interactiveBook.setQuests(interactiveBookBody.getQuests());
 		interactiveBook.setSinopsys(interactiveBookBody.getSinopsys());
 		interactiveBook.setTitle(interactiveBookBody.getTitle());
 		

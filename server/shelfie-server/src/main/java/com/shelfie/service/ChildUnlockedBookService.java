@@ -1,5 +1,7 @@
 package com.shelfie.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,19 +32,16 @@ public class ChildUnlockedBookService {
 	@Autowired
 	private InteractiveBookRepository interactiveBookRepository;
 	
-	public ChildUnlockedBook getByChildAndBook(Integer childProfileId, Integer interactiveBookId) throws Exception {
-		
-		System.out.println(childUnlockedBookRepository
-				.findByChildProfile_ChildProfileIdAndInteractiveBook_InteractiveBookId(childProfileId, interactiveBookId));
-		
-		 return childUnlockedBookRepository
+	public Boolean isBookUnlocked(Integer childProfileId, Integer interactiveBookId) throws Exception {
+		 Optional<ChildUnlockedBook> childUnlockedBook = childUnlockedBookRepository
 				.findByChildProfile_ChildProfileIdAndInteractiveBook_InteractiveBookId(childProfileId, interactiveBookId);
+		 return childUnlockedBook.isEmpty() ? false : true;
 		
 	}
 	
 	public ChildProfile unlock(Integer childProfileId, Integer interactiveBookId) throws Exception{
 	
-		if(getByChildAndBook(childProfileId, interactiveBookId) == null) {
+		if(!isBookUnlocked(childProfileId, interactiveBookId)) {
 		
 			ChildProfile childProfile = childProfileRepository.findById(childProfileId)
 					.orElseThrow(() -> new NotFoundException("not found"));
@@ -54,7 +53,6 @@ public class ChildUnlockedBookService {
 			
 				ChildUnlockedBook childUnlockedBook = new ChildUnlockedBook();
 				childUnlockedBook.setChildProfile(childProfile);
-
 				childUnlockedBook.setInteractiveBook(interactiveBook);
 				childUnlockedBook = childUnlockedBookRepository.save(childUnlockedBook);
 				childProfileService.updateCoins(childProfileId, -interactiveBook.getPrice());
@@ -62,10 +60,10 @@ public class ChildUnlockedBookService {
 				return childProfile;
 				
 			}else {
-				throw new NotAcceptableStatusException("not enough coins");
+				throw new NotAcceptableStatusException("Not enough coins");
 			}
 		}else {
-			throw new NotAcceptableStatusException("already unlocked");
+			throw new NotAcceptableStatusException("Book already unlocked");
 		}
 	}
 }
