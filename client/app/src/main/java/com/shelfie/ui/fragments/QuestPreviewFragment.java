@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -99,10 +98,8 @@ public class QuestPreviewFragment extends Fragment {
                 quest.getQuestId()).enqueue(new Callback<Boolean>() {
             @Override
             public void onResponse(Call<Boolean> call, Response<Boolean> response) {
-                if(response.isSuccessful()) {
-                    if(response.body()) {
-                        setQuestCompleteStyle();
-                    }
+                if(response.isSuccessful() && response.body()) {
+                    setQuestCompleteStyle();
                 }
             }
 

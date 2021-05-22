@@ -9,9 +9,9 @@ import retrofit2.http.Path;
 
 public interface ChildCompletedQuestService {
 
-    @GET("child_completed_quest/child_profile/{childProfileId}/quest/{questId}")
+    @GET("quest_complete/child_profile/{childProfileId}/quest/{questId}")
     Call<Boolean> isCompleted(@Path("childProfileId") Integer childProfileId, @Path("questId") Integer questId);
 
-    @POST("child_completed_quest/child_profile/{childProfileId}/quest/{questId}")
+    @POST("quest_complete/child_profile/{childProfileId}/quest/{questId}")
     Call<ChildCompletedQuest> complete(@Path("childProfileId") Integer childProfileId, @Path("questId") Integer questId);
 }

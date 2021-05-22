@@ -39,53 +39,61 @@
         android:layout_height="wrap_content"
         android:visibility="gone" />
 
-    <com.google.android.flexbox.FlexboxLayout
-        android:id="@+id/flexbox_child_profiles"
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        app:alignContent="flex_start"
-        app:alignItems="flex_start"
-        app:flexWrap="wrap"
-        app:justifyContent="space_between">
+        android:layout_weight="2"
+        android:fillViewport="true">
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_add_child_profile_container"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            android:visibility="gone"
-            tools:layout_editor_absoluteX="32dp"
-            tools:layout_editor_absoluteY="16dp">
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/flexbox_child_profiles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:alignContent="flex_start"
+            app:alignItems="flex_start"
+            app:flexWrap="wrap"
+            app:justifyContent="space_between">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cv_add_child_profile"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:foregroundGravity="center"
-                app:cardCornerRadius="50dp"
-                app:cardElevation="4dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.23000002">
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:contentDescription="@string/content_add_child_profile"
-                    android:paddingStart="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingEnd="10dp"
-                    android:paddingBottom="10dp"
-                    android:src="@drawable/ic_add_black_48dp" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_add_child_profile_container"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:visibility="gone"
+                tools:layout_editor_absoluteX="32dp"
+                tools:layout_editor_absoluteY="16dp">
 
-            </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cv_add_child_profile"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:foregroundGravity="center"
+                    app:cardCornerRadius="50dp"
+                    app:cardElevation="4dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.23000002">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@string/content_add_child_profile"
+                        android:paddingStart="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingEnd="10dp"
+                        android:paddingBottom="10dp"
+                        android:src="@drawable/ic_add_black_48dp" />
 
-    </com.google.android.flexbox.FlexboxLayout>
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.flexbox.FlexboxLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -102,15 +110,15 @@
 
         <Button
             android:id="@+id/btn_user_settings"
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:drawableStart="@drawable/settings_black_24dp"
+            android:layout_gravity="center_horizontal"
             android:drawablePadding="10dp"
             android:text="@string/settings"
-            android:textColor="@android:color/primary_text_light"
-            android:textColorHighlight="@android:color/primary_text_light"
-            android:textColorLink="@android:color/primary_text_light"
+            android:textColor="@color/blue_400"
+            android:textColorHighlight="@color/blue_400"
+            android:textColorLink="@color/blue_400"
             android:visibility="gone"
             app:strokeWidth="2dp" />
     </LinearLayout>

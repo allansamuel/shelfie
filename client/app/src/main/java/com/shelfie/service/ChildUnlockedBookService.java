@@ -16,6 +16,6 @@ public interface ChildUnlockedBookService {
     Call<ChildProfile> unlock(@Path("id") Integer id, @Path("interactiveBookId") Integer interactiveBookId);
 
     @GET("child_unlocked_books/child_profile/{childProfileId}/interactive_book/{interactiveBookId}")
-    Call<ChildUnlockedBook> getByChildAndBook(@Path("childProfileId") Integer childProfileId, @Path("interactiveBookId") Integer interactiveBookId);
+    Call<Boolean> isUnlocked(@Path("childProfileId") Integer childProfileId, @Path("interactiveBookId") Integer interactiveBookId);
 
 }

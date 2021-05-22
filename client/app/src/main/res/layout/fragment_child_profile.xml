@@ -7,17 +7,33 @@
     android:orientation="vertical"
     tools:context=".ui.main.childprofile.ChildProfileFragment">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="32dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/ll_child_profiles_list"
+        <TextView
+            android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" />
-    </ScrollView>
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:text="@string/label_my_profiles"
+            android:textColor="@android:color/primary_text_light" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+
+            <LinearLayout
+                android:id="@+id/ll_child_profiles_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" />
+        </ScrollView>
+
+    </LinearLayout>
 
     <View
         android:id="@+id/divider"
@@ -29,7 +45,28 @@
         android:id="@+id/fragment_child_profile_child_data_container"
         android:name="com.shelfie.ui.fragments.ChildCoinsFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="32dp" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="32dp">
+
+    </androidx.fragment.app.FragmentContainerView>
+
+    <Button
+        android:id="@+id/btn_profile_settings"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="32dp"
+        android:drawableStart="@drawable/settings_black_24dp"
+        android:drawablePadding="10dp"
+        android:text="@string/settings"
+        android:textColor="@color/blue_400"
+        android:textColorHighlight="@color/blue_400"
+        android:textColorLink="@color/blue_400"
+        app:icon="@drawable/settings_black_24dp"
+        app:iconTint="@color/blue_400"
+        app:strokeColor="@color/blue_400"
+        app:strokeWidth="2dp" />
 
 </LinearLayout>

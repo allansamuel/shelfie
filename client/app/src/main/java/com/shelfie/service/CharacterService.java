@@ -15,6 +15,9 @@ public interface CharacterService {
     @GET("character/{id}")
     Call<Character> getById(@Path("id") Integer id);
 
+    @GET("character/{id}/image")
+    Call<byte[]> getImage(@Path("id") Integer id);
+
     @GET("character/")
     Call<ArrayList<Character>> getAll();
 

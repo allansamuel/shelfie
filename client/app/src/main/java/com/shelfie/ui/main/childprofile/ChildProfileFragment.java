@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.shelfie.R;
+import com.shelfie.ui.fragments.BottomSheetLayout;
 import com.shelfie.ui.fragments.ChildCoinsFragment;
 import com.shelfie.utils.RetrofitConfig;
 import com.shelfie.model.ChildProfile;
@@ -29,6 +31,7 @@ public class ChildProfileFragment extends Fragment {
     private GuardianUser guardianUser;
     private GuardianUserService guardianUserService;
     private LinearLayout llChildProfilesList;
+    private Button btnProfileSettings;
     private FragmentContainerView fragmentChildProfileChildDataContainer;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -39,6 +42,14 @@ public class ChildProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         init();
+
+        btnProfileSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BottomSheetLayout bottomSheetLayout = new BottomSheetLayout();
+                bottomSheetLayout.show(getActivity().getSupportFragmentManager(), getString(R.string.settings));
+            }
+        });
     }
 
     private void init() {
@@ -48,8 +59,10 @@ public class ChildProfileFragment extends Fragment {
 
         fragmentChildProfileChildDataContainer = getView().findViewById(R.id.fragment_child_profile_child_data_container);
 
+        btnProfileSettings = getView().findViewById(R.id.btn_profile_settings);
         llChildProfilesList = getView().findViewById(R.id.ll_child_profiles_list);
         mapChildProfiles(guardianUser.getChildProfiles());
+        setFrProfileChildData();
     }
 
     private void mapChildProfiles(List<ChildProfile> childProfiles) {

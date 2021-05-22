@@ -2,9 +2,11 @@ package com.shelfie.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.util.Base64;
 
 public class ImageDecoder {
+
 
     public static Bitmap decodeBase64(String imageBase64) {
         byte[] decodedImageArray = Base64.decode(imageBase64, Base64.DEFAULT);

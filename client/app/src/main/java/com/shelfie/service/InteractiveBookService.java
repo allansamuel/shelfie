@@ -1,5 +1,6 @@
 package com.shelfie.service;
 
+import com.shelfie.model.Character;
 import com.shelfie.model.InteractiveBook;
 import java.util.ArrayList;
 
@@ -15,6 +16,9 @@ public interface InteractiveBookService {
 
     @GET("interactive_book/page/{pageNumber}")
     Call<ArrayList<InteractiveBook>> getAll(@Path("pageNumber") int pageNumber);
+
+    @GET("interactive_book/{id}/image")
+    Call<byte[]> getImage(@Path("id") Integer id);
 
     @GET("interactive_book/category/{categoryId}/page/{pageNumber}")
     Call<ArrayList<InteractiveBook>> getByCategories(@Path("categoryId") Integer categoryId, @Path("pageNumber") int pageNumber);

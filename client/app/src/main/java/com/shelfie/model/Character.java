@@ -64,4 +64,5 @@ public class Character implements Serializable {
         this.interactiveBook = interactiveBook;
     }
 
+
 }

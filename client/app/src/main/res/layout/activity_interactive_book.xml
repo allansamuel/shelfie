@@ -27,6 +27,13 @@
                 android:contentDescription="@string/content_book_cover"
                 android:scaleType="centerCrop" />
 
+            <ProgressBar
+                android:id="@+id/progress_interactive_book_details"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="true" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -224,7 +231,8 @@
                 android:paddingTop="16dp"
                 android:paddingEnd="32dp"
                 android:paddingBottom="32dp"
-                android:showDividers="middle">
+                android:showDividers="middle"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -265,19 +273,18 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/tv_child_current_coins_amount"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/label_book_child_current_coins_amount"
-                        android:textAlignment="center" />
-
                     <Button
                         android:id="@+id/btn_book_unlock"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/unlock"
                         android:textColor="@android:color/primary_text_dark" />
+                    <TextView
+                        android:id="@+id/tv_child_current_coins_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/label_book_child_current_coins_amount"
+                        android:textAlignment="center" />
 
                 </LinearLayout>
 

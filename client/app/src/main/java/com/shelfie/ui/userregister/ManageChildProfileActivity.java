@@ -63,7 +63,7 @@ public class ManageChildProfileActivity extends FragmentActivity {
 
         btnUserSettings.setOnClickListener(view -> {
             BottomSheetLayout bottomSheetLayout = new BottomSheetLayout();
-            bottomSheetLayout.show(getSupportFragmentManager(), "teste");
+            bottomSheetLayout.show(getSupportFragmentManager(), getString(R.string.settings));
         });
     }
 
@@ -81,10 +81,13 @@ public class ManageChildProfileActivity extends FragmentActivity {
         tvTitleManageChildProfiles = findViewById(R.id.tv_title_manage_child_profiles);
         tvSubtitleManageChildProfiles = findViewById(R.id.tv_subtitle_manage_child_profile);
         if(UserSession.isFormInReadMode(getApplicationContext())) {
+            btnUserSettings.setVisibility(View.VISIBLE);
             tvTitleManageChildProfiles.setText(getString(R.string.title_manage_child_profile_read));
             tvSubtitleManageChildProfiles.setText(getString(R.string.subtitle_manage_child_profile_read));
+        } else if(childProfiles.size() <= 6) {
+            clAddChildProfileContainer.setVisibility(View.VISIBLE);
+            btnSaveUserProfiles.setVisibility(View.VISIBLE);
         }
-
         getChildProfiles();
     }
 
@@ -115,13 +118,6 @@ public class ManageChildProfileActivity extends FragmentActivity {
                     }else{
                         mapChildProfiles();
                         btnSaveUserProfiles.setEnabled(true);
-                    }
-
-                    if(UserSession.isFormInReadMode(getApplicationContext())) {
-                        btnUserSettings.setVisibility(View.VISIBLE);
-                    } else {
-                        clAddChildProfileContainer.setVisibility(View.VISIBLE);
-                        btnSaveUserProfiles.setVisibility(View.VISIBLE);
                     }
                 } else {
                     Snackbar.make(getWindow().getDecorView().getRootView(), "caiu aqui", Snackbar.LENGTH_LONG).show();

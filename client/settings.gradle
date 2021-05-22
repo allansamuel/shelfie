@@ -1,3 +1,3 @@
-include ':unityLibrary-vitoriaregia'
+include ':vitoriaRegiaEOPlaneta'
 include ':app'
 rootProject.name = "Shelfie"

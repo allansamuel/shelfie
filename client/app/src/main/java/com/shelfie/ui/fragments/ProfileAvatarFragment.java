@@ -20,6 +20,7 @@ import com.shelfie.R;
 import com.shelfie.utils.ImageDecoder;
 import com.shelfie.model.ChildProfile;
 import com.shelfie.ui.userregister.FormChildProfileActivity;
+import com.shelfie.utils.ImageDownloader;
 import com.shelfie.utils.UserSession;
 
 import org.jetbrains.annotations.NotNull;
@@ -87,16 +88,13 @@ public class ProfileAvatarFragment extends Fragment {
         fabChildProfileEdit = view.findViewById(R.id.fab_child_profile_edit);
         tvChildProfileNickname = view.findViewById(R.id.tv_child_profile_nickname);
 
-        if(childProfile != null) {
-            Bitmap profileAvatarImage = ImageDecoder.cropAvatarImage(
-                    ImageDecoder.decodeBase64(childProfile.getCharacter().getCharacterImage()));
-            imgChildProfileAvatar.setImageBitmap(profileAvatarImage);
-            imgChildProfileAvatar.setBackgroundColor(getResources().getColor(R.color.blue_200));
-            tvChildProfileNickname.setText(childProfile.getNickname());
+        ImageDownloader imageDownloader = new ImageDownloader(imgChildProfileAvatar);
+        imageDownloader.execute(getString(R.string.url_character_get_image, childProfile.getCharacter().getCharacterId()), getString(R.string.avatar));
+        tvChildProfileNickname.setText(childProfile.getNickname());
 
-            if(!UserSession.isFormInReadMode(getActivity().getApplicationContext())) {
-                fabChildProfileEdit.setVisibility(View.VISIBLE);
-            }
+        if(!UserSession.isFormInReadMode(getActivity().getApplicationContext())) {
+            fabChildProfileEdit.setVisibility(View.VISIBLE);
         }
+
     }
 }
