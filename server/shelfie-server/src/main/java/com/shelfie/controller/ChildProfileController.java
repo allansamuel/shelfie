@@ -34,6 +34,7 @@ public class ChildProfileController {
 	@PostMapping
 	public ResponseEntity<ChildProfile> create(@RequestBody ChildProfile childProfileBody) throws Exception {
 		try {
+			System.out.println(childProfileBody.toString());
 			return ResponseEntity.ok().body(childProfileService.create(childProfileBody));
 		} catch (Exception exception) {
 			throw exception;

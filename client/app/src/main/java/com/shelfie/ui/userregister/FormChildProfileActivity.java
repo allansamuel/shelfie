@@ -97,7 +97,6 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
         progressChildProfileSave = findViewById(R.id.progress_child_profile_save);
 
         if(UserSession.isFormInEditMode(getApplicationContext())){
-            receivedBundle = getIntent().getExtras();
             childProfile = UserSession.getChildProfile(getApplicationContext());
             currentCharacter = childProfile.getCharacter();
             etChildProfileNickname.setText(childProfile.getNickname());

@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -35,10 +36,10 @@ public class Character {
 	
 	@Column(name = "character_description", length = 800)
 	private String characterDescription;
-	
-	@JsonProperty(access = Access.WRITE_ONLY)
+
 	@ManyToOne
 	@JoinColumn(name = "interactive_book_id")
+	@JsonIgnore
 	private InteractiveBook interactiveBook;
 	
 	public Character() {

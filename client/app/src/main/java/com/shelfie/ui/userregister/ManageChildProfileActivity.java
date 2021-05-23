@@ -84,14 +84,12 @@ public class ManageChildProfileActivity extends FragmentActivity {
             btnUserSettings.setVisibility(View.VISIBLE);
             tvTitleManageChildProfiles.setText(getString(R.string.title_manage_child_profile_read));
             tvSubtitleManageChildProfiles.setText(getString(R.string.subtitle_manage_child_profile_read));
-        } else if(childProfiles.size() <= 6) {
-            clAddChildProfileContainer.setVisibility(View.VISIBLE);
-            btnSaveUserProfiles.setVisibility(View.VISIBLE);
         }
         getChildProfiles();
     }
 
     private void addChildProfile() {
+        UserSession.setFormInteractionMode(getApplicationContext(), UserSession.REGISTER_MODE);
         Intent createChildProfileIntent = new Intent(getApplicationContext(), FormChildProfileActivity.class);
         startActivity(createChildProfileIntent);
     }
@@ -117,7 +115,10 @@ public class ManageChildProfileActivity extends FragmentActivity {
                         btnSaveUserProfiles.setEnabled(false);
                     }else{
                         mapChildProfiles();
-                        btnSaveUserProfiles.setEnabled(true);
+                        btnSaveUserProfiles.setVisibility(View.VISIBLE);
+                         if(childProfiles.size() < 6) {
+                            clAddChildProfileContainer.setVisibility(View.VISIBLE);
+                        }
                     }
                 } else {
                     Snackbar.make(getWindow().getDecorView().getRootView(), "caiu aqui", Snackbar.LENGTH_LONG).show();
