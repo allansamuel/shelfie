@@ -96,6 +96,12 @@ public class SearchFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        init();
+    }
+
     private void init() {
         retrofitConfig = new RetrofitConfig();
         interactiveBookService = retrofitConfig.getInteractiveBookService();
@@ -114,6 +120,7 @@ public class SearchFragment extends Fragment {
     }
 
     private void mapSearchResult(List<InteractiveBook> interactiveBooks) {
+        flexboxSearchBookList.removeAllViews();
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         for(InteractiveBook interactiveBook : interactiveBooks) {
             Fragment fragment = BookThumbnailFragment.newInstance(interactiveBook);

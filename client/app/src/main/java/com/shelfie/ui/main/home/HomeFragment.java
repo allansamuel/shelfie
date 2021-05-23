@@ -43,7 +43,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        UserSession.updateChildProfile(getActivity().getApplicationContext());
+        init();
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -79,6 +79,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void mapInteractiveBooks(ArrayList<InteractiveBook> interactiveBooks) {
+        flexboxInteractiveBooks.removeAllViews();
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         for(InteractiveBook interactiveBook : interactiveBooks) {
             Fragment fragment = BookThumbnailFragment.newInstance(interactiveBook);

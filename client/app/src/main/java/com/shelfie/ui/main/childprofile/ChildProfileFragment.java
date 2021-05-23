@@ -6,16 +6,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentContainerView;
 import androidx.fragment.app.FragmentTransaction;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.shelfie.R;
 import com.shelfie.ui.fragments.BottomSheetLayout;
 import com.shelfie.ui.fragments.ChildCoinsFragment;
+import com.shelfie.ui.fragments.EmptyStateDialogFragment;
 import com.shelfie.utils.RetrofitConfig;
 import com.shelfie.model.ChildProfile;
 import com.shelfie.model.GuardianUser;
@@ -23,6 +29,7 @@ import com.shelfie.service.GuardianUserService;
 import com.shelfie.ui.fragments.ProfileAvatarFragment;
 import com.shelfie.utils.UserSession;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChildProfileFragment extends Fragment {
@@ -31,6 +38,7 @@ public class ChildProfileFragment extends Fragment {
     private GuardianUser guardianUser;
     private GuardianUserService guardianUserService;
     private LinearLayout llChildProfilesList;
+    private ProgressBar progressCurrentChildProfiles;
     private Button btnProfileSettings;
     private FragmentContainerView fragmentChildProfileChildDataContainer;
 
@@ -59,9 +67,12 @@ public class ChildProfileFragment extends Fragment {
 
         fragmentChildProfileChildDataContainer = getView().findViewById(R.id.fragment_child_profile_child_data_container);
 
-        btnProfileSettings = getView().findViewById(R.id.btn_profile_settings);
-        llChildProfilesList = getView().findViewById(R.id.ll_child_profiles_list);
-        mapChildProfiles(guardianUser.getChildProfiles());
+        View view = getView();
+        btnProfileSettings = view.findViewById(R.id.btn_profile_settings);
+        llChildProfilesList = view.findViewById(R.id.ll_child_profiles_list);
+        progressCurrentChildProfiles = view.findViewById(R.id.progress_current_child_profiles);
+
+        getChildProfiles();
         setFrProfileChildData();
     }
 
@@ -72,6 +83,29 @@ public class ChildProfileFragment extends Fragment {
             childProfileTransaction.add(R.id.ll_child_profiles_list, profileAvatarFragment, childProfile.getNickname());
         }
         childProfileTransaction.commit();
+    }
+
+
+    private void getChildProfiles() {
+        progressCurrentChildProfiles.setVisibility(View.VISIBLE);
+        guardianUserService.getChildProfiles(guardianUser.getGuardianUserId())
+                .enqueue(new Callback<ArrayList<ChildProfile>>() {
+                    @Override
+                    public void onResponse(Call<ArrayList<ChildProfile>> call, Response<ArrayList<ChildProfile>> response) {
+                        if(response.isSuccessful()) {
+                            mapChildProfiles(response.body());
+                        }
+                        progressCurrentChildProfiles.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onFailure(Call<ArrayList<ChildProfile>> call, Throwable t) {
+                        EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
+                        emptyStateDialogFragment.show(getActivity().getSupportFragmentManager(), "EmptyStateDialogFragment");
+                        progressCurrentChildProfiles.setVisibility(View.GONE);
+                    }
+                });
+
     }
 
     private void setFrProfileChildData(){
