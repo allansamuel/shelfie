@@ -64,5 +64,14 @@ public class Character implements Serializable {
         this.interactiveBook = interactiveBook;
     }
 
-
+    @Override
+    public String toString() {
+        return "Character{" +
+                "characterId=" + characterId +
+                ", characterName='" + characterName + '\'' +
+                ", characterImage='" + characterImage + '\'' +
+                ", characterDescription='" + characterDescription + '\'' +
+                ", interactiveBook=" + interactiveBook +
+                '}';
+    }
 }

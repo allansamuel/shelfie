@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.shelfie.R;
 import com.shelfie.model.ChildProfile;
-import com.shelfie.utils.ImageDecoder;
+import com.shelfie.utils.ImageDownloader;
 import com.shelfie.utils.UserSession;
 
 public class ChildCoinsFragment extends Fragment {
@@ -66,9 +66,8 @@ public class ChildCoinsFragment extends Fragment {
 
         childProfile = UserSession.getChildProfile(getActivity().getApplicationContext());
 
-        Bitmap profileAvatarImage = ImageDecoder.cropAvatarImage(
-                ImageDecoder.decodeBase64(childProfile.getCharacter().getCharacterImage()));
-        imgLoggedChildProfileAvatar.setImageBitmap(profileAvatarImage);
+        ImageDownloader imageDownloader = new ImageDownloader(imgLoggedChildProfileAvatar);
+        imageDownloader.execute(getString(R.string.url_character_get_image, childProfile.getCharacter().getCharacterId()), getString(R.string.avatar));
         tvLoggedChildProfileNickname.setText(childProfile.getNickname());
         tvLoggedChildProfileCoins.setText(String.valueOf(childProfile.getCoins()));
     }

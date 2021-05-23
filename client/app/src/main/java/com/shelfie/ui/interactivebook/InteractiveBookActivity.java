@@ -25,7 +25,7 @@ import com.shelfie.ui.fragments.CharacterPreviewFragment;
 import com.shelfie.ui.fragments.EmptyStateDialogFragment;
 import com.shelfie.ui.fragments.QuestPreviewFragment;
 import com.shelfie.ui.unityholders.UHVitoriaRegiaActivity;
-import com.shelfie.utils.ImageDecoder;
+import com.shelfie.utils.ImageDownloader;
 import com.shelfie.utils.RetrofitConfig;
 import com.shelfie.utils.UserSession;
 
@@ -102,7 +102,8 @@ public class InteractiveBookActivity extends AppCompatActivity {
         btnBookRead = findViewById(R.id.btn_book_read);
         progressInteractiveBookDetails = findViewById(R.id.progress_interactive_book_details);
 
-        imgBookCover.setImageBitmap(ImageDecoder.decodeBase64(interactiveBook.getBookCover()));
+        ImageDownloader imageDownloader = new ImageDownloader(imgBookCover);
+        imageDownloader.execute(getString(R.string.url_book_get_image, interactiveBook.getInteractiveBookId()));
         tvBookTitle.setText(interactiveBook.getTitle());
         tvBookSinopsys.setText(interactiveBook.getSinopsys());
         tvBookCategories.setText(mapBookCategories(interactiveBook.getBookCategories()));

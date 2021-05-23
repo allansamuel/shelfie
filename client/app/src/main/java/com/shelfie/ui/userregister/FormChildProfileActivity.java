@@ -20,7 +20,7 @@ import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.shelfie.R;
-import com.shelfie.utils.ImageDecoder;
+import com.shelfie.utils.ImageDownloader;
 import com.shelfie.utils.RetrofitConfig;
 import com.shelfie.model.Character;
 import com.shelfie.model.ChildProfile;
@@ -43,7 +43,6 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
     private CharacterService characterService;
     private List<Character> characterList;
     private Character currentCharacter;
-    private Bundle receivedBundle;
 
     private TextInputLayout txtChildProfileNickname;
     private ImageButton ibPreviousCharacter;
@@ -99,7 +98,7 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
 
         if(UserSession.isFormInEditMode(getApplicationContext())){
             receivedBundle = getIntent().getExtras();
-            childProfile = (ChildProfile) receivedBundle.getSerializable(getString(R.string.arg_child_profile));
+            childProfile = UserSession.getChildProfile(getApplicationContext());
             currentCharacter = childProfile.getCharacter();
             etChildProfileNickname.setText(childProfile.getNickname());
             btnDeleteChildProfile.setVisibility(View.VISIBLE);
@@ -134,9 +133,10 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
     }
 
     private void setCharacterImagePreview() {
+        ImageDownloader imageDownloader = new ImageDownloader(imgCharacterPreview);
+        imageDownloader.execute(getString(R.string.url_character_get_image, currentCharacter.getCharacterId()));
         imgCharacterPreview.setVisibility(View.VISIBLE);
-        imgCharacterPreview.setImageBitmap(ImageDecoder.decodeBase64(currentCharacter.getCharacterImage()));
-        hideCharacterNavigationButtons();
+        toggleCharacterNavigationButtons();
     }
 
     private boolean isFirstCharacter() {
@@ -147,7 +147,7 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
         return characterList.indexOf(currentCharacter) == characterList.size() - 1 ? true : false;
     }
 
-    private void hideCharacterNavigationButtons() {
+    private void toggleCharacterNavigationButtons() {
         ibPreviousCharacter.setVisibility(View.VISIBLE);
         if(isFirstCharacter()) {
             ibPreviousCharacter.setVisibility(View.INVISIBLE);
@@ -163,7 +163,7 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
         if(!isFirstCharacter()) {
             currentCharacter = characterList.get(characterList.indexOf(currentCharacter) - 1);
             setCharacterImagePreview();
-            hideCharacterNavigationButtons();
+            toggleCharacterNavigationButtons();
         }
     }
 
@@ -171,7 +171,7 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
         if(!isLastCharacter()) {
             currentCharacter = characterList.get(characterList.indexOf(currentCharacter) + 1);
             setCharacterImagePreview();
-            hideCharacterNavigationButtons();
+            toggleCharacterNavigationButtons();
         }
     }
 

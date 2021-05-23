@@ -15,7 +15,6 @@ import android.widget.ImageView;
 
 import com.shelfie.R;
 import com.shelfie.ui.interactivebook.InteractiveBookActivity;
-import com.shelfie.utils.ImageDecoder;
 import com.shelfie.model.InteractiveBook;
 import com.shelfie.utils.ImageDownloader;
 import com.shelfie.utils.UserSession;
@@ -76,7 +75,7 @@ public class BookThumbnailFragment extends Fragment {
         cvBookThumbnail = view.findViewById(R.id.cv_book_thumbnail);
         ImageView imgBookThumbnail = view.findViewById(R.id.img_book_thumbnail);
 
-        ImageDownloader imageDownloader = new ImageDownloader(imgChildProfileAvatar);
-        imageDownloader.execute(getString(R.string.url_character_get_image, childProfile.getCharacter().getCharacterId()), getString(R.string.avatar));
+        ImageDownloader imageDownloader = new ImageDownloader(imgBookThumbnail);
+        imageDownloader.execute(getString(R.string.url_book_get_image, interactiveBook.getInteractiveBookId()));
     }
 }

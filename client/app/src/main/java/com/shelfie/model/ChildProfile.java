@@ -99,4 +99,17 @@ public class ChildProfile implements Serializable {
         this.childSavedBooks = childSavedBooks;
     }
 
+    @Override
+    public String toString() {
+        return "ChildProfile{" +
+                "childProfileId=" + childProfileId +
+                ", nickname='" + nickname + '\'' +
+                ", coins=" + coins +
+                ", guardianUser=" + guardianUser +
+                ", character=" + character.toString() +
+                ", childCompletedQuests=" + childCompletedQuests +
+                ", childUnlockedBooks=" + childUnlockedBooks +
+                ", childSavedBooks=" + childSavedBooks +
+                '}';
+    }
 }

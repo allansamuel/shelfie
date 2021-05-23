@@ -85,5 +85,6 @@
     <string name="date_formatter">dd/MM/yyyy</string>
     <string name="avatar">Avatar</string>
     <string name="url_character_get_image">character/%1$d/image</string>
+    <string name="url_book_get_image">interactive_book/%1$d/image</string>
 
 </resources>

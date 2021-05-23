@@ -1,7 +1,6 @@
 package com.shelfie.ui.fragments;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -17,7 +16,6 @@ import android.widget.TextView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.shelfie.ui.main.MainActivity;
 import com.shelfie.R;
-import com.shelfie.utils.ImageDecoder;
 import com.shelfie.model.ChildProfile;
 import com.shelfie.ui.userregister.FormChildProfileActivity;
 import com.shelfie.utils.ImageDownloader;
@@ -76,7 +74,8 @@ public class ProfileAvatarFragment extends Fragment {
         fabChildProfileEdit.setOnClickListener(view12 -> {
             UserSession.setFormInteractionMode(getActivity().getApplicationContext(), UserSession.EDIT_MODE);
             Intent editChildProfileIntent = new Intent(requireActivity().getApplicationContext(), FormChildProfileActivity.class);
-            editChildProfileIntent.putExtra(ARG_CHILD_PROFILE, childProfile);
+            UserSession.setChildProfile(getActivity().getApplicationContext(), childProfile);
+//            editChildProfileIntent.putExtra(ARG_CHILD_PROFILE, childProfile);
             startActivity(editChildProfileIntent);
         });
     }
@@ -91,7 +90,6 @@ public class ProfileAvatarFragment extends Fragment {
         ImageDownloader imageDownloader = new ImageDownloader(imgChildProfileAvatar);
         imageDownloader.execute(getString(R.string.url_character_get_image, childProfile.getCharacter().getCharacterId()), getString(R.string.avatar));
         tvChildProfileNickname.setText(childProfile.getNickname());
-
         if(!UserSession.isFormInReadMode(getActivity().getApplicationContext())) {
             fabChildProfileEdit.setVisibility(View.VISIBLE);
         }

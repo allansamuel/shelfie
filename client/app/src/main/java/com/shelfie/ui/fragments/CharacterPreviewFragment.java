@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.shelfie.R;
 import com.shelfie.model.Character;
-import com.shelfie.utils.ImageDecoder;
+import com.shelfie.utils.ImageDownloader;
 
 public class CharacterPreviewFragment extends Fragment {
 
@@ -61,7 +61,8 @@ public class CharacterPreviewFragment extends Fragment {
         tvBookCharacterName = view.findViewById(R.id.tv_book_character_name);
         tvBookCharacterDescription = view.findViewById(R.id.tv_book_character_description);
 
-        imgBookCharacterPreview.setImageBitmap(ImageDecoder.decodeBase64(character.getCharacterImage()));
+        ImageDownloader imageDownloader = new ImageDownloader(imgBookCharacterPreview);
+        imageDownloader.execute(getString(R.string.url_character_get_image, character.getCharacterId()));
         tvBookCharacterName.setText(character.getCharacterName());
         tvBookCharacterDescription.setText(character.getCharacterDescription());
     }
