@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.shelfie.R;
+import com.shelfie.utils.UserSession;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,5 +27,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.clear();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        UserSession.updateChildProfile(getApplicationContext());
     }
 }

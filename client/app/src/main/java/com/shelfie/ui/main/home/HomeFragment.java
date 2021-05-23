@@ -40,6 +40,12 @@ public class HomeFragment extends Fragment {
     int pageNumber = 1;
 
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        UserSession.updateChildProfile(getActivity().getApplicationContext());
+    }
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_home, container, false);

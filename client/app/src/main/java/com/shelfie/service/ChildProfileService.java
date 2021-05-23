@@ -18,7 +18,7 @@ public interface ChildProfileService {
     Call<ArrayList<ChildProfile>> getAll();
 
     @GET("child_profile/{id}")
-    Call<ArrayList<ChildProfile>> getById(@Path("id") Integer id);
+    Call<ChildProfile> getById(@Path("id") Integer id);
 
     @POST("child_profile/")
     Call<ChildProfile> create(@Body ChildProfile childProfile);

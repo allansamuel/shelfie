@@ -273,6 +273,14 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
+                    <ProgressBar
+                        android:id="@+id/progress_interactive_book_unlock"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:indeterminate="true"
+                        android:visibility="invisible" />
+
                     <Button
                         android:id="@+id/btn_book_unlock"
                         android:layout_width="match_parent"

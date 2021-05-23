@@ -63,6 +63,7 @@ public class InteractiveBookActivity extends AppCompatActivity {
     private Button btnBookUnlock;
     private Button btnBookRead;
     private ProgressBar progressInteractiveBookDetails;
+    private ProgressBar progressInteractiveBookUnlock;
 
     private List<Character> bookCharacters;
     private List<Quest> bookQuests;
@@ -71,11 +72,18 @@ public class InteractiveBookActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interactive_book);
+
         init();
 
         btnBookUnlock.setOnClickListener(view -> unlockInteractiveBook());
 
         btnBookRead.setOnClickListener(view -> UHVitoriaRegiaActivity.launchGame(this));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        init();
     }
 
     private void init() {
@@ -101,6 +109,7 @@ public class InteractiveBookActivity extends AppCompatActivity {
         btnBookUnlock = findViewById(R.id.btn_book_unlock);
         btnBookRead = findViewById(R.id.btn_book_read);
         progressInteractiveBookDetails = findViewById(R.id.progress_interactive_book_details);
+        progressInteractiveBookUnlock = findViewById(R.id.progress_interactive_book_unlock);
 
         ImageDownloader imageDownloader = new ImageDownloader(imgBookCover);
         imageDownloader.execute(getString(R.string.url_book_get_image, interactiveBook.getInteractiveBookId()));
@@ -109,7 +118,7 @@ public class InteractiveBookActivity extends AppCompatActivity {
         tvBookCategories.setText(mapBookCategories(interactiveBook.getBookCategories()));
         tvBookPublishDate.setText(formatPublishDate(interactiveBook.getPublishDate()));
         tvBookAuthors.setText(mapBookAuthors(interactiveBook.getBookAuthors()));
-        tvBookChapters.setText(getString(R.string.label_book_chapters_amount, interactiveBook.getChapters().size()));
+        tvBookChapters.setText(getString(R.string.label_book_unlock));
         tvBookPrice.setText(String.valueOf(interactiveBook.getPrice()));
         tvChildCurrentCoinsAmount.setText(getString(R.string.label_book_child_current_coins_amount, childProfile.getCoins()));
 
@@ -125,6 +134,7 @@ public class InteractiveBookActivity extends AppCompatActivity {
     }
 
     private void mapBookQuests() {
+        llBookQuests.removeAllViews();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         for(Quest quest : bookQuests) {
             Fragment profileAvatarFragment = QuestPreviewFragment.newInstance(quest);
@@ -134,6 +144,7 @@ public class InteractiveBookActivity extends AppCompatActivity {
     }
 
     private void mapBookCharacters() {
+        llBookCharacters.removeAllViews();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         for(Character character : bookCharacters) {
             Fragment profileAvatarFragment = CharacterPreviewFragment.newInstance(character);
@@ -170,7 +181,7 @@ public class InteractiveBookActivity extends AppCompatActivity {
     }
 
     private void unlockInteractiveBook() {
-        btnBookUnlock.setText(R.string.loading);
+        progressInteractiveBookUnlock.setVisibility(View.VISIBLE);
         childUnlockedBookService.unlock(
                 childProfile.getChildProfileId(),
                 interactiveBook.getInteractiveBookId()).enqueue(new Callback<ChildProfile>() {
@@ -185,20 +196,20 @@ public class InteractiveBookActivity extends AppCompatActivity {
                     EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
                     emptyStateDialogFragment.show(getSupportFragmentManager(), "EmptyStateDialogFragment");
                 }
+                progressInteractiveBookUnlock.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onFailure(Call<ChildProfile> call, Throwable t) {
                 EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
                 emptyStateDialogFragment.show(getSupportFragmentManager(), "EmptyStateDialogFragment");
+                progressInteractiveBookUnlock.setVisibility(View.INVISIBLE);
             }
         });
-        btnBookUnlock.setText(R.string.unlock);
         checkIfBookIsUnlocked();
     }
 
     private void checkIfBookIsUnlocked() {
-
         childUnlockedBookService.isUnlocked(
                 childProfile.getChildProfileId(),
                 interactiveBook.getInteractiveBookId()).enqueue(new Callback<Boolean>() {
