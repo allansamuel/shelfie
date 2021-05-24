@@ -5,8 +5,6 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.widget.ImageView;
 
-import com.shelfie.R;
-
 import java.io.InputStream;
 
 public class ImageDownloader extends AsyncTask<String, Integer, Bitmap> {

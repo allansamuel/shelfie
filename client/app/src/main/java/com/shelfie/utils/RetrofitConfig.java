@@ -1,8 +1,5 @@
 package com.shelfie.utils;
 
-
-import com.shelfie.model.ChildUnlockedBook;
-import com.shelfie.service.CategoryService;
 import com.shelfie.service.CharacterService;
 import com.shelfie.service.ChildCompletedQuestService;
 import com.shelfie.service.ChildProfileService;
@@ -34,10 +31,6 @@ public class RetrofitConfig {
 
     public CharacterService getCharacterService() {
         return this.retrofit.create(CharacterService.class);
-    }
-
-    public CategoryService getCategoryService() {
-        return this.retrofit.create(CategoryService.class);
     }
 
     public InteractiveBookService getInteractiveBookService() {

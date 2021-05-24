@@ -34,7 +34,6 @@ public class ManageChildProfileActivity extends FragmentActivity {
     private RetrofitConfig retrofitConfig;
     private GuardianUser guardianUser;
     private GuardianUserService guardianUserService;
-    private ArrayList<ChildProfile> childProfiles;
 
     private ConstraintLayout clAddChildProfileContainer;
     private FlexboxLayout flexboxChildProfiles;

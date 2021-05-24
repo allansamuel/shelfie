@@ -7,11 +7,6 @@ import com.google.gson.Gson;
 import com.shelfie.model.ChildProfile;
 import com.shelfie.model.GuardianUser;
 import com.shelfie.model.InteractiveBook;
-import com.shelfie.service.ChildProfileService;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public final class UserSession {
 
