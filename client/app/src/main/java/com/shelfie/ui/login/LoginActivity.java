@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -22,9 +21,9 @@ import com.shelfie.R;
 import com.shelfie.utils.RetrofitConfig;
 import com.shelfie.model.GuardianUser;
 import com.shelfie.service.GuardianUserService;
-import com.shelfie.ui.fragments.CustomDialogFragment;
-import com.shelfie.ui.userregister.FormGuardianUserActivity;
-import com.shelfie.ui.userregister.ManageChildProfileActivity;
+import com.shelfie.ui.dialogs.CustomDialogFragment;
+import com.shelfie.ui.user.FormGuardianUserActivity;
+import com.shelfie.ui.user.childprofile.ManageChildProfileActivity;
 import com.shelfie.utils.UserSession;
 
 import java.util.List;

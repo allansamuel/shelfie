@@ -1,4 +1,4 @@
-package com.shelfie.ui.fragments;
+package com.shelfie.ui.dialogs;
 
 import android.app.Dialog;
 import android.content.DialogInterface;

@@ -1,4 +1,4 @@
-package com.shelfie.ui.fragments;
+package com.shelfie.ui.user.childprofile;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,7 +17,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.shelfie.ui.main.MainActivity;
 import com.shelfie.R;
 import com.shelfie.model.ChildProfile;
-import com.shelfie.ui.userregister.FormChildProfileActivity;
 import com.shelfie.utils.ImageDownloader;
 import com.shelfie.utils.UserSession;
 

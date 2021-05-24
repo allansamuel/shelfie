@@ -1,4 +1,4 @@
-package com.shelfie.ui.userregister;
+package com.shelfie.ui.user.childprofile;
 
 import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
@@ -29,7 +29,7 @@ import com.shelfie.model.ChildProfile;
 import com.shelfie.model.GuardianUser;
 import com.shelfie.service.CharacterService;
 import com.shelfie.service.ChildProfileService;
-import com.shelfie.ui.fragments.CustomDialogFragment;
+import com.shelfie.ui.dialogs.CustomDialogFragment;
 import com.shelfie.utils.UserSession;
 
 import java.util.ArrayList;

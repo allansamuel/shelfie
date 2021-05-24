@@ -4,11 +4,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import com.shelfie.R;
 import com.shelfie.model.InteractiveBook;
-import com.shelfie.ui.fragments.BookThumbnailFragment;
+import com.shelfie.ui.interactivebook.BookThumbnailFragment;
 
 import java.util.ArrayList;
 

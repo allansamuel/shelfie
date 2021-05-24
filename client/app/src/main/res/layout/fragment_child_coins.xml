@@ -9,7 +9,7 @@
     app:alignItems="center"
     app:justifyContent="space_between"
     app:layout_minWidth="100dp"
-    tools:context=".ui.fragments.ChildCoinsFragment">
+    tools:context=".ui.user.childprofile.ChildCoinsFragment">
 
     <LinearLayout
         android:layout_width="wrap_content"

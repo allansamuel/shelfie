@@ -1,4 +1,4 @@
-package com.shelfie.ui.fragments;
+package com.shelfie.ui.interactivebook;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.shelfie.R;
-import com.shelfie.ui.interactivebook.InteractiveBookActivity;
 import com.shelfie.model.InteractiveBook;
 import com.shelfie.utils.ImageDownloader;
 import com.shelfie.utils.UserSession;

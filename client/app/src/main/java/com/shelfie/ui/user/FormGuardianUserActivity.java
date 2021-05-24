@@ -1,4 +1,4 @@
-package com.shelfie.ui.userregister;
+package com.shelfie.ui.user;
 
 import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
@@ -22,10 +22,11 @@ import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.Password;
 import com.shelfie.R;
 import com.shelfie.ui.login.LoginActivity;
+import com.shelfie.ui.user.childprofile.ManageChildProfileActivity;
 import com.shelfie.utils.RetrofitConfig;
 import com.shelfie.model.GuardianUser;
 import com.shelfie.service.GuardianUserService;
-import com.shelfie.ui.fragments.CustomDialogFragment;
+import com.shelfie.ui.dialogs.CustomDialogFragment;
 import com.shelfie.utils.UserSession;
 
 import java.util.List;

@@ -18,14 +18,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import com.shelfie.R;
-import com.shelfie.ui.fragments.BottomSheetLayout;
-import com.shelfie.ui.fragments.ChildCoinsFragment;
-import com.shelfie.ui.fragments.CustomDialogFragment;
+import com.shelfie.ui.dialogs.SettingsBottomDialog;
+import com.shelfie.ui.user.childprofile.ChildCoinsFragment;
+import com.shelfie.ui.dialogs.CustomDialogFragment;
 import com.shelfie.utils.RetrofitConfig;
 import com.shelfie.model.ChildProfile;
 import com.shelfie.model.GuardianUser;
 import com.shelfie.service.GuardianUserService;
-import com.shelfie.ui.fragments.ProfileAvatarFragment;
+import com.shelfie.ui.user.childprofile.ProfileAvatarFragment;
 import com.shelfie.utils.UserSession;
 
 import java.util.ArrayList;
@@ -53,8 +53,8 @@ public class ChildProfileFragment extends Fragment {
         btnProfileSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BottomSheetLayout bottomSheetLayout = new BottomSheetLayout();
-                bottomSheetLayout.show(getActivity().getSupportFragmentManager(), getString(R.string.settings));
+                SettingsBottomDialog settingsBottomDialog = new SettingsBottomDialog();
+                settingsBottomDialog.show(getActivity().getSupportFragmentManager(), getString(R.string.settings));
             }
         });
     }

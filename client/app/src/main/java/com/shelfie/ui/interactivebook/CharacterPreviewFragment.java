@@ -1,4 +1,4 @@
-package com.shelfie.ui.fragments;
+package com.shelfie.ui.interactivebook;
 
 import android.os.Bundle;
 

@@ -8,7 +8,7 @@
     android:paddingStart="32dp"
     android:paddingEnd="32dp"
     app:layout_minHeight="300dp"
-    tools:context=".ui.fragments.CharacterPreviewFragment">
+    tools:context=".ui.interactivebook.CharacterPreviewFragment">
 
     <ImageView
         android:id="@+id/img_book_character_preview"

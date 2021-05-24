@@ -1,6 +1,5 @@
-package com.shelfie.ui.fragments;
+package com.shelfie.ui.user.childprofile;
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.shelfie.R;
 import com.shelfie.model.ChildProfile;
 import com.shelfie.service.ChildProfileService;

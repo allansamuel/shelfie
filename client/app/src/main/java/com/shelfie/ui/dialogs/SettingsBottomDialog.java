@@ -1,4 +1,4 @@
-package com.shelfie.ui.fragments;
+package com.shelfie.ui.dialogs;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,14 +10,14 @@ import android.widget.Button;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.shelfie.R;
 import com.shelfie.ui.login.LoginActivity;
-import com.shelfie.ui.userregister.FormGuardianUserActivity;
-import com.shelfie.ui.userregister.ManageChildProfileActivity;
+import com.shelfie.ui.user.FormGuardianUserActivity;
+import com.shelfie.ui.user.childprofile.ManageChildProfileActivity;
 import com.shelfie.utils.UserSession;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public class BottomSheetLayout extends BottomSheetDialogFragment {
+public class SettingsBottomDialog extends BottomSheetDialogFragment {
 
     private Button btnEditGuardianUser;
     private Button btnEditChildProfiles;

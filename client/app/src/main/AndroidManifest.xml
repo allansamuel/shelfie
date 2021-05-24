@@ -26,13 +26,13 @@
             android:name=".ui.login.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.userregister.FormChildProfileActivity"
+            android:name=".ui.user.childprofile.FormChildProfileActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.userregister.ManageChildProfileActivity"
+            android:name=".ui.user.childprofile.ManageChildProfileActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.userregister.FormGuardianUserActivity"
+            android:name=".ui.user.FormGuardianUserActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.main.MainActivity"

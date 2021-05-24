@@ -1,4 +1,4 @@
-package com.shelfie.ui.userregister;
+package com.shelfie.ui.user.childprofile;
 
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -19,13 +19,12 @@ import android.widget.TextView;
 import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.material.snackbar.Snackbar;
 import com.shelfie.R;
-import com.shelfie.ui.fragments.CustomDialogFragment;
+import com.shelfie.ui.dialogs.CustomDialogFragment;
 import com.shelfie.utils.RetrofitConfig;
 import com.shelfie.model.ChildProfile;
 import com.shelfie.model.GuardianUser;
 import com.shelfie.service.GuardianUserService;
-import com.shelfie.ui.fragments.BottomSheetLayout;
-import com.shelfie.ui.fragments.ProfileAvatarFragment;
+import com.shelfie.ui.dialogs.SettingsBottomDialog;
 import com.shelfie.utils.UserSession;
 
 import java.util.ArrayList;
@@ -63,8 +62,8 @@ public class ManageChildProfileActivity extends FragmentActivity {
         });
 
         btnUserSettings.setOnClickListener(view -> {
-            BottomSheetLayout bottomSheetLayout = new BottomSheetLayout();
-            bottomSheetLayout.show(getSupportFragmentManager(), getString(R.string.settings));
+            SettingsBottomDialog settingsBottomDialog = new SettingsBottomDialog();
+            settingsBottomDialog.show(getSupportFragmentManager(), getString(R.string.settings));
         });
     }
 

@@ -21,9 +21,9 @@ import com.shelfie.R;
 import com.shelfie.model.ChildProfile;
 import com.shelfie.model.InteractiveBook;
 import com.shelfie.service.InteractiveBookService;
-import com.shelfie.ui.fragments.BookThumbnailFragment;
-import com.shelfie.ui.fragments.ChildCoinsFragment;
-import com.shelfie.ui.fragments.CustomDialogFragment;
+import com.shelfie.ui.interactivebook.BookThumbnailFragment;
+import com.shelfie.ui.user.childprofile.ChildCoinsFragment;
+import com.shelfie.ui.dialogs.CustomDialogFragment;
 import com.shelfie.utils.RetrofitConfig;
 import com.shelfie.utils.UserSession;
 

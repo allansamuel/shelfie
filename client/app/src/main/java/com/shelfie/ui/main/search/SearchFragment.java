@@ -23,11 +23,11 @@ import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.shelfie.R;
-import com.shelfie.ui.fragments.CustomDialogFragment;
+import com.shelfie.ui.dialogs.CustomDialogFragment;
 import com.shelfie.utils.RetrofitConfig;
 import com.shelfie.model.InteractiveBook;
 import com.shelfie.service.InteractiveBookService;
-import com.shelfie.ui.fragments.BookThumbnailFragment;
+import com.shelfie.ui.interactivebook.BookThumbnailFragment;
 
 import java.util.ArrayList;
 import java.util.List;

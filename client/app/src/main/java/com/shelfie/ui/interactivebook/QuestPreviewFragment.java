@@ -1,4 +1,4 @@
-package com.shelfie.ui.fragments;
+package com.shelfie.ui.interactivebook;
 
 import android.os.Bundle;
 
@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.shelfie.R;
 import com.shelfie.model.Quest;
 import com.shelfie.service.ChildCompletedQuestService;
+import com.shelfie.ui.dialogs.CustomDialogFragment;
 import com.shelfie.utils.RetrofitConfig;
 import com.shelfie.utils.UserSession;
 

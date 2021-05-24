@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 
 import com.shelfie.R;
-import com.shelfie.ui.userregister.ManageChildProfileActivity;
+import com.shelfie.ui.user.childprofile.ManageChildProfileActivity;
 import com.shelfie.utils.UserSession;
 
 public class WelcomeActivity extends AppCompatActivity {
