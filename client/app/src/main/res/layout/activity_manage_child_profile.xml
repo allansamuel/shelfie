@@ -111,17 +111,19 @@
 
         <Button
             android:id="@+id/btn_user_settings"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:layout_gravity="center_horizontal"
-            android:drawablePadding="10dp"
+            android:drawableStart="@drawable/settings_black_24dp"
+            android:drawablePadding="5dp"
+            android:drawableTint="@color/blue_400"
             android:text="@string/settings"
             android:textColor="@color/blue_400"
             android:textColorHighlight="@color/blue_400"
             android:textColorLink="@color/blue_400"
-            android:visibility="gone"
             app:strokeWidth="2dp" />
+
     </LinearLayout>
 
 
