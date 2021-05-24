@@ -141,7 +141,6 @@ public final class UserSession {
 
             @Override
             public void onFailure(Call<ChildProfile> call, Throwable t) {
-
             }
         });
     }

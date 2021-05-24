@@ -1,12 +1,14 @@
 package com.shelfie.model;
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 
 public class Character implements Serializable {
 
     private Integer characterId;
     private String characterName;
-    private String characterImage;
+    private Bitmap characterImage;
     private String characterDescription;
     private InteractiveBook interactiveBook;
 
@@ -14,7 +16,7 @@ public class Character implements Serializable {
         super();
     }
 
-    public Character(Integer characterId, String characterName, String characterImage, String characterDescription,
+    public Character(Integer characterId, String characterName, Bitmap characterImage, String characterDescription,
                      InteractiveBook interactiveBook){
         super();
         this.characterId = characterId;
@@ -40,11 +42,11 @@ public class Character implements Serializable {
         this.characterName = characterName;
     }
 
-    public String getCharacterImage() {
+    public Bitmap getCharacterImage() {
         return characterImage;
     }
 
-    public void setCharacterImage(String characterImage) {
+    public void setCharacterImage(Bitmap characterImage) {
         this.characterImage = characterImage;
     }
 

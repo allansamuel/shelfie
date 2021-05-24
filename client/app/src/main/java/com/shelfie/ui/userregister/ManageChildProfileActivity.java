@@ -105,6 +105,8 @@ public class ManageChildProfileActivity extends FragmentActivity {
     }
 
     private void mapChildProfiles(ArrayList<ChildProfile> childProfiles) {
+        flexboxChildProfiles.removeAllViews();
+        flexboxChildProfiles.addView(clAddChildProfileContainer);
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         for(ChildProfile childProfile : childProfiles) {
             Fragment profileAvatarFragment = ProfileAvatarFragment.newInstance(childProfile);
