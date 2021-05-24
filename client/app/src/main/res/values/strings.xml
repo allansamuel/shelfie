@@ -43,6 +43,7 @@
     <string name="dialog_confirm_delete_user">Tem certeza que deseja excluir o seu cadastro? Todos os livros desbloqueados e progresso de seus perfis serão perdidos.</string>
     <string name="dialog_confirm_delete_profile">Quer mesmo excluir o seu perfil? Todos os seus livros desbloqueados e missões serão perdidos.</string>
     <string name="dialog_login_failed">Não foi possível efetuar o login. Email ou senha incorretos.</string>
+    <string name="dialog_register_failed">Email já cadastrado no sistema. Realize o login.</string>
     <string name="dialog_server_connection">Não foi possível conectar com o servidor. Por favor, tente novamente mais tarde.</string>
     <string name="dialog_book_unlock_failed">Você não possui moedas o suficiente para desbloquear este livro. Complete missões de outros livros para ganhar moedas e tente novamente.</string>
 

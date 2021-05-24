@@ -146,7 +146,9 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
                     Intent intent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
                     startActivity(intent);
                 } else {
-
+                    CustomDialogFragment customDialogFragment = new CustomDialogFragment();
+                    customDialogFragment.buildDialog(getString(R.string.dialog_register_failed));
+                    customDialogFragment.show(getSupportFragmentManager(), getString(R.string.dialog_tag));
                 }
                 progressGuardianUserSave.setVisibility(View.INVISIBLE);
             }
