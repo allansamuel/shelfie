@@ -7,6 +7,7 @@ import retrofit2.Response;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -43,6 +44,7 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
     private CharacterService characterService;
     private List<Character> characterList;
     private Character currentCharacter;
+    private Handler changeCharacterHandler;
 
     private TextInputLayout txtChildProfileNickname;
     private ImageButton ibPreviousCharacter;
@@ -85,6 +87,7 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
         retrofitConfig = new RetrofitConfig();
         childProfileService = retrofitConfig.getChildProfileService();
         characterService = retrofitConfig.getCharacterService();
+        changeCharacterHandler = new Handler();
 
         txtChildProfileNickname = findViewById(R.id.txt_child_profile_nickname);
         etChildProfileNickname = findViewById(R.id.et_child_profile_nickname);
@@ -158,18 +161,27 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
         }
     }
 
+    Runnable changeCharacterPreview = new Runnable() {
+        @Override
+        public void run() {
+            setCharacterImagePreview();
+        }
+    };
+
     private void getPreviousCharacter() {
         if(!isFirstCharacter()) {
+            changeCharacterHandler.removeCallbacksAndMessages(null);
+            changeCharacterHandler.postDelayed(changeCharacterPreview, 2000);
             currentCharacter = characterList.get(characterList.indexOf(currentCharacter) - 1);
-            setCharacterImagePreview();
             toggleCharacterNavigationButtons();
         }
     }
 
     private void getNextCharacter() {
         if(!isLastCharacter()) {
+            changeCharacterHandler.removeCallbacksAndMessages(null);
+            changeCharacterHandler.postDelayed(changeCharacterPreview, 2000);
             currentCharacter = characterList.get(characterList.indexOf(currentCharacter) + 1);
-            setCharacterImagePreview();
             toggleCharacterNavigationButtons();
         }
     }

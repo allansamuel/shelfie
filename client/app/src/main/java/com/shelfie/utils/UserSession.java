@@ -123,27 +123,4 @@ public final class UserSession {
         editor.remove(KEY_CHILD_PROFILE);
         editor.commit();
     }
-
-    public static void updateChildProfile(Context context){
-        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = settings.edit();
-        ChildProfile childProfile = getChildProfile(context);
-        RetrofitConfig retrofitConfig = new RetrofitConfig();
-        ChildProfileService childProfileService = retrofitConfig.getChildProfileService();
-        childProfileService.getById(childProfile.getChildProfileId()).enqueue(new Callback<ChildProfile>() {
-            @Override
-            public void onResponse(Call<ChildProfile> call, Response<ChildProfile> response) {
-                if(response.isSuccessful()) {
-                    editor.putString(KEY_CHILD_PROFILE, new Gson().toJson(response.body()));
-                    editor.commit();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ChildProfile> call, Throwable t) {
-            }
-        });
-    }
-
-
 }
