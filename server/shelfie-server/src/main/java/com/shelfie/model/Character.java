@@ -39,7 +39,7 @@ public class Character {
 
 	@ManyToOne
 	@JoinColumn(name = "interactive_book_id")
-	@JsonIgnore
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private InteractiveBook interactiveBook;
 	
 	public Character() {
