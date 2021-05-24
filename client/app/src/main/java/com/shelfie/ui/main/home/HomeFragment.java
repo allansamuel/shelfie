@@ -23,7 +23,7 @@ import com.shelfie.model.InteractiveBook;
 import com.shelfie.service.InteractiveBookService;
 import com.shelfie.ui.fragments.BookThumbnailFragment;
 import com.shelfie.ui.fragments.ChildCoinsFragment;
-import com.shelfie.ui.fragments.EmptyStateDialogFragment;
+import com.shelfie.ui.fragments.CustomDialogFragment;
 import com.shelfie.utils.RetrofitConfig;
 import com.shelfie.utils.UserSession;
 
@@ -103,8 +103,9 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ArrayList<InteractiveBook>> call, Throwable t) {
-                EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
-                emptyStateDialogFragment.show(getActivity().getSupportFragmentManager(), "EmptyStateDialogFragment");
+                CustomDialogFragment customDialogFragment = new CustomDialogFragment();
+                customDialogFragment.buildDialog(getString(R.string.dialog_server_connection));
+                customDialogFragment.show(getActivity().getSupportFragmentManager(), getString(R.string.dialog_tag));
                 progressInteractiveBooks.setVisibility(View.GONE);
             }
         });

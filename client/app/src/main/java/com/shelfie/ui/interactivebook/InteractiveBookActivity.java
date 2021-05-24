@@ -22,7 +22,7 @@ import com.shelfie.model.Quest;
 import com.shelfie.service.ChildProfileService;
 import com.shelfie.service.ChildUnlockedBookService;
 import com.shelfie.ui.fragments.CharacterPreviewFragment;
-import com.shelfie.ui.fragments.EmptyStateDialogFragment;
+import com.shelfie.ui.fragments.CustomDialogFragment;
 import com.shelfie.ui.fragments.QuestPreviewFragment;
 import com.shelfie.unityholders.UHVitoriaRegia;
 import com.shelfie.utils.ImageDownloader;
@@ -192,17 +192,18 @@ public class InteractiveBookActivity extends AppCompatActivity {
                     btnBookRead.setVisibility(View.VISIBLE);
                     UserSession.setChildProfile(getApplicationContext(), response.body());
                 } else {
-                    //substituir por dialog explicando o problema
-                    EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
-                    emptyStateDialogFragment.show(getSupportFragmentManager(), "EmptyStateDialogFragment");
+                    CustomDialogFragment customDialogFragment = new CustomDialogFragment();
+                    customDialogFragment.buildDialog(getString(R.string.dialog_book_unlock_failed));
+                    customDialogFragment.show(getSupportFragmentManager(), getString(R.string.dialog_tag));
                 }
                 progressInteractiveBookUnlock.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onFailure(Call<ChildProfile> call, Throwable t) {
-                EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
-                emptyStateDialogFragment.show(getSupportFragmentManager(), "EmptyStateDialogFragment");
+                CustomDialogFragment customDialogFragment = new CustomDialogFragment();
+                customDialogFragment.buildDialog(getString(R.string.dialog_server_connection));
+                customDialogFragment.show(getSupportFragmentManager(), getString(R.string.dialog_tag));
                 progressInteractiveBookUnlock.setVisibility(View.INVISIBLE);
             }
         });
@@ -228,8 +229,9 @@ public class InteractiveBookActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<Boolean> call, Throwable t) {
-                EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
-                emptyStateDialogFragment.show(getSupportFragmentManager(), "EmptyStateDialogFragment");
+                CustomDialogFragment customDialogFragment = new CustomDialogFragment();
+                customDialogFragment.buildDialog(getString(R.string.dialog_server_connection));
+                customDialogFragment.show(getSupportFragmentManager(), getString(R.string.dialog_tag));
                 progressInteractiveBookDetails.setVisibility(View.INVISIBLE);
             }
         });

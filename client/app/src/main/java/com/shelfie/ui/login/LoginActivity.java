@@ -22,7 +22,7 @@ import com.shelfie.R;
 import com.shelfie.utils.RetrofitConfig;
 import com.shelfie.model.GuardianUser;
 import com.shelfie.service.GuardianUserService;
-import com.shelfie.ui.fragments.EmptyStateDialogFragment;
+import com.shelfie.ui.fragments.CustomDialogFragment;
 import com.shelfie.ui.userregister.FormGuardianUserActivity;
 import com.shelfie.ui.userregister.ManageChildProfileActivity;
 import com.shelfie.utils.UserSession;
@@ -103,15 +103,18 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                     Intent manageChildProfilesActivity = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
                     startActivity(manageChildProfilesActivity);
                 } else {
-                    Snackbar.make(getWindow().getDecorView().getRootView(), "caiu aqui", Snackbar.LENGTH_LONG).show();
+                    CustomDialogFragment customDialogFragment = new CustomDialogFragment();
+                    customDialogFragment.buildDialog(getString(R.string.dialog_login_failed));
+                    customDialogFragment.show(getSupportFragmentManager(), getString(R.string.dialog_tag));
                 }
                 progressGuardianUserLogin.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onFailure(Call<GuardianUser> call, Throwable t) {
-                EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
-                emptyStateDialogFragment.show(getSupportFragmentManager(), "EmptyStateDialogFragment");
+                CustomDialogFragment customDialogFragment = new CustomDialogFragment();
+                customDialogFragment.buildDialog(getString(R.string.dialog_server_connection));
+                customDialogFragment.show(getSupportFragmentManager(), getString(R.string.dialog_tag));
                 progressGuardianUserLogin.setVisibility(View.INVISIBLE);
             }
         });

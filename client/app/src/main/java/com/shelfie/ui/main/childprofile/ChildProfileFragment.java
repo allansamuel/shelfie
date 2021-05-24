@@ -17,11 +17,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.shelfie.R;
 import com.shelfie.ui.fragments.BottomSheetLayout;
 import com.shelfie.ui.fragments.ChildCoinsFragment;
-import com.shelfie.ui.fragments.EmptyStateDialogFragment;
+import com.shelfie.ui.fragments.CustomDialogFragment;
 import com.shelfie.utils.RetrofitConfig;
 import com.shelfie.model.ChildProfile;
 import com.shelfie.model.GuardianUser;
@@ -109,8 +108,9 @@ public class ChildProfileFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<ArrayList<ChildProfile>> call, Throwable t) {
-                        EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
-                        emptyStateDialogFragment.show(getActivity().getSupportFragmentManager(), "EmptyStateDialogFragment");
+                        CustomDialogFragment customDialogFragment = new CustomDialogFragment();
+                        customDialogFragment.buildDialog(getString(R.string.dialog_server_connection));
+                        customDialogFragment.show(getActivity().getSupportFragmentManager(), getString(R.string.dialog_tag));
                         progressCurrentChildProfiles.setVisibility(View.GONE);
                     }
                 });

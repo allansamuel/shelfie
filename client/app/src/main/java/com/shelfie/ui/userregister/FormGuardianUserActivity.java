@@ -5,6 +5,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -24,7 +25,7 @@ import com.shelfie.ui.login.LoginActivity;
 import com.shelfie.utils.RetrofitConfig;
 import com.shelfie.model.GuardianUser;
 import com.shelfie.service.GuardianUserService;
-import com.shelfie.ui.fragments.EmptyStateDialogFragment;
+import com.shelfie.ui.fragments.CustomDialogFragment;
 import com.shelfie.utils.UserSession;
 
 import java.util.List;
@@ -125,8 +126,9 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
 
             @Override
             public void onFailure(Call<GuardianUser> call, Throwable t) {
-                EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
-                emptyStateDialogFragment.show(getSupportFragmentManager(), "EmptyStateDialogFragment");
+                CustomDialogFragment customDialogFragment = new CustomDialogFragment();
+                customDialogFragment.buildDialog(getString(R.string.dialog_server_connection));
+                customDialogFragment.show(getSupportFragmentManager(), getString(R.string.dialog_tag));
                 progressGuardianUserSave.setVisibility(View.INVISIBLE);
             }
         });
@@ -151,8 +153,9 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
 
             @Override
             public void onFailure(Call<GuardianUser> call, Throwable t) {
-                EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
-                emptyStateDialogFragment.show(getSupportFragmentManager(), "EmptyStateDialogFragment");
+                CustomDialogFragment customDialogFragment = new CustomDialogFragment();
+                customDialogFragment.buildDialog(getString(R.string.dialog_server_connection));
+                customDialogFragment.show(getSupportFragmentManager(), getString(R.string.dialog_tag));
                 progressGuardianUserSave.setVisibility(View.INVISIBLE);
             }
         });
@@ -160,19 +163,30 @@ public class FormGuardianUserActivity extends AppCompatActivity implements Valid
 
 
     private void deleteUserGuardian(){
-        guardianUserService.delete(guardianUser.getGuardianUserId()).enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
-            }
+        CustomDialogFragment customDialogFragment = new CustomDialogFragment();
+        customDialogFragment.buildDialog(
+                getString(R.string.dialog_confirm_delete_user),
+                CustomDialogFragment.CONFIRMATION_DIALOG,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        guardianUserService.delete(guardianUser.getGuardianUserId()).enqueue(new Callback<Void>() {
+                            @Override
+                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                startActivity(intent);
+                            }
 
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
-                emptyStateDialogFragment.show(getSupportFragmentManager(), "EmptyStateDialogFragment");
-            }
-        });
+                            @Override
+                            public void onFailure(Call<Void> call, Throwable t) {
+                                CustomDialogFragment customDialogFragment = new CustomDialogFragment();
+                                customDialogFragment.buildDialog(getString(R.string.dialog_server_connection));
+                                customDialogFragment.show(getSupportFragmentManager(), getString(R.string.dialog_tag));
+                            }
+                        });
+                    }
+                });
+        customDialogFragment.show(getSupportFragmentManager(), getString(R.string.dialog_tag));
     }
 
 

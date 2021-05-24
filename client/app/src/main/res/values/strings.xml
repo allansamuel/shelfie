@@ -38,6 +38,15 @@
     <string name="label_my_profiles">Meus perfis</string>
 
 
+    <!-- Dialog -->
+    <string name="dialog_tag">CustomDialogFragment</string>
+    <string name="dialog_confirm_delete_user">Tem certeza que deseja excluir o seu cadastro? Todos os livros desbloqueados e progresso de seus perfis serão perdidos.</string>
+    <string name="dialog_confirm_delete_profile">Quer mesmo excluir o seu perfil? Todos os seus livros desbloqueados e missões serão perdidos.</string>
+    <string name="dialog_login_failed">Não foi possível efetuar o login. Email ou senha incorretos.</string>
+    <string name="dialog_server_connection">Não foi possível conectar com o servidor. Por favor, tente novamente mais tarde.</string>
+    <string name="dialog_book_unlock_failed">Você não possui moedas o suficiente para desbloquear este livro. Complete missões de outros livros para ganhar moedas e tente novamente.</string>
+
+
     <!-- Form -->
     <string name="name">Nome</string>
     <string name="email">Email</string>
@@ -67,6 +76,9 @@
     <string name="read">Ler</string>
     <string name="unlock">Desbloquear</string>
     <string name="loading">Carregando...</string>
+    <string name="ok">Ok</string>
+    <string name="confirm">Confirmar</string>
+    <string name="cancel">Cancelar</string>
 
     <!-- Images content description -->
     <string name="content_book_thumbnail">Miniatura do livro</string>

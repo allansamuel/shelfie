@@ -19,7 +19,7 @@ import android.widget.TextView;
 import com.google.android.flexbox.FlexboxLayout;
 import com.google.android.material.snackbar.Snackbar;
 import com.shelfie.R;
-import com.shelfie.ui.fragments.EmptyStateDialogFragment;
+import com.shelfie.ui.fragments.CustomDialogFragment;
 import com.shelfie.utils.RetrofitConfig;
 import com.shelfie.model.ChildProfile;
 import com.shelfie.model.GuardianUser;
@@ -146,8 +146,9 @@ public class ManageChildProfileActivity extends FragmentActivity {
 
             @Override
             public void onFailure(Call<ArrayList<ChildProfile>> call, Throwable t) {
-                EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
-                emptyStateDialogFragment.show(getSupportFragmentManager(), "EmptyStateDialogFragment");
+                CustomDialogFragment customDialogFragment = new CustomDialogFragment();
+                customDialogFragment.buildDialog(getString(R.string.dialog_server_connection));
+                customDialogFragment.show(getSupportFragmentManager(), getString(R.string.dialog_tag));
                 progressChildProfiles.setVisibility(View.GONE);
             }
         });

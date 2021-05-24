@@ -105,8 +105,9 @@ public class QuestPreviewFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Boolean> call, Throwable t) {
-                EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
-                emptyStateDialogFragment.show(getActivity().getSupportFragmentManager(), "EmptyStateDialogFragment");
+                CustomDialogFragment customDialogFragment = new CustomDialogFragment();
+                customDialogFragment.buildDialog(getString(R.string.dialog_server_connection));
+                customDialogFragment.show(getActivity().getSupportFragmentManager(), getString(R.string.dialog_tag));
             }
         });
     }

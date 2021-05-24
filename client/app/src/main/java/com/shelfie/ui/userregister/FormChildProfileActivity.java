@@ -5,6 +5,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,7 +29,7 @@ import com.shelfie.model.ChildProfile;
 import com.shelfie.model.GuardianUser;
 import com.shelfie.service.CharacterService;
 import com.shelfie.service.ChildProfileService;
-import com.shelfie.ui.fragments.EmptyStateDialogFragment;
+import com.shelfie.ui.fragments.CustomDialogFragment;
 import com.shelfie.utils.UserSession;
 
 import java.util.ArrayList;
@@ -118,17 +119,14 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
                         setCharacterImagePreview();
                     }
                     progressCircularCharacterLoader.setVisibility(View.GONE);
-                } else {
-                    EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
-                    emptyStateDialogFragment.show(getSupportFragmentManager(), "EmptyStateDialogFragment");
-                    progressCircularCharacterLoader.setVisibility(View.INVISIBLE);
                 }
             }
 
             @Override
             public void onFailure(Call<ArrayList<Character>> call, Throwable t) {
-                EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
-                emptyStateDialogFragment.show(getSupportFragmentManager(), "EmptyStateDialogFragment");
+                CustomDialogFragment customDialogFragment = new CustomDialogFragment();
+                customDialogFragment.buildDialog(getString(R.string.dialog_server_connection));
+                customDialogFragment.show(getSupportFragmentManager(), getString(R.string.dialog_tag));
                 progressCircularCharacterLoader.setVisibility(View.INVISIBLE);
             }
         });
@@ -202,9 +200,10 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
 
             @Override
             public void onFailure(Call<ChildProfile> call, Throwable t) {
+                CustomDialogFragment customDialogFragment = new CustomDialogFragment();
+                customDialogFragment.buildDialog(getString(R.string.dialog_server_connection));
+                customDialogFragment.show(getSupportFragmentManager(), getString(R.string.dialog_tag));
                 progressChildProfileSave.setVisibility(View.INVISIBLE);
-                EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
-                emptyStateDialogFragment.show(getSupportFragmentManager(), "EmptyStateDialogFragment");
             }
         });
     }
@@ -225,30 +224,42 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
 
             @Override
             public void onFailure(Call<ChildProfile> call, Throwable t) {
+                CustomDialogFragment customDialogFragment = new CustomDialogFragment();
+                customDialogFragment.buildDialog(getString(R.string.dialog_server_connection));
+                customDialogFragment.show(getSupportFragmentManager(), getString(R.string.dialog_tag));
                 progressChildProfileSave.setVisibility(View.INVISIBLE);
-                EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
-                emptyStateDialogFragment.show(getSupportFragmentManager(), "EmptyStateDialogFragment");
             }
         });
     }
 
     private void deleteChildProfile() {
-        progressChildProfileSave.setVisibility(View.VISIBLE);
-        childProfileService.delete(childProfile.getChildProfileId()).enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                Intent intent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
-                startActivity(intent);
-                progressChildProfileSave.setVisibility(View.INVISIBLE);
-            }
+        CustomDialogFragment customDialogFragment = new CustomDialogFragment();
+        customDialogFragment.buildDialog(
+                getString(R.string.dialog_confirm_delete_profile),
+                CustomDialogFragment.CONFIRMATION_DIALOG,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        progressChildProfileSave.setVisibility(View.VISIBLE);
+                        childProfileService.delete(childProfile.getChildProfileId()).enqueue(new Callback<Void>() {
+                            @Override
+                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                Intent intent = new Intent(getApplicationContext(), ManageChildProfileActivity.class);
+                                startActivity(intent);
+                                progressChildProfileSave.setVisibility(View.INVISIBLE);
+                            }
 
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                progressChildProfileSave.setVisibility(View.INVISIBLE);
-                EmptyStateDialogFragment emptyStateDialogFragment = new EmptyStateDialogFragment();
-                emptyStateDialogFragment.show(getSupportFragmentManager(), "EmptyStateDialogFragment");
-            }
-        });
+                            @Override
+                            public void onFailure(Call<Void> call, Throwable t) {
+                                CustomDialogFragment customDialogFragment = new CustomDialogFragment();
+                                customDialogFragment.buildDialog(getString(R.string.dialog_server_connection));
+                                customDialogFragment.show(getSupportFragmentManager(), getString(R.string.dialog_tag));
+                                progressChildProfileSave.setVisibility(View.INVISIBLE);
+                            }
+                        });
+                    }
+                });
+        customDialogFragment.show(getSupportFragmentManager(), getString(R.string.dialog_tag));
     }
 
     @Override
