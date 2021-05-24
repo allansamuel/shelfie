@@ -1,11 +1,11 @@
-package com.shelfie.ui.unityholders;
+package com.shelfie.unityholders;
 
 import android.app.Activity;
 import android.content.Intent;
 import com.shelfie.utils.UserSession;
 import com.unity3d.player.UnityPlayerActivity;
 
-public class UHVitoriaRegiaActivity {
+public class UHVitoriaRegia {
 
     public static void launchGame(Activity activity) {
         Intent launchIntent = new Intent(activity, UnityPlayerActivity.class);

@@ -30,14 +30,11 @@ public class CategoryController {
 	 return ResponseEntity.ok().body(category);
 	}
 	
-	@GetMapping("/page/{pageNumber}")
-	public ResponseEntity<List<Category>> getAll(@PathVariable int pageNumber){
-		
+	@GetMapping
+	public ResponseEntity<List<Category>> getAll(){
 		try {
-			pageNumber = pageNumber-1;	
-			Page<Category> page = categoryRepository.findAll(PageRequest.of(pageNumber, 5));
-			List <Category> category = page.getContent();
-			return ResponseEntity.ok().body(category);
+			List<Category> categories = categoryRepository.findAll();
+			return ResponseEntity.ok().body(categories );
 		} catch (Exception exception) {
 			throw exception;
 		} 

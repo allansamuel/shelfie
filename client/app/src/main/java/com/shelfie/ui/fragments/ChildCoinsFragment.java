@@ -20,8 +20,6 @@ import com.shelfie.utils.UserSession;
 
 public class ChildCoinsFragment extends Fragment {
 
-    private static final String ARG_CHILD_PROFILE = "CHILD_PROFILE_DATA";
-
     private ChildProfile childProfile;
     private ImageView imgLoggedChildProfileAvatar;
     private TextView tvLoggedChildProfileNickname;
@@ -31,20 +29,15 @@ public class ChildCoinsFragment extends Fragment {
 
     }
 
-    public static ChildCoinsFragment newInstance(ChildProfile childProfile) {
+    public static ChildCoinsFragment newInstance() {
         ChildCoinsFragment fragment = new ChildCoinsFragment();
-        Bundle args = new Bundle();
-        args.putSerializable(ARG_CHILD_PROFILE, childProfile);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            childProfile = (ChildProfile) getArguments().getSerializable(ARG_CHILD_PROFILE);
-        }
+        UserSession.updateChildProfile(getActivity().getApplicationContext());
     }
 
     @Override

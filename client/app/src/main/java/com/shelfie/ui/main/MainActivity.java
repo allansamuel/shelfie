@@ -28,10 +28,4 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.clear();
     }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        UserSession.updateChildProfile(getApplicationContext());
-    }
 }

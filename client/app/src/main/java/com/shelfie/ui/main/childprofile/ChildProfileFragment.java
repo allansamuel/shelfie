@@ -60,6 +60,12 @@ public class ChildProfileFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        populateData();
+    }
+
     private void init() {
         retrofitConfig = new RetrofitConfig();
         guardianUser = UserSession.getGuardianUser(getContext());
@@ -71,16 +77,19 @@ public class ChildProfileFragment extends Fragment {
         btnProfileSettings = view.findViewById(R.id.btn_profile_settings);
         llChildProfilesList = view.findViewById(R.id.ll_child_profiles_list);
         progressCurrentChildProfiles = view.findViewById(R.id.progress_current_child_profiles);
+    }
 
-        getChildProfiles();
+    private void populateData() {
         setFrProfileChildData();
+        getChildProfiles();
     }
 
     private void mapChildProfiles(List<ChildProfile> childProfiles) {
+        llChildProfilesList.removeAllViews();
         FragmentTransaction childProfileTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         for(ChildProfile childProfile : childProfiles) {
             Fragment profileAvatarFragment = ProfileAvatarFragment.newInstance(childProfile);
-            childProfileTransaction.add(R.id.ll_child_profiles_list, profileAvatarFragment, childProfile.getNickname());
+            childProfileTransaction.add(llChildProfilesList.getId(), profileAvatarFragment, childProfile.getNickname());
         }
         childProfileTransaction.commit();
     }
@@ -111,8 +120,11 @@ public class ChildProfileFragment extends Fragment {
     private void setFrProfileChildData(){
         ChildProfile childProfile = UserSession.getChildProfile(getContext());
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        Fragment profileAvatarFragment = new ChildCoinsFragment();
-        fragmentTransaction.add(fragmentChildProfileChildDataContainer.getId(), profileAvatarFragment, childProfile.getNickname());
+        Fragment currentProfileAvatarFragment = new ChildCoinsFragment();
+        fragmentTransaction.add(
+                fragmentChildProfileChildDataContainer.getId(),
+                currentProfileAvatarFragment,
+                childProfile.getNickname());
         fragmentTransaction.commit();
     }
 }

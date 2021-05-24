@@ -45,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/blue_200"
-                android:contentDescription="Adicionar novo perfil" />
+                android:contentDescription="@string/content_add_new_profile" />
 
         </androidx.cardview.widget.CardView>
 
@@ -53,8 +53,7 @@
             android:id="@+id/fab_child_profile_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:contentDescription="edit profile"
+            android:contentDescription="@string/content_edit_profile"
             android:src="@drawable/ic_edit_black_24dp"
             android:visibility="gone"
             app:backgroundTint="@color/white"

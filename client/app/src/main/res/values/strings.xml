@@ -80,6 +80,8 @@
     <string name="content_previous_button">Anterior</string>
     <string name="content_next_button">Próximo</string>
     <string name="content_settings_illustration">Configurações</string>
+    <string name="content_add_new_profile">Adicionar novo perfil</string>
+    <string name="content_edit_profile">Editar perfil</string>
 
     <!-- Utils -->
     <string name="date_formatter">dd/MM/yyyy</string>

@@ -24,7 +24,7 @@ import com.shelfie.service.ChildUnlockedBookService;
 import com.shelfie.ui.fragments.CharacterPreviewFragment;
 import com.shelfie.ui.fragments.EmptyStateDialogFragment;
 import com.shelfie.ui.fragments.QuestPreviewFragment;
-import com.shelfie.ui.unityholders.UHVitoriaRegiaActivity;
+import com.shelfie.unityholders.UHVitoriaRegia;
 import com.shelfie.utils.ImageDownloader;
 import com.shelfie.utils.RetrofitConfig;
 import com.shelfie.utils.UserSession;
@@ -77,7 +77,7 @@ public class InteractiveBookActivity extends AppCompatActivity {
 
         btnBookUnlock.setOnClickListener(view -> unlockInteractiveBook());
 
-        btnBookRead.setOnClickListener(view -> UHVitoriaRegiaActivity.launchGame(this));
+        btnBookRead.setOnClickListener(view -> UHVitoriaRegia.launchGame(this));
     }
 
     @Override

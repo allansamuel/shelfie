@@ -39,13 +39,6 @@ public class HomeFragment extends Fragment {
     private FragmentContainerView fragmentHomeChildProfileData;
     int pageNumber = 1;
 
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        init();
-    }
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_home, container, false);
@@ -66,6 +59,12 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        populateData();
+    }
+
     private void init() {
         View view = getView();
         retrofitConfig = new RetrofitConfig();
@@ -74,6 +73,9 @@ public class HomeFragment extends Fragment {
         flexboxInteractiveBooks = view.findViewById(R.id.flexbox_interactive_books);
         progressInteractiveBooks = view.findViewById(R.id.progress_interactive_books);
         fragmentHomeChildProfileData = view.findViewById(R.id.fragment_home_child_data_container);
+    }
+
+    private void populateData() {
         setFlHomeChildProfileData();
         getInteractiveBooks(pageNumber);
     }
