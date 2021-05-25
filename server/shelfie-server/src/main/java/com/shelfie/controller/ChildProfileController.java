@@ -23,9 +23,9 @@ public class ChildProfileController {
 	private ChildProfileService childProfileService;
 	
 	@GetMapping("{id}")
-	public ResponseEntity<ChildProfile> getById(@PathVariable Integer id) throws Exception {
+	public ResponseEntity<ChildProfile> getById(@PathVariable Integer childProfileId) throws Exception {
 		try {
-			return ResponseEntity.ok().body(childProfileService.getById(id));
+			return ResponseEntity.ok().body(childProfileService.getById(childProfileId));
 		} catch (Exception exception) {
 			throw exception;
 		}		
@@ -41,32 +41,32 @@ public class ChildProfileController {
 		}
 	}
 	
-	@PutMapping("{id}")
+	@PutMapping("{childProfileId}")
 	public ResponseEntity<ChildProfile> update(
 			@RequestBody ChildProfile childProfileBody, 
-			@PathVariable Integer id) throws Exception {
+			@PathVariable Integer childProfileId) throws Exception {
 		try {
-			return ResponseEntity.ok().body(childProfileService.update(childProfileBody, id));
+			return ResponseEntity.ok().body(childProfileService.update(childProfileBody, childProfileId));
 		} catch(Exception exception) {
 			throw exception;
 		}
 	}
 	
-	@PutMapping("{id}/update_coins/{value}")
+	@PutMapping("{childProfileId}/update_coins/{value}")
 	public ResponseEntity<ChildProfile> updateCoins(
-			@PathVariable Integer id,
+			@PathVariable Integer childProfileId,
 			@PathVariable Integer value) throws Exception {
 		try {
-			return ResponseEntity.ok().body(childProfileService.updateCoins(id, value));
+			return ResponseEntity.ok().body(childProfileService.updateCoins(childProfileId, value));
 		} catch (Exception exception) {
 			throw exception;
 		}
 	}
 	
-	@DeleteMapping("{id}")
-	public void delete(@PathVariable Integer id) throws Exception {
+	@DeleteMapping("{childProfileId}")
+	public void delete(@PathVariable Integer childProfileId) throws Exception {
 		try {
-			childProfileService.delete(id);
+			childProfileService.delete(childProfileId);
 		} catch (Exception exception) {
 			throw exception;
 		}
