@@ -22,7 +22,7 @@ public class ChildProfileController {
 	@Autowired
 	private ChildProfileService childProfileService;
 	
-	@GetMapping("{id}")
+	@GetMapping("{childProfileId}")
 	public ResponseEntity<ChildProfile> getById(@PathVariable Integer childProfileId) throws Exception {
 		try {
 			return ResponseEntity.ok().body(childProfileService.getById(childProfileId));

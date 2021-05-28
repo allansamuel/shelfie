@@ -18,15 +18,15 @@ public interface GuardianUserService {
     @POST("guardian_user/login/")
     Call<GuardianUser> login(@Body GuardianUser guardianUser);
 
-    @GET("guardian_user/{id}/child_profiles/")
-    Call<ArrayList<ChildProfile>> getChildProfiles(@Path("id") Integer id);
+    @GET("guardian_user/{guardianUserId}/child_profiles/")
+    Call<ArrayList<ChildProfile>> getChildProfiles(@Path("guardianUserId") Integer guardianUserId);
 
     @POST("guardian_user/")
     Call<GuardianUser> create(@Body GuardianUser guardianUser);
 
-    @PUT("guardian_user/{id}")
-    Call<GuardianUser> update(@Path("id") Integer id, @Body GuardianUser guardianUser);
+    @PUT("guardian_user/{guardianUserId}")
+    Call<GuardianUser> update(@Path("guardianUserId") Integer guardianUserId, @Body GuardianUser guardianUser);
 
-    @DELETE("guardian_user/{id}")
-    Call<Void> delete(@Path("id") Integer id);
+    @DELETE("guardian_user/{guardianUserId}")
+    Call<Void> delete(@Path("guardianUserId") Integer guardianUserId);
 }

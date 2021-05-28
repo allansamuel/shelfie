@@ -15,7 +15,6 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragment_home_child_data_container"
-            android:name="com.shelfie.ui.fragments.ChildCoinsFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

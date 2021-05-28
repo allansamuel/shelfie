@@ -1,9 +1,12 @@
 package com.shelfie.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.shelfie.model.ChildProfile;
 import com.shelfie.model.GuardianUser;
@@ -11,6 +14,8 @@ import com.shelfie.repository.GuardianUserRepository;
 
 import javassist.NotFoundException;
 
+@Transactional
+@Service
 public class GuardianUserService {
 
 	@Autowired
@@ -25,9 +30,8 @@ public class GuardianUserService {
 			 .orElseThrow(() -> new NotFoundException("Not found"));
 	}
 	
-	public GuardianUser getByEmail(String guardianUserEmail) throws Exception {
-	 return guardianUserRepository.findByGuardianUserEmail(guardianUserEmail)
-			 .orElseThrow(() -> new NotFoundException("Not found"));
+	public Optional<GuardianUser> getByEmail(String guardianUserEmail) {
+	 return guardianUserRepository.findByGuardianUserEmail(guardianUserEmail);
 	}
 	
 	public List<ChildProfile> getChildProfiles(Integer guardianUserId) throws Exception {

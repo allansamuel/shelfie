@@ -1,6 +1,7 @@
 package com.shelfie.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,7 @@ import com.shelfie.service.GuardianUserService;
 public class GuardianUserController {
 
 	@Autowired
-	private GuardianUserService guardianUserService;
+	private GuardianUserService guardianUserService = new GuardianUserService();
 	
 	private boolean isHashValid(String plainPassword, String hashedPassword) {
 		return BCrypt.checkpw(plainPassword, hashedPassword) || plainPassword.equals(hashedPassword) ? true : false;
@@ -50,8 +51,8 @@ public class GuardianUserController {
 	
 	@PostMapping
 	public ResponseEntity<GuardianUser> create(@RequestBody GuardianUser guardianUser) throws Exception{
-		GuardianUser existingGuardianUser = guardianUserService.getByEmail(guardianUser.getGuardianUserEmail());
-		if(existingGuardianUser == null) {
+		Optional<GuardianUser> existingGuardianUser = guardianUserService.getByEmail(guardianUser.getGuardianUserEmail());
+		if(existingGuardianUser.isEmpty()) {
 			try {
 				return ResponseEntity.ok().body(guardianUserService.create(guardianUser));
 			} catch (Exception exception) {
@@ -85,15 +86,19 @@ public class GuardianUserController {
 	@PostMapping("/login")
 	public ResponseEntity<GuardianUser> login(@RequestBody GuardianUser guardianUserBody) throws Exception {
 		try {
-			GuardianUser guardianUser = guardianUserService.getByEmail(guardianUserBody.getGuardianUserEmail());
+			Optional<GuardianUser> existingGuardianUser = guardianUserService.getByEmail(guardianUserBody.getGuardianUserEmail());
 			
-			boolean isPasswordValid = isHashValid(guardianUserBody.getGuardianUserPassword(), guardianUser.getGuardianUserPassword());
-			
-			if(guardianUser.getGuardianUserEmail().equals(guardianUserBody.getGuardianUserEmail()) && isPasswordValid) {
-				return ResponseEntity.ok().body(guardianUser);
-			}else{
-				return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+			if(!existingGuardianUser.isEmpty()) {
+				if(existingGuardianUser.get().getGuardianUserEmail().equals(guardianUserBody.getGuardianUserEmail()) 
+						&& isHashValid(guardianUserBody.getGuardianUserPassword(), existingGuardianUser.get().getGuardianUserPassword())) {
+					return ResponseEntity.ok().body(existingGuardianUser.get());
+				}else{
+					return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+				}
+			}else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 			}
+			
 		} catch (Exception exception) {
 			throw exception;
 		} 
