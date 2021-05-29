@@ -34,6 +34,7 @@ import com.shelfie.utils.UserSession;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class FormChildProfileActivity extends AppCompatActivity implements Validator.ValidationListener {
 
@@ -102,7 +103,6 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
 
         if(UserSession.isFormInEditMode(getApplicationContext())){
             childProfile = UserSession.getChildProfile(getApplicationContext());
-            currentCharacter = childProfile.getCharacter();
             etChildProfileNickname.setText(childProfile.getNickname());
             btnDeleteChildProfile.setVisibility(View.VISIBLE);
         }
@@ -115,7 +115,8 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
                 if(response.isSuccessful()) {
                     characterList = response.body();
                     if(!characterList.isEmpty()) {
-                        currentCharacter = childProfile.getCharacter() != null ? childProfile.getCharacter() : characterList.get(0);
+                        currentCharacter = childProfile.getCharacter() != null ?
+                                characterList.get(getIndexOfCharacter(childProfile.getCharacter())) : characterList.get(0);
                         setCharacterImagePreview();
                     }
                     progressCircularCharacterLoader.setVisibility(View.GONE);
@@ -148,14 +149,16 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
     }
 
     private void toggleCharacterNavigationButtons() {
-        ibPreviousCharacter.setVisibility(View.VISIBLE);
         if(isFirstCharacter()) {
             ibPreviousCharacter.setVisibility(View.INVISIBLE);
+        } else {
+            ibPreviousCharacter.setVisibility(View.VISIBLE);
         }
 
-        ibNextCharacter.setVisibility(View.VISIBLE);
         if(isLastCharacter()) {
             ibNextCharacter.setVisibility(View.INVISIBLE);
+        } else {
+            ibNextCharacter.setVisibility(View.VISIBLE);
         }
     }
 
@@ -260,6 +263,16 @@ public class FormChildProfileActivity extends AppCompatActivity implements Valid
                     }
                 });
         customDialogFragment.show(getSupportFragmentManager(), getString(R.string.dialog_tag));
+    }
+
+    private int getIndexOfCharacter(Character character) {
+        int index = 0;
+        for(Character listCharacter : characterList) {
+            if(listCharacter.getCharacterId() == character.getCharacterId()) {
+                index = characterList.indexOf(listCharacter);
+            }
+        }
+        return index;
     }
 
     @Override
